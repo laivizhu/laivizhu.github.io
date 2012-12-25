@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 系统管理 -->
+	<package name="system" namespace="/system" extends="struts-basic">
+		<!-- 登录的Action -->
+		
+		<!-- 用户 -->
+		<action name="user_*" class="com.envisioncn.srm.system.action.UserAction" method="{1}">
+		
+		</action>
+		
+		<action name="login" class="com.envisioncn.srm.system.action.LoginAction">
+		</action>
+		
+		<action name="department_*" class="com.envisioncn.srm.system.action.DepartmentAction" method="{1}">
+		</action>
+		
+		
+		<!-- 模板管理 -->
+		<action name="template_*" class="com.envisioncn.srm.system.action.TemplateAction" method="{1}"/>
+		<!-- 保密协议模板管理 -->
+		<action name="securitTemplate_*" class="com.envisioncn.srm.supplier_development.action.SecuritTemplateAction" method="{1}">
+			<result name="Download" type="stream">
+				<param name="inputName">file</param>
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">upload;filename=${uploadFileName}</param>
+				<param name="bufferSize">2048</param>
+			</result>
+		</action>
+	</package>
+	
+
+</struts>

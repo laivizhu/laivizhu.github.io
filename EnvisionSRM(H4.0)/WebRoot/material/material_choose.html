@@ -1,0 +1,116 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+<script type="text/javascript" language="javascript" src="../js/jquery-1.8.2.js"></script>
+<script type="text/javascript" language="javascript">
+$(document).ready(function(e) {
+    var level1 = $("#level1");
+	var level2 = $("#level2");
+	var level3 = $("#level3");
+	var level4 = $("#level4");
+	
+	
+	
+	
+	level1.click(function(){
+		var level1Val = level1.val();
+		if(level1Val != 0)
+		{
+			level2.empty();
+			level3.empty();
+			level4.empty();
+			level2.append("<option value="+0+">"+"请选择类别"+"</option>");
+			if(level1Val == 1)
+			{
+				level2.append("<option value="+11+">"+"按图生产"+"</option>");
+				level2.append("<option value="+12+">"+"齿轮箱"+"</option>");
+				level2.append("<option value="+13+">"+"回转支承"+"</option>");
+				level2.append("<option value="+14+">"+"功能件"+"</option>");
+				
+			}
+			if(level1Val == 2)
+			{
+				level2.append("<option value="+21+">"+"电力电子件"+"</option>");
+				level2.append("<option value="+22+">"+"按图生产"+"</option>");
+			}
+			level2.attr("style","display:block;");
+			level3.attr("style","display:none;");
+			level4.attr("style","display:none;");
+		}
+	});
+	
+	level2.click(function(){
+		var level2Val = level2.val();
+		if(level2Val != 0)
+		{
+			level3.empty();
+			level4.empty();
+			level3.append("<option value="+0+">"+"请选择类别"+"</option>");
+			if(level2Val == 11)
+			{
+				level3.append("<option value="+111+">"+"定制紧固件"+"</option>");
+				level3.append("<option value="+112+">"+"定制塑料件"+"</option>");
+			}
+			level3.attr("style","display:block;");
+			level4.attr("style","display:none;");
+		}
+	});
+	
+	level3.click(function(){
+		var level3Val = level3.val();
+		if(level3Val != 0)
+		{
+			level4.empty();
+			level4.append("<option value="+0+">"+"请选择类别"+"</option>");
+			if(level3Val == 111)
+			{
+				level4.append("<option value="+1111+">"+"定制紧固件"+"</option>");
+			}
+			level4.attr("style","display:block;");
+		}
+	});
+	
+	
+    });
+	
+
+
+</script>
+
+
+<div id="material" style="width:500px; margin-left:auto; margin-right:auto">
+	
+  <form name="" method="post" action="#">
+  	<div id="selects" >
+	<select id="level1" name="materialCategory.categoryType" size="1" class="material_select">
+    	<option value="0" selected>请选择类别</option>
+        <option value="1">电器类别</option>
+        <option value="2">机械类别</option>
+    </select>
+    
+    <select id="level2" name="level2" size="1" class="material_select" style="display:none;">
+    	
+    </select>
+    
+    <select id="level3" name="level3" size="1" class="material_select" style="display:none;">
+    	
+    </select>
+    
+    <select id="level4" name="level4" size="1" class="material_select" style="display:none;">
+    	
+    </select>
+    </div>
+    
+    <div id="inputs" style="clear:both; width:100%;">
+    <table align="center" border="0" cellpadding="5">
+    <tr>
+      <td>类别名称：</td>
+      <td><input type="text" name="name"/></td>
+    </tr>
+    <tr>
+   	  <td colspan="2"><input type="submit" name="submit" value="提交"/></td>  
+    </tr>
+    </table>
+    </div>
+    
+  </form>
+</div>

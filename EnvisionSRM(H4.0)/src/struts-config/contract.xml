@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 合同管理 -->
+	<package name="contract" namespace="/contract" extends="struts-basic">
+	
+        <action name="contract_*" class="com.envisioncn.srm.contract.action.YearcontractAction" method="{1}" >
+			<result name="success">/contract/contract_maincontractlist.jsp</result>
+		</action>
+		
+		<action name="yearContract_*" class="com.envisioncn.srm.contract.action.YearcontractAction" method="{1}">
+			<result name="success">/contract/contract_maincontractlist.jsp</result>
+		</action>
+		
+		<action name="view_*" class="com.envisioncn.srm.contract.action.YearcontractAction" method="{1}">
+			<result name="success">/contract/maincontract_view.jsp</result>
+		</action>
+		
+		<action name="download_*" class="com.envisioncn.srm.contract.action.YearcontractAction" method="{1}">
+	        <result name="success" type="stream">
+	            <param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+	            <param name="inputName">targetFile</param>
+	            <param name="contentDisposition">filename=${filename}</param>
+	            <param name="bufferSize">4096</param>
+	        </result>
+	    </action>
+	    
+	    <action name="frameContract_*" class="com.envisioncn.srm.contract.action.ContractAction" method="{1}">
+	        
+	    </action>
+	    
+	    <action name="contractOperate_*" class="com.envisioncn.srm.contract.action.ContractOperateAction" method="{1}">
+	        <result name="success">/contract/contract_view.jsp</result>
+	        <result name="success.contract.modify.view">/contract/contract_modify_view.jsp</result>
+	        
+	    </action>
+	    
+	    <action name="contractApproval_*" class="com.envisioncn.srm.contract.action.ContractApprovalAction" method="{1}">
+	        <result name="success">/contract/contract_approval_view.jsp</result>
+	        <result name="success.contract.view1">/contract/contract_approval_view1.jsp</result>
+	        <result name="success.contract.view2">/contract/contract_approval_view2.jsp</result>
+	        <result name="Download" type="stream">
+				<param name="inputName">file</param>
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;filename=${attchmentFileName}</param>
+				<param name="bufferSize">2048</param>
+			</result>
+	    </action>
+	    
+	    <action name="supplierBasic_*" class="com.envisioncn.srm.supplier_basic.action.SupplierAction" method="{1}">
+			<result name="success">/supplier_basic/supplier_query.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

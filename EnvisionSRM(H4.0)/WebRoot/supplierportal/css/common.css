@@ -1,0 +1,93 @@
+@charset "utf-8";
+/* CSS Document */
+
+.search_table
+{
+	background-image:url(../images/layerPopupBg.gif);
+	border:2px solid #a5b5ee;
+}
+
+.search_title
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #33338c;
+	font-weight:bold;
+}
+
+.search_button
+{
+	border-left:1px solid #ffffff;
+	border-top:1px solid #ffffff;
+	border-right:1px solid #555555;
+	border-bottom:1px solid #555555;
+	background-color:#5774b0;
+	color:#fff;
+	font-weight:bold;
+	background-image: url(../images/toolbar-bg.png);
+}
+
+.search_input
+{
+	border:1px solid #666666;
+	height:auto;
+}
+
+.material_select
+{
+	border:1px solid #666666;
+	width:120px;
+	float:left;
+}
+
+.table_border
+{
+	border-top:1px solid #DDDDDD;
+	border-left:1px solid #DDDDDD;
+	background-color:#F7F7F7;
+}
+
+.td_border_title
+{
+	border-bottom:1px solid #DDDDDD;
+	border-right:1px solid #DDDDDD;
+	font-weight:bold;
+}
+
+.td_border
+{
+	border-bottom:1px solid #DDDDDD;
+	border-right:1px solid #DDDDDD;
+	height:22px;
+}
+
+.td_input
+{
+	width:90%;
+	height:auto;
+	text-align:center;
+}
+
+.textarea_style
+{
+	width:98%;
+	height:auto;
+	border:1px #CCCCCC solid;
+	overflow:auto;
+}
+
+.input_style
+{
+	width:95%;
+	border:1px #CCCCCC solid;"
+}
+
+.input_score
+{
+	width:90%;
+	text-align:center;
+}
+td_useless
+{
+	background-color:#CCCCCC;
+}

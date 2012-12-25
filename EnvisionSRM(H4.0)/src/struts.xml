@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true"/>
+	<constant name="i18n.encoding" value="utf-8"/>
+	<constant name="struts.multipart.maxSize" value="90000000"/>
+	<constant name="struts.objectFactory" value="spring"/>
+	<constant name="struts.objectFactory.spring.autoWire" value="name"/>
+
+	<package name="struts-basic" extends="struts-default" abstract="true">
+		<interceptors>
+			<interceptor name="exInterceptor" class="com.envisioncn.srm.basic.util.ExceptionInterceptor"/>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="exInterceptor"/>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"/>
+		<global-results>
+			<result name="successDownLoad" type="stream">
+				<param name="inputName">downLoadInputStream</param>
+				<param name="contentType">application/octet-stream;charset=utf-8</param>
+				<param name="contentDisposition">upload;filename=${downLoadFileName}</param>
+				<param name="bufferSize">8192</param>
+			</result>
+			<result name="error">/error.jsp</result>
+		</global-results>
+	</package>
+	<!-- 采购端 -->
+	<include file="./struts-config/infocenter.xml"></include>
+	<include file="./struts-config/contract.xml"></include>
+	<include file="./struts-config/system.xml"></include>
+	<include file="./struts-config/workbench.xml"></include>
+	<include file="./struts-config/supplier_development.xml"/>
+	<include file="./struts-config/supplier_relation.xml"/>
+	<include file="./struts-config/supplier_basic.xml"/>
+	<include file="./struts-config/material.xml"/>
+	<!-- 供应商端 -->
+	<include file="./struts-config/supplierportal_development.xml"/>
+	<include file="./struts-config/procurement.xml"/>
+
+</struts>

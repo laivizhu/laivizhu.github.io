@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.multipart.saveDir" value="/tmp"/>
+	
+	<!-- 供应商关系管理——供应商端 -->
+	<package name="supplierportal_relation" namespace="/supplierportal/development" extends="struts-basic">
+		<!-- 供应商保密协议管理 -->
+		<action name="supplierPortalSecurit_*" class="com.envisioncn.srm.supplier_development.action.SecuritAction" method="{1}">
+			<result name="success.securit.supplieradd">/supplierportal/development/securit_2_success.jsp</result>
+			<result name="success.securit.is.standard">/supplierportal/development/securit.jsp</result>
+			<!-- 下载标准保密协议 -->
+			<result name="standardDownload" type="stream">
+				<param name="inputName">file</param>
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">upload;filename=${uploadFileName}</param>
+				<param name="bufferSize">2048</param>
+			</result>
+			<!-- 下载非标准保密协议 -->
+			<result name="nonStandardDownload" type="stream">
+				<param name="inputName">file2</param>
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">upload;filename=${uploadFileName}</param>
+				<param name="bufferSize">2048</param>
+			</result>
+		</action>
+		
+		<action name="supplierBasic_*" class="com.envisioncn.srm.supplier_basic.action.SupplierAction" method="{1}"/>
+	</package>
+</struts>

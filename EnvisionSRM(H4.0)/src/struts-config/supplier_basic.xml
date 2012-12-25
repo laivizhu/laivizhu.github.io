@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 供应商日常管理 -->
+	<package name="supplier_basic" namespace="/supplier_basic" extends="struts-basic">
+
+		<!-- 供应商基本信息查询 -->
+		<action name="supplierBasic_*" class="com.envisioncn.srm.supplier_basic.action.SupplierAction" method="{1}">
+			<result name="success">/supplier_basic/supplier_query.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="materialCode_*" class="com.envisioncn.srm.material.action.MaterialCodeAction" method="{1}">
+			<result name="success">category.jsp</result>
+			<result name="failure">error.jsp</result>
+		</action>
+		
+		<action name="user_*" class="com.envisioncn.srm.system.action.UserAction" method="{1}">
+		</action>
+
+		<!-- 供应商基本信息设置 -->
+		
+		<!-- 供应商索赔信息录入 -->
+		
+		<!-- 供应商协同信息录入 -->
+
+		<!-- 供应商日常绩效 -->
+
+		<!-- 供应商改善对策报告书 -->
+	</package>
+</struts>

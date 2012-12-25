@@ -1,0 +1,128 @@
+@charset "utf-8";
+/* CSS Document */
+
+.widget_frame_min
+{
+	
+	
+}
+
+.widget_frame_max
+{
+	width:600px;
+	height:auto;
+}
+
+.widgetMainFrame
+{
+	border:1px solid #dedede;
+	border-right:1px solid #dedede;
+	border-bottom:0px solid #dedede;              									
+	border-top:1px solid #dedede;
+	
+	background:#ffffff url(../images/softedHomeMark.gif) repeat-x;
+	background-color:#FFFFFF;
+	background-position:bottom left;
+	
+	padding-top:0px;
+	padding-left:2px;
+	padding-right:2px;
+	
+	margin-right:0.5%;
+	margin-bottom:0.5%;
+	
+	width:23.5%;
+	height:260px;
+	
+	float:left;
+	
+	overflow-x:hidden;
+	overflow-y:hidden;
+	
+}
+
+.widget_frame
+{
+	border:1px solid #dedede;
+	border-right:1px solid #dedede;
+	border-bottom:0px solid #dedede;              									
+	border-top:1px solid #dedede;
+	
+	background:#ffffff url(../images/softedHomeMark.gif) repeat-x;
+	background-color:#FFFFFF;
+	background-position:bottom left;
+	
+	padding-top:0px;
+	padding-left:2px;
+	padding-right:2px;
+	
+	margin-right:0.5%;
+	margin-bottom:0.5%;
+	
+	width:23.5%;
+	height:260px;
+	
+	float:left;
+	
+	overflow-x:hidden;
+	overflow-y:hidden;
+	
+}
+
+.widget_handle
+{
+	cursor:move;
+	border-bottom:1px solid #d3d2c1;
+}
+
+.widgetHandle
+{
+	cursor:move;
+	border-bottom:1px solid #d3d2c1;
+}
+
+.widgetHandleTitle
+{
+	font-weight:bold;
+	padding-left:5px;
+	height:29px;
+	background:#ffffff;
+	color:#1d4185;
+}
+
+.widgetContent
+{
+	height:200px;
+	overflow:auto;
+}
+
+.widgetContentTitle
+{
+	font-weight:bold;
+	height:28px;
+	padding:2px;
+}
+
+.widgetContentDetail
+{
+	padding:2px;
+	height:16px;
+}
+
+.widgetBottom
+{
+	border-top:1px solid #d3d2c1;
+	padding-right:20px;
+	padding-top:5px;
+	padding-bottom:1px;
+	height:28px;
+}
+
+.widget_content_title
+{
+	font-weight:bold;
+	height:28px;
+	padding:2px;
+	white-space:nowrap;
+}
+

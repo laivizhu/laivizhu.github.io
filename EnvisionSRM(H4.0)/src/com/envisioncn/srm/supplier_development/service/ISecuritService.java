@@ -1,0 +1,15 @@
+package com.envisioncn.srm.supplier_development.service;
+
+/**
+ * Copyright Envision
+ * 
+ * @author Mars
+ * @version
+ * @data 2012-11-16
+ */
+import com.envisioncn.srm.basic.service.IBasicService;
+import com.envisioncn.srm.supplier_development.bean.SecuritBean;
+
+public interface ISecuritService extends IBasicService<SecuritBean>{
+	
+}

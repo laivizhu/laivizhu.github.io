@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.multipart.saveDir" value="/tmp"/>
+	
+	<!-- 供应商关系管理——采购端 -->
+	<package name="supplier_development" namespace="/supplier_development" extends="struts-basic">
+		<!-- 供应商保密协议管理 -->
+		<action name="securit_*" class="com.envisioncn.srm.supplier_development.action.SecuritAction" method="{1}">
+			<result name="success.securit.add">/supplier_development/supplier_securit_1_success.jsp</result>
+			<result name="success.securit.suredetails">/supplier_development/supplier_securit_2_sure.jsp</result>
+			<result name="success.securit.sure">/supplier_development/supplier_securit_2_success.jsp</result>
+			<result name="success.securit.checkdetails">/supplier_development/supplier_securit_3_check.jsp</result>
+			<result name="success.securit.canceldetails">/supplier_development/supplier_securit_4_effectReason.jsp</result>
+			<result name="success.securit.cancel">/supplier_development/supplier_securit_4_success.jsp</result>
+			<!-- 下载标准保密协议 -->
+			<result name="SupplierReplyDownload" type="stream">
+				<param name="inputName">file3</param>
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">upload;filename=${uploadFileName}</param>
+				<param name="bufferSize">2048</param>
+			</result>
+		</action>
+		
+		<action name="securitTemplate_*" class="com.envisioncn.srm.supplier_development.action.SecuritTemplateAction" method="{1}">
+			<result name="success">/supplier_relation/supplier_securit.jsp</result>
+		</action>
+
+		<action name="supplierBasic_*" class="com.envisioncn.srm.supplier_basic.action.SupplierAction" method="{1}"/>
+		
+		<!-- 类别管理 -->
+		<action name="materialCategory_*" class="com.envisioncn.srm.material.action.MaterialCategoryAction" method="{1}"/>
+		<!-- 物料类别关联管理 -->
+		<action name="materialCode_*" class="com.envisioncn.srm.material.action.MaterialCodeAction" method="{1}"/>
+		
+		<action name="user_*" class="com.envisioncn.srm.system.action.UserAction" method="{1}"/>
+	</package>
+
+</struts>
