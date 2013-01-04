@@ -10,6 +10,7 @@ import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
+import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.knowledge.model.po.Knowledge;
 import com.laivi.knowledge.knowledge.service.IKnowledgeService;
@@ -72,8 +73,8 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("title", object.getTitle())
-		.add("question",object.getQuestion())
-		.add("content", object.getContent())
+		.add("question",DataUtil.getDefaultChar(object.getQuestion()))
+		.add("content", DataUtil.getDefaultChar(object.getContent()))
 		.add("tags",this.tagService.getTagsName(object.getTagIds()));
         return item;
     }

@@ -1,3 +1,4 @@
+var currentDialog;
 var laivi={
 		confirm:function(title,OkHandler,NoHandler){
 			$.jBox.confirm(title,'提示',function(v, h, f){
@@ -162,6 +163,21 @@ var laivi={
 		closeLoding:function(title){
 			$.jBox.tip(title, 'success');
 		},
+		dialogOpen:function(object,title,height,width){
+			currentDialog=object;
+			object.dialog({
+				autoOpen:false,
+				title:title,
+				width:width,
+				height:height,
+				modal:true,
+				resizable:false
+			});
+			object.dialog("open");
+		},
+		dialogClose:function(){
+			currentDialog.dialog("close");
+		},
 		getRadioValue:function(name){
 			var obj;    
 		    obj=document.getElementsByName(name);
@@ -212,5 +228,3 @@ function getSoundManager(soundurl){
 	};
 	return soundManager;
 }
-
-

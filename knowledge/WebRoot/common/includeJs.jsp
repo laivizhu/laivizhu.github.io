@@ -1,4 +1,6 @@
 <link rel="stylesheet" type="text/css" href="../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/style_laivi.css" />
+<link rel="stylesheet" type="text/css" href="../css/common.css" />
 <link rel="stylesheet" type="text/css" href="../resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="../css/Ext.ux.form.LovCombo.css">
 <link rel="stylesheet" type="text/css" href="../css/jquery-ui-1.9.0.custom.css"/>

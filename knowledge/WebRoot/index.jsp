@@ -30,7 +30,9 @@
 		panelItems.push(treePanel('系统管理',
 			parentNode('系统管理',
 				parentNode('用户权限分配管理',
-					leafNode('用户信息管理', 'usermanage/usermanage.jsp', '用户的浏览，添加和删除等操作')))
+					leafNode('用户信息管理', 'usermanage/usermanage.jsp', '用户的浏览，添加和删除等操作')),
+				parentNode('系统信息管理',
+					leafNode('系统公告信息管理', 'system/information.jsp', '系统公告信息的相关操作')))
 		));
 		
 	</script>
