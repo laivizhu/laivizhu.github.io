@@ -50,7 +50,7 @@ public abstract class ABasicAction<T extends BaseEntity> extends ActionSupport i
 	
 	public String search()throws Exception{
 		JsonList jsonList = new JsonList();
-		CriterionList conditions = CriterionList.CreateCriterion();
+		CriterionList conditions =this.getUserCriterionList();
 		Map<String,Object> paramterMap=ActionContext.getContext().getParameters();
 		String[] keys=(String[])paramterMap.get("key");  
         String[] keyValues=(String[])paramterMap.get("value");
@@ -75,7 +75,6 @@ public abstract class ABasicAction<T extends BaseEntity> extends ActionSupport i
 				conditions.put(Restrictions.like(entry.getKey(), values[0],MatchMode.ANYWHERE));
 			}
 		}
-		conditions.put(Restrictions.eq("userId", this.getCurrentUserId()));
 		for (T o : basicService.getList(conditions,start, limit)) {
 			jsonList.add(this.getJsonItem(o));
 		}

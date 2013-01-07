@@ -46,7 +46,7 @@ public class InformationAction extends ABasicAction<Information> {
 	public String add()throws Exception{
 		ParamAssert.isNotEmptyString(information.getTitle(), "error.information.title.notNULL");
 		ParamAssert.isNotEmptyString(information.getContent(), "error.information.content.notNULL");
-		information.setPubDate(new Date());
+		information.setCreateDate(new Date());
 		information.setUserId(getCurrentUserId());
 		this.informationService.add(information);
 		return response(true);
@@ -73,14 +73,13 @@ public class InformationAction extends ABasicAction<Information> {
 			item.add("id", info.getId()).add("information.title", info.getTitle()).add("information.content", info.getContent())
 			.add("information.level", info.getLevel());
 		}
-		
 		return response(item.toFormDataString(true));
 	}
 	
 	public String list()throws Exception{
 		JsonList jsonList=new JsonList();
 		CriterionList conditions=CriterionList.CreateCriterion();
-		conditions.put(Order.desc("level")).put(Order.desc("pubDate"));
+		conditions.put(Order.desc("level")).put(Order.desc("createDate"));
 		for(Information info:this.informationService.getList(conditions,0,10)){
 			jsonList.add(this.getJsonItem(info));
 		}
@@ -101,7 +100,7 @@ public class InformationAction extends ABasicAction<Information> {
 		item.add("id", object.getId())
 		.add("title", object.getTitle())
 		.add("content", DataUtil.getDefaultChar(object.getContent()))
-		.add("pubDate", DateUtil.formatDate(object.getPubDate()))
+		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("level",InformationLevelType.fromValue(object.getLevel()).toText())
 		.add("user", userService.getObject(object.getUserId()).getUserName());
 		return item;

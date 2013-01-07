@@ -23,7 +23,7 @@ public class Information implements BaseEntity {
 	private long id;
 	private String title;
 	private String content;
-	private Date pubDate;
+	private Date createDate;
 	private long userId;
 	private int level;
 	
@@ -44,11 +44,11 @@ public class Information implements BaseEntity {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getPubDate() {
-		return pubDate;
+	public Date getCreateDate() {
+		return createDate;
 	}
-	public void setPubDate(Date pubDate) {
-		this.pubDate = pubDate;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 	public long getUserId() {
 		return userId;

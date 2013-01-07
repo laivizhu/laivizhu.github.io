@@ -1,7 +1,7 @@
 Ext.onReady(function(){
     var stores={
     		informationStore:new Fmp.JsonStore({
-    			items:['id','title','content','pubDate','user','level'],
+    			items:['id','title','content','createDate','user','level'],
     			url:'information_list.action'
     		}),
     		levelStore:new Fmp.ComboStore({
@@ -66,7 +66,7 @@ Ext.onReady(function(){
             cb,
              GridColumnObject('信息标题','title'),
              GridColumnObject('信息内容','content'),
-             GridColumnObject('发布日期','pubDate'),
+             GridColumnObject('发布日期','createDate'),
              GridColumnObject('发布人','user'),
              GridColumnObject('信息情况等级','level')
         ]

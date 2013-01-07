@@ -20,7 +20,7 @@ $(document).ready(function(){
                     formatter: function(o, pio, data) {
                         var ct = "<table width='100%'>";
                         $.each(data.root, function(i,item) {
-                            ct += "<tr><td><a href='#' onclick='viewInformation("+item.id+")' title='"+item.content+"'>" + item.title + "</a></td><td align='right'>"+item.pubDate+"</td></tr>";
+                            ct += "<tr><td><a href='#' onclick='viewInformation("+item.id+")' title='"+item.content+"'>" + item.title + "</a></td><td align='right'>"+item.createDate+"</td></tr>";
                             //ct += "<tr><td><a href='#' rel='information_get.action?type=1&id="+item.id+"'>" + item.title + "</a></td><td align='right'>"+item.pubDate+"</td></tr>";
                         });
                         return ct + "</table>";

@@ -55,7 +55,7 @@
      <tr>
         <td align="right" valign="middle" class="td_border">发布日期：</td>
         <td align="left"  align="center" valign="middle" class="td_border">
-        	<label id="pubDateFormFieldId"></label>
+        	<label id="createDateFormFieldId"></label>
      </tr>
      <tr>
         <td align="right" valign="middle" class="td_border">发布人：</td>

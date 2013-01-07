@@ -260,7 +260,7 @@ Ext.reg('fmp-store', Fmp.JsonStore);
 Fmp.Window = Ext.extend(Ext.Window, {
 	constructor : function(config) {
 		config.layout = config.layout || 'fit';
-		config.closeAction = config.closeAction || 'destroy';
+		config.closeAction = config.closeAction || 'hide';
 		config.resizable = config.resizable || true;
 		config.shadow = config.shadow || true;
 		config.modal = config.modal || true;

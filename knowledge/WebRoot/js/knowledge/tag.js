@@ -99,7 +99,6 @@ Ext.onReady(function(){
                      }
                  });
             }
-
             win.hide();
         }
     });
