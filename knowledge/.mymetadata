@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="knowledge"
+  id="myeclipse.1357527516162"
+  context-root="/knowledge"
+  j2ee-spec="6.0"
+  archive="knowledge.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
