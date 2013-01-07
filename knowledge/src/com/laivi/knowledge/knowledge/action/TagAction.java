@@ -1,5 +1,7 @@
 package com.laivi.knowledge.knowledge.action;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.hibernate.criterion.Restrictions;
@@ -7,10 +9,12 @@ import org.hibernate.criterion.Restrictions;
 import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
+import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.model.type.TagType;
 import com.laivi.knowledge.basic.service.IBasicService;
+import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.knowledge.model.po.Tag;
 import com.laivi.knowledge.knowledge.service.ITagService;
@@ -31,6 +35,7 @@ public class TagAction extends ABasicAction<Tag> {
 		ParamAssert.isNotEmptyString(tag.getName(), "error.tag.name.notNULL");
 		ParamAssert.isTrue(tag.getType()!=0, "error.tag.type.notNULL");
 		tag.setUserId(this.getCurrentUserId());
+		tag.setCreateDate(new Date());
 		tagService.add(tag);
 		return response(true);
 	}
@@ -86,12 +91,22 @@ public class TagAction extends ABasicAction<Tag> {
 		item.add("id", tag.getId()).add("tag.name", tag.getName()).add("tag.type", tag.getType());
 		return response(item.toFormDataString(true));
 	}
+	
+	
+	public JsonList getSearchComboList()throws ErrorException{
+		JsonList jsonList=new JsonList();
+		jsonList.createItem().add("value", "name").add("text", "标签名");
+		jsonList.createItem().add("value", "type").add("text", "标签类型");
+		jsonList.createItem().add("value", "createDate").add("text", "创建时间");
+		return jsonList;
+	}
 
     public JsonItem getJsonItem(Tag object) throws Exception {
     	JsonItem item=new JsonItem();
     	item.add("id", object.getId())
     	.add("name", object.getName())
-    	.add("type", TagType.fromValue(object.getType()).toText());
+    	.add("type", TagType.fromValue(object.getType()).toText())
+    	.add("createDate", DateUtil.formatDate(object.getCreateDate()));
         return item;
     }
     

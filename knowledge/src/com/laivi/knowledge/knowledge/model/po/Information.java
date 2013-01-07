@@ -25,6 +25,7 @@ public class Information implements BaseEntity {
 	private String content;
 	private Date pubDate;
 	private long userId;
+	private int level;
 	
 	@Id
 	@GeneratedValue
@@ -57,5 +58,11 @@ public class Information implements BaseEntity {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
 	}
 }

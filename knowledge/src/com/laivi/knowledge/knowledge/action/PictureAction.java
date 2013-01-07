@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
+import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
+import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.FileUtil;
@@ -62,6 +64,11 @@ public class PictureAction extends ABasicAction<Picture> {
 		.add("path",object.getPath())
 		.add("inDate", DateUtil.formatDate(object.getIndate()));
 		return item;
+	}
+	
+	public JsonList getSearchComboList()throws ErrorException{
+		JsonList jsonList=new JsonList();
+		return jsonList;
 	}
 
 	@Resource(name="PictureService")

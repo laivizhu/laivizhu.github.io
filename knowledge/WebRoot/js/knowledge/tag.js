@@ -1,12 +1,15 @@
 Ext.onReady(function(){
     var stores={
     		tagStore:new Fmp.JsonStore({
-    			items:['id','name','type'],
+    			items:['id','name','type','createDate'],
     			url:'tag_list.action'
     		}),
     		typeStore:new Fmp.ComboStore({
     			url:'tag_typeList.action'
-    		})
+    		}),
+    		keyStore:new Fmp.ComboStore({
+    			url:'tag_getKeywordCombolList.action'
+    		}),
     };
 
     var handler={
@@ -55,7 +58,7 @@ Ext.onReady(function(){
     	{text : '删除标签',iconCls:'remove',handler:function(){
     			handler.deleteTag();
     		}
-    	}
+    	},getSearchCom(stores.keyStore,'tag_search.action',stores.tagStore)
     ]);
     
     var cb = new Ext.grid.CheckboxSelectionModel();
@@ -66,6 +69,7 @@ Ext.onReady(function(){
             cb,
              GridColumnObject('标签名','name'),
              GridColumnObject('标签类型','type'),
+             GridColumnObject('创建时间','createDate')
         ]
     });
     stores.tagStore.loadPage();		

@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.CriterionList;
+import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
@@ -99,6 +100,11 @@ public class UserAction extends ABasicAction<User> {
                 .add("description",object.getDescription());
         return jsonItem;
     }
+    
+    public JsonList getSearchComboList()throws ErrorException{
+		JsonList jsonList=new JsonList();
+		return jsonList;
+	}
 
     @Resource(name = "UserService")
     public void setUserService(IUserService userService) {

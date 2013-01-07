@@ -3,7 +3,9 @@ package com.laivi.knowledge.basic.action;
 import java.io.InputStream;
 import java.io.Serializable;
 
+import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
+import com.laivi.knowledge.basic.model.json.JsonList;
 
 /**
  * Copyright Envision
@@ -57,6 +59,11 @@ public interface IBasicAction<T> extends Serializable {
 	 * @throws Exception
 	 */
 	String get() throws Exception;
+	
+	
+	String search()throws Exception;
+	
+	JsonList getSearchComboList()throws ErrorException;
 
 	/**
 	 * 
@@ -67,7 +74,8 @@ public interface IBasicAction<T> extends Serializable {
 	 * @throws Exception
 	 */
 	JsonItem getJsonItem(T object) throws Exception;
-
+	
+	
 	/**
 	 * 
 	 * description: data 2012-12-1 user Janlu.Zhu

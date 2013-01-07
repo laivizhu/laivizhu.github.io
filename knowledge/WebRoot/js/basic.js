@@ -137,6 +137,10 @@ var laivi={
 				return url+'?searialRand='+parseInt(100*Math.random());
 			}
 		},
+		getCurrentDateString:function(){
+			var d=new Date();
+			return (d.getFullYear())+'年/'+ (d.getMonth() + 1) + '月/' + (d.getDate()) + '日/星期'+(d.getDay()==0?'日':d.getDay());
+		},
 		isNotNull:function(data,msg){					//判断数据是否为空，并提示错误
 			msg=msg||'请选择一条记录';
 			if(data==null){

@@ -1,5 +1,7 @@
 package com.laivi.knowledge.knowledge.model.po;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,6 +26,8 @@ public class Knowledge implements BaseEntity{
     private long userId;
     
     private String tagIds;
+    
+    private Date createDate;
 
     @Id
     @GeneratedValue
@@ -74,5 +78,13 @@ public class Knowledge implements BaseEntity{
 
 	public void setTagIds(String tagIds) {
 		this.tagIds = tagIds;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 }

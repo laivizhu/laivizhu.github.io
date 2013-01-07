@@ -1,5 +1,7 @@
 package com.laivi.knowledge.knowledge.action;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.hibernate.criterion.Restrictions;
@@ -7,10 +9,12 @@ import org.hibernate.criterion.Restrictions;
 import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
+import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
+import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.knowledge.model.po.Knowledge;
 import com.laivi.knowledge.knowledge.service.IKnowledgeService;
@@ -75,7 +79,8 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		.add("title", object.getTitle())
 		.add("question",DataUtil.getDefaultChar(object.getQuestion()))
 		.add("content", DataUtil.getDefaultChar(object.getContent()))
-		.add("tags",this.tagService.getTagsName(object.getTagIds()));
+		.add("tags",this.tagService.getTagsName(object.getTagIds()))
+		.add("createDate", DateUtil.formatDate(object.getCreateDate()));
         return item;
     }
 	
@@ -85,8 +90,18 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		ParamAssert.isNotEmptyString(knowledge.getContent(), "error.knowledge.content.notNULL");
 		ParamAssert.isNotEmptyString(knowledge.getTagIds(), "error.knowledge.tag.notNULL");
 		knowledge.setUserId(this.getCurrentUserId());
+		knowledge.setCreateDate(new Date());
 		knowledgeService.add(knowledge);
 		return response(true);
+	}
+	
+	public JsonList getSearchComboList()throws ErrorException{
+		JsonList jsonList=new JsonList();
+		jsonList.createItem().add("value", "title").add("text", "标题");
+		jsonList.createItem().add("value", "question").add("text", "问题");
+		jsonList.createItem().add("value", "content").add("text", "解决方案");
+		jsonList.createItem().add("value", "createDate").add("text", "创建时间");
+		return jsonList;
 	}
 
 

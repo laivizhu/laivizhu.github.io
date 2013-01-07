@@ -15,12 +15,17 @@ var mainPanel =new Ext.TabPanel({
 	deferredRender: false,
 	activeTab: 0,
 	enableTabScroll : true,
-	margins: '0 0 0 0'//设置边距
-	//items: [{
-		//autoLoad:{url:mainIndexUrl,scripts:true},
-		//title: '首页',                
-		//autoScroll: true
-	//}]
+	margins: '0 0 0 0',//设置边距
+	items: [{
+		autoLoad:{
+			url:'information_list.jsp',
+			scripts:true,
+			nocache: true
+		},
+		title: '首页',                
+		autoScroll: true,
+		closable : true
+	}]
 });
 
 /**

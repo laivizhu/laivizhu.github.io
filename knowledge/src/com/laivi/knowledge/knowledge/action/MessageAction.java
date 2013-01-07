@@ -3,7 +3,9 @@ package com.laivi.knowledge.knowledge.action;
 import javax.annotation.Resource;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
+import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
+import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.knowledge.model.po.Message;
@@ -30,6 +32,11 @@ public class MessageAction extends ABasicAction<Message> {
 		.add("content", object.getContent())
 		.add("pubDate", DateUtil.formatDate(object.getPubDate()));
 		return item;
+	}
+	
+	public JsonList getSearchComboList()throws ErrorException{
+		JsonList jsonList=new JsonList();
+		return jsonList;
 	}
 
 	public Message getMessage() {

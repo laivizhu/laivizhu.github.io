@@ -3,9 +3,13 @@ package com.laivi.knowledge.basic.action;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 
+import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.json.JsonList;
@@ -13,8 +17,10 @@ import com.laivi.knowledge.basic.model.po.BaseEntity;
 import com.laivi.knowledge.basic.model.type.ResponseType;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
+import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.user.model.po.User;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -34,11 +40,51 @@ public abstract class ABasicAction<T extends BaseEntity> extends ActionSupport i
 
 	protected String value; // 查询的内容
 	protected String key; // 查询内容的类别
+	protected String startDate;//开始时间
+	protected String endDate;//结束时间
 
 	protected String downLoadPath; // 下载文件目录
 	protected String resultPath; // 下载文件跳转result名
 	protected String fileName; // 下载服务端文件名
 	protected String downLoadFileName; // 下载的文件名
+	
+	public String search()throws Exception{
+		JsonList jsonList = new JsonList();
+		CriterionList conditions = CriterionList.CreateCriterion();
+		Map<String,Object> paramterMap=ActionContext.getContext().getParameters();
+		String[] keys=(String[])paramterMap.get("key");  
+        String[] keyValues=(String[])paramterMap.get("value");
+        if(DataUtil.notEmptyString(keyValues[0])){
+        	conditions.put(Restrictions.like(keys[0], keyValues[0],MatchMode.ANYWHERE));
+        }
+		for(Map.Entry<String, Object> entry:paramterMap.entrySet()){
+			if("start".equals(entry.getKey()) ||"limit".equals(entry.getKey())
+					|| "key".equals(entry.getKey())|| "value".equals(entry.getKey())){
+				continue;
+			}
+			String[] values=(String[])entry.getValue();
+			if(DataUtil.notEmptyString(values[0])){
+				if("startDate".equals(entry.getKey())){
+					conditions.put(Restrictions.ge("createDate", DateUtil.formatString(values[0])));
+					continue;
+				}
+				if("endDate".equals(entry.getKey())){
+					conditions.put(Restrictions.le("createDate", DateUtil.formateAddOneDate(values[0])));
+					continue;
+				}
+				conditions.put(Restrictions.like(entry.getKey(), values[0],MatchMode.ANYWHERE));
+			}
+		}
+		conditions.put(Restrictions.eq("userId", this.getCurrentUserId()));
+		for (T o : basicService.getList(conditions,start, limit)) {
+			jsonList.add(this.getJsonItem(o));
+		}
+		return response(jsonList.toPageString(basicService.getCount(conditions)));
+	}
+	
+	public String getKeywordCombolList()throws Exception{
+		return response(this.getSearchComboList());
+	}
 
 	public String delete() throws Exception {
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
@@ -66,6 +112,8 @@ public abstract class ABasicAction<T extends BaseEntity> extends ActionSupport i
 	public String add() throws Exception {
 		return null;
 	}
+	
+	
 	
 	protected long getCurrentUserId(){
 		User user=(User)ServletActionContext.getRequest().getSession().getAttribute("user");
@@ -226,5 +274,20 @@ public abstract class ABasicAction<T extends BaseEntity> extends ActionSupport i
 	public void setDownLoadPath(String downLoadPath) {
 		this.downLoadPath = downLoadPath;
 	}
-	
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 }

@@ -1,12 +1,15 @@
 Ext.onReady(function(){
     var stores={
     		knowledgeStore:new Fmp.JsonStore({
-    			items:['id','title','question','content','tags'],
+    			items:['id','title','question','content','tags','createDate'],
     			url:'knowledge_list.action'
     		}),
     		tagStore:new Fmp.ComboStore({
     			url:'tag_comboList.action?tag.type=1'
-    		})
+    		}),
+    		keyStore:new Fmp.ComboStore({
+    			url:'knowledge_getKeywordCombolList.action'
+    		}),
     };
 
     var handler={
@@ -55,7 +58,7 @@ Ext.onReady(function(){
     	{text : '删除信息',iconCls:'remove',handler:function(){
     			handler.deleteKnowledge();
     		}
-    	}
+    	},getSearchCom(stores.keyStore,'knowledge_search.action',stores.knowledgeStore)
     ]);
     
     var cb = new Ext.grid.CheckboxSelectionModel();
@@ -67,7 +70,8 @@ Ext.onReady(function(){
              GridColumnObject('信息标题','title'),
              GridColumnObject('信息问题','question'),
              GridColumnObject('信息解决方案','content'),
-             GridColumnObject('标签','tags')
+             GridColumnObject('标签','tags'),
+             GridColumnObject('创建时间','createDate')
         ]
     });
     stores.knowledgeStore.loadPage();		

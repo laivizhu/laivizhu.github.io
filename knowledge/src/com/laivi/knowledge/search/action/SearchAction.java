@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.CriterionList;
+import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
@@ -61,8 +62,13 @@ public class SearchAction extends ABasicAction<SearchItem> {
 		item.add("id", object.getId())
 		.add("keyword", object.getKeyword())
 		.add("count",object.getCount())
-		.add("url", "search_result.jsp?keyword="+object.getKeyword());
+		.add("url", "search_result.jsp?value="+object.getKeyword());
 		return item;
+	}
+	
+	public JsonList getSearchComboList()throws ErrorException{
+		JsonList jsonList=new JsonList();
+		return jsonList;
 	}
 	
 	public JsonItem getKnowledgeJsonItem(Knowledge object) throws Exception {

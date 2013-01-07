@@ -1,6 +1,8 @@
 Ext.namespace("Fmp");
 var pagecount=25;
 var formItemWidth=200;
+var field=new Ext.form.Field();
+
 var submitFailure = function(form, action) {
     switch (action.failureType) {
         case Ext.form.Action.CLIENT_INVALID:
@@ -689,4 +691,39 @@ Ext.apply(Ext.form.VTypes, {
   passwordText : '密码不匹配'
 });
 
+function getSearchCom(store,url,dataStore){
+	var searchCom=["->",field,{
+		text: "搜索",
+		iconCls:'search',
+		handler: function () {
+			var searchUrl;
+			var tempUrl='key='+Ext.getCmp('key_field').getValue()+'&value='+field.getValue()
+			+'&startDate='+Ext.getCmp('startDateSearchId').getValue().format('Y-m-d')+'&endDate='+Ext.getCmp('endDateSearchId').getValue().format('Y-m-d');
+			if(url.indexOf('?')!=-1){
+				searchUrl=url+"&"+tempUrl;
+			}else{
+				searchUrl=url+"?"+tempUrl;
+			}
+			dataStore.setUrl(searchUrl).loadPage();
+		}
+	},"->","关键字：",new Fmp.ComboField({
+		field:'关键字：',
+		width:150,
+		name:'key',
+		store:store
+	}),"->","结束日期：",new Fmp.DateField({
+		name: 'endDate',
+	    id: 'endDateSearchId',
+	    width: 90,
+	    emptyText :'请选择结束日期',
+	    anchor: '99%'
+	}), "->","开始日期：",new Fmp.DateField({
+		name: 'startDate',
+	    id: 'startDateSearchId',
+	    width: 90,
+	    emptyText :'请选择开始日期',
+	    anchor: '99%'
+	})];
+	return searchCom;
+}
 
