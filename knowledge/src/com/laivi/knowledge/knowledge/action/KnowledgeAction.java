@@ -100,7 +100,6 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		jsonList.createItem().add("value", "title").add("text", "标题");
 		jsonList.createItem().add("value", "question").add("text", "问题");
 		jsonList.createItem().add("value", "content").add("text", "解决方案");
-		jsonList.createItem().add("value", "createDate").add("text", "创建时间");
 		return jsonList;
 	}
 

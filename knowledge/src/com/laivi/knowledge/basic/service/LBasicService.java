@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.laivi.knowledge.basic.dao.ILBasicDao;
 import com.laivi.knowledge.basic.model.CriterionList;
 
+@Service("LBasicService")
 public class LBasicService<T> {
 	
 	private ILBasicDao<T> basicDao;
@@ -31,6 +34,10 @@ public class LBasicService<T> {
 	
 	public void modify(T object){
 		this.basicDao.modify(object);
+	}
+	
+	public T getObject(Class<T> clazz,Serializable id){
+		return this.basicDao.getObject(clazz, id);
 	}
 	
 	public List<T> getList(Class<T> clazz) {

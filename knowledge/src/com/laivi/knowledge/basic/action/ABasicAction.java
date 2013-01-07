@@ -55,7 +55,7 @@ public abstract class ABasicAction<T extends BaseEntity> extends ActionSupport i
 		String[] keys=(String[])paramterMap.get("key");  
         String[] keyValues=(String[])paramterMap.get("value");
         if(DataUtil.notEmptyString(keyValues[0])){
-        	conditions.put(Restrictions.like(keys[0], keyValues[0],MatchMode.ANYWHERE));
+        	conditions.put(Restrictions.like(keys[0], encodeString(keyValues[0]),MatchMode.ANYWHERE));
         }
 		for(Map.Entry<String, Object> entry:paramterMap.entrySet()){
 			if("start".equals(entry.getKey()) ||"limit".equals(entry.getKey())
