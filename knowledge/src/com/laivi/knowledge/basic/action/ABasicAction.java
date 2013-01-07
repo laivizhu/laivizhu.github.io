@@ -55,7 +55,7 @@ public abstract class ABasicAction<T extends BaseEntity> extends ActionSupport i
 		String[] keys=(String[])paramterMap.get("key");  
         String[] keyValues=(String[])paramterMap.get("value");
         if(DataUtil.notEmptyString(keyValues[0])){
-        	conditions.put(Restrictions.like(keys[0], keyValues[0],MatchMode.ANYWHERE));
+        	conditions.put(Restrictions.like(keys[0], encodeString(keyValues[0]),MatchMode.ANYWHERE));
         }
 		for(Map.Entry<String, Object> entry:paramterMap.entrySet()){
 			if("start".equals(entry.getKey()) ||"limit".equals(entry.getKey())
@@ -99,10 +99,11 @@ public abstract class ABasicAction<T extends BaseEntity> extends ActionSupport i
 
 	public String list() throws Exception {
 		JsonList jsonList = new JsonList();
-		for (T o : basicService.getList(start, limit)) {
+		CriterionList conditions=this.getUserCriterionList();
+		for (T o : basicService.getList(conditions,start, limit)) {
 			jsonList.add(this.getJsonItem(o));
 		}
-		return response(jsonList.toPageString((int)basicService.getCount()));
+		return response(jsonList.toPageString((int)basicService.getCount(conditions)));
 	}
 
 	public String update() throws Exception {
@@ -122,6 +123,23 @@ public abstract class ABasicAction<T extends BaseEntity> extends ActionSupport i
 		}else{
 			return 0;
 		}
+	}
+	
+	protected boolean isSystemUser(){
+		User user=(User)ServletActionContext.getRequest().getSession().getAttribute("user");
+		if(user!=null){
+			return user.isSysUser();
+		}else{
+			return false;
+		}
+	}
+	
+	protected CriterionList getUserCriterionList(){
+		CriterionList conditions=CriterionList.CreateCriterion();
+		if(!this.isSystemUser()){
+			conditions.put(Restrictions.eq("userId", this.getCurrentUserId()));
+		}
+		return conditions;
 	}
 
 	public String downLoad() throws Exception {

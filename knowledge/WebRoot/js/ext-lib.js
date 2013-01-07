@@ -697,8 +697,15 @@ function getSearchCom(store,url,dataStore){
 		iconCls:'search',
 		handler: function () {
 			var searchUrl;
-			var tempUrl='key='+Ext.getCmp('key_field').getValue()+'&value='+field.getValue()
-			+'&startDate='+Ext.getCmp('startDateSearchId').getValue().format('Y-m-d')+'&endDate='+Ext.getCmp('endDateSearchId').getValue().format('Y-m-d');
+			var tempUrl='key='+Ext.getCmp('key_field').getValue()+'&value='+field.getValue();
+			var startDate=Ext.getCmp('startDateSearchId').getValue();
+			if(startDate!=null && startDate!=''){
+				tempUrl=tempUrl+'&startDate='+startDate.format('Y-m-d');
+			}
+			var endDate=Ext.getCmp('endDateSearchId').getValue();
+			if(endDate!=null && endDate!=''){
+				tempUrl=tempUrl+'&endDate='+endDate.format('Y-m-d');
+			}
 			if(url.indexOf('?')!=-1){
 				searchUrl=url+"&"+tempUrl;
 			}else{

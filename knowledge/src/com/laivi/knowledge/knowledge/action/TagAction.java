@@ -59,7 +59,7 @@ public class TagAction extends ABasicAction<Tag> {
 	}
 	
 	public String list()throws Exception{
-		CriterionList conditions=CriterionList.CreateCriterion().put(Restrictions.eq("userId", this.getCurrentUserId()));
+		CriterionList conditions=this.getUserCriterionList();
 		JsonList jsonList=new JsonList();
 		for(Tag tag:tagService.getList(conditions,start,limit)){
 			jsonList.add(this.getJsonItem(tag));

@@ -24,6 +24,8 @@
 					leafNode('标签管理', 'knowledge/tag.jsp', '信息标签的相关操作')),
 				parentNode('信息记录管理',
 					leafNode('信息记录的管理','knowledge/knowledge.jsp','信息记录的添加，删除和查看')),
+				parentNode('博客文章管理',
+					leafNode('博客文章的管理','knowledge/article.jsp','博客文章的添加，删除和查看')),
 				parentNode('图片管理',
 					leafNode('图片管理', 'knowledge/picture_add.jsp', '图片的相关操作')))
 		));

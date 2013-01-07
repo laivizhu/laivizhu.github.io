@@ -1,14 +1,20 @@
 package com.laivi.knowledge.knowledge.action;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
+import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
+import com.laivi.knowledge.basic.util.DateUtil;
+import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.knowledge.model.po.Article;
 import com.laivi.knowledge.knowledge.service.IArticleService;
+import com.laivi.knowledge.knowledge.service.ITagService;
 
 /**
  * Copyright Laivi
@@ -21,15 +27,65 @@ import com.laivi.knowledge.knowledge.service.IArticleService;
 public class ArticleAction extends ABasicAction<Article> {
 
 	private IArticleService articleService;
+	private ITagService tagService;
 	private Article article;
+	private String articleIds;
+	
+	public String delete()throws Exception{
+		ParamAssert.isNotEmptyString(articleIds, "error.objcet.notChoose");
+		this.articleService.remove(articleIds);
+		return response(true);
+	}
+	
+	public String add()throws Exception{
+		ParamAssert.isNotEmptyString(article.getTitle(), "error.article.title.notNULL");
+		ParamAssert.isNotEmptyString(article.getTagIds(), "error.article.tag.notNULL");
+		ParamAssert.isNotEmptyString(article.getContent(), "error.article.content.notNULL");
+		article.setUserId(this.getCurrentUserId());
+		article.setCreateDate(new Date());
+		this.articleService.add(article);
+		return response(true);
+	}
+	
+	public String update()throws Exception{
+		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
+		ParamAssert.isNotEmptyString(article.getTitle(), "error.article.title.notNULL");
+		ParamAssert.isNotEmptyString(article.getTagIds(), "error.article.tag.notNULL");
+		ParamAssert.isNotEmptyString(article.getContent(), "error.article.content.notNULL");
+		Article dArticle=this.articleService.getObject(id);
+		dArticle.setTitle(article.getTitle());
+		dArticle.setContent(article.getContent());
+		dArticle.setTagIds(article.getTagIds());
+		this.articleService.modify(dArticle);
+		return response(true);
+	}
+	
+	public String get()throws Exception{
+		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
+		Article dArticle=this.articleService.getObject(id);
+		JsonItem item=new JsonItem();
+		item.add("id", dArticle.getId())
+		.add("article.title", dArticle.getTitle())
+		.add("article.content", dArticle.getContent())
+		.add("article.tags", dArticle.getTagIds());
+		return response(item.toFormDataString(true));
+	}
 	
 	@Override
 	public JsonItem getJsonItem(Article object) throws Exception {
-		return null;
+		JsonItem item=new JsonItem();
+		item.add("id", object.getId())
+		.add("title", object.getTitle())
+		.add("content", object.getContent())
+		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
+		.add("tags", this.tagService.getTagsName(object.getTagIds()));
+		return item;
 	}
 	
 	public JsonList getSearchComboList()throws ErrorException{
 		JsonList jsonList=new JsonList();
+		jsonList.createItem().add("value", "title").add("text", "标题");
+		jsonList.createItem().add("value", "content").add("text", "内容");
 		return jsonList;
 	}
 
@@ -49,5 +105,9 @@ public class ArticleAction extends ABasicAction<Article> {
 	public void setBasicService(IBasicService<Article> basicService){
     	this.basicService=basicService;
     }
+	@Resource(name="TagService")
+	public void setTagService(ITagService tagService) {
+		this.tagService = tagService;
+	}
 
 }

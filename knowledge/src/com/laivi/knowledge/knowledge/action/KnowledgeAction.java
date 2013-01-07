@@ -4,10 +4,7 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
-import org.hibernate.criterion.Restrictions;
-
 import com.laivi.knowledge.basic.action.ABasicAction;
-import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
@@ -39,6 +36,7 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 	}
 	
 	public String update()throws Exception{
+		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
 		ParamAssert.isNotEmptyString(knowledge.getTitle(), "error.knowledge.title.notNULL");
 		ParamAssert.isNotEmptyString(knowledge.getQuestion(), "error.knowledge.question.notNULL");
 		ParamAssert.isNotEmptyString(knowledge.getContent(), "error.knowledge.content.notNULL");
@@ -62,15 +60,6 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		.add("knowledge.content", dKnowledge.getContent())
 		.add("knowledge.tagIds",dKnowledge.getTagIds());
 		return response(item.toFormDataString(true));
-	}
-	
-	public String list()throws Exception{
-		JsonList jsonList=new JsonList();
-		CriterionList conditions=CriterionList.CreateCriterion().put(Restrictions.eq("userId", this.getCurrentUserId()));
-		for(Knowledge knowledge:this.knowledgeService.getList(conditions,start,limit)){
-			jsonList.add(this.getJsonItem(knowledge));
-		}
-		return response(jsonList.toPageString(this.knowledgeService.getCount(conditions)));
 	}
 
 	public JsonItem getJsonItem(Knowledge object) throws Exception {
@@ -100,7 +89,6 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		jsonList.createItem().add("value", "title").add("text", "标题");
 		jsonList.createItem().add("value", "question").add("text", "问题");
 		jsonList.createItem().add("value", "content").add("text", "解决方案");
-		jsonList.createItem().add("value", "createDate").add("text", "创建时间");
 		return jsonList;
 	}
 
