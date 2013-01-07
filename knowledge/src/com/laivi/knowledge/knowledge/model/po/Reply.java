@@ -24,7 +24,7 @@ public class Reply implements BaseEntity{
 	private String context;
 	private long userId;
 	private long articleId;
-	private Date pubDate;
+	private Date createDate;
 	@Id
 	@GeneratedValue
 	public long getId() {
@@ -51,12 +51,11 @@ public class Reply implements BaseEntity{
 	public void setArticleId(long articleId) {
 		this.articleId = articleId;
 	}
-	public Date getPubDate() {
-		return pubDate;
-	}
-	public void setPubDate(Date pubDate) {
-		this.pubDate = pubDate;
-	}
 	
-
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 }

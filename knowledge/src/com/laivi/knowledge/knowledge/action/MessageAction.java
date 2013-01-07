@@ -30,7 +30,7 @@ public class MessageAction extends ABasicAction<Message> {
 		item.add("id", object.getId())
 		.add("title", object.getTitle())
 		.add("content", object.getContent())
-		.add("pubDate", DateUtil.formatDate(object.getPubDate()));
+		.add("createDate", DateUtil.formatDate(object.getCreateDate()));
 		return item;
 	}
 	

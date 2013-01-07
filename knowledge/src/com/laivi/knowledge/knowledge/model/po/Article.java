@@ -25,8 +25,9 @@ public class Article implements BaseEntity {
 	private long id;
 	private String title;
 	private String content;
-	private Date pubDate;
+	private Date createDate;
 	private long userId;
+	private String tagIds;
 	@Id
 	@GeneratedValue
 	public long getId() {
@@ -48,16 +49,23 @@ public class Article implements BaseEntity {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getPubDate() {
-		return pubDate;
+	
+	public Date getCreateDate() {
+		return createDate;
 	}
-	public void setPubDate(Date pubDate) {
-		this.pubDate = pubDate;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 	public long getUserId() {
 		return userId;
 	}
 	public void setUserId(long userId) {
 		this.userId = userId;
+	}
+	public String getTagIds() {
+		return tagIds;
+	}
+	public void setTagIds(String tagIds) {
+		this.tagIds = tagIds;
 	}
 }

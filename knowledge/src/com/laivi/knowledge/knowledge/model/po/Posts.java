@@ -26,7 +26,7 @@ public class Posts implements BaseEntity {
 	private boolean parent;
 	private long postsId;
 	private long userId;
-	private Date pubDate;
+	private Date createDate;
 	
 	@Override
 	@Id
@@ -79,11 +79,11 @@ public class Posts implements BaseEntity {
 		this.userId = userId;
 	}
 
-	public Date getPubDate() {
-		return pubDate;
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setPubDate(Date pubDate) {
-		this.pubDate = pubDate;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 }
