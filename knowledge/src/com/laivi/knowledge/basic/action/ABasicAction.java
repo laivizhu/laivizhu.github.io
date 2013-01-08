@@ -13,7 +13,7 @@ import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.json.JsonList;
-import com.laivi.knowledge.basic.model.po.BaseEntity;
+import com.laivi.knowledge.basic.model.po.BasicEntity;
 import com.laivi.knowledge.basic.model.type.ResponseType;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
@@ -31,7 +31,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @data 2012-11-12
  */
 @SuppressWarnings("serial")
-public abstract class ABasicAction<T extends BaseEntity> extends ActionSupport implements IBasicAction<T> {
+public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport implements IBasicAction<T> {
 	protected IBasicService<T> basicService;
 
 	protected long id; // 常用Id
@@ -76,7 +76,7 @@ public abstract class ABasicAction<T extends BaseEntity> extends ActionSupport i
 			}
 		}
 		for (T o : basicService.getList(conditions,start, limit)) {
-			jsonList.add(this.getJsonItem(o));
+			jsonList.add(o.toJson());
 		}
 		return response(jsonList.toPageString(basicService.getCount(conditions)));
 	}
@@ -93,14 +93,14 @@ public abstract class ABasicAction<T extends BaseEntity> extends ActionSupport i
 
 	public String get() throws Exception {
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
-		return response(this.getJsonItem(this.basicService.getObject(id)).toFormDataString(true));
+		return response(this.basicService.getObject(id).toFormJson(true));
 	}
 
 	public String list() throws Exception {
 		JsonList jsonList = new JsonList();
 		CriterionList conditions=this.getUserCriterionList();
 		for (T o : basicService.getList(conditions,start, limit)) {
-			jsonList.add(this.getJsonItem(o));
+			jsonList.add(o.toJson());
 		}
 		return response(jsonList.toPageString((int)basicService.getCount(conditions)));
 	}

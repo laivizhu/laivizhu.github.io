@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
-import com.laivi.knowledge.basic.model.po.BaseEntity;
 import com.laivi.knowledge.basic.model.po.BasicEntity;
 
 /**
@@ -21,7 +20,7 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="t_article")
-public class Article extends BasicEntity implements BaseEntity {
+public class Article extends BasicEntity{
 
 	private long id;
 	private String title;

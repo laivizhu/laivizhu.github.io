@@ -8,7 +8,7 @@ import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
-import com.laivi.knowledge.basic.model.json.JsonList;
+import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
@@ -84,8 +84,8 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		return response(true);
 	}
 	
-	public JsonList getSearchComboList()throws ErrorException{
-		JsonList jsonList=new JsonList();
+	public JsonItemList getSearchComboList()throws ErrorException{
+		JsonItemList jsonList=new JsonItemList();
 		jsonList.createItem().add("value", "title").add("text", "标题");
 		jsonList.createItem().add("value", "question").add("text", "问题");
 		jsonList.createItem().add("value", "content").add("text", "解决方案");

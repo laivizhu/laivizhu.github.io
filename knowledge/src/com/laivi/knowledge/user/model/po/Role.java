@@ -5,18 +5,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.laivi.knowledge.basic.model.po.BasicEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.laivi.knowledge.basic.model.po.BaseEntity;
+import com.laivi.knowledge.basic.model.po.BasicEntity;
 
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "t_role")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Role extends BasicEntity implements BaseEntity {
+public class Role extends BasicEntity{
 	private long id;
 	private String name;
 	private String description;

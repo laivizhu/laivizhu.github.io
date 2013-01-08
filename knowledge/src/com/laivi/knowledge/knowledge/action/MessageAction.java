@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
-import com.laivi.knowledge.basic.model.json.JsonList;
+import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
@@ -38,7 +38,6 @@ public class MessageAction extends ABasicAction<Message> {
         return response(true);
     }
 	
-	@Override
 	public JsonItem getJsonItem(Message object) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
@@ -49,8 +48,8 @@ public class MessageAction extends ABasicAction<Message> {
 		return item;
 	}
 	
-	public JsonList getSearchComboList()throws ErrorException{
-		JsonList jsonList=new JsonList();
+	public JsonItemList getSearchComboList()throws ErrorException{
+		JsonItemList jsonList=new JsonItemList();
         jsonList.createItem().add("value","").add("text","");
 		return jsonList;
 	}

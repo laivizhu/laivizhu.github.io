@@ -13,6 +13,7 @@ import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
+import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.knowledge.model.po.Knowledge;
@@ -33,7 +34,7 @@ public class SearchAction extends ABasicAction<SearchItem> {
 	
 	
 	public String showResult()throws Exception{
-		JsonList jsonList=new JsonList();
+		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion()
 				.put(Restrictions.eq("userId", this.getCurrentUserId()))
 				.put(Restrictions.or(Restrictions.like("title", value,MatchMode.ANYWHERE), Restrictions.like("question", value,MatchMode.ANYWHERE)));
@@ -51,23 +52,14 @@ public class SearchAction extends ABasicAction<SearchItem> {
 		JsonList jsonList=new JsonList();
 		CriterionList conditions=CriterionList.CreateCriterion().put(Order.desc("count"));
 		for(SearchItem item:this.basicService.getList(conditions,0,20)){
-			jsonList.add(this.getJsonItem(item));
+			jsonList.add(item.toJson());
 		}
 		return response(jsonList);
 	}
 	
-	@Override
-	public JsonItem getJsonItem(SearchItem object) throws Exception {
-		JsonItem item=new JsonItem();
-		item.add("id", object.getId())
-		.add("keyword", object.getKeyword())
-		.add("count",object.getCount())
-		.add("url", "search_result.jsp?value="+object.getKeyword());
-		return item;
-	}
 	
-	public JsonList getSearchComboList()throws ErrorException{
-		JsonList jsonList=new JsonList();
+	public JsonItemList getSearchComboList()throws ErrorException{
+		JsonItemList jsonList=new JsonItemList();
 		return jsonList;
 	}
 	

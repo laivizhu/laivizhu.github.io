@@ -11,6 +11,7 @@ import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
+import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.model.type.TagType;
 import com.laivi.knowledge.basic.service.IBasicService;
@@ -62,13 +63,13 @@ public class TagAction extends ABasicAction<Tag> {
 		CriterionList conditions=this.getUserCriterionList();
 		JsonList jsonList=new JsonList();
 		for(Tag tag:tagService.getList(conditions,start,limit)){
-			jsonList.add(this.getJsonItem(tag));
+			jsonList.add(tag.toJson());
 		}
 		return response(jsonList.toPageString(tagService.getCount(conditions)));
 	}
 	
 	public String comboList()throws Exception{
-		JsonList jsonList=new JsonList();
+		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=this.getUserCriterionList();
 		conditions.put(Restrictions.eq("type", tag.getType()));
 		for(Tag tag:tagService.getList(conditions,start,limit)){
@@ -78,7 +79,7 @@ public class TagAction extends ABasicAction<Tag> {
 	}
 	
 	public String typeList()throws Exception{
-		JsonList jsonList=new JsonList();
+		JsonItemList jsonList=new JsonItemList();
 		for(TagType type:TagType.values()){
 			jsonList.createItem().add("value", type.toValue()).add("text", type.toText());
 		}
@@ -94,8 +95,8 @@ public class TagAction extends ABasicAction<Tag> {
 	}
 	
 	
-	public JsonList getSearchComboList()throws ErrorException{
-		JsonList jsonList=new JsonList();
+	public JsonItemList getSearchComboList()throws ErrorException{
+		JsonItemList jsonList=new JsonItemList();
 		jsonList.createItem().add("value", "name").add("text", "标签名");
 		jsonList.createItem().add("value", "type").add("text", "标签类型");
 		jsonList.createItem().add("value", "createDate").add("text", "创建时间");

@@ -1,6 +1,7 @@
 package com.laivi.knowledge.basic.model.po;
 
 import com.laivi.knowledge.basic.model.json.JsonEntity;
+import com.laivi.knowledge.basic.model.json.JsonFormData;
 import com.laivi.knowledge.basic.util.JsonUtil;
 
 /**
@@ -10,9 +11,15 @@ import com.laivi.knowledge.basic.util.JsonUtil;
  * Time: 下午8:08
  * To change this template use File | Settings | File Templates.
  */
-public class BasicEntity implements JsonEntity{
+@SuppressWarnings("serial")
+public abstract class BasicEntity implements BaseEntity,JsonEntity{
     @Override
     public String toJson() {
         return JsonUtil.toJson(this);
     }
+
+	@Override
+	public String toFormJson(boolean success) {
+		return new JsonFormData<BasicEntity>(success,this).toJson();
+	}
 }

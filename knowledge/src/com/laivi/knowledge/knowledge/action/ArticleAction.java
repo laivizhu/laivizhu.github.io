@@ -8,7 +8,7 @@ import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
-import com.laivi.knowledge.basic.model.json.JsonList;
+import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
@@ -71,7 +71,6 @@ public class ArticleAction extends ABasicAction<Article> {
 		return response(item.toFormDataString(true));
 	}
 	
-	@Override
 	public JsonItem getJsonItem(Article object) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
@@ -82,8 +81,8 @@ public class ArticleAction extends ABasicAction<Article> {
 		return item;
 	}
 	
-	public JsonList getSearchComboList()throws ErrorException{
-		JsonList jsonList=new JsonList();
+	public JsonItemList getSearchComboList()throws ErrorException{
+		JsonItemList jsonList=new JsonItemList();
 		jsonList.createItem().add("value", "title").add("text", "标题");
 		jsonList.createItem().add("value", "content").add("text", "内容");
 		return jsonList;

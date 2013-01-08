@@ -9,7 +9,7 @@ import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
-import com.laivi.knowledge.basic.model.json.JsonList;
+import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.FileUtil;
@@ -55,7 +55,6 @@ public class PictureAction extends ABasicAction<Picture> {
 		return response(true);
 	}
 
-	@Override
 	public JsonItem getJsonItem(Picture object) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
@@ -66,8 +65,8 @@ public class PictureAction extends ABasicAction<Picture> {
 		return item;
 	}
 	
-	public JsonList getSearchComboList()throws ErrorException{
-		JsonList jsonList=new JsonList();
+	public JsonItemList getSearchComboList()throws ErrorException{
+		JsonItemList jsonList=new JsonItemList();
 		return jsonList;
 	}
 

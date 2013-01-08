@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
-import com.laivi.knowledge.basic.model.json.JsonList;
+import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.knowledge.model.po.Posts;
 import com.laivi.knowledge.knowledge.service.IPostsService;
@@ -23,13 +23,12 @@ public class PostsAction extends ABasicAction<Posts> {
 	private IPostsService postsService;
 	private Posts posts;
 	
-	@Override
 	public JsonItem getJsonItem(Posts object) throws Exception {
 		return null;
 	}
 	
-	public JsonList getSearchComboList()throws ErrorException{
-		JsonList jsonList=new JsonList();
+	public JsonItemList getSearchComboList()throws ErrorException{
+		JsonItemList jsonList=new JsonItemList();
 		return jsonList;
 	}
 

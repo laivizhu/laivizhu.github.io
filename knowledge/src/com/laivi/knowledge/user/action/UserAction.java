@@ -9,7 +9,7 @@ import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
-import com.laivi.knowledge.basic.model.json.JsonList;
+import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.user.model.po.Role;
@@ -82,7 +82,7 @@ public class UserAction extends ABasicAction<User> {
     }
 
     public String roleList()throws Exception{
-        JsonList jsonList=new JsonList();
+        JsonItemList jsonList=new JsonItemList();
         CriterionList conditions=CriterionList.CreateCriterion().put(Restrictions.ne("name", "ROLE_ADMIN"));
         for(Role role:roleService.getList(conditions)){
             jsonList.createItem().add("text",role.getDescription()).add("value",role.getId());
@@ -101,8 +101,8 @@ public class UserAction extends ABasicAction<User> {
         return jsonItem;
     }
     
-    public JsonList getSearchComboList()throws ErrorException{
-		JsonList jsonList=new JsonList();
+    public JsonItemList getSearchComboList()throws ErrorException{
+		JsonItemList jsonList=new JsonItemList();
 		return jsonList;
 	}
 

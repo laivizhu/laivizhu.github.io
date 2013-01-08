@@ -11,7 +11,7 @@ import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
-import com.laivi.knowledge.basic.model.json.JsonList;
+import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.model.type.InformationLevelType;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
@@ -77,7 +77,7 @@ public class InformationAction extends ABasicAction<Information> {
 	}
 	
 	public String list()throws Exception{
-		JsonList jsonList=new JsonList();
+		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion();
 		conditions.put(Order.desc("level")).put(Order.desc("createDate"));
 		for(Information info:this.informationService.getList(conditions,0,10)){
@@ -87,14 +87,13 @@ public class InformationAction extends ABasicAction<Information> {
 	}
 	
 	public String typeList()throws Exception{
-		JsonList jsonList=new JsonList();
+		JsonItemList jsonList=new JsonItemList();
 		for(InformationLevelType type:InformationLevelType.values()){
 			jsonList.createItem().add("value", type.toValue()).add("text", type.toText());
 		}
 		return response(jsonList);
 	}
 	
-	@Override
 	public JsonItem getJsonItem(Information object) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
@@ -106,8 +105,8 @@ public class InformationAction extends ABasicAction<Information> {
 		return item;
 	}
 	
-	public JsonList getSearchComboList()throws ErrorException{
-		JsonList jsonList=new JsonList();
+	public JsonItemList getSearchComboList()throws ErrorException{
+		JsonItemList jsonList=new JsonItemList();
 		return jsonList;
 	}
 

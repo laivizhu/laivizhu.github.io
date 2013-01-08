@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.laivi.knowledge.basic.model.po.BaseEntity;
 import com.laivi.knowledge.basic.model.po.BasicEntity;
 
 /**
@@ -20,7 +19,7 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="t_picture")
-public class Picture extends BasicEntity implements BaseEntity {
+public class Picture extends BasicEntity{
 	private long id;
 	private String description;
 	private String path;

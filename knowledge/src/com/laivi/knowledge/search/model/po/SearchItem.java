@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.laivi.knowledge.basic.model.po.BaseEntity;
+import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.po.BasicEntity;
 
 /**
@@ -18,7 +18,7 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="t_searchItem")
-public class SearchItem extends BasicEntity implements BaseEntity {
+public class SearchItem extends BasicEntity{
 	private long id;
 	
 	private String keyword;
@@ -60,5 +60,15 @@ public class SearchItem extends BasicEntity implements BaseEntity {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toJson() {
+		JsonItem item=new JsonItem();
+		item.add("id", this.getId())
+		.add("keyword", this.getKeyword())
+		.add("count",this.getCount())
+		.add("url", "search_result.jsp?value="+this.getKeyword());
+		return item.toString();
 	}
 }

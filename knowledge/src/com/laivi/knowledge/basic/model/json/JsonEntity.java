@@ -5,4 +5,6 @@ package com.laivi.knowledge.basic.model.json;
  */
 public interface JsonEntity {
 	String toJson();
+	
+	String toFormJson(boolean success);
 }

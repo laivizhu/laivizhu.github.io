@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
-import com.laivi.knowledge.basic.model.json.JsonList;
+import com.laivi.knowledge.basic.model.json.JsonItemList;
 
 /**
  * Copyright Envision
@@ -63,17 +63,7 @@ public interface IBasicAction<T> extends Serializable {
 	
 	String search()throws Exception;
 	
-	JsonList getSearchComboList()throws ErrorException;
-
-	/**
-	 * 
-	 * description: data 2012-12-1 user Janlu.Zhu
-	 * 
-	 * @param object
-	 * @return
-	 * @throws Exception
-	 */
-	JsonItem getJsonItem(T object) throws Exception;
+	JsonItemList getSearchComboList()throws ErrorException;
 	
 	
 	/**

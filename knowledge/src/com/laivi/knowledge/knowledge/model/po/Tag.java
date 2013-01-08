@@ -1,23 +1,22 @@
 package com.laivi.knowledge.knowledge.model.po;
 
-import com.laivi.knowledge.basic.model.json.JsonEntity;
-import com.laivi.knowledge.basic.model.po.BaseEntity;
-import com.laivi.knowledge.basic.model.po.BasicEntity;
-import com.laivi.knowledge.basic.util.JsonUtil;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.laivi.knowledge.basic.model.po.BasicEntity;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name="t_tag")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Tag extends BasicEntity implements BaseEntity {
+public class Tag extends BasicEntity{
     private long id;
 
     private String name;
