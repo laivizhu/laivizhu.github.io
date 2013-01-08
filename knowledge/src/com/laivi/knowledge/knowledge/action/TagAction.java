@@ -41,7 +41,7 @@ public class TagAction extends ABasicAction<Tag> {
 	}
 	
 	public String update()throws Exception{
-		ParamAssert.isTrue(id!=0, "error.objcet.notChoose");
+		ParamAssert.isTrue(id!=0, "error.object.notChoose");
 		ParamAssert.isNotNull(tag, "error.tag.name.notNULL");
 		ParamAssert.isNotEmptyString(tag.getName(), "error.tag.name.notNULL");
 		ParamAssert.isTrue(tag.getType()!=0, "error.tag.type.notNULL");
@@ -53,7 +53,7 @@ public class TagAction extends ABasicAction<Tag> {
 	}
 	
 	public String delete()throws Exception{
-		ParamAssert.isNotEmptyString(tagIds, "error.objcet.notChoose");
+		ParamAssert.isNotEmptyString(tagIds, "error.object.notChoose");
 		this.tagService.remove(tagIds);
 		return response(true);
 	}
@@ -69,7 +69,8 @@ public class TagAction extends ABasicAction<Tag> {
 	
 	public String comboList()throws Exception{
 		JsonList jsonList=new JsonList();
-		CriterionList conditions=CriterionList.CreateCriterion().put(Restrictions.eq("userId", this.getCurrentUserId())).put(Restrictions.eq("type", tag.getType()));
+		CriterionList conditions=this.getUserCriterionList();
+		conditions.put(Restrictions.eq("type", tag.getType()));
 		for(Tag tag:tagService.getList(conditions,start,limit)){
 			jsonList.createItem().add("value", tag.getId()).add("text", tag.getName());
 		}

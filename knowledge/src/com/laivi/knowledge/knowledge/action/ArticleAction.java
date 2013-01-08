@@ -32,7 +32,7 @@ public class ArticleAction extends ABasicAction<Article> {
 	private String articleIds;
 	
 	public String delete()throws Exception{
-		ParamAssert.isNotEmptyString(articleIds, "error.objcet.notChoose");
+		ParamAssert.isNotEmptyString(articleIds, "error.object.notChoose");
 		this.articleService.remove(articleIds);
 		return response(true);
 	}

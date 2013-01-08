@@ -31,11 +31,16 @@ public class UserService extends BasicService<User> implements IUserService {
         if(dUser==null){
             throw new ErrorException("error.user.login.user.notExist");
         }else{
-            if(!dUser.getPassword().equals(user.getPassword())){
-                throw new ErrorException("error.user.login.user.passwordError");
-            }else{
-            	return dUser;
+            if(dUser.isEnable()){
+                if(!dUser.getPassword().equals(user.getPassword())){
+                    throw new ErrorException("error.user.login.user.passwordError");
+                }else{
+                    return dUser;
+                }
+            } else{
+                throw new ErrorException("error.user.login.user.isNotEnable");
             }
+
         }
     }
 

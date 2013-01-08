@@ -30,7 +30,7 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 	private String knowledgeIds;
 	
 	public String delete()throws Exception{
-		ParamAssert.isNotEmptyString(knowledgeIds, "error.objcet.notChoose");
+		ParamAssert.isNotEmptyString(knowledgeIds, "error.object.notChoose");
 		this.knowledgeService.remove(knowledgeIds);
 		return response(true);
 	}

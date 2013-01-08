@@ -64,13 +64,13 @@ public class UserAction extends ABasicAction<User> {
     }
     
     public String delete()throws Exception{
-    	ParamAssert.isNotEmptyString(userIds, "error.objcet.notChoose");
+    	ParamAssert.isNotEmptyString(userIds, "error.object.notChoose");
     	userService.remove(userIds);
     	return response(true);
     }
     
     public String resetPassword()throws Exception{
-    	ParamAssert.isNotEmptyString(userIds, "error.objcet.notChoose");
+    	ParamAssert.isNotEmptyString(userIds, "error.object.notChoose");
     	userService.resetPassword(userIds);
     	return response(true);
     }

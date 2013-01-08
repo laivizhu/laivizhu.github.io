@@ -38,7 +38,7 @@ public class InformationAction extends ABasicAction<Information> {
 	private int type;
 	
 	public String delete()throws Exception{
-		ParamAssert.isNotEmptyString(informationIds, "error.objcet.notChoose");
+		ParamAssert.isNotEmptyString(informationIds, "error.object.notChoose");
 		this.informationService.remove(informationIds);
 		return response(true);
 	}
