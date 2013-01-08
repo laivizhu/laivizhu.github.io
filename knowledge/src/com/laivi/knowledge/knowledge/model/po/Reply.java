@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.laivi.knowledge.basic.model.po.BaseEntity;
+import com.laivi.knowledge.basic.model.po.BasicEntity;
 
 /**
  * Copyright Laivi
@@ -19,7 +20,7 @@ import com.laivi.knowledge.basic.model.po.BaseEntity;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="t_reply")
-public class Reply implements BaseEntity{
+public class Reply extends BasicEntity implements BaseEntity{
 	private long id;
 	private String context;
 	private long userId;

@@ -1,22 +1,23 @@
 package com.laivi.knowledge.knowledge.model.po;
 
-import java.util.Date;
+import com.laivi.knowledge.basic.model.json.JsonEntity;
+import com.laivi.knowledge.basic.model.po.BaseEntity;
+import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.basic.util.JsonUtil;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.laivi.knowledge.basic.model.po.BaseEntity;
+import java.util.Date;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name="t_tag")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Tag implements BaseEntity{
+public class Tag extends BasicEntity implements BaseEntity {
     private long id;
 
     private String name;
@@ -26,7 +27,6 @@ public class Tag implements BaseEntity{
     private int type;
     
     private Date createDate;
-    
 
     @Id
     @GeneratedValue

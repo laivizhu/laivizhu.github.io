@@ -109,8 +109,4 @@ public class LBasicDao<T extends BaseEntity> implements ILBasicDao<T>{
 	public void modify(T object) {
 		hibernateTemplate.update(object);
 	}
-
-	
-
-
 }

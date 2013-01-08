@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.laivi.knowledge.basic.model.po.BaseEntity;
+import com.laivi.knowledge.basic.model.po.BasicEntity;
 
 /**
  * Copyright Laivi
@@ -19,7 +20,7 @@ import com.laivi.knowledge.basic.model.po.BaseEntity;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="t_message")
-public class Message implements BaseEntity {
+public class Message extends BasicEntity implements BaseEntity {
 	private long id;
 	private String title;
 	private String content;

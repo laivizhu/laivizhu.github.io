@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import com.laivi.knowledge.basic.model.po.BasicEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,7 +18,7 @@ import com.laivi.knowledge.basic.model.po.BaseEntity;
 @Entity
 @Table(name="t_knowledge")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Knowledge implements BaseEntity{
+public class Knowledge extends BasicEntity implements BaseEntity{
     private long id;
     private String title;
 	private String question;

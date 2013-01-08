@@ -9,6 +9,7 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import com.laivi.knowledge.basic.model.po.BaseEntity;
+import com.laivi.knowledge.basic.model.po.BasicEntity;
 
 /**
  * Copyright Laivi
@@ -20,7 +21,7 @@ import com.laivi.knowledge.basic.model.po.BaseEntity;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="t_article")
-public class Article implements BaseEntity {
+public class Article extends BasicEntity implements BaseEntity {
 
 	private long id;
 	private String title;
