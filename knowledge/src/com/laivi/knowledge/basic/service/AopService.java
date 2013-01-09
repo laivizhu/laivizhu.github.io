@@ -23,7 +23,7 @@ public class AopService implements IAopService {
 	private static final String ERROR_MESSAGE_FORMAT = "{success:false, msg:'%s'}";
 	private static final String DEFAULT_ERROR_MESSAGE = "系统繁忙，请稍后再试";
 
-	@Pointcut("execution(* com.janlu.knowledge.action.*.*(..))")
+	@Pointcut("execution(* com.janlu.knowledge..action.*.*(..))")
 	public void pointCut(){}
 	
 	@AfterThrowing(pointcut="pointCut()",throwing="e")

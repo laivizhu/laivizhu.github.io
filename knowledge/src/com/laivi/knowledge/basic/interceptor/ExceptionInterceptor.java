@@ -1,4 +1,4 @@
-package com.laivi.knowledge.basic.util;
+package com.laivi.knowledge.basic.interceptor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -72,9 +72,8 @@ public class ExceptionInterceptor extends AbstractInterceptor {
 		} finally {
 			long endTime = System.currentTimeMillis();
 			if (endTime - startTime > 3000) {
-				// log.warn(String.format("Slow Request: %s.%s() costs %d seconds.",
-				// actionInvocation.getProxy().getActionName(), method, endTime
-				// - startTime));
+				//log.warn(String.format("Slow Request: %s.%s() costs %d seconds.",
+				//actionInvocation.getProxy().getActionName(), method, endTime- startTime));
 			}
 		}
 	}

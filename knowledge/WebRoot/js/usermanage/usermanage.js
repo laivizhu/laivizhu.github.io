@@ -39,7 +39,7 @@ Ext.onReady(function(){
                 Ext.MessageBox.confirm("提示","您确定要删除所选用户吗？",function(btnId){
                     if(btnId == 'yes'){
                         Fmp.ajaxCall({
-                            url:'user_delete.action?userIds='+userIds,
+                            url:'user_deletes.action?ids='+userIds,
                             successHandler:function(){
                                   store.userStore.loadPage();
                             }
@@ -54,7 +54,7 @@ Ext.onReady(function(){
                 Ext.MessageBox.confirm("提示","您确定要禁用或启用所选用户吗？",function(btnId){
                     if(btnId == 'yes'){
                         Fmp.ajaxCall({
-                            url:'user_disableOrEnableUser.action?userIds='+userIds,
+                            url:'user_disableOrEnableUser.action?ids='+userIds,
                             successHandler:function(){
                                   store.userStore.loadPage();
                             }
@@ -69,7 +69,7 @@ Ext.onReady(function(){
                 Ext.MessageBox.confirm("提示","您确定要重置所选用户密码吗？",function(btnId){
                     if(btnId == 'yes'){
                         Fmp.ajaxCall({
-                            url:'user_resetPassword.action?userIds='+userIds,
+                            url:'user_resetPassword.action?ids='+userIds,
                             successHandler:function(){
                                   store.userStore.loadPage();
                             }

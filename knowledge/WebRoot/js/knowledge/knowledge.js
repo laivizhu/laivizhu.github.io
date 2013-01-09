@@ -1,7 +1,7 @@
 Ext.onReady(function(){
     var stores={
     		knowledgeStore:new Fmp.JsonStore({
-    			items:['id','title','question','content','tags','createDate'],
+    			items:['id','title','question','content','tagIds','createDate'],
     			url:'knowledge_list.action'
     		}),
     		tagStore:new Fmp.ComboStore({
@@ -24,7 +24,7 @@ Ext.onReady(function(){
              if(!Fmp.isEmpty(knowledgeIds)){
             	 Fmp.confirm('确认要删除吗？',function(){
          			Fmp.ajaxCall({
-                         url:'knowledge_delete.action?knowledgeIds='+knowledgeIds,
+                         url:'knowledge_deletes.action?ids='+knowledgeIds,
                          successHandler:function(){
                         	 stores.knowledgeStore.loadPage();
                          }
@@ -70,7 +70,7 @@ Ext.onReady(function(){
              GridColumnObject('信息标题','title'),
              GridColumnObject('信息问题','question'),
              GridColumnObject('信息解决方案','content'),
-             GridColumnObject('标签','tags'),
+             GridColumnObject('标签','tagIds'),
              GridColumnObject('创建时间','createDate')
         ]
     });

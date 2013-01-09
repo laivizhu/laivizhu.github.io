@@ -34,14 +34,8 @@ public class InformationAction extends ABasicAction<Information> {
 	private IInformationService informationService;
 	private IUserService userService;
 	private Information information;
-	private String informationIds;
 	private int type;
 	
-	public String delete()throws Exception{
-		ParamAssert.isNotEmptyString(informationIds, "error.object.notChoose");
-		this.informationService.remove(informationIds);
-		return response(true);
-	}
 	
 	public String add()throws Exception{
 		ParamAssert.isNotEmptyString(information.getTitle(), "error.information.title.notNULL");
@@ -129,14 +123,6 @@ public class InformationAction extends ABasicAction<Information> {
 	@Resource(name="UserService")
 	public void setUserService(IUserService userService) {
 		this.userService = userService;
-	}
-
-	public String getInformationIds() {
-		return informationIds;
-	}
-
-	public void setInformationIds(String informationIds) {
-		this.informationIds = informationIds;
 	}
 
 	public int getType() {

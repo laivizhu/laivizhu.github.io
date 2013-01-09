@@ -93,4 +93,10 @@ public class SearchAction extends ABasicAction<SearchItem> {
 		this.tagService = tagService;
 	}
 
+	
+	@Override
+	public JsonItem getJsonItem(SearchItem object) throws Exception {
+		return null;
+	}
+
 }

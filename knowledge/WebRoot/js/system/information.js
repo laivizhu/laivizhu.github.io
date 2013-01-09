@@ -6,7 +6,10 @@ Ext.onReady(function(){
     		}),
     		levelStore:new Fmp.ComboStore({
     			url:'information_typeList.action'
-    		})
+    		}),
+    		keyStore:new Fmp.ComboStore({
+    			url:'information_getKeywordCombolList.action'
+    		}),
     };
 
     var handler={
@@ -21,7 +24,7 @@ Ext.onReady(function(){
              if(!Fmp.isEmpty(informationIds)){
             	 Fmp.confirm('确认要删除吗？',function(){
          			Fmp.ajaxCall({
-                         url:'information_delete.action?informationIds='+informationIds,
+                         url:'information_deletes.action?ids='+informationIds,
                          successHandler:function(){
                         	 stores.informationStore.loadPage();
                          }
@@ -55,7 +58,7 @@ Ext.onReady(function(){
     	{text : '删除信息',iconCls:'remove',handler:function(){
     			handler.deleteKnowledge();
     		}
-    	}
+    	},getSearchCom(stores.keyStore,'information_search.action',stores.informationStore)
     ]);
     
     var cb = new Ext.grid.CheckboxSelectionModel();

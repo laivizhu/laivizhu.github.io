@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
+import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.model.po.BasicEntity;
 import com.laivi.knowledge.basic.model.type.ResponseType;
@@ -35,6 +36,7 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	protected IBasicService<T> basicService;
 
 	protected long id; // 常用Id
+	protected String ids; //多Id拼接字符串，以，分割
 	protected int start; // 分页开始数
 	protected int limit; // 分页页容量
 
@@ -76,7 +78,7 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 			}
 		}
 		for (T o : basicService.getList(conditions,start, limit)) {
-			jsonList.add(o.toJson());
+			this.addData(jsonList,o);
 		}
 		return response(jsonList.toPageString(basicService.getCount(conditions)));
 	}
@@ -90,6 +92,12 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 		basicService.remove(id);
 		return response(true);
 	}
+	
+	public String deletes()throws Exception{
+		ParamAssert.isNotEmptyString(ids, "error.object.notChoose");
+		basicService.remove(ids);
+		return response(true);
+	}
 
 	public String get() throws Exception {
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
@@ -100,7 +108,7 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 		JsonList jsonList = new JsonList();
 		CriterionList conditions=this.getUserCriterionList();
 		for (T o : basicService.getList(conditions,start, limit)) {
-			jsonList.add(o.toJson());
+			this.addData(jsonList, o);
 		}
 		return response(jsonList.toPageString((int)basicService.getCount(conditions)));
 	}
@@ -113,7 +121,14 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 		return null;
 	}
 	
-	
+	protected void addData(JsonList jsonList,T o) throws Exception{
+		JsonItem item=this.getJsonItem(o);
+		if(item==null){
+			jsonList.add(o.toJson());
+		}else{
+			jsonList.add(item.toString());
+		}
+	}
 	
 	protected long getCurrentUserId(){
 		User user=(User)ServletActionContext.getRequest().getSession().getAttribute("user");
@@ -306,5 +321,13 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
 	}
 }

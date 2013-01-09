@@ -27,14 +27,6 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 	private ITagService tagService;
 	private Knowledge knowledge;
 	
-	private String knowledgeIds;
-	
-	public String delete()throws Exception{
-		ParamAssert.isNotEmptyString(knowledgeIds, "error.object.notChoose");
-		this.knowledgeService.remove(knowledgeIds);
-		return response(true);
-	}
-	
 	public String update()throws Exception{
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
 		ParamAssert.isNotEmptyString(knowledge.getTitle(), "error.knowledge.title.notNULL");
@@ -92,7 +84,6 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		return jsonList;
 	}
 
-
 	public Knowledge getKnowledge() {
 		return knowledge;
 	}
@@ -115,13 +106,4 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 	public void setTagService(ITagService tagService) {
 		this.tagService = tagService;
 	}
-	
-	public String getKnowledgeIds() {
-		return knowledgeIds;
-	}
-
-	public void setKnowledgeIds(String knowledgeIds) {
-		this.knowledgeIds = knowledgeIds;
-	}
-
 }

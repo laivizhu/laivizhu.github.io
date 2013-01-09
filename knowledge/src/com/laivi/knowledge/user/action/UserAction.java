@@ -29,7 +29,6 @@ public class UserAction extends ABasicAction<User> {
     private User user;
     
     private String confirmPassword;
-    private String userIds;
 
     public String login()throws Exception{
        ParamAssert.isNotEmptyString(user.getAccount(),"error.user.login.account.notNULL");
@@ -63,21 +62,15 @@ public class UserAction extends ABasicAction<User> {
         return response(true);
     }
     
-    public String delete()throws Exception{
-    	ParamAssert.isNotEmptyString(userIds, "error.object.notChoose");
-    	userService.remove(userIds);
-    	return response(true);
-    }
-    
     public String resetPassword()throws Exception{
-    	ParamAssert.isNotEmptyString(userIds, "error.object.notChoose");
-    	userService.resetPassword(userIds);
+    	ParamAssert.isNotEmptyString(ids, "error.object.notChoose");
+    	userService.resetPassword(ids);
     	return response(true);
     }
     
     public String disableOrEnableUser()throws Exception{
-    	ParamAssert.isNotEmptyString(userIds, "error.objcet.notChoose");
-    	userService.disableOrEnableUser(userIds);
+    	ParamAssert.isNotEmptyString(ids, "error.objcet.notChoose");
+    	userService.disableOrEnableUser(ids);
     	return response(true);
     }
 
@@ -134,12 +127,4 @@ public class UserAction extends ABasicAction<User> {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-
-	public String getUserIds() {
-		return userIds;
-	}
-
-	public void setUserIds(String userIds) {
-		this.userIds = userIds;
-	}
 }

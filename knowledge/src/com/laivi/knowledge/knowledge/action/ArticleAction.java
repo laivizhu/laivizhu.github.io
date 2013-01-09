@@ -29,13 +29,6 @@ public class ArticleAction extends ABasicAction<Article> {
 	private IArticleService articleService;
 	private ITagService tagService;
 	private Article article;
-	private String articleIds;
-	
-	public String delete()throws Exception{
-		ParamAssert.isNotEmptyString(articleIds, "error.object.notChoose");
-		this.articleService.remove(articleIds);
-		return response(true);
-	}
 	
 	public String add()throws Exception{
 		ParamAssert.isNotEmptyString(article.getTitle(), "error.article.title.notNULL");
@@ -77,7 +70,7 @@ public class ArticleAction extends ABasicAction<Article> {
 		.add("title", object.getTitle())
 		.add("content", object.getContent())
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
-		.add("tags", this.tagService.getTagsName(object.getTagIds()));
+		.add("tagIds", this.tagService.getTagsName(object.getTagIds()));
 		return item;
 	}
 	

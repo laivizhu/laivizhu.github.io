@@ -24,7 +24,7 @@ Ext.onReady(function(){
              if(!Fmp.isEmpty(tagIds)){
             	 Fmp.confirm('确认要删除吗？',function(){
          			Fmp.ajaxCall({
-                         url:'tag_delete.action?tagIds='+tagIds,
+                         url:'tag_deletes.action?ids='+tagIds,
                          successHandler:function(){
                         	 stores.tagStore.loadPage();
                          }

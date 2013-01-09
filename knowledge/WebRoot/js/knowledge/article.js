@@ -1,7 +1,7 @@
 Ext.onReady(function(){
     var stores={
     		articleStore:new Fmp.JsonStore({
-    			items:['id','title','content','tags','createDate'],
+    			items:['id','title','content','tagIds','createDate'],
     			url:'article_list.action'
     		}),
     		tagStore:new Fmp.ComboStore({
@@ -24,7 +24,7 @@ Ext.onReady(function(){
              if(!Fmp.isEmpty(articleIds)){
             	 Fmp.confirm('确认要删除吗？',function(){
          			Fmp.ajaxCall({
-                         url:'article_delete.action?articleIds='+articleIds,
+                         url:'article_deletes.action?ids='+articleIds,
                          successHandler:function(){
                         	 stores.articleStore.loadPage();
                          }
@@ -69,7 +69,7 @@ Ext.onReady(function(){
             cb,
              GridColumnObject('文章标题','title'),
              GridColumnObject('文章内容','content'),
-             GridColumnObject('标签','tags'),
+             GridColumnObject('标签','tagIds'),
              GridColumnObject('创建时间','createDate')
         ]
     });

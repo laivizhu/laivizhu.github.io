@@ -15,7 +15,7 @@ import com.laivi.knowledge.basic.util.JsonUtil;
 public abstract class BasicEntity implements BaseEntity,JsonEntity{
     @Override
     public String toJson() {
-        return JsonUtil.toJson(this);
+        return JsonUtil.parseObject(this);
     }
 
 	@Override

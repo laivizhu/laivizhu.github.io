@@ -12,10 +12,8 @@ import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
-import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.model.type.TagType;
 import com.laivi.knowledge.basic.service.IBasicService;
-import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.knowledge.model.po.Tag;
 import com.laivi.knowledge.knowledge.service.ITagService;
@@ -28,8 +26,6 @@ import com.laivi.knowledge.knowledge.service.ITagService;
 public class TagAction extends ABasicAction<Tag> {
 	private ITagService tagService;
 	private Tag tag;
-	
-	private String tagIds;
 
 	public String add()throws Exception{
 		ParamAssert.isNotNull(tag, "error.tag.name.notNULL");
@@ -51,21 +47,6 @@ public class TagAction extends ABasicAction<Tag> {
 		dTag.setType(tag.getType());
 		this.tagService.modify(dTag);
 		return response(true);
-	}
-	
-	public String delete()throws Exception{
-		ParamAssert.isNotEmptyString(tagIds, "error.object.notChoose");
-		this.tagService.remove(tagIds);
-		return response(true);
-	}
-	
-	public String list()throws Exception{
-		CriterionList conditions=this.getUserCriterionList();
-		JsonList jsonList=new JsonList();
-		for(Tag tag:tagService.getList(conditions,start,limit)){
-			jsonList.add(tag.toJson());
-		}
-		return response(jsonList.toPageString(tagService.getCount(conditions)));
 	}
 	
 	public String comboList()throws Exception{
@@ -104,12 +85,7 @@ public class TagAction extends ABasicAction<Tag> {
 	}
 
     public JsonItem getJsonItem(Tag object) throws Exception {
-    	JsonItem item=new JsonItem();
-    	item.add("id", object.getId())
-    	.add("name", object.getName())
-    	.add("type", TagType.fromValue(object.getType()).toText())
-    	.add("createDate", DateUtil.formatDate(object.getCreateDate()));
-        return item;
+    	return null;
     }
     
     @Resource(name="TagService")
@@ -128,13 +104,5 @@ public class TagAction extends ABasicAction<Tag> {
 
 	public void setTag(Tag tag) {
 		this.tag = tag;
-	}
-
-	public String getTagIds() {
-		return tagIds;
-	}
-
-	public void setTagIds(String tagIds) {
-		this.tagIds = tagIds;
 	}
 }
