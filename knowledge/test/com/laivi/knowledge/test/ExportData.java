@@ -1,4 +1,4 @@
-package com.janlu.knowledge.test;
+package com.laivi.knowledge.test;
 
 import org.junit.Before;
 import org.junit.Test;

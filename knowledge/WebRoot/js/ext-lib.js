@@ -722,13 +722,13 @@ function getSearchCom(store,url,dataStore){
 		name: 'endDate',
 	    id: 'endDateSearchId',
 	    width: 90,
-	    emptyText :'请选择结束日期',
+	    blankText :'请选择结束日期',
 	    anchor: '99%'
 	}), "->","开始日期：",new Fmp.DateField({
 		name: 'startDate',
 	    id: 'startDateSearchId',
 	    width: 90,
-	    emptyText :'请选择开始日期',
+	    blankText :'请选择开始日期',
 	    anchor: '99%'
 	})];
 	return searchCom;

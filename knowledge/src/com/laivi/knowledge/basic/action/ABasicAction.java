@@ -21,6 +21,7 @@ import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.user.model.po.User;
+import com.laivi.knowledge.user.service.IUserService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -34,6 +35,7 @@ import com.opensymphony.xwork2.ActionSupport;
 @SuppressWarnings("serial")
 public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport implements IBasicAction<T> {
 	protected IBasicService<T> basicService;
+	protected IUserService userService;
 
 	protected long id; // 常用Id
 	protected String ids; //多Id拼接字符串，以，分割
