@@ -39,14 +39,15 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 
 	protected long id; // 常用Id
 	protected String ids; //多Id拼接字符串，以，分割
+	//************************************************分页参数*******************************************
 	protected int start; // 分页开始数
 	protected int limit; // 分页页容量
-
+	//************************************************搜索参数*******************************************
 	protected String value; // 查询的内容
 	protected String key; // 查询内容的类别
 	protected String startDate;//开始时间
 	protected String endDate;//结束时间
-
+	//************************************************下载参数*******************************************
 	protected String downLoadPath; // 下载文件目录
 	protected String resultPath; // 下载文件跳转result名
 	protected String fileName; // 下载服务端文件名
@@ -132,6 +133,15 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 		}
 	}
 	
+	/**
+	 * 
+	 * 函数功能说明:获取登入用户Id
+	 * 修改者名字Janlu 修改日期  Jan 14, 2013
+	 * 修改内容
+	 * @参数： @return    
+	 * @return long   
+	 * @throws
+	 */
 	protected long getCurrentUserId(){
 		User user=(User)ServletActionContext.getRequest().getSession().getAttribute("user");
 		if(user!=null){
@@ -141,6 +151,15 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 		}
 	}
 	
+	/**
+	 * 
+	 * 函数功能说明:判断是否是系统管理员
+	 * 修改者名字Janlu 修改日期  Jan 14, 2013
+	 * 修改内容
+	 * @参数： @return    
+	 * @return boolean   
+	 * @throws
+	 */
 	protected boolean isSystemUser(){
 		User user=(User)ServletActionContext.getRequest().getSession().getAttribute("user");
 		if(user!=null){
@@ -150,6 +169,15 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 		}
 	}
 	
+	/**
+	 * 
+	 * 函数功能说明：获取当前用户的查询条件
+	 * 修改者名字Janlu 修改日期  Jan 14, 2013
+	 * 修改内容
+	 * @参数： @return    
+	 * @return CriterionList   
+	 * @throws
+	 */
 	protected CriterionList getUserCriterionList(){
 		CriterionList conditions=CriterionList.CreateCriterion();
 		if(!this.isSystemUser()){
@@ -158,6 +186,15 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 		return conditions;
 	}
 
+	/**
+	 * 
+	 * 函数功能说明：
+	 * 修改者名字Janlu 修改日期  Jan 14, 2013
+	 * 修改内容
+	 * @参数：     
+	 * @return String   
+	 * @throws Exception
+	 */
 	public String downLoad() throws Exception {
 		if (DataUtil.notEmptyString(resultPath)) {
 			return resultPath;
@@ -218,18 +255,17 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 
 	/**
 	 * 
-	 * 函数功能说明: 修改者名字Janlu 修改日期 2012-11-18 修改内容
-	 * 
+	 * 函数功能说明: 
+	 * 修改者名字Janlu 修改日期 2012-11-18 修改内容
 	 * @参数： @param path
-	 * @参数： @return
 	 * @return String
 	 * @throws
 	 */
-	public String getRealPath(String path) {
+	protected String getRealPath(String path) {
 		return ServletActionContext.getRequest().getSession().getServletContext().getRealPath(path);
 	}
 
-	public String encodeString(String value) {
+	protected String encodeString(String value) {
 		try {
 			return new String(value.getBytes("iso-8859-1"), "utf-8");
 		} catch (UnsupportedEncodingException e) {

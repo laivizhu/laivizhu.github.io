@@ -34,12 +34,13 @@ public class ReplyAction extends ABasicAction<Reply> {
 	private Reply reply;
 	
 	public String add()throws Exception{
-		ParamAssert.isNotEmptyString(reply.getContext(), "");
+		ParamAssert.isNotEmptyString(reply.getContext(), "error.reply.content.notNULL");
 		reply.setCreateDate(new Date());
 		reply.setUserId(this.getCurrentUserId());
 		replyService.add(reply);
 		return response(true);
 	}
+	
 	public String list()throws Exception{
 		JsonList jsonList=new JsonList();
 		CriterionList conditions=CriterionList.CreateCriterion().put(Restrictions.eq("articleId", id));
@@ -52,7 +53,9 @@ public class ReplyAction extends ABasicAction<Reply> {
 	
 	public JsonItem getJsonItem(Reply object) throws Exception {
 		JsonItem item=new JsonItem();
-		item.add("id", object.getId()).add("content", object.getContext()).add("createDate", DateUtil.formatDate(object.getCreateDate()))
+		item.add("id", object.getId())
+		.add("content", object.getContext())
+		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("user", this.userService.getObject(object.getUserId()).getUserName());
 		return item;
 	}
