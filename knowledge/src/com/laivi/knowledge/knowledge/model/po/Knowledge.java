@@ -27,7 +27,7 @@ public class Knowledge extends BasicEntity{
     
     private String tagIds;
     
-    private Date createDate;
+    private Date createDate=new Date();
 
     @Id
     @GeneratedValue

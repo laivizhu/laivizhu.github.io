@@ -1,7 +1,5 @@
 package com.laivi.knowledge.knowledge.action;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import org.hibernate.criterion.Restrictions;
@@ -32,7 +30,6 @@ public class TagAction extends ABasicAction<Tag> {
 		ParamAssert.isNotEmptyString(tag.getName(), "error.tag.name.notNULL");
 		ParamAssert.isTrue(tag.getType()!=0, "error.tag.type.notNULL");
 		tag.setUserId(this.getCurrentUserId());
-		tag.setCreateDate(new Date());
 		tagService.add(tag);
 		return response(true);
 	}

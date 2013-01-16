@@ -28,7 +28,7 @@ public class Tag extends BasicEntity{
     
     private int type;
     
-    private Date createDate;
+    private Date createDate=new Date();
 
     @Id
     @GeneratedValue

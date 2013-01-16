@@ -1,7 +1,5 @@
 package com.laivi.knowledge.knowledge.action;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
@@ -71,7 +69,6 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		ParamAssert.isNotEmptyString(knowledge.getContent(), "error.knowledge.content.notNULL");
 		ParamAssert.isNotEmptyString(knowledge.getTagIds(), "error.knowledge.tag.notNULL");
 		knowledge.setUserId(this.getCurrentUserId());
-		knowledge.setCreateDate(new Date());
 		knowledgeService.add(knowledge);
 		return response(true);
 	}

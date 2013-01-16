@@ -12,8 +12,6 @@ import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.knowledge.model.po.Message;
 import com.laivi.knowledge.knowledge.service.IMessageService;
 
-import java.util.Date;
-
 /**
  * Copyright Laivi
  * 
@@ -31,7 +29,6 @@ public class MessageAction extends ABasicAction<Message> {
         ParamAssert.isNotEmptyString(message.getTitle(),"");
         ParamAssert.isNotEmptyString(message.getContent(),"");
         ParamAssert.isTrue(message.getToUserId() != 0, "");
-        message.setCreateDate(new Date());
         message.setUserId(this.getCurrentUserId());
         message.setReadIs(false);
         this.messageService.add(message);

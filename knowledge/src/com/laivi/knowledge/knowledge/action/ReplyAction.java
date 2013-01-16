@@ -1,7 +1,5 @@
 package com.laivi.knowledge.knowledge.action;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import org.hibernate.criterion.Restrictions;
@@ -35,7 +33,6 @@ public class ReplyAction extends ABasicAction<Reply> {
 	
 	public String add()throws Exception{
 		ParamAssert.isNotEmptyString(reply.getContext(), "error.reply.content.notNULL");
-		reply.setCreateDate(new Date());
 		reply.setUserId(this.getCurrentUserId());
 		replyService.add(reply);
 		return response(true);

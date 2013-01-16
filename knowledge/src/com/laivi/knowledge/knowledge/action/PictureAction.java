@@ -61,7 +61,7 @@ public class PictureAction extends ABasicAction<Picture> {
 		.add("description", object.getDescription())
 		.add("tagIds", this.tagService.getTagsName(object.getTagIds()))
 		.add("path",object.getPath())
-		.add("inDate", DateUtil.formatDate(object.getIndate()));
+		.add("createDate", DateUtil.formatDate(object.getCreateDate()));
 		return item;
 	}
 	

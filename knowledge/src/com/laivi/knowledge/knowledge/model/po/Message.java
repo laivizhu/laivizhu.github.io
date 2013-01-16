@@ -23,7 +23,7 @@ public class Message extends BasicEntity{
 	private long id;
 	private String title;
 	private String content;
-	private Date createDate;
+	private Date createDate=new Date();
 	private long userId;
 	private long toUserId;
 	private boolean readIs;

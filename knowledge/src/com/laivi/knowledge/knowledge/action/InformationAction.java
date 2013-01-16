@@ -1,7 +1,5 @@
 package com.laivi.knowledge.knowledge.action;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import org.hibernate.criterion.Order;
@@ -40,7 +38,6 @@ public class InformationAction extends ABasicAction<Information> {
 	public String add()throws Exception{
 		ParamAssert.isNotEmptyString(information.getTitle(), "error.information.title.notNULL");
 		ParamAssert.isNotEmptyString(information.getContent(), "error.information.content.notNULL");
-		information.setCreateDate(new Date());
 		information.setUserId(getCurrentUserId());
 		this.informationService.add(information);
 		return response(true);

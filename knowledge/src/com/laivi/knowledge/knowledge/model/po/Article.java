@@ -25,7 +25,7 @@ public class Article extends BasicEntity{
 	private long id;
 	private String title;
 	private String content;
-	private Date createDate;
+	private Date createDate=new Date();
 	private long userId;
 	private String tagIds;
 	@Id

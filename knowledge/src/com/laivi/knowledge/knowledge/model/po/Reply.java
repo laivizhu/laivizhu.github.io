@@ -24,7 +24,7 @@ public class Reply extends BasicEntity{
 	private String context;
 	private long userId;
 	private long articleId;
-	private Date createDate;
+	private Date createDate=new Date();
 	@Id
 	@GeneratedValue
 	public long getId() {

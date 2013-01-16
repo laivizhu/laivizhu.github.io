@@ -24,7 +24,9 @@ public class PostsAction extends ABasicAction<Posts> {
 	private Posts posts;
 	
 	public JsonItem getJsonItem(Posts object) throws Exception {
-		return null;
+		JsonItem item=new JsonItem();
+		item.add("id", object.getId());
+		return item;
 	}
 	
 	public JsonItemList getSearchComboList()throws ErrorException{

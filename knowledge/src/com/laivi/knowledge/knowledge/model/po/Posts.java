@@ -26,7 +26,7 @@ public class Posts extends BasicEntity{
 	private boolean parent;
 	private long postsId;
 	private long userId;
-	private Date createDate;
+	private Date createDate=new Date();
 	
 	@Override
 	@Id

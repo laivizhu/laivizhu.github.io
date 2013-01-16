@@ -1,7 +1,5 @@
 package com.laivi.knowledge.knowledge.action;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
@@ -35,7 +33,6 @@ public class ArticleAction extends ABasicAction<Article> {
 		ParamAssert.isNotEmptyString(article.getTagIds(), "error.article.tag.notNULL");
 		ParamAssert.isNotEmptyString(article.getContent(), "error.article.content.notNULL");
 		article.setUserId(this.getCurrentUserId());
-		article.setCreateDate(new Date());
 		this.articleService.add(article);
 		return response(true);
 	}
