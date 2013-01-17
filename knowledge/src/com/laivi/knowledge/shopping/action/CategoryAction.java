@@ -31,22 +31,25 @@ public class CategoryAction extends ABasicAction<Category> {
 	private ICategoryService categoryService;
 	
 	public String add()throws Exception{
-		ParamAssert.isNotEmptyString(category.getName(),"");
+		ParamAssert.isNotEmptyString(category.getName(),"error.shopping.category.name.notNULL");
 		Integer maxPriority=(Integer)categoryService.getObjectByHql("select max(priority) from Category where level="+category.getLevel(), null);
 		if(maxPriority==null){
 			category.setPriority(1);
 		}else{
 			category.setPriority(maxPriority+1);
 		}
-		
 		categoryService.add(category);
 		return response(true);
 	}
 	
 	public String update()throws Exception{
-		ParamAssert.isNotEmptyString(category.getName(),"");
+		ParamAssert.isNotEmptyString(category.getName(),"error.shopping.category.name.notNULL");
 		Category dCategory=categoryService.getObject(id);
 		dCategory.setName(category.getName());
+		dCategory.setLevel(category.getLevel());
+		if(category.getParentId()!=0){
+			dCategory.setParentId(category.getParentId());
+		}
 		categoryService.modify(dCategory);
 		return response(true);
 	}
@@ -94,12 +97,23 @@ public class CategoryAction extends ABasicAction<Category> {
 		}
 		return response(jsonList);
 	}
+	
+	public String childrenList()throws Exception{
+		JsonItemList jsonList=new JsonItemList();
+		CriterionList conditions=CriterionList.CreateCriterion();
+		conditions.put(Order.desc("priority")).put(Restrictions.eq("parentId", category.getParentId()));
+		for(Category category:categoryService.getList(conditions)){
+			jsonList.createItem().add("value", category.getId()).add("text", category.getName());
+		}
+		return response(jsonList);
+	}
 
 
 	@Override
 	public JsonItemList getSearchComboList() throws ErrorException {
 		JsonItemList jsonList=new JsonItemList();
 		jsonList.createItem().add("value", "name").add("text", "类别名");
+		//jsonList.createItem().add("value", "level").add("text", "类别等级");
 		return jsonList;
 	}
 
@@ -116,7 +130,6 @@ public class CategoryAction extends ABasicAction<Category> {
 		}
 		return item;
 	}
-
 
 	public Category getCategory() {
 		return category;
@@ -135,7 +148,4 @@ public class CategoryAction extends ABasicAction<Category> {
 	public void setBasicService(IBasicService<Category> basicService){
 		this.basicService=basicService;
 	}
-	
-	
-
 }

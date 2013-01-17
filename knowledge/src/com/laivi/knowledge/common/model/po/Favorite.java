@@ -31,6 +31,7 @@ public class Favorite extends BasicEntity {
 	private FavoriteType type;
 	private long favoriteId;
 	private long userId;
+
 	
 	@Override
 	@Id

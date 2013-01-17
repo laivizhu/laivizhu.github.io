@@ -16,7 +16,7 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table
+@Table(name="t_category")
 public class Category extends BasicEntity {
 	private long id;
 	private String name;

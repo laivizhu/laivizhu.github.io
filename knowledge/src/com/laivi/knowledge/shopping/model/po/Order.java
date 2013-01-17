@@ -30,7 +30,7 @@ public class Order extends BasicEntity {
 	private long id;
 	private String code;
 	private List<ShoppingItem> item=new ArrayList<ShoppingItem>();
-	private Date createDate;
+	private Date createDate=new Date();
 	private long userId;
 	private int status;
 	@Override

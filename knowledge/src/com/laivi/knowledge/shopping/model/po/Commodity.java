@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -29,6 +30,7 @@ public class Commodity extends BasicEntity {
 	private String name;
 	private String description;
 	private Category category;
+	private String picturePath;
 	
 	@Override
 	@Id
@@ -75,11 +77,20 @@ public class Commodity extends BasicEntity {
 		this.category = category;
 	}
 
+	@Lob
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getPicturePath() {
+		return picturePath;
+	}
+
+	public void setPicturePath(String picturePath) {
+		this.picturePath = picturePath;
 	}
 }

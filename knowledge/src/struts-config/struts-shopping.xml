@@ -4,5 +4,6 @@
 <struts>
 	<package name="shopping" extends="struts-base" namespace="/shopping">
         <action name="category_*" class="com.laivi.knowledge.shopping.action.CategoryAction" method="{1}"/>
+        <action name="commodity_*" class="com.laivi.knowledge.shopping.action.CommodityAction" method="{1}"/>
 	</package>
 </struts>    

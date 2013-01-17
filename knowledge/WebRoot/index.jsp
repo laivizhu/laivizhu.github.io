@@ -32,7 +32,8 @@
 		panelItems.push(treePanel('商店管理',
 			parentNode('商品信息管理',
 				parentNode('商品管理',
-					leafNode('商品类别管理', 'shopping/category.jsp', '商品类别的相关操作')))
+					leafNode('商品类别管理', 'shopping/category.jsp', '商品类别的相关操作'),
+					leafNode('商品管理', 'shopping/commodity.jsp', '商品的相关操作')))
 		));
 		panelItems.push(treePanel('系统管理',
 			parentNode('系统管理',

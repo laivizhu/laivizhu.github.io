@@ -1,12 +1,15 @@
 package com.laivi.knowledge.common.action;
 
-import org.apache.commons.httpclient.util.DateUtil;
-
 import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
+import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.common.model.po.Favorite;
+import com.laivi.knowledge.common.service.IFavoriteService;
+import org.apache.commons.httpclient.util.DateUtil;
+
+import javax.annotation.Resource;
 
 /**
  * Copyright Laivi
@@ -17,6 +20,13 @@ import com.laivi.knowledge.common.model.po.Favorite;
  */
 @SuppressWarnings("serial")
 public class FavoriteAction extends ABasicAction<Favorite> {
+    private Favorite favorite;
+    private IFavoriteService favoriteService;
+
+    public String add()throws Exception{
+        ParamAssert.isTrue(favorite.getFavoriteId()!=0,"");
+        return response();
+    }
 
 	@Override
 	public JsonItemList getSearchComboList() throws ErrorException {
@@ -37,4 +47,16 @@ public class FavoriteAction extends ABasicAction<Favorite> {
 		return item;
 	}
 
+    public Favorite getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Favorite favorite) {
+        this.favorite = favorite;
+    }
+
+    @Resource(name = "FavoriteService")
+    public void setFavoriteService(IFavoriteService favoriteService) {
+        this.favoriteService = favoriteService;
+    }
 }

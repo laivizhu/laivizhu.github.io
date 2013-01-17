@@ -1,5 +1,7 @@
 package com.laivi.knowledge.test;
 
+import com.laivi.knowledge.basic.util.JsonUtil;
+import com.laivi.knowledge.common.model.type.FavoriteType;
 import org.junit.Test;
 
 import com.laivi.knowledge.basic.model.exception.ErrorException;
@@ -19,5 +21,10 @@ public class UtilTest {
 		String str="字符串不合法abc不合法";
 		System.out.println(DataUtil.getDefaultChar(str,9));
 	}
+    @Test
+    public void testEnumJson()throws ErrorException{
+        FavoriteType type=FavoriteType.ARTICLE;
+        System.out.println(JsonUtil.parseArray(type));
+    }
 
 }
