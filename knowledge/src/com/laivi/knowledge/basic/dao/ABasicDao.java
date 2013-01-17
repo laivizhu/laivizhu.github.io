@@ -108,7 +108,6 @@ public abstract class ABasicDao<T extends BaseEntity> implements IBasicDao<T> {
 			}else if(obj instanceof Order){
 				dc.addOrder((Order)obj);
 			}
-			
 		}
 		return dc;
 	}

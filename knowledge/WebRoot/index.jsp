@@ -29,6 +29,11 @@
 				parentNode('图片管理',
 					leafNode('图片管理', 'knowledge/picture_add.jsp', '图片的相关操作')))
 		));
+		panelItems.push(treePanel('商店管理',
+			parentNode('商品信息管理',
+				parentNode('商品管理',
+					leafNode('商品类别管理', 'shopping/category.jsp', '商品类别的相关操作')))
+		));
 		panelItems.push(treePanel('系统管理',
 			parentNode('系统管理',
 				parentNode('用户权限分配管理',
