@@ -14,6 +14,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
@@ -29,11 +30,19 @@ import com.laivi.knowledge.basic.model.po.BaseEntity;
  */
 public abstract class ABasicDao<T extends BaseEntity> implements IBasicDao<T> {
 	protected HibernateTemplate hibernateTemplate;
-
+	protected JdbcTemplate jdbcTemplate;
+	
 	@Resource
 	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
 		this.hibernateTemplate = hibernateTemplate;
 	}
+	
+	@Resource(name="jdbcTemplate")
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
+
 
 	@SuppressWarnings("unchecked")
 	public List<T> getList(DetachedCriteria dc) {
@@ -115,4 +124,9 @@ public abstract class ABasicDao<T extends BaseEntity> implements IBasicDao<T> {
 	public Object getObjectByHql(String hql, Object[] parameters) {
 		return hibernateTemplate.find(hql, parameters).get(0);
 	}
+	
+	public void executeSql(String sql,Object[] params){
+		jdbcTemplate.update(sql);
+	}
+	
 }

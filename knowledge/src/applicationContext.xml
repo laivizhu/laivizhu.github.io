@@ -112,6 +112,10 @@
         <property name="cacheQueries" value="true"/>
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+    
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
 
     <aop:aspectj-autoproxy />
 

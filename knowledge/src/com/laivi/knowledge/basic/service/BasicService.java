@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.laivi.knowledge.basic.dao.IBasicDao;
 import com.laivi.knowledge.basic.model.CriterionList;
+import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.po.BaseEntity;
 import com.laivi.knowledge.basic.util.DataUtil;
 
@@ -81,5 +82,13 @@ public class BasicService<T extends BaseEntity> implements IBasicService<T> {
 	public List<T> getList(String idStrings) {
 		CriterionList conditions=CriterionList.CreateCriterion().put(Restrictions.in("id", DataUtil.changeIdString(idStrings)));
 		return this.getList(conditions);
+	}
+	
+	public void executeSql(String sql,Object[] params)throws ErrorException{
+		try{
+			basicDao.executeSql(sql, params);
+		}catch(Exception e){
+			throw new ErrorException("error.sql");
+		}
 	}
 }

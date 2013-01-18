@@ -5,7 +5,7 @@ package com.laivi.knowledge.shopping.model.type;
  * Time: 13-01-17 下午11:32
  */
 public enum StatusType {
-	INIT("购物中",1),CONFIRM("确认后",2),WAITING("发货中",3),FINISH("确认收货,交易成功",4),RETURN("退货",5);
+	INIT("购物中",1),CONFIRM("已提交，等待发货",2),WAITING("发货中,等待确认",3),FINISH("确认收货,交易成功",4),RETURN("退货",5);
 	
 	private final String text;
 	private final int value;

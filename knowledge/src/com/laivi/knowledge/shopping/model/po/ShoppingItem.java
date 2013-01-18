@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.po.BasicEntity;
 
 /**
@@ -20,14 +21,14 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name="t_shoppingItem")
+@Table(name = "t_shoppingItem")
 public class ShoppingItem extends BasicEntity {
 
 	private long id;
 	private Commodity commodity;
 	private int count;
 	private float price;
-	
+
 	@Override
 	@Id
 	@GeneratedValue
@@ -35,8 +36,8 @@ public class ShoppingItem extends BasicEntity {
 		return id;
 	}
 
-	@ManyToOne(cascade ={CascadeType.ALL},fetch=FetchType.LAZY)
-	@JoinColumn(name="commodityId")
+	@ManyToOne(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@JoinColumn(name = "commodityId")
 	public Commodity getCommodity() {
 		return commodity;
 	}
@@ -64,5 +65,15 @@ public class ShoppingItem extends BasicEntity {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
+	@Override
+	public String toJson() {
+		JsonItem item = new JsonItem();
+		item.add("id", this.getId()).add("count", this.getCount())
+				.add("price", this.getPrice())
+				.add("name", this.getCommodity().getName())
+				.add("category", this.getCommodity().getCategory().getName());
+		return item.toString();
+	}
+
 }

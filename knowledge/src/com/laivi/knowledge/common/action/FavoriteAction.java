@@ -1,15 +1,18 @@
 package com.laivi.knowledge.common.action;
 
+import javax.annotation.Resource;
+
+import org.apache.commons.httpclient.util.DateUtil;
+
 import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
+import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.common.model.po.Favorite;
+import com.laivi.knowledge.common.model.type.FavoriteType;
 import com.laivi.knowledge.common.service.IFavoriteService;
-import org.apache.commons.httpclient.util.DateUtil;
-
-import javax.annotation.Resource;
 
 /**
  * Copyright Laivi
@@ -24,8 +27,11 @@ public class FavoriteAction extends ABasicAction<Favorite> {
     private IFavoriteService favoriteService;
 
     public String add()throws Exception{
-        ParamAssert.isTrue(favorite.getFavoriteId()!=0,"");
-        return response();
+        ParamAssert.isTrue(id!=0,"");
+        favorite.setUserId(this.getCurrentUserId());
+        favorite.setFavoriteId(id);
+        this.favoriteService.add(favorite);
+        return response(true);
     }
 
 	@Override
@@ -43,7 +49,7 @@ public class FavoriteAction extends ABasicAction<Favorite> {
 		.add("title", object.getTitle())
 		.add("crateDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("user", object.getUserId())
-		.add("type", object.getType().toText());
+		.add("type", FavoriteType.fromValue(object.getType()).toText());
 		return item;
 	}
 
@@ -58,5 +64,10 @@ public class FavoriteAction extends ABasicAction<Favorite> {
     @Resource(name = "FavoriteService")
     public void setFavoriteService(IFavoriteService favoriteService) {
         this.favoriteService = favoriteService;
+    }
+    
+    @Resource(name = "FavoriteService")
+    public void setBasicService(IBasicService<Favorite> basicService){
+    	this.basicService=basicService;
     }
 }

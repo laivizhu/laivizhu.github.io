@@ -6,7 +6,8 @@ package com.laivi.knowledge.common.model.type;
  */
 public enum FavoriteType {
 	ARTICLE("文章",2),
-	KNOWLEDGE("知识",1);
+	KNOWLEDGE("知识",1),
+	COMMOTITY("商品",3);
 	
 	private final String text;
 	private final int value;

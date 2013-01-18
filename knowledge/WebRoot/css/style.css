@@ -38,6 +38,11 @@
         width: 16px;
 	    background-image:url(../images/save.gif) !important;
 }
+.shoppingCard {
+	    height: 16px;
+        width: 16px;
+	    background-image:url(../images/shoppingCart.png) !important;
+}
 .close {
 	    background-image:url(../images/close.jpg) !important;
 }

@@ -122,4 +122,6 @@ public interface IBasicDao<T extends BaseEntity> {
 	DetachedCriteria getConditionCriteria(CriterionList criterionSet);
 
 	Object getObjectByHql(String hql, Object[] parameters);
+	
+	public void executeSql(String sql,Object[] params);
 }

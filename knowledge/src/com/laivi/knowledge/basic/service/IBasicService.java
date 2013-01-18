@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 
 import com.laivi.knowledge.basic.model.CriterionList;
+import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.po.BaseEntity;
 
 
@@ -42,5 +43,7 @@ public interface IBasicService<T extends BaseEntity> {
 	long getCount(CriterionList conditions);
 
 	Object getObjectByHql(String hql, Object[] parameters);
+	
+	void executeSql(String sql,Object[] params)throws ErrorException;
 
 }

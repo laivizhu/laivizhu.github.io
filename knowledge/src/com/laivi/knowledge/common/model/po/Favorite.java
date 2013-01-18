@@ -3,15 +3,11 @@ package com.laivi.knowledge.common.model.po;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 import com.laivi.knowledge.basic.model.po.BasicEntity;
-import com.laivi.knowledge.common.model.type.FavoriteType;
 
 /**
  * Copyright Laivi
@@ -27,8 +23,8 @@ public class Favorite extends BasicEntity {
 
 	private long id;
 	private String title;
-	private Date createDate;
-	private FavoriteType type;
+	private Date createDate=new Date();
+	private int type;
 	private long favoriteId;
 	private long userId;
 
@@ -56,15 +52,6 @@ public class Favorite extends BasicEntity {
 		this.createDate = createDate;
 	}
 
-	@Enumerated(EnumType.STRING)
-	public FavoriteType getType() {
-		return type;
-	}
-
-	public void setType(FavoriteType type) {
-		this.type = type;
-	}
-
 	public long getFavoriteId() {
 		return favoriteId;
 	}
@@ -84,4 +71,13 @@ public class Favorite extends BasicEntity {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+	
 }

@@ -49,6 +49,19 @@ Ext.onReady(function(){
                 });
 		        win.show();
             }
+    	},
+    	addShoppingCard:function(){
+    		 var commodityId=Fmp.getSelectedIds(commodityGrid,true);
+             if(!Fmp.isEmpty(commodityId)){
+            	 Fmp.confirm('确认要添加到购物车吗？',function(){
+            		 Fmp.ajaxCall({
+            			 url:'order_addShoppingItem?commodityId='+commodityId,
+            			 successHandler:function(){
+            				 Fmp.alert("添加成功");
+            			 }
+            		 });
+            	 });
+             }
     	}
     };
     
@@ -60,11 +73,16 @@ Ext.onReady(function(){
         {text : '修改商品',iconCls:'update',handler:function(){
     			handler.updatecommodity();
         	}
-    	},
-    	{text : '删除商品',iconCls:'remove',handler:function(){
+    	},{
+    		text : '删除商品',iconCls:'remove',handler:function(){
     			handler.deletecommodity();
     		}
-    	},getSearchCom(stores.keyStore,'commodity_search.action',stores.commodityStore)
+    	},{
+    		text:'加入购物车',iconCls:'shoppingCard',handler:function(){
+    			handler.addShoppingCard();
+    		}
+    	},
+    	getSearchCom(stores.keyStore,'commodity_search.action',stores.commodityStore)
     ]);
     
     var cb = new Ext.grid.CheckboxSelectionModel();

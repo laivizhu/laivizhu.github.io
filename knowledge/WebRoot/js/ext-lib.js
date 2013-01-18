@@ -508,6 +508,15 @@ Ext.apply(Fmp, {
 		return "<input type='button' class='btn-grid' value='" + config.text
 				+ "' onclick='" + config.onclick + "'>";
 	},
+	getSelectedField:function(grid,field){
+		var recs=grid.getSelectionModel().getSelections();
+		if(recs.length>0){
+			return recs[0].get(field);
+		}else{
+			Fmp.alert("选择一个对象");
+            return;
+		}
+	},
 	getSelectedIds:function(grid,isSingle){
         isSingle=isSingle||false;
 		var recs=grid.getSelectionModel().getSelections();
