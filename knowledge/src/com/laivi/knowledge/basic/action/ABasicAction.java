@@ -273,6 +273,16 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 			return AppConstants.EMPTY;
 		}
 	}
+	
+	protected String encodeExtString(String value) {
+		try {
+			value = new String(value.trim().getBytes("ISO-8859-1"),"UTF-8");
+			value=value.substring(1,value.length()-1);
+		} catch (UnsupportedEncodingException e) {
+			return AppConstants.EMPTY;
+		}
+		return value;
+	}
 
 	public long getStart() {
 		return start;

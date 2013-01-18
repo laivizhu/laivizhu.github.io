@@ -11,5 +11,6 @@
         <action name="message_*" class="com.laivi.knowledge.knowledge.action.MessageAction" method="{1}"/>
         <action name="information_*" class="com.laivi.knowledge.knowledge.action.InformationAction" method="{1}"/>
         <action name="posts_*" class="com.laivi.knowledge.knowledge.action.PostsAction" method="{1}"/>
+        <action name="favorite_*" class="com.laivi.knowledge.common.action.FavoriteAction" method="{1}"/>
 	</package>
 </struts>    

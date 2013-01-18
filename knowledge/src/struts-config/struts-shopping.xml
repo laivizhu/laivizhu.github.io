@@ -7,5 +7,6 @@
         <action name="commodity_*" class="com.laivi.knowledge.shopping.action.CommodityAction" method="{1}"/>
         <action name="order_*" class="com.laivi.knowledge.shopping.action.OrderAction" method="{1}"/>
         <action name="shoppingItem_*" class="com.laivi.knowledge.shopping.action.ShoppingItemAction" method="{1}"/>
+         <action name="favorite_*" class="com.laivi.knowledge.common.action.FavoriteAction" method="{1}"/>
 	</package>
 </struts>    

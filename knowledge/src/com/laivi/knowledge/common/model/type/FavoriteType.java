@@ -5,8 +5,8 @@ package com.laivi.knowledge.common.model.type;
  * Time: 12-6-18 下午11:32
  */
 public enum FavoriteType {
-	ARTICLE("文章",2),
 	KNOWLEDGE("知识",1),
+	ARTICLE("文章",2),
 	COMMOTITY("商品",3);
 	
 	private final String text;

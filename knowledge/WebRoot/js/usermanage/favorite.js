@@ -1,21 +1,18 @@
 Ext.onReady(function(){
     var stores={
-    		favoriteStore:new Fmp.JsonStore({
-    			items:['id','title','type','createDate'],
-    			url:'favorite_list.action'
-    		}),
-    		typeStore:new Fmp.ComboStore({
-    			url:'favorite_typeList.action'
-    		}),
-    		keyStore:new Fmp.ComboStore({
-    			url:'favorite_getKeywordCombolList.action'
-    		}),
+		favoriteStore:new Fmp.JsonStore({
+			items:['id','title','type','createDate'],
+			url:'favorite_list.action'
+		}),
+		typeStore:new Fmp.ComboStore({
+			url:'favorite_typeList.action'
+		}),
+		keyStore:new Fmp.ComboStore({
+			url:'favorite_getKeywordCombolList.action'
+		}),
     };
 
     var handler={
-    	addfavorite:function(){
-    		
-    	},
     	deletefavorite:function(){
     		 var favoriteIds=Fmp.getSelectedIds(favoriteGrid);
              if(!Fmp.isEmpty(favoriteIds)){
@@ -28,14 +25,11 @@ Ext.onReady(function(){
                      });
          		});
              }
-    	},
-    	updatefavorite:function(){
-  
     	}
     };
     
     var toolbar = new Ext.Toolbar([
-    	{text : '删除标签',iconCls:'remove',handler:function(){
+    	{text : '删除收藏',iconCls:'remove',handler:function(){
     			handler.deletefavorite();
     		}
     	},getSearchCom(stores.keyStore,'favorite_search.action',stores.favoriteStore)
@@ -47,8 +41,8 @@ Ext.onReady(function(){
         showRowNum:true, showPaging:true,
         columns:[
             cb,
-             GridColumnObject('标签名','name'),
-             GridColumnObject('标签类型','type'),
+             GridColumnObject('收藏标题','title'),
+             GridColumnObject('收藏类型','type'),
              GridColumnObject('创建时间','createDate')
         ]
     });

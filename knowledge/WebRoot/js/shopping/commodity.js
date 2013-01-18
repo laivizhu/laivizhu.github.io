@@ -50,6 +50,19 @@ Ext.onReady(function(){
 		        win.show();
             }
     	},
+    	addFavorite:function(){
+    		var commodityId=Fmp.getSelectedIds(commodityGrid,true);
+            if(!Fmp.isEmpty(commodityId)){
+            	Fmp.confirm('确认要添加到收藏夹吗？',function(){
+         			Fmp.ajaxCall({
+                         url:'favorite_add.action?favorite.type=3&id='+commodityId+'&favorite.title='+Ext.util.JSON.encode(Fmp.getSelectedField(commodityGrid,'title')),
+                         successHandler:function(){
+                        	 Fmp.alert("添加成功");
+                         }
+                     });
+         		});
+            }
+    	},
     	addShoppingCard:function(){
     		 var commodityId=Fmp.getSelectedIds(commodityGrid,true);
              if(!Fmp.isEmpty(commodityId)){
@@ -77,6 +90,10 @@ Ext.onReady(function(){
     		text : '删除商品',iconCls:'remove',handler:function(){
     			handler.deletecommodity();
     		}
+    	},
+    	{text : '添加到收藏夹',iconCls:'add',handler:function(){
+				handler.addFavorite();
+			}
     	},{
     		text:'加入购物车',iconCls:'shoppingCard',handler:function(){
     			handler.addShoppingCard();

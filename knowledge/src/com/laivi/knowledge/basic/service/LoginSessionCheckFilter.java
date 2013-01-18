@@ -35,7 +35,7 @@ public class LoginSessionCheckFilter implements Filter {
 				HttpSession session = req.getSession();
 				if(session==null || session.getAttribute("user")==null){
 					session.setAttribute("beforeLoginUrl", currentUrl);
-					res.sendRedirect(path+"/login.jsp");
+					res.sendRedirect(path+"/admin/login.jsp");
 				}else{
 					chain.doFilter(request, response);
 				}

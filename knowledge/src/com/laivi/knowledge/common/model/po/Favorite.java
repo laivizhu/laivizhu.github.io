@@ -41,7 +41,7 @@ public class Favorite extends BasicEntity {
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.title=title;
 	}
 
 	public Date getCreateDate() {

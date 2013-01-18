@@ -2,13 +2,15 @@ package com.laivi.knowledge.common.action;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.httpclient.util.DateUtil;
+import org.hibernate.criterion.Restrictions;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
+import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
+import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.common.model.po.Favorite;
 import com.laivi.knowledge.common.model.type.FavoriteType;
@@ -28,16 +30,22 @@ public class FavoriteAction extends ABasicAction<Favorite> {
 
     public String add()throws Exception{
         ParamAssert.isTrue(id!=0,"");
-        favorite.setUserId(this.getCurrentUserId());
-        favorite.setFavoriteId(id);
-        this.favoriteService.add(favorite);
-        return response(true);
+        CriterionList conditions=this.getUserCriterionList();
+        conditions.put(Restrictions.eq("favoriteId", id)).put(Restrictions.eq("type", favorite.getType()));
+        if(this.favoriteService.getCount(conditions)>0){
+        	return response(false,"已收藏");
+        }else{
+	        favorite.setUserId(this.getCurrentUserId());
+	        favorite.setFavoriteId(id);
+	        favorite.setTitle(this.encodeExtString(favorite.getTitle()));
+	        this.favoriteService.add(favorite);
+	        return response(true);
+        }
     }
 
 	@Override
 	public JsonItemList getSearchComboList() throws ErrorException {
 		JsonItemList jsonList=new JsonItemList();
-		jsonList.createItem().add("value", "type").add("text","类型");
 		jsonList.createItem().add("value", "title").add("text", "标题");
 		return jsonList;
 	}
@@ -47,7 +55,7 @@ public class FavoriteAction extends ABasicAction<Favorite> {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("title", object.getTitle())
-		.add("crateDate", DateUtil.formatDate(object.getCreateDate()))
+		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("user", object.getUserId())
 		.add("type", FavoriteType.fromValue(object.getType()).toText());
 		return item;

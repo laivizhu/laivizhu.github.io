@@ -43,6 +43,19 @@ Ext.onReady(function(){
                 });
 		        win.show();
             }
+    	},
+    	addFavorite:function(){
+    		var articleId=Fmp.getSelectedIds(articleGrid,true);
+            if(!Fmp.isEmpty(articleId)){
+            	Fmp.confirm('确认要添加到收藏夹吗？',function(){
+         			Fmp.ajaxCall({
+                         url:'favorite_add.action?favorite.type=2&id='+articleId+'&favorite.title='+Ext.util.JSON.encode(Fmp.getSelectedField(articleGrid,'title')),
+                         successHandler:function(){
+                        	 Fmp.alert("添加成功");
+                         }
+                     });
+         		});
+            }
     	}
     };
     
@@ -58,6 +71,10 @@ Ext.onReady(function(){
     	{text : '删除文章',iconCls:'remove',handler:function(){
     			handler.deletearticle();
     		}
+    	},
+    	{text : '添加到收藏夹',iconCls:'add',handler:function(){
+				handler.addFavorite();
+			}
     	},getSearchCom(stores.keyStore,'article_search.action',stores.articleStore)
     ]);
     
