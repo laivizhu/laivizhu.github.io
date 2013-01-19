@@ -8,12 +8,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<title>商品管理</title>
-	<jsp:include page="../common/includeJs.jsp"/>
-	<script type="text/javascript" src="../js/shopping/commodity.js"></script>
+	<title>订单管理</title>
+	<jsp:include page="../../common/includeJs.jsp"/>
+	<script type="text/javascript" src="../../js/shopping/order.js"></script>
 </head>
 <body>
-<div id="commodityListDivId"></div>
+<div id="orderListDivId"></div>
 </body>
 </html>
 		

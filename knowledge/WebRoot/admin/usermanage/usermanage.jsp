@@ -3,8 +3,8 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>用户管理</title>
-        <jsp:include page="../common/includeJs.jsp"/>
-        <script type="text/javascript" src="../js/usermanage/usermanage.js"></script>
+        <jsp:include page="../../common/includeJs.jsp"/>
+        <script type="text/javascript" src="../../js/usermanage/usermanage.js"></script>
 	</head>
 	
 	<body>

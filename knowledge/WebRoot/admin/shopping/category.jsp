@@ -9,8 +9,8 @@
 <html>
 <head>
 	<title>商品类别管理</title>
-	<jsp:include page="../common/includeJs.jsp"/>
-	<script type="text/javascript" src="../js/shopping/category.js"></script>
+	<jsp:include page="../../common/includeExt.jsp"/>
+	<script type="text/javascript" src="../../js/shopping/category.js"></script>
 </head>
 <body>
 <div id="categoryListDivId"></div>

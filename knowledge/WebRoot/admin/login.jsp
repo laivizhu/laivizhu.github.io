@@ -7,7 +7,7 @@
 <html>
 <head>
 <title>Laivi个人信息管理系统登录页面</title>
-<jsp:include page="../common/includeJs.jsp"/>
+<jsp:include page="../common/font_includeJs.jsp"/>
 <script type="text/javascript">
 Fmp.onReady(function() {
 	var stores={

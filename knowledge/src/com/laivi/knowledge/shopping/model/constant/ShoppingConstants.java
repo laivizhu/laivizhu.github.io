@@ -8,6 +8,6 @@ package com.laivi.knowledge.shopping.model.constant;
  * @Date Jan 15, 2013
  */
 public interface ShoppingConstants {
-	String PICTURE_PATH="shopping\\picture\\";
+	String PICTURE_PATH="admin\\shopping\\picture\\";
 
 }

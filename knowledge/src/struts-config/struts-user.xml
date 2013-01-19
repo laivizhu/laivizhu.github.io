@@ -2,7 +2,7 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" 
 "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-	<package name="user" extends="struts-base" namespace="/usermanage">
+	<package name="admin-user" extends="struts-base" namespace="/admin/usermanage">
         <action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}"/>
         <action name="favorite_*" class="com.laivi.knowledge.common.action.FavoriteAction" method="{1}"/>        
 	</package>

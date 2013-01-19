@@ -31,11 +31,15 @@ public class LoginSessionCheckFilter implements Filter {
 		String currentUrl = req.getRequestURI();
 		String path=req.getContextPath();
 		if(currentUrl.indexOf(".jsp")!=-1){
-			if(currentUrl.indexOf("login.jsp")==-1){
-				HttpSession session = req.getSession();
-				if(session==null || session.getAttribute("user")==null){
-					session.setAttribute("beforeLoginUrl", currentUrl);
-					res.sendRedirect(path+"/admin/login.jsp");
+			if(currentUrl.indexOf("admin/")!=-1){
+				if(currentUrl.indexOf("login.jsp")==-1){
+					HttpSession session = req.getSession();
+					if(session==null || session.getAttribute("user")==null){
+						session.setAttribute("beforeLoginUrl", currentUrl);
+						res.sendRedirect(path+"/admin/login.jsp");
+					}else{
+						chain.doFilter(request, response);
+					}
 				}else{
 					chain.doFilter(request, response);
 				}

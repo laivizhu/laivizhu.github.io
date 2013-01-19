@@ -2,7 +2,7 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
  "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-	<package name="knowledge" extends="struts-base" namespace="/knowledge">
+	<package name="admin-knowledge" extends="struts-base" namespace="/admin/knowledge">
         <action name="tag_*" class="com.laivi.knowledge.knowledge.action.TagAction" method="{1}"/>
         <action name="knowledge_*" class="com.laivi.knowledge.knowledge.action.KnowledgeAction" method="{1}"/>
         <action name="picture_*" class="com.laivi.knowledge.knowledge.action.PictureAction" method="{1}"/>

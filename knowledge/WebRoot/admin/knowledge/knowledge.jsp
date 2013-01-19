@@ -8,12 +8,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<title>博客文章管理</title>
-	<jsp:include page="../common/includeJs.jsp"/>
-	<script type="text/javascript" src="../js/knowledge/article.js"></script>
+	<title>信息记录管理</title>
+	<jsp:include page="../../common/includeExt.jsp"/>
+	<script type="text/javascript" src="../../js/knowledge/knowledge.js"></script>
 </head>
 <body>
-<div id="articleListDivId"></div>
+<div id="knowledgeListDivId"></div>
 </body>
 </html>
 		

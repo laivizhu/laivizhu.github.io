@@ -8,12 +8,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<title>标签类别管理</title>
-	<jsp:include page="../common/includeJs.jsp"/>
-	<script type="text/javascript" src="../js/usermanage/favorite.js"></script>
+	<title>信息记录管理</title>
+	<jsp:include page="../../common/includeJs.jsp"/>
+	<script type="text/javascript" src="../../js/system/information.js"></script>
 </head>
 <body>
-<div id="favoriteListDivId"></div>
+<div id="informationListDivId"></div> 
 </body>
 </html>
 		

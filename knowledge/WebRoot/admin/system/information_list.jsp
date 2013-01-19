@@ -9,21 +9,21 @@
 <html>
 <head>
 	<title>信息记录管理</title>
-	<link rel="stylesheet" type="text/css" href="../css/jquery-ui-1.8.5.custom.css" />
-	<link rel="stylesheet" type="text/css" href="../css/jquery.portlet.css?v=1.1.2" />
-	<link rel="stylesheet" type="text/css" href="../css/style_laivi.css" />
-	<link rel="stylesheet" type="text/css" href="../css/common.css"/>
-	<link rel="stylesheet" type="text/css" href="../css/jbox_Green/jbox.css"/>
-	<link rel="stylesheet" type="text/css" href="../css/jquery.qtip.min.css" />
-	<script src="../js/jquery-1.8.2.js"></script>
-	<script src="../js/jquery.form.js"></script>
-	<script src="../js/jquery-ui-1.8.14.custom.min.js"></script>
-	<script src="../js/jquery.portlet.js?v=1.1.2"></script>
-	<script src="../js/jquery.qtip-1.0.0.min.js"></script>
-	<script type="text/javascript" src="../js/jquery.jBox-2.3.min.js"></script>
-	<script type="text/javascript" src="../js/jquery.jBox-zh-CN.js"></script>
-	<script type="text/javascript" src="../js/basic.js"></script>
-	<script type="text/javascript" src="../js/system/information_list.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../css/jquery-ui-1.8.5.custom.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/jquery.portlet.css?v=1.1.2" />
+	<link rel="stylesheet" type="text/css" href="../../css/style_laivi.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/jbox_Green/jbox.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/jquery.qtip.min.css" />
+	<script src="../../js/jquery-1.8.2.js"></script>
+	<script src="../../js/jquery.form.js"></script>
+	<script src="../../js/jquery-ui-1.8.14.custom.min.js"></script>
+	<script src="../../js/jquery.portlet.js?v=1.1.2"></script>
+	<script src="../../js/jquery.qtip-1.0.0.min.js"></script>
+	<script type="text/javascript" src="../../js/jquery.jBox-2.3.min.js"></script>
+	<script type="text/javascript" src="../../js/jquery.jBox-zh-CN.js"></script>
+	<script type="text/javascript" src="../../js/basic.js"></script>
+	<script type="text/javascript" src="../../js/system/information_list.js"></script>
 	<style>
     body {font-size: 13px;}
     .highlight-content {color: red;}

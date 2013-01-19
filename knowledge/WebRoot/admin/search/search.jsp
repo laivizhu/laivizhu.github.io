@@ -9,12 +9,12 @@
 <html>
 <head>
 	<title>错误笔记查询</title>
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css"/>
-	<link rel="stylesheet" type="text/css" href="../css/lanrenzhijia.css" />
-	<jsp:include page="../common/includeJs.jsp"/>
-	<script type="text/javascript" src="../js/bootstrap.js"></script>
-	<script type="text/javascript" src="../js/lanrenzhijia.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap/bootstrap-responsive.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/lanrenzhijia.css" />
+	<jsp:include page="../../common/includeJs.jsp"/>
+	<script type="text/javascript" src="../../js/bootstrap.js"></script>
+	<script type="text/javascript" src="../../js/lanrenzhijia.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(e){
 			laivi.getJson('search_topKeywordList.action', function(data){

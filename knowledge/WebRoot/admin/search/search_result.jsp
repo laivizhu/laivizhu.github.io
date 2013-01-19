@@ -8,12 +8,15 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<title>图片管理</title>
-	<jsp:include page="../common/includeJs.jsp"/>
-	<script type="text/javascript" src="../js/knowledge/picture.js"></script>
+	<title>错误笔记查询</title>
+	<jsp:include page="../../common/includeJs.jsp"/>
+	<script type="text/javascript" src="../../js/knowledge/search.js"></script>
 </head>
 <body>
+
 <div id="resultDivId">
+<ul>
+</ul>
 </div>
 </body>
 </html>

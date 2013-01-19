@@ -8,12 +8,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<title>标签类别管理</title>
-	<jsp:include page="../common/includeJs.jsp"/>
-	<script type="text/javascript" src="../js/knowledge/tag.js"></script>
+	<title>图片管理</title>
+	<jsp:include page="../../common/includeJs.jsp"/>
+	<script type="text/javascript" src="../js/../knowledge/picture.js"></script>
 </head>
 <body>
-<div id="tagListDivId"></div>
+<div id="resultDivId">
+</div>
 </body>
 </html>
 		

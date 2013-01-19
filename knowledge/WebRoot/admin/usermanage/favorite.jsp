@@ -8,16 +8,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<title>错误笔记查询</title>
-	<jsp:include page="../common/includeJs.jsp"/>
-	<script type="text/javascript" src="../js/knowledge/search.js"></script>
+	<title>标签类别管理</title>
+	<jsp:include page="../../common/includeJs.jsp"/>
+	<script type="text/javascript" src="../../js/usermanage/favorite.js"></script>
 </head>
 <body>
-
-<div id="resultDivId">
-<ul>
-</ul>
-</div>
+<div id="favoriteListDivId"></div>
 </body>
 </html>
 		
