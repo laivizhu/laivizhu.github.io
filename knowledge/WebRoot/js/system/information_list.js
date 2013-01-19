@@ -16,7 +16,7 @@ $(document).ready(function(){
                 content: {
                     type: 'ajax',
                     dataType: 'json',
-                    url: 'information_list.action',
+                    url: 'information_list.action?start=0&limit=5',
                     formatter: function(o, pio, data) {
                         var ct = "<table width='100%'>";
                         $.each(data.root, function(i,item) {

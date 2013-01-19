@@ -140,7 +140,9 @@ public class DataUtil {
 		}else{
 			return content;
 		}
-		
 	}
-	
+
+	public static String getRealUrl(String url){
+		return AppConstants.URL+url;
+	}
 }

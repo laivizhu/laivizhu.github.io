@@ -6,6 +6,7 @@ import org.hibernate.criterion.Order;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.CriterionList;
+import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
@@ -54,6 +55,16 @@ public class InformationAction extends ABasicAction<Information> {
 		return response(true);
 	}
 	
+	public String getIndexList()throws Exception{
+		JsonItemList jsonList=new JsonItemList();
+		CriterionList conditions=CriterionList.CreateCriterion().put(Order.desc("createDate"));
+		for(Information info:this.informationService.getList(conditions, 0, AppConstants.INDEXSIZE)){
+			jsonList.createItem().add("url", AppConstants.URL+"knowledge/information_view.jsp?id="+info.getId())
+			.add("title", info.getTitle()).add("createDate", DateUtil.formatDate(info.getCreateDate()));
+		}
+		return response(jsonList);
+	}
+	
 	public String get()throws Exception{
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
 		Information info=this.informationService.getObject(id);
@@ -71,10 +82,10 @@ public class InformationAction extends ABasicAction<Information> {
 		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion();
 		conditions.put(Order.desc("level")).put(Order.desc("createDate"));
-		for(Information info:this.informationService.getList(conditions,0,10)){
+		for(Information info:this.informationService.getList(conditions,start,limit)){
 			jsonList.add(this.getJsonItem(info));
 		}
-		return response(jsonList);
+		return response(jsonList.toPageString(informationService.getCount(conditions)));
 	}
 	
 	public String typeList()throws Exception{

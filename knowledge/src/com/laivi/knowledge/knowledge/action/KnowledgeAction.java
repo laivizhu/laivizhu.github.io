@@ -2,7 +2,11 @@ package com.laivi.knowledge.knowledge.action;
 
 import javax.annotation.Resource;
 
+import org.hibernate.criterion.Order;
+
 import com.laivi.knowledge.basic.action.ABasicAction;
+import com.laivi.knowledge.basic.model.CriterionList;
+import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
@@ -71,6 +75,16 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		knowledge.setUserId(this.getCurrentUserId());
 		knowledgeService.add(knowledge);
 		return response(true);
+	}
+	
+	public String getIndexList()throws Exception{
+		JsonItemList jsonList=new JsonItemList();
+		CriterionList conditions=CriterionList.CreateCriterion().put(Order.desc("createDate"));
+		for(Knowledge knowledge:this.knowledgeService.getList(conditions, 0, AppConstants.INDEXSIZE)){
+			jsonList.createItem().add("url", AppConstants.URL+"knowledge/knowledge_view.jsp?id="+knowledge.getId())
+			.add("title", knowledge.getTitle()).add("createDate", DateUtil.formatDate(knowledge.getCreateDate()));
+		}
+		return response(jsonList);
 	}
 	
 	public JsonItemList getSearchComboList()throws ErrorException{

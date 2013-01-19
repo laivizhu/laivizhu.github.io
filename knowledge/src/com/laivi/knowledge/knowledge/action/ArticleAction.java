@@ -2,7 +2,11 @@ package com.laivi.knowledge.knowledge.action;
 
 import javax.annotation.Resource;
 
+import org.hibernate.criterion.Order;
+
 import com.laivi.knowledge.basic.action.ABasicAction;
+import com.laivi.knowledge.basic.model.CriterionList;
+import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
@@ -59,6 +63,16 @@ public class ArticleAction extends ABasicAction<Article> {
 		.add("article.content", dArticle.getContent())
 		.add("article.tags", dArticle.getTagIds());
 		return response(item.toFormDataString(true));
+	}
+	
+	public String getIndexList()throws Exception{
+		JsonItemList jsonList=new JsonItemList();
+		CriterionList conditions=CriterionList.CreateCriterion().put(Order.desc("createDate"));
+		for(Article article:this.articleService.getList(conditions, 0, AppConstants.INDEXSIZE)){
+			jsonList.createItem().add("url", AppConstants.URL+"knowledge/article_view.jsp?id="+article.getId())
+			.add("title", article.getTitle()).add("createDate", DateUtil.formatDate(article.getCreateDate()));
+		}
+		return response(jsonList);
 	}
 	
 	public JsonItem getJsonItem(Article object) throws Exception {
