@@ -11,6 +11,7 @@
 	<title>图片管理</title>
 	<link rel="stylesheet" href="../../css/bootstrap/bootstrap.css">
 	<link rel="stylesheet" href="../../css/bootstrap/bootstrap-responsive.css">
+	<link rel="stylesheet" href="../../css/bootstrap/bootstrap-image-gallery.min.css">
 	<link rel="stylesheet" href="../../css/jquery.fileupload-ui.css">
 	<jsp:include page="../../common/includeJs.jsp"/>
 	<script src="../../js/jquery.ui.widget.js"></script>
@@ -21,7 +22,7 @@
 	<script type="text/javascript" src="../../js/jquery.fileupload-fp.js"></script>
 	<script type="text/javascript" src="../../js/jquery.fileupload-ui.js"></script>
 	<script type="text/javascript" src="../../js/jquery.fileupload-locale.js"></script>
-	<script src="../js/file-main.js"></script>
+	<script src="../../js/file-main.js"></script>
 	 <script id="template-upload" type="text/x-tmpl">
             {% for (var i=0, file; file=o.files[i]; i++) { %}
         <tr class="template-upload fade">

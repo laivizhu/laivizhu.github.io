@@ -12,7 +12,7 @@
             <ul class="nav">
               <li class="active"><a href="/knowledge/index.jsp">首页</a></li>
               <li><a href="#">论坛</a></li>
-              <li><a href="#">记忆点滴</a></li>
+              <li><a href="/knowledge/picture/picture.jsp">记忆点滴</a></li>
               <li><a href="/knowledge/shopping/shopping.jsp">商城</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">信息记录 <b class="caret"></b></a>
@@ -26,11 +26,18 @@
                 </ul>
               </li>
             </ul>
-            <form class="navbar-form pull-right">
-              <input class="span2" type="text" placeholder="userName">
-              <input class="span2" type="password" placeholder="Password">
-              <button type="submit" class="btn">登入</button>
+             <form class="navbar-form pull-right form-search">
+               <input type="text" class="input-medium search-query">
+  			   <button type="submit" class="btn btn-small">Search</button>
             </form>
+            
+            <form class="navbar-form pull-right">
+              <input class="input-medium" type="text" placeholder="userName">
+              <input class="input-medium" type="password" placeholder="Password">
+              <button type="submit" class="btn btn-small">登入</button>
+            </form>
+            
+           
           </div><!--/.nav-collapse -->
         </div>
       </div>

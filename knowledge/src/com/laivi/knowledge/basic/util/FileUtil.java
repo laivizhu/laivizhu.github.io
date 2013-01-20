@@ -1,5 +1,7 @@
 package com.laivi.knowledge.basic.util;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,11 +9,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.imageio.ImageIO;
 
 import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorFileException;
 import com.laivi.knowledge.basic.model.type.FileType;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 /**
  * Copyright Envision
@@ -42,9 +51,7 @@ public class FileUtil {
 	 * @return void
 	 * @throws
 	 */
-	public static String saveCodingFile(File file, String path, String fileName) throws ErrorFileException {
-		//FileType type = FileUtil.getFileType(fileName);
-		//String name = DateUtil.getCurrentDateFormatString() + type.toSuffix();
+	public static String saveFile(File file, String path, String fileName) throws ErrorFileException {
 		FileOutputStream fos = null;
 		InputStream is = null;
 		try {
@@ -75,66 +82,17 @@ public class FileUtil {
 		return fileName;
 	}
 
-	public static String saveCodingFileNew(File file, String path, String fileName) {
-		String name = DateUtil.formatDate(new Date(), DateUtil.DATEUPLOADFORMAT) + AppConstants.LINE + fileName;
-		FileOutputStream fos = null;
-		InputStream is = null;
-		try {
-			is = new FileInputStream(file);
-			fos = new FileOutputStream(path + "\\" + name);
-			byte[] buffer = new byte[5120];
-			int length;
-			while ((length = is.read(buffer)) > 0) {
-				fos.write(buffer, 0, length);
-			}
-			fos.flush();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (fos != null) {
-					fos.close();
-				}
-				if (is != null) {
-					is.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	public static String saveCodingFile(File file, String path, String fileName) throws ErrorFileException {
+		FileType fileType=FileUtil.getFileType(fileName);
+		String name = UUID.randomUUID().toString()+DateUtil.formatDate(new Date(), DateUtil.DATEUPLOADFORMAT)+ fileType.toSuffix();
+		Pattern pattern = Pattern.compile(".bmp|.gif|.gepg|.png|");
+		Matcher matcher = pattern.matcher(fileType.toSuffix());
+		if(matcher.find()){
+			FileUtil.compressImage(file, path, name);
+		}else{
+			FileUtil.saveFile(file, path, name);
 		}
 		return name;
-	}
-
-	public static void saveFile(File file, String path, String fileName) {
-		FileOutputStream fos = null;
-		InputStream is = null;
-		try {
-			is = new FileInputStream(file);
-			fos = new FileOutputStream(path + "\\" + fileName);
-			byte[] buffer = new byte[5120];
-			int length;
-			while ((length = is.read(buffer)) > 0) {
-				fos.write(buffer, 0, length);
-			}
-			fos.flush();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (fos != null) {
-					fos.close();
-				}
-				if (is != null) {
-					is.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	public static String getFileUrl(String url, String fileName, String fileTitle) throws ErrorFileException {
@@ -165,5 +123,21 @@ public class FileUtil {
 		FileType type = FileUtil.getFileType(fileName);
 		String name = DateUtil.getCurrentDateFormatString() + type.toSuffix();
 		return name;
+	}
+	
+	public static void compressImage(File file, String path, String fileName) throws ErrorFileException {
+		FileOutputStream fos=null;
+		try{
+			Image img=ImageIO.read(file);
+			BufferedImage tag=new BufferedImage((int) (img.getWidth(null)*AppConstants.PICTURE_COMPRESS_RATE),(int) (img.getHeight(null)*AppConstants.PICTURE_COMPRESS_RATE),BufferedImage.TYPE_INT_RGB);
+			tag.getGraphics().drawImage(img.getScaledInstance((int) (img.getWidth(null)*AppConstants.PICTURE_COMPRESS_RATE),(int) (img.getHeight(null)*AppConstants.PICTURE_COMPRESS_RATE), Image.SCALE_SMOOTH), 0, 0, null);
+			fos = new FileOutputStream(path + "\\" + fileName);
+			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(fos); 
+			encoder.encode(tag); 
+			fos.close(); 
+		}catch(IOException e){
+			throw new ErrorFileException("");
+		} 
+		
 	}
 }

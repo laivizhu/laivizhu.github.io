@@ -13,4 +13,8 @@
         <action name="posts_*" class="com.laivi.knowledge.knowledge.action.PostsAction" method="{1}"/>
         <action name="favorite_*" class="com.laivi.knowledge.common.action.FavoriteAction" method="{1}"/>
 	</package>
+	
+	<package name="picture" extends="struts-base" namespace="/picture">
+		<action name="picture_*" class="com.laivi.knowledge.knowledge.action.PictureAction" method="{1}"/>
+	</package>
 </struts>    

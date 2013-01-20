@@ -24,12 +24,12 @@ public interface AppConstants {
 
 	String PICTURE_UPLOAD="picture\\";
 	String PICTURE_DOWNLOAD="/picture/";
+	double PICTURE_COMPRESS_RATE=0.5;
 
 	interface FileCategory {
 		String DOC = ".doc";
 		String PDF = "pdf";
 		String EXCEL = "xlsx";
-
 	}
 
 	interface MailTemplate {

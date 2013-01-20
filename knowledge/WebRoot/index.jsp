@@ -5,6 +5,8 @@
     <title>Laivi 网站</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/docs.css"/>
     <link rel="stylesheet" type="text/css" href="css/jbox_Green/jbox.css"/>
     <style type="text/css">
       body {
@@ -61,11 +63,25 @@
           <ul id="pictureListId">
           </ul>
           </div>
-          <p><a class="btn" href="#">More &raquo;</a></p>
+          <p><a class="btn" href="picture/picture.jsp">More &raquo;</a></p>
         </div>
       </div>
 
       <hr>
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Launch modal</button>
+	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    <h3 id="myModalLabel">Modal header</h3>
+	  </div>
+	  <div class="modal-body">
+	    <p>One fine body…</p>
+	  </div>
+	  <div class="modal-footer">
+	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	    <button class="btn btn-primary">Save changes</button>
+	  </div>
+	</div>
 
       <footer>
 	      <div align="center">
@@ -75,6 +91,8 @@
       </footer>
 
     </div>
+    
+    
     
     
     <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
@@ -91,6 +109,10 @@
 				});
 			});
 		};
+		
+		$('#myModal').on('show', function () {
+  			
+		});
 		
 		$(document).ready(function(){
 			getDataList('information_getIndexList.action',$('#informationListId'));

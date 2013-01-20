@@ -1,5 +1,5 @@
 var currentDialog;
-var pageCount=2;
+var pageCount=10;
 var pageSize=0;
 var laivi={
 	confirm:function(title,OkHandler,NoHandler){

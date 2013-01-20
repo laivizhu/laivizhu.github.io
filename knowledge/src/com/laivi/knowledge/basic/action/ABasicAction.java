@@ -165,7 +165,7 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 		if(user!=null){
 			return user.isSysUser();
 		}else{
-			return false;
+			return true;
 		}
 	}
 	
