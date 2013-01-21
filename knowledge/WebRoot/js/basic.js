@@ -272,3 +272,15 @@ function getSoundManager(soundurl){
 	};
 	return soundManager;
 }
+
+function userLogin(){
+	laivi.submitForm($('#loginFormId'), 'user_login.action', function(){
+		window.location.reload();
+	}, false, true);
+}
+
+function userLogout(){
+	laivi.getJson('user_logout.action?fold=true', function(){
+		window.location.reload();
+	});
+}

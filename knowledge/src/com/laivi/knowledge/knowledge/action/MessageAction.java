@@ -35,7 +35,7 @@ public class MessageAction extends ABasicAction<Message> {
         return response(true);
     }
 	
-	public JsonItem getJsonItem(Message object) throws Exception {
+	public JsonItem getJsonItem(Message object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("title", object.getTitle())

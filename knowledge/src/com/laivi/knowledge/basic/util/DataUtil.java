@@ -2,6 +2,7 @@ package com.laivi.knowledge.basic.util;
 
 import java.math.BigDecimal;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
@@ -135,6 +136,7 @@ public class DataUtil {
 	}
 	
 	public static String getDefaultChar(String content,int charLength)throws ErrorException{
+		content=DataUtil.Html2Text(content);
 		if(content.length()>charLength){
 			return content.substring(0, charLength)+AppConstants.ELLIPSIS;
 		}else{
@@ -144,5 +146,66 @@ public class DataUtil {
 
 	public static String getRealUrl(String url){
 		return AppConstants.URL+url;
+	}
+	
+	public static String abbreviate(String str, int width, String ellipsis) {
+		if (str == null || AppConstants.EMPTY.equals(str)) {
+			return AppConstants.EMPTY;
+		}
+		int d = 0; // byte length
+		int n = 0; // char length
+		for (; n < str.length(); n++) {
+			d = (int) str.charAt(n) > 256 ? d + 2 : d + 1;
+			if (d > width) {
+				break;
+			}
+		}
+		if (d > width) {
+			n = n - ellipsis.length() / 2;
+			return str.substring(0, n > 0 ? n : 0) + ellipsis;
+		}
+		return str = str.substring(0, n);
+	}
+
+	public static String Html2Text(String inputString) {
+		String htmlStr = inputString; // 含html标签的字符串
+		String textStr = AppConstants.EMPTY;
+		java.util.regex.Pattern p_script;
+		java.util.regex.Matcher m_script;
+		java.util.regex.Pattern p_style;
+		java.util.regex.Matcher m_style;
+		java.util.regex.Pattern p_html;
+		java.util.regex.Matcher m_html;
+
+		java.util.regex.Pattern p_html1;
+		java.util.regex.Matcher m_html1;
+
+		try {
+			String regEx_script = "<[\\s]*?script[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?script[\\s]*?>"; // 定义script的正则表达式{或<script[^>]*?>[\\s\\S]*?<\\/script>// }
+			String regEx_style = "<[\\s]*?style[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?style[\\s]*?>"; // 定义style的正则表达式{或<style[^>]*?>[\\s\\S]*?<\\/style>// }
+			String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
+			String regEx_html1 = "<[^>]+";
+			p_script = Pattern.compile(regEx_script, Pattern.CASE_INSENSITIVE);
+			m_script = p_script.matcher(htmlStr);
+			htmlStr = m_script.replaceAll(AppConstants.EMPTY); // 过滤script标签
+
+			p_style = Pattern.compile(regEx_style, Pattern.CASE_INSENSITIVE);
+			m_style = p_style.matcher(htmlStr);
+			htmlStr = m_style.replaceAll(AppConstants.EMPTY); // 过滤style标签
+
+			p_html = Pattern.compile(regEx_html, Pattern.CASE_INSENSITIVE);
+			m_html = p_html.matcher(htmlStr);
+			htmlStr = m_html.replaceAll(AppConstants.EMPTY); // 过滤html标签
+
+			p_html1 = Pattern.compile(regEx_html1, Pattern.CASE_INSENSITIVE);
+			m_html1 = p_html1.matcher(htmlStr);
+			htmlStr = m_html1.replaceAll(AppConstants.EMPTY); // 过滤html标签
+
+			textStr = htmlStr;
+
+		} catch (Exception e) {
+			System.err.println("Html2Text: " + e.getMessage());
+		}
+		return textStr;// 返回文本字符串
 	}
 }

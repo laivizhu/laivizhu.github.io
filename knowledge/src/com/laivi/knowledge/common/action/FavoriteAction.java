@@ -51,7 +51,7 @@ public class FavoriteAction extends ABasicAction<Favorite> {
 	}
 
 	@Override
-	public JsonItem getJsonItem(Favorite object) throws Exception {
+	public JsonItem getJsonItem(Favorite object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("title", object.getTitle())

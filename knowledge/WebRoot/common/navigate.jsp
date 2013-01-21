@@ -15,27 +15,32 @@
               <li><a href="/knowledge/picture/picture.jsp">记忆点滴</a></li>
               <li><a href="/knowledge/shopping/shopping.jsp">商城</a></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">信息记录 <b class="caret"></b></a>
+                <a href="/knowledge/knowledge/article.jsp" class="dropdown-toggle" data-toggle="dropdown">信息记录 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">博客</a></li>
-                  <li><a href="#">知识</a></li>
+                  <li><a href="/knowledge/knowledge/article.jsp">博客</a></li>
                   <li class="divider"></li>
-                  <li class="nav-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
+                  <li class="nav-header">知识管理</li>
+                  <li><a href="/knowledge/knowledge/knowledge.jsp">知识</a></li>
                 </ul>
               </li>
             </ul>
-             <form class="navbar-form pull-right form-search">
-               <input type="text" class="input-medium search-query">
-  			   <button type="submit" class="btn btn-small">Search</button>
-            </form>
-            
-            <form class="navbar-form pull-right">
-              <input class="input-medium" type="text" placeholder="userName">
-              <input class="input-medium" type="password" placeholder="Password">
-              <button type="submit" class="btn btn-small">登入</button>
-            </form>
+            <s:if test="#session.user==null">
+            	<div>
+				    <form id="loginFormId" class="navbar-form pull-right" action="user_login.action">
+		              <input class="input-medium" type="text" name="user.account" placeholder="Account">
+		              <input class="input-medium" type="password" name="user.password" placeholder="Password">
+		              <button type="button" class="btn btn-small" onclick="userLogin()">Login</button>
+		            </form>
+            	</div>
+            </s:if>
+            <s:else>
+            	<div class="nav-collapse collapse">
+	            	<ul class="nav">
+	            		<li><a href="#"><s:property value="#session.user.userName"/></a></li>
+	            		<li><a href="#" onclick="userLogout()">注销</a></li>
+	            	</ul>
+            	</div>
+            </s:else>
             
            
           </div><!--/.nav-collapse -->

@@ -42,16 +42,16 @@ public class ReplyAction extends ABasicAction<Reply> {
 		JsonList jsonList=new JsonList();
 		CriterionList conditions=CriterionList.CreateCriterion().put(Restrictions.eq("articleId", id));
 		for(Reply reply:this.replyService.getList(conditions, start, limit)){
-			jsonList.add(this.getJsonItem(reply).toString());
+			jsonList.add(this.getJsonItem(reply,true).toString());
 		}
 		return response(jsonList.toPageString(this.replyService.getCount(conditions)));
 	}
 	
 	
-	public JsonItem getJsonItem(Reply object) throws Exception {
+	public JsonItem getJsonItem(Reply object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
-		.add("content", object.getContext())
+		.add("context", object.getContext())
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("user", this.userService.getObject(object.getUserId()).getUserName());
 		return item;

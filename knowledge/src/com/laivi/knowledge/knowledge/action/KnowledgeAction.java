@@ -6,6 +6,7 @@ import org.hibernate.criterion.Order;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.CriterionList;
+import com.laivi.knowledge.basic.model.annotation.HistoryRecordTag;
 import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
@@ -15,6 +16,7 @@ import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
+import com.laivi.knowledge.common.model.type.FavoriteType;
 import com.laivi.knowledge.knowledge.model.po.Knowledge;
 import com.laivi.knowledge.knowledge.service.IKnowledgeService;
 import com.laivi.knowledge.knowledge.service.ITagService;
@@ -44,6 +46,7 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		return response(true);
 	}
 	
+	@HistoryRecordTag(type=FavoriteType.KNOWLEDGE)
 	public String get()throws Exception{
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
 		Knowledge dKnowledge=this.knowledgeService.getObject(id);
@@ -56,7 +59,7 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		return response(item.toFormDataString(true));
 	}
 
-	public JsonItem getJsonItem(Knowledge object) throws Exception {
+	public JsonItem getJsonItem(Knowledge object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("title", object.getTitle())

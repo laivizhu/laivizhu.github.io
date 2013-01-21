@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/docs.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/jbox_Green/jbox.css"/>
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -49,7 +51,7 @@
       <footer>
       <div align="center">
       	<p>&copy; Laivi 2013-2014</p>
-      	<p>联系我们:laivi.zhu@gmail.com</p>
+	    <p><a href="mailto:laivi.zhu@gmail.com">联系我们:laivi.zhu@gmail.com</a></p>
       </div>
         
       </footer>

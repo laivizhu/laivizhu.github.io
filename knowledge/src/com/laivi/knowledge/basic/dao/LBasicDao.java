@@ -109,4 +109,14 @@ public class LBasicDao<T extends BaseEntity> implements ILBasicDao<T>{
 	public void modify(T object) {
 		hibernateTemplate.update(object);
 	}
+
+	@Override
+	public T getObject(Class<T> clazz, CriterionList conditions) {
+		List<T> list=this.getList(clazz, conditions);
+		if(list!=null &&list.size()>0){
+			return list.get(0);
+		}else{
+			return null;
+		}
+	}
 }

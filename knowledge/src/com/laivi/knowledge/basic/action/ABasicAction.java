@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
+import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.model.po.BasicEntity;
@@ -52,6 +53,8 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	protected String resultPath; // 下载文件跳转result名
 	protected String fileName; // 下载服务端文件名
 	protected String downLoadFileName; // 下载的文件名
+	
+	protected boolean fold;				//是否截取内容
 	
 	public String search()throws Exception{
 		JsonList jsonList = new JsonList();
@@ -125,7 +128,7 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	}
 	
 	protected void addData(JsonList jsonList,T o) throws Exception{
-		JsonItem item=this.getJsonItem(o);
+		JsonItem item=this.getJsonItem(o,true);
 		if(item==null){
 			jsonList.add(o.toJson());
 		}else{
@@ -134,6 +137,7 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	}
 	
 	/**
+	 * @throws ErrorException 
 	 * 
 	 * 函数功能说明:获取登入用户Id
 	 * 修改者名字Janlu 修改日期  Jan 14, 2013
@@ -142,12 +146,12 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	 * @return long   
 	 * @throws
 	 */
-	protected long getCurrentUserId(){
+	protected long getCurrentUserId() throws ErrorException{
 		User user=(User)ServletActionContext.getRequest().getSession().getAttribute("user");
 		if(user!=null){
 			return user.getId();
 		}else{
-			return 0;
+			throw new ErrorException("error.user.notLogin");
 		}
 	}
 	
@@ -170,6 +174,7 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	}
 	
 	/**
+	 * @throws ErrorException 
 	 * 
 	 * 函数功能说明：获取当前用户的查询条件
 	 * 修改者名字Janlu 修改日期  Jan 14, 2013
@@ -178,7 +183,7 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	 * @return CriterionList   
 	 * @throws
 	 */
-	protected CriterionList getUserCriterionList(){
+	protected CriterionList getUserCriterionList() throws ErrorException{
 		CriterionList conditions=CriterionList.CreateCriterion();
 		if(!this.isSystemUser()){
 			conditions.put(Restrictions.eq("userId", this.getCurrentUserId()));
@@ -377,5 +382,13 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 
 	public void setIds(String ids) {
 		this.ids = ids;
+	}
+
+	public boolean isFold() {
+		return fold;
+	}
+
+	public void setFold(boolean fold) {
+		this.fold = fold;
 	}
 }
