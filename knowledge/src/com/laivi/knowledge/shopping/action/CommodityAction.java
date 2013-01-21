@@ -5,6 +5,7 @@ import java.io.File;
 import javax.annotation.Resource;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
+import com.laivi.knowledge.basic.model.annotation.HistoryRecordTag;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
@@ -70,6 +71,7 @@ public class CommodityAction extends ABasicAction<Commodity> {
 		return response(ResponseType.HTML,"{success:true}");
 	}
 	
+	@HistoryRecordTag
 	public String get()throws Exception{
 		Commodity commodity=this.commodityService.getObject(id);
 		JsonItem item=new JsonItem();
@@ -85,7 +87,7 @@ public class CommodityAction extends ABasicAction<Commodity> {
 	public String list()throws Exception{
 		JsonItemList jsonList=new JsonItemList();
 		for(Commodity commodity:this.commodityService.getList()){
-			jsonList.add(this.getJsonItem(commodity));
+			jsonList.add(this.getJsonItem(commodity,true));
 		}
 		return response(jsonList);
 	}
@@ -102,7 +104,7 @@ public class CommodityAction extends ABasicAction<Commodity> {
 	}
 
 	@Override
-	public JsonItem getJsonItem(Commodity object) throws Exception {
+	public JsonItem getJsonItem(Commodity object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("name", object.getName())

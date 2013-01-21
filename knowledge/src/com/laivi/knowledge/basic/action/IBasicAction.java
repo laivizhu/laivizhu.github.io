@@ -65,7 +65,7 @@ public interface IBasicAction<T> extends Serializable {
 	
 	JsonItemList getSearchComboList()throws ErrorException;
 	
-	JsonItem getJsonItem(T object) throws Exception;
+	JsonItem getJsonItem(T object,boolean isSub) throws Exception;
 	
 	
 	/**

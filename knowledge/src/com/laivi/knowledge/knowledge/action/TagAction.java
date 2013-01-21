@@ -81,7 +81,7 @@ public class TagAction extends ABasicAction<Tag> {
 		return jsonList;
 	}
 
-    public JsonItem getJsonItem(Tag object) throws Exception {
+    public JsonItem getJsonItem(Tag object,boolean isSub) throws Exception {
     	return null;
     }
     

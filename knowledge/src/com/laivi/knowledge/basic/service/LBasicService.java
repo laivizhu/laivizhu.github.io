@@ -40,6 +40,10 @@ public class LBasicService<T> {
 		return this.basicDao.getObject(clazz, id);
 	}
 	
+	public T getObject(Class<T> clazz,CriterionList conditions){
+		return this.basicDao.getObject(clazz, conditions);
+	}
+	
 	public List<T> getList(Class<T> clazz) {
 		return this.basicDao.getList(clazz);
 	}

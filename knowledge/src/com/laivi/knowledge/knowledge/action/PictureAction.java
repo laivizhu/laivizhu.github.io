@@ -55,7 +55,7 @@ public class PictureAction extends ABasicAction<Picture> {
 		return response(true);
 	}
 
-	public JsonItem getJsonItem(Picture object) throws Exception {
+	public JsonItem getJsonItem(Picture object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("description", object.getDescription())

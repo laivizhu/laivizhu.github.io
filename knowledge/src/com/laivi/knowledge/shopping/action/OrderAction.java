@@ -92,7 +92,7 @@ public class OrderAction extends ABasicAction<Order> {
 			conditions.put(Restrictions.eq("status", status));
 		}
 		for(Order order:this.orderService.getList(conditions, start, limit)){
-			jsonList.add(this.getJsonItem(order).toString());
+			jsonList.add(this.getJsonItem(order,true).toString());
 		}
 		return response(jsonList.toPageString(this.orderService.getCount(conditions)));
 	}
@@ -136,7 +136,7 @@ public class OrderAction extends ABasicAction<Order> {
 	}
 
 	@Override
-	public JsonItem getJsonItem(Order object) throws Exception {
+	public JsonItem getJsonItem(Order object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("code", object.getCode())

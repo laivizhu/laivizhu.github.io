@@ -72,7 +72,7 @@ public class CategoryAction extends ABasicAction<Category> {
 			conditions.put(Restrictions.eq("level", category.getLevel()));	
 		}
 		for(Category category:categoryService.getList(conditions)){
-			jsonList.add(this.getJsonItem(category).toString());
+			jsonList.add(this.getJsonItem(category,true).toString());
 		}
 		return response(jsonList);
 	}
@@ -118,7 +118,7 @@ public class CategoryAction extends ABasicAction<Category> {
 	}
 
 	@Override
-	public JsonItem getJsonItem(Category object) throws Exception {
+	public JsonItem getJsonItem(Category object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("name", object.getName())

@@ -19,25 +19,13 @@
   <jsp:include page="../common/navigate.jsp"/>
     
     <div class="container">
-	
-	<div class="row">
-		<div class="span12">
-			<h2 id="titleFormFieldId"></h2>
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div>
+      		<h2 id="titleFormFieldId"></h2>
         	<p><label id="contentFormFieldId"></label></p>
-		</div>
+      </div>
 		
-		<div id="replyListDivId">
-			
-		</div>
-		
-		<div class="span12">
-			<form class="form-horizontal" id="replyFormId">
-				<textarea rows="10" style="width:100%" name="reply.context"></textarea>
-				<div align='right'><p><button type="reset" class="btn">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn">提交</button></p></div>
-			</form>
-		</div>
-	</div>
-	
 
       <hr>
 
@@ -62,14 +50,6 @@
 		$(document).ready(function(){
 			var articleId=laivi.getUrlVar("id");
 			laivi.setFormVaule("article_get.action?type=1&id="+articleId, false);
-			laivi.getJson('reply_list.action?id='+articleId, function(result){
-				$.each(result.root,function(i,item){
-					$("#replyListDivId").append("<div class='span12'><p>"+item.context+"</p><div align='right'><p>"+item.createDate+"|"+item.user+"</p></div></div>");
-				});
-			});
-			laivi.submitForm($("#replyFormId"), 'reply_add.action?reply.articleId='+articleId, function(){
-				window.location.reload();
-			}, false, false);
 		});
 	</script>
   </body>

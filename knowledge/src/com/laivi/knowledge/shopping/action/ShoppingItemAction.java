@@ -48,7 +48,7 @@ public class ShoppingItemAction extends ABasicAction<ShoppingItem> {
 	}
 
 	@Override
-	public JsonItem getJsonItem(ShoppingItem object) throws Exception {
+	public JsonItem getJsonItem(ShoppingItem object,boolean isSub) throws Exception {
 		return null;
 	}
 

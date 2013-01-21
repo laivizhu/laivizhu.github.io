@@ -12,8 +12,10 @@
 	<package name="struts-base" extends="struts-default">
 		<interceptors>
 			<interceptor name="exInterceptor" class="com.laivi.knowledge.basic.interceptor.ExceptionInterceptor" />
+			<interceptor name="historyInterceptor" class="com.laivi.knowledge.basic.interceptor.HistoryRecordInterceptor" />
 			<interceptor-stack name="myStack">
 				<interceptor-ref name="exInterceptor" />
+				<interceptor-ref name="historyInterceptor" />
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
 		</interceptors>

@@ -84,6 +84,7 @@
 	</div>
 
       <footer>
+      	  <p class="pull-right"><a href="#">Back to top</a></p>
 	      <div align="center">
 	      	<p>&copy; Laivi 2013-2014</p>
 	      	<p><a href="mailto:laivi.zhu@gmail.com">联系我们:laivi.zhu@gmail.com</a></p>

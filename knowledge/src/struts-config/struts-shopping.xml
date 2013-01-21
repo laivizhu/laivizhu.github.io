@@ -3,10 +3,11 @@
  "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
 	<package name="admin-shopping" extends="struts-base" namespace="/admin/shopping">
+		<action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}"/>
         <action name="category_*" class="com.laivi.knowledge.shopping.action.CategoryAction" method="{1}"/>
         <action name="commodity_*" class="com.laivi.knowledge.shopping.action.CommodityAction" method="{1}"/>
         <action name="order_*" class="com.laivi.knowledge.shopping.action.OrderAction" method="{1}"/>
         <action name="shoppingItem_*" class="com.laivi.knowledge.shopping.action.ShoppingItemAction" method="{1}"/>
-         <action name="favorite_*" class="com.laivi.knowledge.common.action.FavoriteAction" method="{1}"/>
+        <action name="favorite_*" class="com.laivi.knowledge.common.action.FavoriteAction" method="{1}"/>
 	</package>
 </struts>    

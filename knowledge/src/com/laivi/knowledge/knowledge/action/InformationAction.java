@@ -70,7 +70,7 @@ public class InformationAction extends ABasicAction<Information> {
 		Information info=this.informationService.getObject(id);
 		JsonItem item=new JsonItem();
 		if(type==1){
-			item=this.getJsonItem(info);
+			item=this.getJsonItem(info,false);
 		}else{
 			item.add("id", info.getId()).add("information.title", info.getTitle()).add("information.content", info.getContent())
 			.add("information.level", info.getLevel());
@@ -83,7 +83,7 @@ public class InformationAction extends ABasicAction<Information> {
 		CriterionList conditions=CriterionList.CreateCriterion();
 		conditions.put(Order.desc("level")).put(Order.desc("createDate"));
 		for(Information info:this.informationService.getList(conditions,start,limit)){
-			jsonList.add(this.getJsonItem(info));
+			jsonList.add(this.getJsonItem(info,true));
 		}
 		return response(jsonList.toPageString(informationService.getCount(conditions)));
 	}
@@ -96,7 +96,7 @@ public class InformationAction extends ABasicAction<Information> {
 		return response(jsonList);
 	}
 	
-	public JsonItem getJsonItem(Information object) throws Exception {
+	public JsonItem getJsonItem(Information object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("title", object.getTitle())

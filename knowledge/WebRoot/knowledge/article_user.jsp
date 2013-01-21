@@ -22,12 +22,20 @@
 		<div class="row">
 		    <div class="span3 bs-docs-sidebar">
 		      <ul class="nav nav-list bs-docs-sidenav affix">
-		      	<li><a href="#article"><i class="icon-chevron-right"></i>全部</a></li>
+		      	<li><a href="#picture"><i class="icon-chevron-right"></i>全部</a></li>
+		      	<li><a href="#all"><i class="icon-chevron-right"></i>全部</a></li>
 		      	<li><a href="#"><i class="icon-chevron-right"></i>全部</a></li>
 		      </ul>
 		    </div>
 		    <div class="span9">
 		    	<!-- Main hero unit for a primary marketing message or call to action -->
+		    	<section id="all">
+			    	<div class="hero-unit">
+				        <h1>Hello, world!</h1>
+				        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+				        <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+			      	</div>
+		    	</section>
 		     	<section id="article">
 		     		<!-- Example row of columns -->
 			     	<div class="row" id="articleListDivId">
@@ -72,6 +80,7 @@
 				return "<div class='span9'><a href='article_view.jsp?id="+item.id+"'><h2>"+item.title+"</h2></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p>"+item.createDate+"|"+item.user+"</p></div></div>";
 			});
 		});
+	
 	</script>
   </body>
 </html>

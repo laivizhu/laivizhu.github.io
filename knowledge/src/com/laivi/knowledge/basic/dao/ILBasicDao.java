@@ -10,6 +10,8 @@ import com.laivi.knowledge.basic.model.CriterionList;
 public interface ILBasicDao<T> {
 	T getObject(Class<T> clazz,Serializable id);
 	
+	T getObject(Class<T> clazz,CriterionList conditions);
+	
 	List<T> getList(Class<T> clazz);
 	
 	List<T> getList(Class<T> clazz,CriterionList conditions);

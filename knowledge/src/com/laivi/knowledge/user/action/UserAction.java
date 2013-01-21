@@ -40,7 +40,12 @@ public class UserAction extends ABasicAction<User> {
     
     public String logout()throws Exception{
     	ServletActionContext.getRequest().getSession().removeAttribute("user");
-    	return "logout";
+    	if(fold){
+    		return response(true);
+    	}else{
+    		return "logout";
+    	}
+    	
     }
 
     public String add()throws Exception{
@@ -83,7 +88,7 @@ public class UserAction extends ABasicAction<User> {
         return response(jsonList);
     }
 
-    public JsonItem getJsonItem(User object) throws Exception {
+    public JsonItem getJsonItem(User object,boolean isSub) throws Exception {
         JsonItem jsonItem=new JsonItem();
         jsonItem.add("id",object.getId())
                 .add("account",object.getAccount())

@@ -2,8 +2,10 @@ package com.laivi.knowledge.common.model.po;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
 
@@ -15,6 +17,8 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
  * @Date Jan 20, 2013
  */
 @SuppressWarnings("serial")
+@Entity
+@Table(name="t_history")
 public class History extends BasicEntity {
 
 	private long id;

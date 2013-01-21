@@ -95,7 +95,7 @@ public class SearchAction extends ABasicAction<SearchItem> {
 
 	
 	@Override
-	public JsonItem getJsonItem(SearchItem object) throws Exception {
+	public JsonItem getJsonItem(SearchItem object,boolean isSub) throws Exception {
 		return null;
 	}
 

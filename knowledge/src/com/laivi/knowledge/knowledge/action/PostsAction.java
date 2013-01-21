@@ -23,7 +23,7 @@ public class PostsAction extends ABasicAction<Posts> {
 	private IPostsService postsService;
 	private Posts posts;
 	
-	public JsonItem getJsonItem(Posts object) throws Exception {
+	public JsonItem getJsonItem(Posts object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId());
 		return item;
