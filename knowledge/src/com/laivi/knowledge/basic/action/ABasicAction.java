@@ -10,6 +10,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import com.laivi.knowledge.basic.model.CriterionList;
+import com.laivi.knowledge.basic.model.annotation.CheckLogin;
 import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
@@ -93,12 +94,13 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 		return response(this.getSearchComboList());
 	}
 
+	@CheckLogin
 	public String delete() throws Exception {
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
 		basicService.remove(id);
 		return response(true);
 	}
-	
+	@CheckLogin
 	public String deletes()throws Exception{
 		ParamAssert.isNotEmptyString(ids, "error.object.notChoose");
 		basicService.remove(ids);

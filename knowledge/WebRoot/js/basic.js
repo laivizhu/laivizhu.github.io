@@ -1,6 +1,7 @@
 var currentDialog;
 var pageCount=10;
 var pageSize=0;
+var firstTime=true;
 var laivi={
 	confirm:function(title,OkHandler,NoHandler){
 		$.jBox.confirm(title,'提示',function(v, h, f){
@@ -213,7 +214,10 @@ var laivi={
 					obj.append(getDataDiv(item));
 				});
 			}else{
-				obj.append("未搜到相关信息");
+				if(firstTime){
+					obj.append("<div class='span12'><h4>暂无记录</h4></div>");
+					firstTime=false;
+				}
 			}
 		},true);
 	},
@@ -280,7 +284,17 @@ function userLogin(){
 }
 
 function userLogout(){
-	laivi.getJson('user_logout.action?fold=true', function(){
-		window.location.reload();
+	laivi.confirm('确认要注销吗？', function(){
+		laivi.getJson('user_logout.action?fold=true', function(){
+			window.location.reload();
+		});
+	});
+}
+
+function deleteObject(url){
+	laivi.confirm('确认要删除吗？', function(){
+		laivi.getJson(url, function(){
+			window.location.reload();
+		});
 	});
 }

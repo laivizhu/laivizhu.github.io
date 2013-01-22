@@ -40,7 +40,7 @@ public class PictureService extends BasicService<Picture> implements IPictureSer
 				jsono.put("name", picturesFileName[i]);
 				jsono.put("size",pictures[i].length());
 				jsono.put("url", "picture_downLoad.action?fileName="+picturesFileName[i]);
-				jsono.put("delete_url","picture_delete.action?id="+picture.getId()+"&fileName="+picturesFileName[i]);
+				jsono.put("delete_url","picture_delete.action?id="+picture.getId()+"&fileName="+picture.getPath());
 				jsono.put("delete_type","GET");
 				jsonArray.add(jsono);
 			} catch (Exception e) {
