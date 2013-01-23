@@ -35,7 +35,7 @@
 		<div class="span12">
 			<form class="form-horizontal" id="replyFormId">
 				<textarea rows="10" style="width:100%" name="reply.context" id='replyContentId'></textarea>
-				<div align='right'><p><button type="reset" class="btn">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn">提交</button></p></div>
+				<div align='right'><p><button type="reset" class="btn btn-warning">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">提交</button></p></div>
 			</form>
 		</div>
 	</div>

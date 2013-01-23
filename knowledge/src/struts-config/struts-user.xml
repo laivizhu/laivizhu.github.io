@@ -24,4 +24,19 @@
         <action name="article_*" class="com.laivi.knowledge.knowledge.action.ArticleAction" method="{1}"/>
         <action name="knowledge_*" class="com.laivi.knowledge.knowledge.action.KnowledgeAction" method="{1}"/>
     </package>
+    
+    <package name="user" extends="struts-base" namespace="/user">
+        <action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}">
+        	<result name="logout">login.jsp</result>
+        </action>
+        <action name="tag_*" class="com.laivi.knowledge.knowledge.action.TagAction" method="{1}"/>
+        <action name="knowledge_*" class="com.laivi.knowledge.knowledge.action.KnowledgeAction" method="{1}"/>
+        <action name="picture_*" class="com.laivi.knowledge.knowledge.action.PictureAction" method="{1}"/>
+        <action name="article_*" class="com.laivi.knowledge.knowledge.action.ArticleAction" method="{1}"/>
+        <action name="reply_*" class="com.laivi.knowledge.knowledge.action.ReplyAction" method="{1}"/>
+        <action name="message_*" class="com.laivi.knowledge.knowledge.action.MessageAction" method="{1}"/>
+        <action name="information_*" class="com.laivi.knowledge.knowledge.action.InformationAction" method="{1}"/>
+        <action name="posts_*" class="com.laivi.knowledge.knowledge.action.PostsAction" method="{1}"/>
+        <action name="favorite_*" class="com.laivi.knowledge.common.action.FavoriteAction" method="{1}"/>
+    </package>
 </struts>    
