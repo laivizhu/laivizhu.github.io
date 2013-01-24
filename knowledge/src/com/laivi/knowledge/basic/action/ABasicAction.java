@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.laivi.knowledge.basic.model.CriterionList;
@@ -116,6 +117,7 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	public String list() throws Exception {
 		JsonList jsonList = new JsonList();
 		CriterionList conditions=this.getUserCriterionList();
+		conditions.add(Order.desc("createDate"));
 		for (T o : basicService.getList(conditions,start, limit)) {
 			this.addData(jsonList, o);
 		}

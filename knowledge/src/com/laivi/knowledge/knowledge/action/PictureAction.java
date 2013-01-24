@@ -16,7 +16,6 @@ import com.laivi.knowledge.basic.util.FileUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.knowledge.model.po.Picture;
 import com.laivi.knowledge.knowledge.service.IPictureService;
-import com.laivi.knowledge.knowledge.service.ITagService;
 
 /**
  * Copyright Laivi
@@ -28,7 +27,6 @@ import com.laivi.knowledge.knowledge.service.ITagService;
 @SuppressWarnings("serial")
 public class PictureAction extends ABasicAction<Picture> {
 	private IPictureService pictureService;
-	private ITagService tagService;
 	private Picture picture;
 	private File[] pictures;
 	private String[] picturesFileName;
@@ -39,7 +37,7 @@ public class PictureAction extends ABasicAction<Picture> {
 	
 	public String upload()throws Exception{
 		if(pictures!=null){
-			return response(pictureService.upload(pictures, picturesFileName, this.getCurrentUserId(),this.getRealPath(AppConstants.PICTURE_UPLOAD)).toString());
+			return response(pictureService.upload(pictures, picturesFileName,this.getRealPath(AppConstants.PICTURE_UPLOAD)).toString());
 		}else{
 			return response(false);
 		}
@@ -59,7 +57,6 @@ public class PictureAction extends ABasicAction<Picture> {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("description", object.getDescription())
-		.add("tagIds", this.tagService.getTagsName(object.getTagIds()))
 		.add("path",object.getPath())
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()));
 		return item;
@@ -79,11 +76,6 @@ public class PictureAction extends ABasicAction<Picture> {
     public void setBasicService(IBasicService<Picture> basicService){
     	this.basicService=basicService;
     }
-	
-	@Resource(name = "TagService")
-	public void setTagService(ITagService tagService) {
-		this.tagService = tagService;
-	}
 
 	public Picture getPicture() {
 		return picture;

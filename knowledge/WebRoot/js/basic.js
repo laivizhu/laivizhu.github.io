@@ -161,7 +161,8 @@ var laivi={
 		url=laivi.getRandParamUrl(url);
 		$.getJSON(url,function(data){
 			$.each(data.root,function(i,item){
-				combo.append("<option value='"+item.id+"'>"+item.name+"</option>");
+				console.log(item.text);
+				combo.append("<option value='"+item.value+"'>"+item.text+"</option>");
 			});
 			if(successHandler!=null){
 				successHandler();

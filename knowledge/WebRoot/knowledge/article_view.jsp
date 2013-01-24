@@ -60,7 +60,6 @@
 	<script  src="../kindeditor/lang/zh_CN.js"></script>
 	<script type="text/javascript" src="../js/basic.js"></script>
 	<script type="text/javascript">
-		
 		$(document).ready(function(){
 			var articleId=laivi.getUrlVar("id");
 			var editor;
@@ -72,7 +71,10 @@
 					items : [
 						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
 						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-						'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+						'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+					afterBlur:function(){
+						this.sync();
+					}
 				});
 			});
 			laivi.setFormVaule("article_get.action?type=1&id="+articleId, false);

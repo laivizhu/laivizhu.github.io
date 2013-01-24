@@ -13,5 +13,5 @@ import com.laivi.knowledge.knowledge.model.po.Picture;
  * Time: 12-11-11 下午1:56
  */
 public interface IPictureService extends IBasicService<Picture> {
-	JSONArray upload(File[] pictures,String[] picturesFileName,long userId,String path)throws ErrorFileException;
+	JSONArray upload(File[] pictures,String[] picturesFileName,String path)throws ErrorFileException;
 }

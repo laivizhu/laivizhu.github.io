@@ -37,19 +37,11 @@ public class LoginSessionCheckFilter implements Filter {
 					if(session==null || session.getAttribute("user")==null){
 						session.setAttribute("beforeLoginUrl", currentUrl);
 						res.sendRedirect(path+"/admin/login.jsp");
-					}else{
-						chain.doFilter(request, response);
 					}
-				}else{
-					chain.doFilter(request, response);
 				}
-			}else{
-				chain.doFilter(request, response);
 			}
-		}else{
-			chain.doFilter(request, response);
 		}
-		
+		chain.doFilter(request, response);
 	}
 
 	public void init(FilterConfig arg0) throws ServletException {

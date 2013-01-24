@@ -8,38 +8,19 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/docs.css"/>
     <link rel="stylesheet" type="text/css" href="../css/jbox_Green/jbox.css"/>
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-    </style>
   </head>
   <body>
-  <jsp:include page="../common/navigate.jsp"/>
     
     <div class="container">
 		<div class="row">
-		    <div class="span3 bs-docs-sidebar">
-		      <ul class="nav nav-list bs-docs-sidenav affix">
-		      	<li><a href="#picture"><i class="icon-chevron-right"></i>全部</a></li>
-		      	<li><a href="#all"><i class="icon-chevron-right"></i>全部</a></li>
-		      	<li><a href="#"><i class="icon-chevron-right"></i>全部</a></li>
-		      </ul>
-		    </div>
-		    <div class="span9">
+		    <div class="span10">
 		    	<!-- Main hero unit for a primary marketing message or call to action -->
-		    	<div class="jumbotron masthead">
-	    			<div class="container">
-	    				<ul class="nav nav-pills">
+		    	<div style="position: fixed; float: right;width:100px;height:60px; right:10px;" >
+		    		<ul class="nav nav-pills">
 						      <li>
-						        <a href="article_add.jsp" >发表博文</a>
-						      </li>
-						      <li>
-						        <a href="#">相册</a>
+						        <a href="user_addArticle.jsp" class="btn">发表博文</a>
 						      </li>
 					    </ul>
-	    			</div>
 				</div>
 
 		     	<section id="article">
@@ -52,13 +33,6 @@
 		    </div>
   		</div>
       <hr>
-      <footer>
-      	  <p class="pull-right"><a href="#">Back to top</a></p>
-	      <div align="center">
-	      	<p>&copy; Laivi 2013-2014</p>
-	      	<p><a href="mailto:laivi.zhu@gmail.com">联系我们:laivi.zhu@gmail.com</a></p>
-	      </div>
-      </footer>
     </div>
     
     
@@ -83,7 +57,7 @@
 		};
 		$(document).ready(function(){
 			laivi.scrollBreakPage('article_list.action', $("#articleListDivId"), function(item){
-				return "<div class='span9'><a href='article_view.jsp?id="+item.id+"'><h2>"+item.title+"</h2></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p>"+item.createDate+"|"+item.user+"</p></div></div>";
+				return "<div class='span10'><a href='article_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p><a onclick=deleteObject('article_delete.action?id="+item.id+"')>删除</a>|"+item.createDate+"|"+item.user+"</p></div></div>";
 			});
 		});
 	

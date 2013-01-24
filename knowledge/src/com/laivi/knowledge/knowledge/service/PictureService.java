@@ -29,11 +29,11 @@ public class PictureService extends BasicService<Picture> implements IPictureSer
     }
 
 	@Override
-	public JSONArray upload(File[] pictures, String[] picturesFileName,long userId,String path) throws ErrorFileException {
+	public JSONArray upload(File[] pictures, String[] picturesFileName,String path) throws ErrorFileException {
 		JSONArray jsonArray=new JSONArray();
 		for(int i=0;i<pictures.length;i++){
 			try {
-				Picture picture=new Picture(picturesFileName[i].substring(0, picturesFileName[i].indexOf(".")),FileUtil.saveCodingFile(pictures[i], path, picturesFileName[i]),new Date(),userId);
+				Picture picture=new Picture(picturesFileName[i].substring(0, picturesFileName[i].indexOf(".")),FileUtil.saveCodingFile(pictures[i], path, picturesFileName[i]),new Date());
 				this.add(picture);
 				JSONObject jsono = new JSONObject();
 				jsono.put("id", picture.getId());

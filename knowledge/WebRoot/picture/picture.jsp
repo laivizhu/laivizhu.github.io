@@ -22,7 +22,12 @@
 		<div class="row">
 		    <div class="span3 bs-docs-sidebar">
 		      <ul class="nav nav-list bs-docs-sidenav affix">
-		      	<li><a href="#picture"><i class="icon-chevron-right"></i>全部</a></li>
+		      	<li><a href="#picture"><i class="icon-chevron-right"></i>全部</a>
+		      		<ul class="nav nav-list">
+		      			<li><a href="#">nav</a></li>
+		      			<li><a href="#">nav</a></li>
+		      		</ul>
+		      	</li>
 		      	<li><a href="#all"><i class="icon-chevron-right"></i>全部</a></li>
 		      	<li><a href="#"><i class="icon-chevron-right"></i>全部</a></li>
 		      </ul>
@@ -65,7 +70,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			laivi.scrollBreakPage('picture_list.action', $("#pictureListDivId"), function(item){
-				return "<div class='span3'><a href='"+item.path+"'><img src='"+item.path+"'/></a></div>";
+				return "<div class='span3'><div class='thumbnail'><a href='"+item.path+"' target='blank'><img src='"+item.path+"'/></a><div class='caption'><p>"+item.description+"</p></div></div></div>";
 			});
 		});
 	

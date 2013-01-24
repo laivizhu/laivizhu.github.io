@@ -24,17 +24,14 @@ public class Picture extends BasicEntity{
 	private String description;
 	private String path;
 	private Date createDate=new Date();
-	private String tagIds;
-	private long userId;
 
 	public Picture() {
 	}
 
-	public Picture(String description, String path, Date indate, long userId) {
+	public Picture(String description, String path, Date indate) {
 		this.description = description;
 		this.path = path;
 		this.createDate = indate;
-		this.userId = userId;
 	}
 
 	@Id
@@ -51,25 +48,8 @@ public class Picture extends BasicEntity{
 		this.path = path;
 	}
 
-
-	public long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
-
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getTagIds() {
-		return tagIds;
-	}
-
-	public void setTagIds(String tagIds) {
-		this.tagIds = tagIds;
 	}
 
 	public String getDescription() {
