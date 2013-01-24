@@ -18,7 +18,7 @@ public interface AppConstants {
 	String PLEASE_CHOOSE="---请选择---";
 	String SUCCESS="success";
 	String ELLIPSIS="...";
-	String URL="http://localhost:8080/knowledge/";
+	String URL="";
 	int INDEXSIZE=5;
 
 

@@ -82,7 +82,7 @@ public class ArticleAction extends ABasicAction<Article> {
 		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion().put(Order.desc("createDate"));
 		for(Article article:this.articleService.getList(conditions, 0, AppConstants.INDEXSIZE)){
-			jsonList.createItem().add("url", AppConstants.URL+"knowledge/article_view.jsp?id="+article.getId())
+			jsonList.createItem().add("url", "knowledge/article_view.jsp?id="+article.getId())
 			.add("title", DataUtil.getDefaultChar(article.getTitle(),10)).add("createDate", DateUtil.formatDate(article.getCreateDate()));
 		}
 		return response(jsonList);

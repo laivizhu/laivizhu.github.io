@@ -4,7 +4,7 @@ var jBoxConfig = {};
 
 jBoxConfig.defaults = {
     id: null, /* 在页面中的唯一id，如果为null则自动生成随机id,一个id只会显示一个jBox */
-    top: '15%', /* 窗口离顶部的距离,可以是百分比或像素(如 '100px') */
+    top: '200px', /* 窗口离顶部的距离,可以是百分比或像素(如 '100px') */
     border: 5, /* 窗口的外边框像素大小,必须是0以上的整数 */
     opacity: 0.1, /* 窗口隔离层的透明度,如果设置为0,则不显示隔离层 */
     timeout: 0, /* 窗口显示多少毫秒后自动关闭,如果设置为0,则不自动关闭 */
@@ -19,7 +19,7 @@ jBoxConfig.defaults = {
     showScrolling: true, /* 是否显示浏览的滚动条 */
     ajaxData: {},  /* 在窗口内容使用get:或post:前缀标识的情况下，ajax post的数据，例如：{ id: 1 } 或 "id=1" */
     iframeScrolling: 'auto', /* 在窗口内容使用iframe:前缀标识的情况下，iframe的scrolling属性值，可选值有：'auto'、'yes'、'no' */
-    top:'40%',
+    //top:'40%',
     title: '提示', /* 窗口的标题 */
     width: 350, /* 窗口的宽度，值为'auto'或表示像素的整数 */
     height: 'auto', /* 窗口的高度，值为'auto'或表示像素的整数 */

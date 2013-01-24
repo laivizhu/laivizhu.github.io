@@ -1,3 +1,4 @@
+
 package com.laivi.knowledge.basic.interceptor;
 
 import java.lang.reflect.Method;
@@ -41,7 +42,7 @@ public class HistoryRecordInterceptor extends AbstractInterceptor {
 		Method method = actionInvocation.getAction().getClass().getMethod(methodName);
 		HttpServletRequest request=ServletActionContext.getRequest();
 		User user=(User)request.getSession().getAttribute("user");
-		if(user!=null){
+		if(user!=null && !user.isSysUser()){
 			if(method!=null){
 				if(method.isAnnotationPresent(HistoryRecordTag.class)){
 					String currentUrl = request.getRequestURI();
@@ -50,12 +51,12 @@ public class HistoryRecordInterceptor extends AbstractInterceptor {
 					HistoryRecordTag historyTag=method.getAnnotation(HistoryRecordTag.class);
 					CriterionList conditions=CriterionList.CreateCriterion()
 							.put(Restrictions.eq("userId", user.getId()))
-							.put(Restrictions.eq("url", currentUrl));
+							.put(Restrictions.eq("url", currentUrl)).put(Restrictions.eq("accessId", Long.parseLong(ids[0])));
 					History history=this.historyService.getObject(History.class, conditions);
 					if(history==null){
 						history=new History();
 						history.setUserId(user.getId());
-						history.setCount(0);
+						history.setCount(1);
 						history.setUrl(currentUrl);
 						if(DataUtil.notEmptyString(ids[0])){
 							history.setAccessId(Long.parseLong(ids[0]));

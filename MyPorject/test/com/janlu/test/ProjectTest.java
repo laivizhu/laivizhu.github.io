@@ -37,13 +37,13 @@ public class ProjectTest {
 	@Test
 	public void testMeasureWater(){
 		Bottle[] bottles=getBottles();
-		MeasureWater measure=new MeasureWater(bottles,15,9);
+		MeasureWater measure=new MeasureWater(bottles,10,9);
 		measure.measure();
 	}
 	
 	private Bottle[] getBottles(){
-		int[] caps={19,16,13};
-		boolean[] isMoves={true,true,true};
+		int[] caps={14,11,9};
+		boolean[] isMoves={true,false,true};
 		Bottle[] bottles=new Bottle[caps.length];
 		for(int i=0;i<caps.length;i++){
 			bottles[i]=new Bottle(caps[i],isMoves[i]);

@@ -59,7 +59,7 @@ public class InformationAction extends ABasicAction<Information> {
 		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion().put(Order.desc("createDate"));
 		for(Information info:this.informationService.getList(conditions, 0, AppConstants.INDEXSIZE)){
-			jsonList.createItem().add("url", AppConstants.URL+"knowledge/information_view.jsp?id="+info.getId())
+			jsonList.createItem().add("url", "knowledge/information_view.jsp?id="+info.getId())
 			.add("title", info.getTitle()).add("createDate", DateUtil.formatDate(info.getCreateDate()));
 		}
 		return response(jsonList);

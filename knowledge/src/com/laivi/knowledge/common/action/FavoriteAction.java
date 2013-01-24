@@ -13,7 +13,6 @@ import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.common.model.po.Favorite;
-import com.laivi.knowledge.common.model.type.FavoriteType;
 import com.laivi.knowledge.common.service.IFavoriteService;
 
 /**
@@ -57,7 +56,8 @@ public class FavoriteAction extends ABasicAction<Favorite> {
 		.add("title", object.getTitle())
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("user", object.getUserId())
-		.add("type", FavoriteType.fromValue(object.getType()).toText());
+		.add("favoriteId", object.getFavoriteId())
+		.add("type", object.getType());
 		return item;
 	}
 

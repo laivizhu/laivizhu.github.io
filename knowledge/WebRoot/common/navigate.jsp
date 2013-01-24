@@ -35,8 +35,8 @@
             </s:if>
             <s:else>
             	<div class="nav-collapse collapse">
-	            	<ul class="nav">
-	            		<li><a href="#"><s:property value="#session.user.userName"/></a></li>
+	            	<ul class="nav pull-right">
+	            		<li><a href='/knowledge/user/user.jsp?id=<s:property value="#session.user.id"/>'><s:property value="#session.user.userName"/></a></li>
 	            		<li><a href="#" onclick="userLogout()">注销</a></li>
 	            	</ul>
             	</div>
