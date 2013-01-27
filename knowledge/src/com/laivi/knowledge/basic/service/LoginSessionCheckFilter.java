@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.laivi.knowledge.user.model.po.User;
+
 /**
  * Copyright Envision
  *
@@ -31,12 +33,18 @@ public class LoginSessionCheckFilter implements Filter {
 		String currentUrl = req.getRequestURI();
 		String path=req.getContextPath();
 		if(currentUrl.indexOf(".jsp")!=-1){
+			HttpSession session = req.getSession();
 			if(currentUrl.indexOf("admin/")!=-1){
 				if(currentUrl.indexOf("login.jsp")==-1){
-					HttpSession session = req.getSession();
 					if(session==null || session.getAttribute("user")==null){
 						session.setAttribute("beforeLoginUrl", currentUrl);
 						res.sendRedirect(path+"/admin/login.jsp");
+					}else{
+						User user=(User)session.getAttribute("user");
+						if(!user.isSysUser()){
+							session.setAttribute("beforeLoginUrl", currentUrl);
+							res.sendRedirect(path+"/admin/login.jsp");
+						}
 					}
 				}
 			}

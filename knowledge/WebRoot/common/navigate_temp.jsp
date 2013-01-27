@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>Laivi 商城</title>
+    <title>Laivi 网站</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
@@ -19,22 +19,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/knowledge/index.jsp">Laivi 网站</a>
+          <a class="brand" href="/knowledge/index.jsp" target="_parent">Laivi 网站</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="/knowledge/index.jsp">首页</a></li>
+              <li class="active"><a href="/knowledge/index.jsp" target="_parent">首页</a></li>
               <li><a href="#">论坛</a></li>
-              <li><a href="/knowledge/picture/picture.jsp">记忆点滴</a></li>
-              <li><a href="/knowledge/shopping/shopping.jsp">商城</a></li>
-              <li class="dropdown">
-                <a href="/knowledge/knowledge/article.jsp" class="dropdown-toggle" data-toggle="dropdown">信息记录 <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/knowledge/knowledge/article.jsp">博客</a></li>
-                  <li class="divider"></li>
-                  <li class="nav-header">知识管理</li>
-                  <li><a href="/knowledge/knowledge/knowledge.jsp">知识</a></li>
-                </ul>
-              </li>
+              <li><a href="/knowledge/picture/picture.jsp" target="_parent">记忆点滴</a></li>
+              <li><a href="/knowledge/shopping/shopping.jsp" target="_parent">商城</a></li>
+              <li><a href="/knowledge/knowledge/article.jsp" target="_parent">博客</a></li>
+              <li><a href="/knowledge/knowledge/knowledge.jsp" target="_parent">知识</a></li>
             </ul>
             <s:if test="#session.user==null">
             	<div>
@@ -48,18 +41,20 @@
             <s:else>
             	<div class="nav-collapse collapse">
 	            	<ul class="nav pull-right">
-	            		<li><a href='/knowledge/user/user.jsp?id=<s:property value="#session.user.id"/>'><s:property value="#session.user.userName"/></a></li>
-	            		<li><a href="#" onclick="userLogout()">注销</a></li>
+	            		<li><a href='/knowledge/user/user.jsp?id=<s:property value="#session.user.id"/>' target="_parent"><s:property value="#session.user.userName"/></a></li>
+	            		<li><a href="../user_logout.action" target="_parent">注销</a></li>
 	            	</ul>
             	</div>
             </s:else>
-            
-           
-          </div><!--/.nav-collapse -->
+          </div>
         </div>
       </div>
     </div>
     <script type="text/javascript" src="../js/jquery-1.8.2.js"></script>
+	<script type="text/javascript" src="../js/jquery.form.js"></script>
+    <script type="text/javascript" src="../js/jquery.jBox-2.3.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.jBox-zh-CN.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/basic.js"></script>
   </body>
 </html>

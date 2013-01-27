@@ -10,7 +10,6 @@ import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.shopping.model.po.ShoppingItem;
-import com.laivi.knowledge.shopping.service.IShoppingItemService;
 
 /**
  * Copyright Laivi
@@ -21,12 +20,11 @@ import com.laivi.knowledge.shopping.service.IShoppingItemService;
  */
 @SuppressWarnings("serial")
 public class ShoppingItemAction extends ABasicAction<ShoppingItem> {
-	private IShoppingItemService shoppingItemService;
 	private ShoppingItem shoppingItem;
 	
 	public String get()throws Exception{
 		ParamAssert.isTrue(id>0, ErrorMessageConstants.OBJECT_NOT_EXIST);
-		ShoppingItem shoppingItem=this.shoppingItemService.getObject(id);
+		ShoppingItem shoppingItem=this.basicService.getObject(id);
 		JsonItem item=new JsonItem();
 		item.add("id", shoppingItem.getId()).add("shoppingItem.count", shoppingItem.getCount());
 		return response(item.toFormDataString(true));
@@ -34,9 +32,9 @@ public class ShoppingItemAction extends ABasicAction<ShoppingItem> {
 	
 	public String update()throws Exception{
 		ParamAssert.isTrue(id>0, ErrorMessageConstants.OBJECT_NOT_EXIST);
-		ShoppingItem dShoppingItem=this.shoppingItemService.getObject(id);
+		ShoppingItem dShoppingItem=this.basicService.getObject(id);
 		dShoppingItem.setCount(shoppingItem.getCount());
-		this.shoppingItemService.modify(dShoppingItem);
+		this.basicService.modify(dShoppingItem);
 		return response(true);
 	}
 
@@ -60,10 +58,6 @@ public class ShoppingItemAction extends ABasicAction<ShoppingItem> {
 		this.shoppingItem = shoppingItem;
 	}
 
-	@Resource(name="ShoppingItemService")
-	public void setShoppingItemService(IShoppingItemService shoppingItemService) {
-		this.shoppingItemService = shoppingItemService;
-	}
 	@Resource(name="ShoppingItemService")
 	public void setBasicService(IBasicService<ShoppingItem> basicService){
 		this.basicService=basicService;

@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3783a70b-b5f9-4eee-a1ad-ec3990bd9bc0" name="Default" comment="" />
+    <list default="true" id="3783a70b-b5f9-4eee-a1ad-ec3990bd9bc0" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebRoot/shopping/commodity_overView.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebRoot/shopping/shopping_left.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebRoot/shopping/shopping_shoppingCart.jsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebRoot/user/user_viewArticle.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/basic/action/ABasicAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/basic/action/ABasicAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/AlbumAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/AlbumAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/ArticleAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/ArticleAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/basic/service/BasicService.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/basic/service/BasicService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/shopping/action/CategoryAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/shopping/action/CategoryAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/shopping/action/CommodityAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/shopping/action/CommodityAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/common/action/FavoriteAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/common/action/FavoriteAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/basic/service/IBasicService.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/basic/service/IBasicService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/InformationAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/InformationAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/KnowledgeAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/KnowledgeAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/basic/service/LoginSessionCheckFilter.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/basic/service/LoginSessionCheckFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/MessageAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/MessageAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/shopping/action/OrderAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/shopping/action/OrderAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/PostsAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/PostsAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/ReplyAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/knowledge/action/ReplyAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/laivi/knowledge/shopping/action/ShoppingItemAction.java" afterPath="$PROJECT_DIR$/src/com/laivi/knowledge/shopping/action/ShoppingItemAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/basic.js" afterPath="$PROJECT_DIR$/WebRoot/js/basic.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/common/navigate_temp.jsp" afterPath="$PROJECT_DIR$/WebRoot/common/navigate_temp.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/shopping/shopping.jsp" afterPath="$PROJECT_DIR$/WebRoot/shopping/shopping.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/struts-config/struts-shopping.xml" afterPath="$PROJECT_DIR$/src/struts-config/struts-shopping.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/user/user.jsp" afterPath="$PROJECT_DIR$/WebRoot/user/user.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/user/user_article.jsp" afterPath="$PROJECT_DIR$/WebRoot/user/user_article.jsp" />
+      <change type="MOVED" beforePath="D:\Janlu\WorkSpace\Git\laivi\myGit\knowledge\WebRoot\shopping\shopping.jsp" afterPath="$PROJECT_DIR$/WebRoot/shopping/shopping_commotity.jsp" />
+    </list>
     <ignored path="knowledge.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="3783a70b-b5f9-4eee-a1ad-ec3990bd9bc0" time="1358523480845" ignored="false" />
+    <file path="/Dummy.txt" changelist="3783a70b-b5f9-4eee-a1ad-ec3990bd9bc0" time="1359173465770" ignored="false" />
     <file path="/UserService.java" changelist="3783a70b-b5f9-4eee-a1ad-ec3990bd9bc0" time="1357617356016" ignored="false" />
     <file path="/projectMessage_zh_CN.properties" changelist="3783a70b-b5f9-4eee-a1ad-ec3990bd9bc0" time="1357617421679" ignored="false" />
     <file path="/projectMessage_en_US.properties" changelist="3783a70b-b5f9-4eee-a1ad-ec3990bd9bc0" time="1357617794108" ignored="false" />
@@ -29,7 +57,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -64,6 +91,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -170,184 +198,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WebRoot" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WebRoot" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="basic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="knowledge" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="basic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -370,9 +220,9 @@
     <property name="restartRequiresConfirmation" value="true" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RunManager" selected="JUnit.UtilTest.testEnumJson">
     <configuration default="false" name="UtilTest.testEnumJson" type="JUnit" factoryName="JUnit" temporary="true">
@@ -417,6 +267,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -443,19 +306,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -828,9 +678,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/WebRoot/css/laivi.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/laivi/knowledge/common/action/FavoriteAction.java">
@@ -849,9 +697,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/laivi/knowledge/common/model/po/Favorite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="4" selection-start="604" selection-end="604" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="29" column="4" selection-start="604" selection-end="604" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/laivi/knowledge/basic/util/JsonUtil.java">

@@ -4,7 +4,11 @@ import java.io.File;
 
 import javax.annotation.Resource;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+
 import com.laivi.knowledge.basic.action.ABasicAction;
+import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.annotation.HistoryRecordTag;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
@@ -75,21 +79,37 @@ public class CommodityAction extends ABasicAction<Commodity> {
 	public String get()throws Exception{
 		Commodity commodity=this.commodityService.getObject(id);
 		JsonItem item=new JsonItem();
-		item.add("id", commodity.getId())
-		.add("commodity.name", commodity.getName()).add("commodity.description", commodity.getDescription())
-		.add("commodity.price", commodity.getPrice()).add("commodity.saveCount", commodity.getSaveCount())
-		.add("categoryId", commodity.getCategory().getId())
-		.add("secondCategoryId", commodity.getCategory().getParentId())
-		.add("rootCategoryId", this.categoryService.getObject(commodity.getCategory().getParentId()).getParentId());
+		if(font){
+			item=this.getJsonItem(commodity, false);
+		}else{
+			item.add("id", commodity.getId())
+			.add("commodity.name", commodity.getName()).add("commodity.description", commodity.getDescription())
+			.add("commodity.price", commodity.getPrice()).add("commodity.saveCount", commodity.getSaveCount())
+			.add("categoryId", commodity.getCategory().getId())
+			.add("secondCategoryId", commodity.getCategory().getParentId())
+			.add("rootCategoryId", this.categoryService.getObject(commodity.getCategory().getParentId()).getParentId());
+		}
 		return response(item.toFormDataString(true));
 	}
 	
 	public String list()throws Exception{
 		JsonItemList jsonList=new JsonItemList();
-		for(Commodity commodity:this.commodityService.getList()){
+		for(Commodity commodity:this.commodityService.getList(start,limit)){
 			jsonList.add(this.getJsonItem(commodity,true));
 		}
-		return response(jsonList);
+		return response(jsonList.toPageString(this.commodityService.getCount()));
+	}
+	
+	public String categoryList()throws Exception{
+		JsonItemList jsonList=new JsonItemList();
+		CriterionList conditions=CriterionList.CreateCriterion();
+		Long[] parentIds=this.categoryService.getListIds(this.categoryService.getList(conditions.put(Restrictions.eq("parentId", categoryId))));
+		DetachedCriteria dc=DetachedCriteria.forClass(Commodity.class);
+		dc.createAlias("category", "c").add(Restrictions.in("c.parentId", parentIds));
+		for(Commodity commodity:this.commodityService.getList(dc,start,limit)){
+			jsonList.add(this.getJsonItem(commodity,true));
+		}
+		return response(jsonList.toPageString(this.commodityService.getCount(dc)));
 	}
 	
 

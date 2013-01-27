@@ -69,7 +69,7 @@ Fmp.onReady(function() {
 			forgetWin.show();
 		}
 	});
-	laivi.submitForm($("#loginFormId"), "user_login.action", function(){
+	laivi.submitForm($("#loginFormId"), "user_loginAdmin.action", function(){
 		window.location.href="index.jsp";
 	}, false, false);
 });
@@ -102,7 +102,7 @@ Fmp.onReady(function() {
 </head>
 
 <body>
-<form id="loginFormId" action="user_login.action" method="post">
+<form id="loginFormId" action="user_loginAdmin.action" method="post">
   <table width="100%" height="100%">
     <tr>
       <td height="608" background="../images/login_03.gif">

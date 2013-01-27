@@ -13,7 +13,6 @@ import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.common.model.po.Favorite;
-import com.laivi.knowledge.common.service.IFavoriteService;
 
 /**
  * Copyright Laivi
@@ -25,19 +24,18 @@ import com.laivi.knowledge.common.service.IFavoriteService;
 @SuppressWarnings("serial")
 public class FavoriteAction extends ABasicAction<Favorite> {
     private Favorite favorite;
-    private IFavoriteService favoriteService;
 
     public String add()throws Exception{
         ParamAssert.isTrue(id!=0,"");
         CriterionList conditions=this.getUserCriterionList();
         conditions.put(Restrictions.eq("favoriteId", id)).put(Restrictions.eq("type", favorite.getType()));
-        if(this.favoriteService.getCount(conditions)>0){
+        if(this.basicService.getCount(conditions)>0){
         	return response(false,"已收藏");
         }else{
 	        favorite.setUserId(this.getCurrentUserId());
 	        favorite.setFavoriteId(id);
 	        favorite.setTitle(this.encodeExtString(favorite.getTitle()));
-	        this.favoriteService.add(favorite);
+	        this.basicService.add(favorite);
 	        return response(true);
         }
     }
@@ -67,11 +65,6 @@ public class FavoriteAction extends ABasicAction<Favorite> {
 
     public void setFavorite(Favorite favorite) {
         this.favorite = favorite;
-    }
-
-    @Resource(name = "FavoriteService")
-    public void setFavoriteService(IFavoriteService favoriteService) {
-        this.favoriteService = favoriteService;
     }
     
     @Resource(name = "FavoriteService")

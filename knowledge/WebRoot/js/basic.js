@@ -204,7 +204,12 @@ var laivi={
 	    return null;
 	},
 	getScrollOnceData:function(url,start,obj,getDataDiv){
-		laivi.getJson(url+'?start='+start+'&limit='+pageCount, function(data){
+		if(url.indexOf('?')!=-1){
+			url=url+'&start='+start+'&limit='+pageCount;
+		}else{
+			url=url+'?start='+start+'&limit='+pageCount;
+		}
+		laivi.getJson(url, function(data){
 			if(data.totalProperty>0){
 				if(data.totalProperty%pageCount==0){
 					pageSize=data.totalProperty/pageCount;
@@ -287,7 +292,7 @@ function userLogin(){
 function userLogout(){
 	laivi.confirm('确认要注销吗？', function(){
 		laivi.getJson('user_logout.action?fold=true', function(){
-			window.location.reload();
+			window.location.href="/knowledge/index.jsp";
 		});
 	});
 }

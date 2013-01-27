@@ -38,6 +38,17 @@ public class UserAction extends ABasicAction<User> {
        return response(true);
     }
     
+    public String loginAdmin()throws Exception{
+        ParamAssert.isNotEmptyString(user.getAccount(),"error.user.login.account.notNULL");
+        ParamAssert.isNotEmptyString(user.getPassword(),"error.user.login.password.notNULL");
+        user=userService.login(user);
+        if(!user.isSysUser()){
+        	throw new ErrorException("后台,只能管理员登入",true);
+        }
+        ServletActionContext.getRequest().getSession().setAttribute("user", user);
+        return response(true);
+     }
+    
     public String logout()throws Exception{
     	ServletActionContext.getRequest().getSession().removeAttribute("user");
     	if(fold){

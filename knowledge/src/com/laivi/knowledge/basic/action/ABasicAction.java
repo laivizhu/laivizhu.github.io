@@ -57,6 +57,7 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	protected String downLoadFileName; // 下载的文件名
 	
 	protected boolean fold;				//是否截取内容
+	protected boolean font;				//是否是前端请求
 	
 	
 	public String search()throws Exception{
@@ -396,4 +397,13 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	public void setFold(boolean fold) {
 		this.fold = fold;
 	}
+
+	public boolean isFont() {
+		return font;
+	}
+
+	public void setFont(boolean font) {
+		this.font = font;
+	}
+	
 }

@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.CriterionList;
+import com.laivi.knowledge.basic.model.annotation.CheckLogin;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
@@ -43,6 +44,7 @@ public class OrderAction extends ABasicAction<Order> {
 	private int status;
 	private int count;
 	
+	@CheckLogin
 	public String addShoppingItem()throws Exception{
 		ParamAssert.isTrue(commodityId>0,ErrorMessageConstants.OBJECT_NOT_EXIST);
 		Commodity commodity=this.commodityService.getObject(commodityId);
@@ -64,13 +66,17 @@ public class OrderAction extends ABasicAction<Order> {
 			order.getItem().add(item);
 			this.orderService.add(order);
 		}
+		commodity.setSaveCount(commodity.getSaveCount()-1);
+		this.commodityService.modify(commodity);
 		return response(true);
 	}
 	
 	public String updateShoppingItem()throws Exception{
 		ParamAssert.isTrue(shoppingItemId>0, ErrorMessageConstants.OBJECT_NOT_EXIST);
 		ShoppingItem item=this.shoppingItemService.getObject(shoppingItemId);
+		int beforeCount=item.getCount();
 		item.setCount(count);
+		item.getCommodity().setSaveCount(item.getCommodity().getSaveCount()+beforeCount-count);
 		this.shoppingItemService.modify(item);
 		return response(true);
 	}
@@ -80,6 +86,7 @@ public class OrderAction extends ABasicAction<Order> {
 		ParamAssert.isTrue(shoppingItemId>0, ErrorMessageConstants.OBJECT_NOT_EXIST);
 		Order order=this.orderService.getObject(id);
 		ShoppingItem item=this.shoppingItemService.getObject(shoppingItemId);
+		item.getCommodity().setSaveCount(item.getCommodity().getSaveCount()+item.getCount());
 		order.getItem().remove(item);
 		this.orderService.modify(order);
 		return response(true);
@@ -98,13 +105,24 @@ public class OrderAction extends ABasicAction<Order> {
 	}
 	
 	public String itemList()throws Exception{
-		ParamAssert.isTrue(id>0,ErrorMessageConstants.OBJECT_NOT_EXIST);
-		Order order=this.orderService.getObject(id);
-		JsonList jsonList=new JsonList();
-		for(ShoppingItem item:order.getItem()){
-			jsonList.add(item.toJson());
+		Order order=null;
+		if(id==0){
+			CriterionList conditions=CriterionList.CreateCriterion()
+					.put(Restrictions.eq("status", StatusType.INIT.toValue()))
+					.put(Restrictions.eq("userId", this.getCurrentUserId()));
+			order=this.orderService.getObject(conditions);
+		}else{
+			order=this.orderService.getObject(id);
 		}
-		return response(jsonList);
+		JsonList jsonList=new JsonList();
+		if(order==null){
+			return response(jsonList);
+		}else{
+			for(ShoppingItem item:order.getItem()){
+				jsonList.add(item.toJson());
+			}
+			return response(jsonList);
+		}
 	}
 	
 	public String delete()throws Exception{

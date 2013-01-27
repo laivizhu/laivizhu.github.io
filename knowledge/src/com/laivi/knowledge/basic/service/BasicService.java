@@ -91,4 +91,32 @@ public class BasicService<T extends BaseEntity> implements IBasicService<T> {
 			throw new ErrorException("error.sql");
 		}
 	}
+	
+	public Long[] getListIds(List<T> list){
+		Long[] idArray=new Long[list.size()];
+		for(int i=0;i<idArray.length;i++){
+			idArray[i]=list.get(i).getId();
+		}
+		return idArray;
+	}
+	
+	@Override
+	public T getObject(DetachedCriteria dc) throws Exception {
+		return basicDao.getObject(dc);
+	}
+
+	@Override
+	public List<T> getList(DetachedCriteria dc, long start, long limit) {
+		return basicDao.getList(dc, start, limit);
+	}
+
+	@Override
+	public List<T> getList(DetachedCriteria dc) {
+		return basicDao.getList(dc);
+	}
+
+	@Override
+	public long getCount(DetachedCriteria dc) {
+		return basicDao.getTotalCount(dc);
+	}
 }

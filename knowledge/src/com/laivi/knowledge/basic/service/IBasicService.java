@@ -25,12 +25,18 @@ public interface IBasicService<T extends BaseEntity> {
 	T getObject(long id) throws Exception;
 
 	T getObject(CriterionList conditions)throws Exception;
+	
+	T getObject(DetachedCriteria dc)throws Exception;
 
 	List<T> getList(CriterionList conditions, long start, long limit);
+	
+	List<T> getList(DetachedCriteria dc, long start, long limit);
 
 	List<T> getList(long start, long limit);
 	
 	List<T> getList(String idStrings);
+	
+	Long[] getListIds(List<T> list);
 
 	void getValue(DetachedCriteria dc);
 
@@ -38,9 +44,13 @@ public interface IBasicService<T extends BaseEntity> {
 
 	List<T> getList(CriterionList conditions);
 
+	List<T> getList(DetachedCriteria dc);
+
 	long getCount();
 
 	long getCount(CriterionList conditions);
+
+	long getCount(DetachedCriteria dc);
 
 	Object getObjectByHql(String hql, Object[] parameters);
 	

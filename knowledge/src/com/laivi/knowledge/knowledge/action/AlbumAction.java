@@ -71,7 +71,6 @@ public class AlbumAction extends ABasicAction<Album> {
 	public void setType(int type) {
 		this.type = type;
 	}
-
 	
 	@Resource(name="AlbumService")
 	public void setBasicService(IBasicService<Album> basicService){

@@ -18,7 +18,6 @@ import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.common.model.type.FavoriteType;
 import com.laivi.knowledge.knowledge.model.po.Article;
-import com.laivi.knowledge.knowledge.service.IArticleService;
 import com.laivi.knowledge.knowledge.service.ITagService;
 import com.laivi.knowledge.user.service.IUserService;
 
@@ -32,7 +31,6 @@ import com.laivi.knowledge.user.service.IUserService;
 @SuppressWarnings("serial")
 public class ArticleAction extends ABasicAction<Article> {
 
-	private IArticleService articleService;
 	private ITagService tagService;
 	private IUserService userService;
 	private Article article;
@@ -43,7 +41,7 @@ public class ArticleAction extends ABasicAction<Article> {
 		ParamAssert.isNotEmptyString(article.getTagIds(), "error.article.tag.notNULL");
 		ParamAssert.isNotEmptyString(article.getContent(), "error.article.content.notNULL");
 		article.setUserId(this.getCurrentUserId());
-		this.articleService.add(article);
+		this.basicService.add(article);
 		return response(true);
 	}
 	
@@ -52,18 +50,18 @@ public class ArticleAction extends ABasicAction<Article> {
 		ParamAssert.isNotEmptyString(article.getTitle(), "error.article.title.notNULL");
 		ParamAssert.isNotEmptyString(article.getTagIds(), "error.article.tag.notNULL");
 		ParamAssert.isNotEmptyString(article.getContent(), "error.article.content.notNULL");
-		Article dArticle=this.articleService.getObject(id);
+		Article dArticle=this.basicService.getObject(id);
 		dArticle.setTitle(article.getTitle());
 		dArticle.setContent(article.getContent());
 		dArticle.setTagIds(article.getTagIds());
-		this.articleService.modify(dArticle);
+		this.basicService.modify(dArticle);
 		return response(true);
 	}
 	
 	@HistoryRecordTag(type=FavoriteType.ARTICLE)
 	public String get()throws Exception{
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
-		Article dArticle=this.articleService.getObject(id);
+		Article dArticle=this.basicService.getObject(id);
 		JsonItem item=null;
 		if(type==1){
 			item=this.getJsonItem(dArticle,fold);
@@ -81,7 +79,7 @@ public class ArticleAction extends ABasicAction<Article> {
 	public String getIndexList()throws Exception{
 		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion().put(Order.desc("createDate"));
-		for(Article article:this.articleService.getList(conditions, 0, AppConstants.INDEXSIZE)){
+		for(Article article:this.basicService.getList(conditions, 0, AppConstants.INDEXSIZE)){
 			jsonList.createItem().add("url", "knowledge/article_view.jsp?id="+article.getId())
 			.add("title", DataUtil.getDefaultChar(article.getTitle(),10)).add("createDate", DateUtil.formatDate(article.getCreateDate()));
 		}
@@ -122,10 +120,6 @@ public class ArticleAction extends ABasicAction<Article> {
 		this.type = type;
 	}
 
-	@Resource(name="ArticleService")
-	public void setArticleService(IArticleService articleService) {
-		this.articleService = articleService;
-	}
 	@Resource(name="ArticleService")
 	public void setBasicService(IBasicService<Article> basicService){
     	this.basicService=basicService;

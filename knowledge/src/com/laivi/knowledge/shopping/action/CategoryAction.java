@@ -16,7 +16,6 @@ import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.shopping.model.po.Category;
 import com.laivi.knowledge.shopping.model.type.CategoryLevel;
-import com.laivi.knowledge.shopping.service.ICategoryService;
 
 /**
  * Copyright Laivi
@@ -28,34 +27,33 @@ import com.laivi.knowledge.shopping.service.ICategoryService;
 @SuppressWarnings("serial")
 public class CategoryAction extends ABasicAction<Category> {
 	private Category category;
-	private ICategoryService categoryService;
 	
 	public String add()throws Exception{
 		ParamAssert.isNotEmptyString(category.getName(),"error.shopping.category.name.notNULL");
-		Integer maxPriority=(Integer)categoryService.getObjectByHql("select max(priority) from Category where level="+category.getLevel(), null);
+		Integer maxPriority=(Integer)basicService.getObjectByHql("select max(priority) from Category where level="+category.getLevel(), null);
 		if(maxPriority==null){
 			category.setPriority(1);
 		}else{
 			category.setPriority(maxPriority+1);
 		}
-		categoryService.add(category);
+		basicService.add(category);
 		return response(true);
 	}
 	
 	public String update()throws Exception{
 		ParamAssert.isNotEmptyString(category.getName(),"error.shopping.category.name.notNULL");
-		Category dCategory=categoryService.getObject(id);
+		Category dCategory=basicService.getObject(id);
 		dCategory.setName(category.getName());
 		dCategory.setLevel(category.getLevel());
 		if(category.getParentId()!=0){
 			dCategory.setParentId(category.getParentId());
 		}
-		categoryService.modify(dCategory);
+		basicService.modify(dCategory);
 		return response(true);
 	}
 	
 	public String get()throws Exception{
-		Category dCategory=categoryService.getObject(id);
+		Category dCategory=basicService.getObject(id);
 		JsonItem item=new JsonItem();
 		item.add("id", dCategory.getId())
 		.add("category.name", dCategory.getName())
@@ -71,7 +69,7 @@ public class CategoryAction extends ABasicAction<Category> {
 		if(category.getLevel()!=0){
 			conditions.put(Restrictions.eq("level", category.getLevel()));	
 		}
-		for(Category category:categoryService.getList(conditions)){
+		for(Category category:basicService.getList(conditions)){
 			jsonList.add(this.getJsonItem(category,true).toString());
 		}
 		return response(jsonList);
@@ -92,7 +90,7 @@ public class CategoryAction extends ABasicAction<Category> {
 		if(category.getLevel()!=0){
 			conditions.put(Restrictions.eq("level", category.getLevel()-1));	
 		}
-		for(Category category:categoryService.getList(conditions)){
+		for(Category category:basicService.getList(conditions)){
 			jsonList.createItem().add("value", category.getId()).add("text", category.getName());
 		}
 		return response(jsonList);
@@ -102,7 +100,7 @@ public class CategoryAction extends ABasicAction<Category> {
 		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion();
 		conditions.put(Order.desc("priority")).put(Restrictions.eq("parentId", category.getParentId()));
-		for(Category category:categoryService.getList(conditions)){
+		for(Category category:basicService.getList(conditions)){
 			jsonList.createItem().add("value", category.getId()).add("text", category.getName());
 		}
 		return response(jsonList);
@@ -124,7 +122,7 @@ public class CategoryAction extends ABasicAction<Category> {
 		.add("name", object.getName())
 		.add("level", CategoryLevel.fromValue(object.getLevel()).toText());
 		if(object.getParentId()!=0){
-			item.add("parent", categoryService.getObject(object.getParentId()).getName());
+			item.add("parent", basicService.getObject(object.getParentId()).getName());
 		}else{
 			item.add("parent", AppConstants.EMPTY);
 		}
@@ -139,11 +137,6 @@ public class CategoryAction extends ABasicAction<Category> {
 		this.category = category;
 	}
 
-	@Resource(name="CategoryService")
-	public void setCategoryService(ICategoryService categoryService) {
-		this.categoryService = categoryService;
-	}
-	
 	@Resource(name="CategoryService")
 	public void setBasicService(IBasicService<Category> basicService){
 		this.basicService=basicService;

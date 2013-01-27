@@ -8,7 +8,6 @@ import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.knowledge.model.po.Posts;
-import com.laivi.knowledge.knowledge.service.IPostsService;
 
 /**
  * Copyright Laivi
@@ -20,7 +19,6 @@ import com.laivi.knowledge.knowledge.service.IPostsService;
 @SuppressWarnings("serial")
 public class PostsAction extends ABasicAction<Posts> {
 
-	private IPostsService postsService;
 	private Posts posts;
 	
 	public JsonItem getJsonItem(Posts object,boolean isSub) throws Exception {
@@ -42,10 +40,6 @@ public class PostsAction extends ABasicAction<Posts> {
 		this.posts = posts;
 	}
 
-	@Resource(name="PostsService")
-	public void setPostsService(IPostsService postsService) {
-		this.postsService = postsService;
-	}
 	@Resource(name="PostsService")
 	public void setBasicService(IBasicService<Posts> basicService){
     	this.basicService=basicService;

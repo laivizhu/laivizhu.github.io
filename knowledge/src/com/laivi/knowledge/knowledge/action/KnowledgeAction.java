@@ -18,7 +18,6 @@ import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.common.model.type.FavoriteType;
 import com.laivi.knowledge.knowledge.model.po.Knowledge;
-import com.laivi.knowledge.knowledge.service.IKnowledgeService;
 import com.laivi.knowledge.knowledge.service.ITagService;
 
 /**
@@ -27,7 +26,6 @@ import com.laivi.knowledge.knowledge.service.ITagService;
  */
 @SuppressWarnings("serial")
 public class KnowledgeAction extends ABasicAction<Knowledge> {
-	private IKnowledgeService knowledgeService;
 	private ITagService tagService;
 	private Knowledge knowledge;
 	
@@ -37,19 +35,19 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		ParamAssert.isNotEmptyString(knowledge.getQuestion(), "error.knowledge.question.notNULL");
 		ParamAssert.isNotEmptyString(knowledge.getContent(), "error.knowledge.content.notNULL");
 		ParamAssert.isNotEmptyString(knowledge.getTagIds(), "error.knowledge.tag.notNULL");
-		Knowledge dKnowledge=this.knowledgeService.getObject(id);
+		Knowledge dKnowledge=this.basicService.getObject(id);
 		dKnowledge.setContent(knowledge.getContent());
 		dKnowledge.setTitle(knowledge.getTitle());
 		dKnowledge.setQuestion(knowledge.getQuestion());
 		dKnowledge.setTagIds(knowledge.getTagIds());
-		this.knowledgeService.modify(dKnowledge);
+		this.basicService.modify(dKnowledge);
 		return response(true);
 	}
 	
 	@HistoryRecordTag(type=FavoriteType.KNOWLEDGE)
 	public String get()throws Exception{
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
-		Knowledge dKnowledge=this.knowledgeService.getObject(id);
+		Knowledge dKnowledge=this.basicService.getObject(id);
 		JsonItem item =new JsonItem();
 		item.add("id", dKnowledge.getId())
 		.add("knowledge.title", dKnowledge.getTitle())
@@ -76,14 +74,14 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		ParamAssert.isNotEmptyString(knowledge.getContent(), "error.knowledge.content.notNULL");
 		ParamAssert.isNotEmptyString(knowledge.getTagIds(), "error.knowledge.tag.notNULL");
 		knowledge.setUserId(this.getCurrentUserId());
-		knowledgeService.add(knowledge);
+		basicService.add(knowledge);
 		return response(true);
 	}
 	
 	public String getIndexList()throws Exception{
 		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion().put(Order.desc("createDate"));
-		for(Knowledge knowledge:this.knowledgeService.getList(conditions, 0, AppConstants.INDEXSIZE)){
+		for(Knowledge knowledge:this.basicService.getList(conditions, 0, AppConstants.INDEXSIZE)){
 			jsonList.createItem().add("url", AppConstants.URL+"knowledge/knowledge_view.jsp?id="+knowledge.getId())
 			.add("title", knowledge.getTitle()).add("createDate", DateUtil.formatDate(knowledge.getCreateDate()));
 		}
@@ -106,11 +104,6 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		this.knowledge = knowledge;
 	}
 
-	@Resource(name="KnowledgeService")
-	public void setKnowledgeService(IKnowledgeService knowledgeService) {
-		this.knowledgeService = knowledgeService;
-	}
-	
 	@Resource(name = "KnowledgeService")
     public void setBasicService(IBasicService<Knowledge> basicService){
     	this.basicService=basicService;

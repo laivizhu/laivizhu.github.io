@@ -10,7 +10,6 @@ import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.knowledge.model.po.Message;
-import com.laivi.knowledge.knowledge.service.IMessageService;
 
 /**
  * Copyright Laivi
@@ -22,7 +21,6 @@ import com.laivi.knowledge.knowledge.service.IMessageService;
 @SuppressWarnings("serial")
 public class MessageAction extends ABasicAction<Message> {
 
-	private IMessageService messageService;
 	private Message message;
 
     public String add()throws Exception{
@@ -31,7 +29,7 @@ public class MessageAction extends ABasicAction<Message> {
         ParamAssert.isTrue(message.getToUserId() != 0, "");
         message.setUserId(this.getCurrentUserId());
         message.setReadIs(false);
-        this.messageService.add(message);
+        this.basicService.add(message);
         return response(true);
     }
 	
@@ -59,10 +57,6 @@ public class MessageAction extends ABasicAction<Message> {
 		this.message = message;
 	}
 
-	@Resource(name="MessageService")
-	public void setMessageService(IMessageService messageService) {
-		this.messageService = messageService;
-	}
 	@Resource(name="MessageService")
 	public void setBasicService(IBasicService<Message> basicService){
     	this.basicService=basicService;

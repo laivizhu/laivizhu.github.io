@@ -17,7 +17,6 @@ import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.knowledge.model.po.Information;
-import com.laivi.knowledge.knowledge.service.IInformationService;
 import com.laivi.knowledge.user.service.IUserService;
 
 /**
@@ -30,7 +29,6 @@ import com.laivi.knowledge.user.service.IUserService;
 @SuppressWarnings("serial")
 public class InformationAction extends ABasicAction<Information> {
 
-	private IInformationService informationService;
 	private IUserService userService;
 	private Information information;
 	private int type;
@@ -40,25 +38,25 @@ public class InformationAction extends ABasicAction<Information> {
 		ParamAssert.isNotEmptyString(information.getTitle(), "error.information.title.notNULL");
 		ParamAssert.isNotEmptyString(information.getContent(), "error.information.content.notNULL");
 		information.setUserId(getCurrentUserId());
-		this.informationService.add(information);
+		this.basicService.add(information);
 		return response(true);
 	}
 	
 	public String update()throws Exception{
 		ParamAssert.isNotEmptyString(information.getTitle(), "error.information.title.notNULL");
 		ParamAssert.isNotEmptyString(information.getContent(), "error.information.content.notNULL");
-		Information info=this.informationService.getObject(id);
+		Information info=this.basicService.getObject(id);
 		info.setTitle(information.getTitle());
 		info.setContent(information.getContent());
 		info.setLevel(information.getLevel());
-		this.informationService.modify(info);
+		this.basicService.modify(info);
 		return response(true);
 	}
 	
 	public String getIndexList()throws Exception{
 		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion().put(Order.desc("createDate"));
-		for(Information info:this.informationService.getList(conditions, 0, AppConstants.INDEXSIZE)){
+		for(Information info:this.basicService.getList(conditions, 0, AppConstants.INDEXSIZE)){
 			jsonList.createItem().add("url", "knowledge/information_view.jsp?id="+info.getId())
 			.add("title", info.getTitle()).add("createDate", DateUtil.formatDate(info.getCreateDate()));
 		}
@@ -67,7 +65,7 @@ public class InformationAction extends ABasicAction<Information> {
 	
 	public String get()throws Exception{
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
-		Information info=this.informationService.getObject(id);
+		Information info=this.basicService.getObject(id);
 		JsonItem item=new JsonItem();
 		if(type==1){
 			item=this.getJsonItem(info,false);
@@ -82,10 +80,10 @@ public class InformationAction extends ABasicAction<Information> {
 		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion();
 		conditions.put(Order.desc("level")).put(Order.desc("createDate"));
-		for(Information info:this.informationService.getList(conditions,start,limit)){
+		for(Information info:this.basicService.getList(conditions,start,limit)){
 			jsonList.add(this.getJsonItem(info,true));
 		}
-		return response(jsonList.toPageString(informationService.getCount(conditions)));
+		return response(jsonList.toPageString(basicService.getCount(conditions)));
 	}
 	
 	public String typeList()throws Exception{
@@ -120,10 +118,6 @@ public class InformationAction extends ABasicAction<Information> {
 		this.information = information;
 	}
 
-	@Resource(name="InformationService")
-	public void setInformationService(IInformationService informationService) {
-		this.informationService = informationService;
-	}
 	@Resource(name="InformationService")
 	public void setBasicService(IBasicService<Information> basicService){
     	this.basicService=basicService;

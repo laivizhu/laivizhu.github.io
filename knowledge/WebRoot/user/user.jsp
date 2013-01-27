@@ -15,7 +15,7 @@
    <frame src="../common/navigate_temp.jsp" name="header"/>
    <frameset cols="23%,*" frameborder="0" framespacing="0">
      <frame src="user_left.jsp" name="left"/>
-     <frame src="" name="main"/>
+     <frame src="user_self.jsp" name="main"/>
    </frameset>
    <frame src="../common/footer.jsp" name="footer">
 </frameset>

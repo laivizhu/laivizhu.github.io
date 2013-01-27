@@ -14,7 +14,6 @@ import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.knowledge.model.po.Reply;
-import com.laivi.knowledge.knowledge.service.IReplyService;
 import com.laivi.knowledge.user.service.IUserService;
 
 /**
@@ -28,23 +27,22 @@ import com.laivi.knowledge.user.service.IUserService;
 @SuppressWarnings("serial")
 public class ReplyAction extends ABasicAction<Reply> {
 
-	private IReplyService replyService;
 	private Reply reply;
 	
 	public String add()throws Exception{
 		ParamAssert.isNotEmptyString(reply.getContext(), "error.reply.content.notNULL");
 		reply.setUserId(this.getCurrentUserId());
-		replyService.add(reply);
+		basicService.add(reply);
 		return response(true);
 	}
 	
 	public String list()throws Exception{
 		JsonList jsonList=new JsonList();
 		CriterionList conditions=CriterionList.CreateCriterion().put(Restrictions.eq("articleId", id));
-		for(Reply reply:this.replyService.getList(conditions, start, limit)){
+		for(Reply reply:this.basicService.getList(conditions, start, limit)){
 			jsonList.add(this.getJsonItem(reply,true).toString());
 		}
-		return response(jsonList.toPageString(this.replyService.getCount(conditions)));
+		return response(jsonList.toPageString(this.basicService.getCount(conditions)));
 	}
 	
 	
@@ -70,10 +68,6 @@ public class ReplyAction extends ABasicAction<Reply> {
 		this.reply = reply;
 	}
 
-	@Resource(name="ReplyService")
-	public void setReplyService(IReplyService replyService) {
-		this.replyService = replyService;
-	}
 	@Resource(name="ReplyService")
 	public void setBasicService(IBasicService<Reply> basicService){
     	this.basicService=basicService;
