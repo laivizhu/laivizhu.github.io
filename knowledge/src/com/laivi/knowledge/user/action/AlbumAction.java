@@ -1,4 +1,4 @@
-package com.laivi.knowledge.knowledge.action;
+package com.laivi.knowledge.user.action;
 
 import javax.annotation.Resource;
 
@@ -11,7 +11,7 @@ import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
-import com.laivi.knowledge.knowledge.model.po.Album;
+import com.laivi.knowledge.user.model.po.Album;
 import com.laivi.knowledge.user.service.IUserService;
 
 /**
@@ -47,6 +47,14 @@ public class AlbumAction extends ABasicAction<Album> {
 		return response(true);
 	}
 	
+	public String get()throws Exception{
+		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
+		Album dAlbum=this.basicService.getObject(id);
+		JsonItem item=new JsonItem();
+		item.add("id", dAlbum.getId()).add("album.name", dAlbum.getName()).add("album.description", dAlbum.getDescription());
+		return response(item.toFormDataString(true));
+	}
+	
 	public JsonItem getJsonItem(Album object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
@@ -59,8 +67,8 @@ public class AlbumAction extends ABasicAction<Album> {
 	
 	public JsonItemList getSearchComboList()throws ErrorException{
 		JsonItemList jsonList=new JsonItemList();
-		jsonList.createItem().add("value", "name").add("text", "标题");
-		jsonList.createItem().add("value", "description").add("text", "描述");
+		jsonList.createItem().add("value", "name").add("text", "相册名");
+		jsonList.createItem().add("value", "description").add("text", "相册描述");
 		return jsonList;
 	}
 
@@ -81,6 +89,12 @@ public class AlbumAction extends ABasicAction<Album> {
 	public void setUserService(IUserService userService) {
 		this.userService = userService;
 	}
-	
 
+	public Album getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
 }

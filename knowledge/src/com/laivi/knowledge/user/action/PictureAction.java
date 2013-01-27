@@ -1,4 +1,4 @@
-package com.laivi.knowledge.knowledge.action;
+package com.laivi.knowledge.user.action;
 
 import java.io.File;
 
@@ -14,8 +14,8 @@ import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.FileUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
-import com.laivi.knowledge.knowledge.model.po.Picture;
-import com.laivi.knowledge.knowledge.service.IPictureService;
+import com.laivi.knowledge.user.model.po.Picture;
+import com.laivi.knowledge.user.service.IPictureService;
 
 /**
  * Copyright Laivi

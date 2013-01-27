@@ -42,7 +42,8 @@
 				parentNode('收藏夹管理',
 					leafNode('收藏管理', 'usermanage/favorite.jsp', '收藏夹的相关操作')),
 				parentNode('个人信息管理',
-					leafNode('个人信息管理','usermanage/user.jsp','个人信息的相关操作')))
+					leafNode('个人信息管理','usermanage/user.jsp','个人信息的相关操作'),
+					leafNode('个人相册管理','usermanage/album.jsp','个人相册的相关操作')))
 		));
 		panelItems.push(treePanel('系统管理',
 			parentNode('系统管理',

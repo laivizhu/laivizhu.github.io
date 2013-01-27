@@ -1,4 +1,4 @@
-package com.laivi.knowledge.knowledge.model.po;
+package com.laivi.knowledge.user.model.po;
 
 import java.util.Date;
 

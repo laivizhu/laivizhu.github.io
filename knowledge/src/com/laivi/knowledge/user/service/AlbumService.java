@@ -1,4 +1,4 @@
-package com.laivi.knowledge.knowledge.service;
+package com.laivi.knowledge.user.service;
 
 import javax.annotation.Resource;
 
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.laivi.knowledge.basic.dao.IBasicDao;
 import com.laivi.knowledge.basic.service.BasicService;
-import com.laivi.knowledge.knowledge.model.po.Album;
+import com.laivi.knowledge.user.model.po.Album;
 
 /**
  * User: janlu.sword@gmail.com

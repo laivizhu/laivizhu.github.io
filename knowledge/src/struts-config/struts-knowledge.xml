@@ -6,7 +6,6 @@
 		<action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}"/>
         <action name="tag_*" class="com.laivi.knowledge.knowledge.action.TagAction" method="{1}"/>
         <action name="knowledge_*" class="com.laivi.knowledge.knowledge.action.KnowledgeAction" method="{1}"/>
-        <action name="picture_*" class="com.laivi.knowledge.knowledge.action.PictureAction" method="{1}"/>
         <action name="article_*" class="com.laivi.knowledge.knowledge.action.ArticleAction" method="{1}"/>
         <action name="reply_*" class="com.laivi.knowledge.knowledge.action.ReplyAction" method="{1}"/>
         <action name="message_*" class="com.laivi.knowledge.knowledge.action.MessageAction" method="{1}"/>
@@ -17,14 +16,13 @@
 	
 	<package name="picture" extends="struts-base" namespace="/picture">
 		<action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}"/>
-		<action name="picture_*" class="com.laivi.knowledge.knowledge.action.PictureAction" method="{1}"/>
+		<action name="picture_*" class="com.laivi.knowledge.user.action.PictureAction" method="{1}"/>
 	</package>
 	
 	<package name="knowledge" extends="struts-base" namespace="/knowledge">
 		<action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}"/>
         <action name="tag_*" class="com.laivi.knowledge.knowledge.action.TagAction" method="{1}"/>
         <action name="knowledge_*" class="com.laivi.knowledge.knowledge.action.KnowledgeAction" method="{1}"/>
-        <action name="picture_*" class="com.laivi.knowledge.knowledge.action.PictureAction" method="{1}"/>
         <action name="article_*" class="com.laivi.knowledge.knowledge.action.ArticleAction" method="{1}"/>
         <action name="reply_*" class="com.laivi.knowledge.knowledge.action.ReplyAction" method="{1}"/>
         <action name="message_*" class="com.laivi.knowledge.knowledge.action.MessageAction" method="{1}"/>

@@ -1,4 +1,4 @@
-package com.laivi.knowledge.knowledge.service;
+package com.laivi.knowledge.user.service;
 
 import java.io.File;
 import java.util.Date;
@@ -14,7 +14,7 @@ import com.laivi.knowledge.basic.dao.IBasicDao;
 import com.laivi.knowledge.basic.model.exception.ErrorFileException;
 import com.laivi.knowledge.basic.service.BasicService;
 import com.laivi.knowledge.basic.util.FileUtil;
-import com.laivi.knowledge.knowledge.model.po.Picture;
+import com.laivi.knowledge.user.model.po.Picture;
 
 /**
  * User: janlu.sword@gmail.com
