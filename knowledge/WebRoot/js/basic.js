@@ -3,6 +3,16 @@ var pageCount=10;
 var pageSize=0;
 var firstTime=true;
 var laivi={
+	init:function(otherHandler){
+		$(window).scroll(function(){
+			if($(document).scrollTop()==0){
+				$("#backTopDivId").hide();
+			}else{
+				$("#backTopDivId").show();
+			}
+		});
+		otherHandler();
+	},
 	confirm:function(title,OkHandler,NoHandler){
 		$.jBox.confirm(title,'提示',function(v, h, f){
 			if (v == 'ok'){

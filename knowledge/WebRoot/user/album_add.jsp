@@ -22,13 +22,13 @@
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-      	<h2>发表博文</h2>
-      		<form action="article_add.action" id="articleAddFormId">
-      			<input type="text" class="input-block-level" name="article.title">
-      			<select id="tagSelectId" name="article.tagIds">
+      	<h2>创建相册</h2>
+      		<form action="album_add.action" id="albumAddFormId">
+      			<input type="text" class="input-block-level" name="album.name">
+      			<select id="typeSelectId" name="album.type">
       				<option value='0'>--请选择--</option>
       			</select>
-      			<textarea rows="20" style="width:100%" name="article.content" id='articleContentId'></textarea>
+      			<textarea rows="20" style="width:100%" name="album.description" id='albumDescriptionId'></textarea>
       			<div align='center'><p><button type="reset" class="btn btn-warning">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">提交</button></p></div>
       		</form>
       </div>
@@ -59,16 +59,16 @@
 		$(document).ready(laivi.init(function(){
 			var editor;
 			KindEditor.ready(function(K) {
-				editor = K.create('textarea[id="articleContentId"]', {
+				editor = K.create('textarea[id="albumDescriptionId"]', {
 					allowFileManager : true,
 					afterBlur:function(){
 						this.sync();
 					}
 				});
 			});
-			laivi.comboList($("#tagSelectId"), 'tag_comboList.action?tag.type=2');
-			laivi.submitForm($("#articleAddFormId"), 'article_add.action', function(){
-				window.location.href="article_user.jsp";
+			laivi.comboList($("#typeSelectId"), 'album_typeList.action');
+			laivi.submitForm($("#albumAddFormId"), 'album_add.action', function(){
+				window.location.href="user_album.jsp";
 			}, false, false);
 		}));
 	</script>

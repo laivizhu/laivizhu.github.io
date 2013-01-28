@@ -14,6 +14,8 @@ import com.laivi.knowledge.basic.dao.IBasicDao;
 import com.laivi.knowledge.basic.model.exception.ErrorFileException;
 import com.laivi.knowledge.basic.service.BasicService;
 import com.laivi.knowledge.basic.util.FileUtil;
+import com.laivi.knowledge.user.dao.IAlbumDao;
+import com.laivi.knowledge.user.model.po.Album;
 import com.laivi.knowledge.user.model.po.Picture;
 
 /**
@@ -23,13 +25,22 @@ import com.laivi.knowledge.user.model.po.Picture;
 @Service("PictureService")
 public class PictureService extends BasicService<Picture> implements IPictureService {
 
+	private IAlbumDao albumDao;
+	
     @Resource(name="PictureDao")
     public void setBasicDao(IBasicDao<Picture> basicDao){
         this.basicDao=basicDao;
     }
+    
+    @Resource(name="AlbumDao")
+	public void setAlbumDao(IAlbumDao albumDao) {
+		this.albumDao = albumDao;
+	}
 
 	@Override
-	public JSONArray upload(File[] pictures, String[] picturesFileName,String path) throws ErrorFileException {
+	public JSONArray upload(File[] pictures, String[] picturesFileName,String path,long albumId) throws ErrorFileException {
+		Album album=albumDao.getObject(albumId);
+		StringBuilder sb=new StringBuilder();
 		JSONArray jsonArray=new JSONArray();
 		for(int i=0;i<pictures.length;i++){
 			try {
@@ -43,10 +54,17 @@ public class PictureService extends BasicService<Picture> implements IPictureSer
 				jsono.put("delete_url","picture_delete.action?id="+picture.getId()+"&fileName="+picture.getPath());
 				jsono.put("delete_type","GET");
 				jsonArray.add(jsono);
+				if(i!=pictures.length-1){
+					sb.append(picture.getId()+",");
+				}else{
+					sb.append(picture.getId());
+				}
 			} catch (Exception e) {
 				throw new ErrorFileException("");
 			}
 		}
+		album.setItemIds(sb.toString());
+		albumDao.modify(album);
 		return jsonArray;
 	}
     

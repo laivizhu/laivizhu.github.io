@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/docs.css"/>
     <link rel="stylesheet" type="text/css" href="../css/jbox_Green/jbox.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ink/ink.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/ink/ink-ie.css"/>
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -16,7 +18,7 @@
     </style>
   </head>
   <body>
-  <jsp:include page="../common/navigate.jsp"/>
+ 	
     
     <div class="container">
 
@@ -67,9 +69,9 @@
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
 	<script type="text/javascript" src="../js/basic.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){
+		$(document).ready(laivi.init(function(){
 			
-		});
+		}));
 	
 	</script>
   </body>

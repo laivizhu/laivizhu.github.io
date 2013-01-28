@@ -115,12 +115,12 @@
   			
 		});
 		
-		$(document).ready(function(){
+		$(document).ready(laivi.init(function(){
 			getDataList('information_getIndexList.action',$('#informationListId'));
 			//getDataList('posts_indexList.action',$('postsListId'));
 			getDataList('article_getIndexList.action',$('#articleListId'));
 			//getDataList('picture_indexList.action',$('pictureListId'));
-		});
+		}));
 		
 	</script>
 	

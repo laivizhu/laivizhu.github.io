@@ -68,11 +68,11 @@
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
 	<script type="text/javascript" src="../js/basic.js"></script>
 	<script type="text/javascript">
-		$(document).ready(laivi.init(function(){
+		$(document).ready(function(){
 			laivi.scrollBreakPage('picture_list.action', $("#pictureListDivId"), function(item){
 				return "<div class='span3'><div class='thumbnail'><a href='"+item.path+"' target='blank'><img src='"+item.path+"'/></a><div class='caption'><p>"+item.description+"</p></div></div></div>";
 			});
-		}));
+		});
 	
 	</script>
   </body>

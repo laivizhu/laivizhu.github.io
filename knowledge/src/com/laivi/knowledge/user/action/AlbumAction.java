@@ -12,6 +12,8 @@ import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.user.model.po.Album;
+import com.laivi.knowledge.user.model.type.AlbumType;
+import com.laivi.knowledge.user.service.IPictureService;
 import com.laivi.knowledge.user.service.IUserService;
 
 /**
@@ -25,12 +27,14 @@ import com.laivi.knowledge.user.service.IUserService;
 public class AlbumAction extends ABasicAction<Album> {
 	
 	private IUserService userService;
+	private IPictureService pictureService;
 	private Album album;
 	private int type;
 	
 	public String add()throws Exception{
 		ParamAssert.isNotEmptyString(album.getName(), "error.album.name.notNULL");
 		ParamAssert.isNotEmptyString(album.getDescription(), "error.album.description.notNULL");
+		ParamAssert.isTrue(album.getType()>0, "");
 		album.setUserId(this.getCurrentUserId());
 		this.basicService.add(album);
 		return response(true);
@@ -51,8 +55,16 @@ public class AlbumAction extends ABasicAction<Album> {
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
 		Album dAlbum=this.basicService.getObject(id);
 		JsonItem item=new JsonItem();
-		item.add("id", dAlbum.getId()).add("album.name", dAlbum.getName()).add("album.description", dAlbum.getDescription());
+		item.add("id", dAlbum.getId()).add("album.name", dAlbum.getName()).add("album.description", dAlbum.getDescription()).add("album.type", dAlbum.getType());
 		return response(item.toFormDataString(true));
+	}
+	
+	public String typeList()throws Exception{
+		JsonItemList jsonList=new JsonItemList();
+		for(AlbumType type:AlbumType.values()){
+			jsonList.createItem().add("value", type.toValue()).add("text", type.toText());
+		}
+		return response(jsonList);
 	}
 	
 	public JsonItem getJsonItem(Album object,boolean isSub) throws Exception {
@@ -61,7 +73,13 @@ public class AlbumAction extends ABasicAction<Album> {
 		.add("name", object.getName())
 		.add("description", isSub?DataUtil.getDefaultChar(object.getDescription()):object.getDescription())
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
+		.add("type", AlbumType.fromValue(object.getType()).toText())
 		.add("user", this.userService.getObject(object.getUserId()).getUserName());
+		if(DataUtil.notEmptyString(object.getItemIds())){
+			item.add("defaultPicture", this.pictureService.getObject(DataUtil.getIndexStringId(object.getItemIds(), 0)));
+		}else{
+			item.add("defaultPicture", "album.jpg");
+		}
 		return item;
 	}
 	
@@ -88,6 +106,11 @@ public class AlbumAction extends ABasicAction<Album> {
 	@Resource(name="UserService")
 	public void setUserService(IUserService userService) {
 		this.userService = userService;
+	}
+	
+	@Resource(name="PictureService")
+	public void setPictureService(IPictureService pictureService) {
+		this.pictureService = pictureService;
 	}
 
 	public Album getAlbum() {

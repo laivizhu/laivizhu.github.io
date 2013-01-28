@@ -19,14 +19,14 @@
 		    	<div style="position: fixed; float: right;width:100px;height:60px; right:10px;" >
 		    		<ul class="nav nav-pills">
 						      <li>
-						        <a href="../knowledge/article_add.jsp" class="btn">发表博文</a>
+						        <a href="album_add.jsp" class="btn">创建相册</a>
 						      </li>
 					    </ul>
 				</div>
 
-		     	<section id="article">
+		     	<section id="album">
 		     		<!-- Example row of columns -->
-			     	<div class="row" id="articleListDivId">
+			     	<div class="row" id="albumListDivId">
 	      			</div>
 		     	</section>
 		      	
@@ -52,22 +52,10 @@
 	<script type="text/javascript" src="../js/basic.js"></script>
 	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
-		var getMoreData=function(id){
-			laivi.getJson('article_get.action?type=1&id='+id, function(result){
-				var comb="<a class='btn btn-primary btn-small' onclick='getLessData("+result.data.id+")'>Fold &raquo;</a>";
-				$('#content'+id).html(result.data.content+comb);
-			});
-		};
-		var getLessData=function(id){
-			laivi.getJson('article_get.action?fold=true&type=1&id='+id, function(result){
-				var comb="<a class='btn btn-primary btn-small' onclick='getMoreData("+result.data.id+")'>More &raquo;</a>";
-				$('#content'+id).html(result.data.content+comb);
-			});
-		};
 		$(document).ready(laivi.init(function(){
 			loadLocalNavigate(navigate.user);
-			laivi.scrollBreakPage('article_list.action', $("#articleListDivId"), function(item){
-				return "<div class='span8'><a href='../knowledge/article_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p><a onclick=deleteObject('article_delete.action?id="+item.id+"')>删除</a>|"+item.createDate+"|"+item.user+"</p></div></div>";
+			laivi.scrollBreakPage('album_list.action', $("#albumListDivId"), function(item){
+				return "<div class='span4'><div class='thumbnail'><a href='picture_add.jsp?id="+item.id+"'><img src='../picture/"+item.defaultPicture+"'></img></a><div class='caption'><p>"+item.name+"</p></div></div></div>";
 			});
 		}));
 	

@@ -105,6 +105,9 @@ public class CommodityAction extends ABasicAction<Commodity> {
 		CriterionList conditions=CriterionList.CreateCriterion();
 		Long[] parentIds=this.categoryService.getListIds(this.categoryService.getList(conditions.put(Restrictions.eq("parentId", categoryId))));
 		DetachedCriteria dc=DetachedCriteria.forClass(Commodity.class);
+		if(parentIds.length==0){
+			return response(jsonList);
+		}
 		dc.createAlias("category", "c").add(Restrictions.in("c.parentId", parentIds));
 		for(Commodity commodity:this.commodityService.getList(dc,start,limit)){
 			jsonList.add(this.getJsonItem(commodity,true));

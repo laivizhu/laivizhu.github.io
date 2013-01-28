@@ -60,7 +60,7 @@
 	<script  src="../kindeditor/lang/zh_CN.js"></script>
 	<script type="text/javascript" src="../js/basic.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){
+		$(document).ready(laivi.init(function(){
 			var articleId=laivi.getUrlVar("id");
 			var editor;
 			KindEditor.ready(function(K) {
@@ -90,7 +90,7 @@
 			laivi.submitForm($("#replyFormId"), 'reply_add.action?reply.articleId='+articleId, function(){
 				window.location.reload();
 			}, false, false);
-		});
+		}));
 	</script>
   </body>
 </html>

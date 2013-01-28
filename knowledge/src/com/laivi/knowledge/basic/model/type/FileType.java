@@ -14,7 +14,9 @@ public enum FileType {
 	JPG(".jpg"),BMP(".bmp"),GIF(".gif"),
 	ZIP(".zip"),RAR(".rar"),JAR(".jar"),
 	HTML(".html"),CSS(".css"),JSP(".jsp"),
-	JS(".js"),JAVA(".java");
+	JS(".js"),JAVA(".java"),
+	MP3(".mp3"),WMA(".wma"),
+	AVI(".avi"),RMVB(".rmvb");
 
 	private final String suffix;
 

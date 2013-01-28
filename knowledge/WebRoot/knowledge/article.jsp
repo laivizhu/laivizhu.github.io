@@ -67,11 +67,11 @@
 				$('#content'+id).html(result.data.content+comb);
 			});
 		};
-		$(document).ready(function(){
+		$(document).ready(laivi.init(function(){
 			laivi.scrollBreakPage('article_list.action', $("#articleListDivId"), function(item){
 				return "<div class='span9'><a href='article_view.jsp?id="+item.id+"'><h2>"+item.title+"</h2></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p>"+item.createDate+"|"+item.user+"</p></div></div>";
 			});
-		});
+		}));
 	</script>
   </body>
 </html>

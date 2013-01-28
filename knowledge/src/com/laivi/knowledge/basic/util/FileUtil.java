@@ -85,7 +85,7 @@ public class FileUtil {
 	public static String saveCodingFile(File file, String path, String fileName) throws ErrorFileException {
 		FileType fileType=FileUtil.getFileType(fileName);
 		String name = UUID.randomUUID().toString()+DateUtil.formatDate(new Date(), DateUtil.DATEUPLOADFORMAT)+ fileType.toSuffix();
-		Pattern pattern = Pattern.compile(".bmp|.gif|.gepg|.png|");
+		Pattern pattern = Pattern.compile(".bmp|.gif|.gepg|.png");
 		Matcher matcher = pattern.matcher(fileType.toSuffix());
 		if(matcher.find()){
 			FileUtil.compressImage(file, path, name);

@@ -1,16 +1,10 @@
 package com.laivi.knowledge.user.model.po;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
@@ -30,10 +24,10 @@ public class Album extends BasicEntity {
 	private long id;
 	private String name;
 	private String description;
+	private int type;
 	private Date createDate=new Date();
 	private long userId;
-	private List<Picture> pictures=new ArrayList<Picture>();
-	
+	private String itemIds;
 	@Override
 	@Id
 	@GeneratedValue
@@ -73,17 +67,23 @@ public class Album extends BasicEntity {
 		this.userId = userId;
 	}
 
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	@JoinColumn(name="albumId")
-	public List<Picture> getPictures() {
-		return pictures;
-	}
-
-	public void setPictures(List<Picture> pictures) {
-		this.pictures = pictures;
-	}
-
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public String getItemIds() {
+		return itemIds;
+	}
+
+	public void setItemIds(String itemIds) {
+		this.itemIds = itemIds;
 	}
 }

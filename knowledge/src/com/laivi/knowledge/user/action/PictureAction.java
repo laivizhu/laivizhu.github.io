@@ -30,6 +30,7 @@ public class PictureAction extends ABasicAction<Picture> {
 	private Picture picture;
 	private File[] pictures;
 	private String[] picturesFileName;
+	private long albumId;
 	
 	public PictureAction(){
 		downLoadPath=AppConstants.PICTURE_DOWNLOAD;
@@ -37,7 +38,7 @@ public class PictureAction extends ABasicAction<Picture> {
 	
 	public String upload()throws Exception{
 		if(pictures!=null){
-			return response(pictureService.upload(pictures, picturesFileName,this.getRealPath(AppConstants.PICTURE_UPLOAD)).toString());
+			return response(pictureService.upload(pictures, picturesFileName,this.getRealPath(AppConstants.PICTURE_UPLOAD),albumId).toString());
 		}else{
 			return response(false);
 		}
@@ -100,4 +101,14 @@ public class PictureAction extends ABasicAction<Picture> {
 	public void setPictures(File[] pictures) {
 		this.pictures = pictures;
 	}
+
+	public long getAlbumId() {
+		return albumId;
+	}
+
+	public void setAlbumId(long albumId) {
+		this.albumId = albumId;
+	}
+	
+	
 }

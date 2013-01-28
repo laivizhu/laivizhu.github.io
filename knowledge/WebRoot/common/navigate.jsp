@@ -14,6 +14,7 @@
               <li class="active"><a href="/knowledge/index.jsp">首页</a></li>
               <li><a href="#">论坛</a></li>
               <li><a href="/knowledge/picture/picture.jsp">记忆点滴</a></li>
+              <li><a href="/knowledge/music/music.jsp">音乐天地</a></li>
               <li><a href="/knowledge/shopping/shopping.jsp">商城</a></li>
               <li class="dropdown">
                 <a href="/knowledge/knowledge/article.jsp" class="dropdown-toggle" data-toggle="dropdown">信息记录 <b class="caret"></b></a>
@@ -47,4 +48,8 @@
           </div><!--/.nav-collapse -->
         </div>
       </div>
+    </div>
+    
+    <div id="backTopDivId" style="display: none;position: fixed; float: right;width:30px;height:60px;right:10px;top:500px;">
+    	<a href="#" class="btn btn-small">Top</a>
     </div>
