@@ -2,11 +2,15 @@ package com.laivi.knowledge.user.action;
 
 import javax.annotation.Resource;
 
+import org.hibernate.criterion.Restrictions;
+
 import com.laivi.knowledge.basic.action.ABasicAction;
+import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
+import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
@@ -55,8 +59,24 @@ public class AlbumAction extends ABasicAction<Album> {
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
 		Album dAlbum=this.basicService.getObject(id);
 		JsonItem item=new JsonItem();
-		item.add("id", dAlbum.getId()).add("album.name", dAlbum.getName()).add("album.description", dAlbum.getDescription()).add("album.type", dAlbum.getType());
+		if(font){
+			item=this.getJsonItem(dAlbum, false);
+		}else{
+			item.add("id", dAlbum.getId()).add("album.name", dAlbum.getName()).add("album.description", dAlbum.getDescription()).add("album.type", dAlbum.getType());
+		}
 		return response(item.toFormDataString(true));
+	}
+	
+	public String list()throws Exception{
+		CriterionList conditions=this.getUserCriterionList();
+		if(type!=0){
+			conditions.put(Restrictions.eq("type", type));
+		}
+		JsonList jsonList=new JsonList();
+		for(Album album:this.basicService.getList(conditions, start, limit)){
+			this.addData(jsonList, album);
+		}
+		return response(jsonList.toPageString(this.basicService.getCount(conditions)));
 	}
 	
 	public String typeList()throws Exception{
@@ -76,7 +96,7 @@ public class AlbumAction extends ABasicAction<Album> {
 		.add("type", AlbumType.fromValue(object.getType()).toText())
 		.add("user", this.userService.getObject(object.getUserId()).getUserName());
 		if(DataUtil.notEmptyString(object.getItemIds())){
-			item.add("defaultPicture", this.pictureService.getObject(DataUtil.getIndexStringId(object.getItemIds(), 0)));
+			item.add("defaultPicture", this.pictureService.getObject(DataUtil.getIndexStringId(object.getItemIds(), 1)).getPath());
 		}else{
 			item.add("defaultPicture", "album.jpg");
 		}

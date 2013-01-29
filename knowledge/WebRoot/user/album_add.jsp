@@ -22,13 +22,13 @@
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-      	<h2>创建相册</h2>
+      	<h2 id="titleContentId"></h2>
       		<form action="album_add.action" id="albumAddFormId">
-      			<input type="text" class="input-block-level" name="album.name">
-      			<select id="typeSelectId" name="album.type">
+      			<input type="text" class="input-block-level" name="album.name" id="nameFormFieldId">
+      			<select id="typeSelectId" name="album.type" id="typeFormFieldId">
       				<option value='0'>--请选择--</option>
       			</select>
-      			<textarea rows="20" style="width:100%" name="album.description" id='albumDescriptionId'></textarea>
+      			<textarea rows="20" style="width:100%" name="album.description" id='descriptionFormFieldId'></textarea>
       			<div align='center'><p><button type="reset" class="btn btn-warning">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">提交</button></p></div>
       		</form>
       </div>
@@ -59,7 +59,7 @@
 		$(document).ready(laivi.init(function(){
 			var editor;
 			KindEditor.ready(function(K) {
-				editor = K.create('textarea[id="albumDescriptionId"]', {
+				editor = K.create('textarea[id="descriptionFormFieldId"]', {
 					allowFileManager : true,
 					afterBlur:function(){
 						this.sync();
@@ -67,9 +67,24 @@
 				});
 			});
 			laivi.comboList($("#typeSelectId"), 'album_typeList.action');
-			laivi.submitForm($("#albumAddFormId"), 'album_add.action', function(){
-				window.location.href="user_album.jsp";
-			}, false, false);
+			var id=laivi.getUrlVar('id');
+			if(id!=null&&id!=0){
+				$("#titleContentId").html("修改专辑");
+				laivi.setFormVaule('album_get.action?font=true&id='+id,true,function(result){
+					editor.html(result.data.description);
+				});
+				laivi.submitForm($("#albumAddFormId"), 'album_update.action?id='+id, function(){
+					window.location.href="user_album.jsp";
+				}, false, false);
+			}else{
+				$("#titleContentId").html("创建专辑");
+				laivi.submitForm($("#albumAddFormId"), 'album_add.action', function(){
+					window.location.href="user_album.jsp";
+				}, false, false);
+			}
+			
+			
+			
 		}));
 	</script>
   </body>

@@ -50,7 +50,7 @@ public class ExceptionInterceptor extends AbstractInterceptor {
 			try {
 				return actionInvocation.invoke();
 			} catch (Exception e) {
-				//e.printStackTrace();
+				e.printStackTrace();
 				String path = null;
 				String errorMessage = e.getMessage() == null ? DEFAULT_ERROR_MESSAGE : e.getMessage();
 				if (errorMessage.contains("java.io.InputStream")) {

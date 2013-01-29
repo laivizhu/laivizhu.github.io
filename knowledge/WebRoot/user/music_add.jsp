@@ -29,7 +29,7 @@
 <div class="container">
 <div class="row">
 	<div class="span12">
-		<form id="fileupload" action="picture_upload.action" method="POST" enctype="multipart/form-data">
+		<form id="fileupload" action="music_upload.action" method="POST" enctype="multipart/form-data">
 		<input type="hidden" id="albumIdInputId" name="albumId">
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
@@ -38,7 +38,7 @@
                   <span class="btn btn-success fileinput-button">
                       <i class="icon-plus icon-white"></i>
                       <span>Add files...</span>
-                      <input type="file" name="pictures" multiple>
+                      <input type="file" name="musics" multiple>
                   </span>
                   <button type="submit" class="btn btn-primary start">
                       <i class="icon-upload icon-white"></i>

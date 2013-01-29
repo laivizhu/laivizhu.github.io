@@ -1,5 +1,11 @@
 var navigate={
-	user:[{url:'user.jsp',title:'个人信息'},{url:'user_article.jsp',title:'博文记录'},{url:'#',title:'知识管理'},{url:'user_album.jsp',title:'相册'}]
+	user:[
+      {url:'user.jsp',title:'个人信息'},
+      {url:'user_article.jsp',title:'博文记录'},
+      {url:'#',title:'知识管理'},
+      {url:'user_album.jsp',title:'相册'},
+      {url:'user_musicAlbum.jsp',title:'音乐专辑'}
+    ]
 };
 
 

@@ -4,17 +4,24 @@ import java.io.File;
 
 import javax.annotation.Resource;
 
+import org.hibernate.criterion.Restrictions;
+
 import com.laivi.knowledge.basic.action.ABasicAction;
+import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
+import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
+import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.FileUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
+import com.laivi.knowledge.user.model.po.Album;
 import com.laivi.knowledge.user.model.po.Picture;
+import com.laivi.knowledge.user.service.IAlbumService;
 import com.laivi.knowledge.user.service.IPictureService;
 
 /**
@@ -27,6 +34,7 @@ import com.laivi.knowledge.user.service.IPictureService;
 @SuppressWarnings("serial")
 public class PictureAction extends ABasicAction<Picture> {
 	private IPictureService pictureService;
+	private IAlbumService albumService;
 	private Picture picture;
 	private File[] pictures;
 	private String[] picturesFileName;
@@ -53,6 +61,20 @@ public class PictureAction extends ABasicAction<Picture> {
 		}
 		return response(true);
 	}
+	
+	public String pictureList()throws Exception{
+		ParamAssert.isTrue(albumId != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
+		Album album=this.albumService.getObject(albumId);
+		JsonList jsonList=new JsonList();
+		CriterionList conditions=CriterionList.CreateCriterion();
+		if(DataUtil.notEmptyString(album.getItemIds())){
+			conditions.put(Restrictions.in("id", DataUtil.changeIdString(album.getItemIds())));
+			for(Picture pictrue:this.pictureService.getList(conditions,start,limit)){
+				this.addData(jsonList, pictrue);
+			}
+		}
+		return response(jsonList.toPageString(this.pictureService.getCount(conditions)));
+	}
 
 	public JsonItem getJsonItem(Picture object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();
@@ -77,6 +99,11 @@ public class PictureAction extends ABasicAction<Picture> {
     public void setBasicService(IBasicService<Picture> basicService){
     	this.basicService=basicService;
     }
+
+	@Resource(name = "AlbumService")
+	public void setAlbumService(IAlbumService albumService) {
+		this.albumService = albumService;
+	}
 
 	public Picture getPicture() {
 		return picture;
@@ -109,6 +136,4 @@ public class PictureAction extends ABasicAction<Picture> {
 	public void setAlbumId(long albumId) {
 		this.albumId = albumId;
 	}
-	
-	
 }

@@ -1,36 +1,39 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html lang="en">
   <head>
-    <title>Laivi 感悟生活</title>
+    <title>Laivi 回忆园地</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/docs.css"/>
     <link rel="stylesheet" type="text/css" href="../css/jbox_Green/jbox.css"/>
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
   </head>
-  <body>
-    <jsp:include page="../common/navigate.jsp"/>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+  <jsp:include page="../common/navigate.jsp"/>
+    
     <div class="container">
 		<div class="row">
-			<jsp:include page="../common/navigate_left.jsp"/>
-		    <div class="span9">
+		    <div class="span12">
 		    	<!-- Main hero unit for a primary marketing message or call to action -->
-		    	<div style="position: fixed; float: right;width:100px;height:60px; right:10px;" >
+		    	<div style="position: fixed; float: right;width:90px;height:60px; right:5px;" >
 		    		<ul class="nav nav-pills">
 						      <li>
-						        <a href="user_addArticle.jsp" class="btn">发表博文</a>
+						      	<button class="btn" id="uploadPictureButtonId">上传照片</button>
 						      </li>
 					    </ul>
 				</div>
-
-		     	<section id="article">
+		     	<section id="picture">
 		     		<!-- Example row of columns -->
-			     	<div class="row" id="articleListDivId">
+			     	<div class="row" id="pictureListDivId">
 	      			</div>
 		     	</section>
-		      	
-		      	
 		    </div>
   		</div>
       <hr>
@@ -50,24 +53,14 @@
 	<script type="text/javascript" src="../js/jquery.jBox-zh-CN.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
 	<script type="text/javascript" src="../js/basic.js"></script>
-	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
-		var getMoreData=function(id){
-			laivi.getJson('article_get.action?type=1&id='+id, function(result){
-				var comb="<a class='btn btn-primary btn-small' onclick='getLessData("+result.data.id+")'>Fold &raquo;</a>";
-				$('#content'+id).html(result.data.content+comb);
-			});
-		};
-		var getLessData=function(id){
-			laivi.getJson('article_get.action?fold=true&type=1&id='+id, function(result){
-				var comb="<a class='btn btn-primary btn-small' onclick='getMoreData("+result.data.id+")'>More &raquo;</a>";
-				$('#content'+id).html(result.data.content+comb);
-			});
-		};
 		$(document).ready(laivi.init(function(){
-			loadLocalNavigate(navigate.user);
-			laivi.scrollBreakPage('article_list.action', $("#articleListDivId"), function(item){
-				return "<div class='span8'><a href='../knowledge/article_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p><a onclick=deleteObject('article_delete.action?id="+item.id+"')>删除</a>|<a href='user_addArticle.jsp?id="+item.id+"'>编辑</a>|"+item.createDate+"|"+item.user+"</p></div></div>";
+			var albumId=laivi.getUrlVar('id');
+			$("#uploadPictureButtonId").click(function(){
+				window.location.href='picture_add.jsp?id='+albumId;
+			});
+			laivi.scrollBreakPage('picture_pictureList.action?albumId='+albumId, $("#pictureListDivId"), function(item){
+				return "<div class='span3'><div class='thumbnail'><a href='../picture/"+item.path+"' target='blank'><img src='../picture/"+item.path+"'/></a><div class='caption'><p>"+item.description+"</p></div></div></div>";
 			});
 		}));
 	

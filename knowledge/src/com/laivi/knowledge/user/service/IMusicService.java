@@ -13,5 +13,5 @@ import com.laivi.knowledge.user.model.po.Music;
  * Time: 12-11-11 下午1:56
  */
 public interface IMusicService extends IBasicService<Music> {
-	JSONArray upload(File[] music,String[] musicsFileName,String path)throws ErrorFileException;
+	JSONArray upload(File[] music,String[] musicsFileName,String path,long albumId)throws ErrorFileException;
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.laivi.knowledge.basic.dao.IBasicDao;
 import com.laivi.knowledge.basic.model.exception.ErrorFileException;
 import com.laivi.knowledge.basic.service.BasicService;
+import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.FileUtil;
 import com.laivi.knowledge.user.dao.IAlbumDao;
 import com.laivi.knowledge.user.model.po.Album;
@@ -63,7 +64,11 @@ public class PictureService extends BasicService<Picture> implements IPictureSer
 				throw new ErrorFileException("");
 			}
 		}
-		album.setItemIds(sb.toString());
+		if(DataUtil.notEmptyString(album.getItemIds())){
+			album.setItemIds(album.getItemIds()+","+sb.toString());
+		}else{
+			album.setItemIds(sb.toString());
+		}
 		albumDao.modify(album);
 		return jsonArray;
 	}

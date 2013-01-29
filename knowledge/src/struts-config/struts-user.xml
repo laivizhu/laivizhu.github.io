@@ -32,6 +32,7 @@
         	<result name="logout">login.jsp</result>
         </action>
         <action name="album_*" class="com.laivi.knowledge.user.action.AlbumAction" method="{1}"/>
+        <action name="music_*" class="com.laivi.knowledge.user.action.MusicAction" method="{1}"/>
         <action name="tag_*" class="com.laivi.knowledge.knowledge.action.TagAction" method="{1}"/>
         <action name="knowledge_*" class="com.laivi.knowledge.knowledge.action.KnowledgeAction" method="{1}"/>
         <action name="picture_*" class="com.laivi.knowledge.user.action.PictureAction" method="{1}"/>

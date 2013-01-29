@@ -47,7 +47,7 @@ var laivi={
 			}
 		});
 	},
-	setFormVaule:function(url,isInput,params){
+	setFormVaule:function(url,isInput,OtherHandler,params){
 		if(isInput==null){
 			isInput=false;
 		}
@@ -67,6 +67,9 @@ var laivi={
 				}else{
 					$("#"+key+"FormFieldId").html(result.data[key]);
 				}
+			}
+			if(OtherHandler!=null){
+				OtherHandler(result);
 			}
 		},params);
 	},
@@ -254,6 +257,16 @@ var laivi={
 				});
 			}
 		});
+	},
+	newJplayer:function(list){
+		new jPlayerPlaylist({
+			jPlayer: "#laivi_jplayerDivId",
+			cssSelectorAncestor: "#laivi_containerDivId"
+		},list,{
+			swfPath: "jplayer",
+			supplied: "wma,mp3",
+			wmode: "window"
+		});
 	}
 };
 
@@ -314,3 +327,4 @@ function deleteObject(url){
 		});
 	});
 }
+

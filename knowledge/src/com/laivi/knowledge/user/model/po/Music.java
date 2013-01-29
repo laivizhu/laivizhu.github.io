@@ -18,7 +18,7 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table
+@Table(name="t_music")
 public class Music extends BasicEntity {
 
 	private long id;

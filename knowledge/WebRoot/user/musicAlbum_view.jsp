@@ -1,36 +1,38 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html lang="en">
   <head>
-    <title>Laivi 感悟生活</title>
+    <title>Laivi 回忆园地</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/docs.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/jplayer/jplayer.blue.css"/>
     <link rel="stylesheet" type="text/css" href="../css/jbox_Green/jbox.css"/>
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
   </head>
-  <body>
-    <jsp:include page="../common/navigate.jsp"/>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+  <jsp:include page="../common/navigate.jsp"/>
+    
     <div class="container">
 		<div class="row">
-			<jsp:include page="../common/navigate_left.jsp"/>
-		    <div class="span9">
+		    <div class="span12">
 		    	<!-- Main hero unit for a primary marketing message or call to action -->
-		    	<div style="position: fixed; float: right;width:100px;height:60px; right:10px;" >
+		    	<div style="position: fixed; float: right;width:90px;height:60px; right:5px;" >
 		    		<ul class="nav nav-pills">
 						      <li>
-						        <a href="album_add.jsp" class="btn">创建相册</a>
+						      	<button class="btn" id="uploadPictureButtonId">上传音乐</button>
 						      </li>
 					    </ul>
 				</div>
-
-		     	<section id="album">
-		     		<!-- Example row of columns -->
-			     	<div class="row" id="albumListDivId">
-	      			</div>
-		     	</section>
-		      	
-		      	
+		     	<div class="row">
+			     	<jsp:include page="../common/jplayer.jsp"/>
+	      		</div>
 		    </div>
   		</div>
       <hr>
@@ -49,13 +51,18 @@
     <script type="text/javascript" src="../js/jquery.jBox-2.3.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.jBox-zh-CN.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/jplayer/jquery.jplayer.min.js"></script>
+	<script type="text/javascript" src="../js/jplayer/jplayer.playlist.min.js"></script>
 	<script type="text/javascript" src="../js/basic.js"></script>
-	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
 		$(document).ready(laivi.init(function(){
-			loadLocalNavigate(navigate.user);
-			laivi.scrollBreakPage('album_list.action?type=2', $("#albumListDivId"), function(item){
-				return "<div class='span4'><div class='thumbnail'><a href='album_view.jsp?id="+item.id+"'><img src='../picture/"+item.defaultPicture+"'></img></a><div class='caption'><p>"+item.name+"</p><p>"+item.description+"</p><p><a  href='#' onclick=deleteObject('album_delete.action?id="+item.id+"')>删除</a>|<a href='album_add.jsp?id="+item.id+"'>编辑</a></p></div></div></div>";
+			var albumId=laivi.getUrlVar('id');
+			$("#uploadPictureButtonId").click(function(){
+				window.location.href='music_add.jsp?id='+albumId;
+			});
+			laivi.getJson('music_musicList.action?albumId='+albumId, function(result){
+				laivi.newJplayer(result.root);
 			});
 		}));
 	
