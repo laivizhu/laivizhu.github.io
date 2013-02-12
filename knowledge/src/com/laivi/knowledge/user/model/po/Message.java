@@ -31,6 +31,7 @@ public class Message extends BasicEntity{
 	private long userId;
 	private long toUserId;
 	private boolean readIs;
+	private int  type;
 	@Id
 	@GeneratedValue
 	public long getId() {
@@ -75,5 +76,11 @@ public class Message extends BasicEntity{
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 }

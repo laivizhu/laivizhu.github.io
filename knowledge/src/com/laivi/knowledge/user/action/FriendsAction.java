@@ -12,8 +12,10 @@ import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.user.model.po.Friends;
+import com.laivi.knowledge.user.model.po.Message;
 import com.laivi.knowledge.user.model.po.User;
 import com.laivi.knowledge.user.model.type.FriendsDirection;
+import com.laivi.knowledge.user.service.IMessageService;
 import com.laivi.knowledge.user.service.IUserService;
 
 /**
@@ -28,20 +30,27 @@ public class FriendsAction extends ABasicAction<Friends> {
 
 	private Friends friend;
 	private int friendDirection;
+	private IMessageService messageService;
 	
 	public String add()throws Exception{
 		ParamAssert.isTrue(friend.getFriendId()!=0, "error.Friend.notChoise");
 		long userId=this.getCurrentUserId();
 		ParamAssert.isTrue(userId!=friend.getFriendId(), "error.Friend.notChoiesSelf");
-		CriterionList conditions=CriterionList.CreateCriterion()
-				.put(Restrictions.eq("userId", userId))
-				.put(Restrictions.eq("friendId", friend.getFriendId()));
+		CriterionList conditions=CriterionList.CreateCriterion().put(
+				Restrictions.or(
+						Restrictions.and(
+								Restrictions.eq("userId", userId),
+								Restrictions.eq("friendId", friend.getFriendId())),
+						Restrictions.and(
+								Restrictions.eq("userId", friend.getFriendId()),
+								Restrictions.eq("friendId",userId))));
 		if(this.basicService.getCount(conditions)>0){
 			throw new ErrorException("该朋友已经存在",true);
 		}
 		friend.setUserId(userId);
 		friend.setDirection(FriendsDirection.INIT.toValue());
 		this.basicService.add(friend);
+		messageService.sendAddFriendMessage(userId, friend.getFriendId());
 		return response(true);
 	}
 	
@@ -63,9 +72,16 @@ public class FriendsAction extends ABasicAction<Friends> {
 	
 	public String confirm()throws Exception{
 		ParamAssert.isTrue(id!=0, "error.object.notChoose");
-		Friends friend=this.basicService.getObject(id);
+		Message message=this.messageService.getObject(id);
+		CriterionList condition=CriterionList.CreateCriterion()
+				.put(Restrictions.eq("userId",message.getUserId()))
+				.put(Restrictions.eq("friendId", message.getToUserId()))
+				.put(Restrictions.eq("direction",FriendsDirection.INIT.toValue()));
+		Friends friend=this.basicService.getObject(condition);
 		friend.setDirection(friendDirection);
 		this.basicService.modify(friend);
+		message.setReadIs(true);
+		this.messageService.modify(message);
 		return response(true);
 	}
 	
@@ -143,4 +159,10 @@ public class FriendsAction extends ABasicAction<Friends> {
 	public void setFriendDirection(int friendDirection) {
 		this.friendDirection = friendDirection;
 	}
+
+	@Resource(name="MessageService")
+	public void setMessageService(IMessageService messageService) {
+		this.messageService = messageService;
+	}
+	
 }

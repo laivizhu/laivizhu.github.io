@@ -1,14 +1,24 @@
 package com.laivi.knowledge.user.action;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.hibernate.criterion.Restrictions;
+
 import com.laivi.knowledge.basic.action.ABasicAction;
+import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
+import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.user.model.po.AutoGraph;
+import com.laivi.knowledge.user.model.po.Friends;
+import com.laivi.knowledge.user.model.type.FriendsDirection;
+import com.laivi.knowledge.user.service.IFriendsService;
+import com.laivi.knowledge.user.service.IUserService;
 
 /**
  * Copyright Laivi
@@ -21,6 +31,7 @@ import com.laivi.knowledge.user.model.po.AutoGraph;
 public class AutoGraphAction extends ABasicAction<AutoGraph> {
 
 	private AutoGraph autoGraph;
+	private IFriendsService friendService;
 	
 	public String add()throws Exception{
 		ParamAssert.isNotEmptyString(autoGraph.getContent(), "");
@@ -34,6 +45,39 @@ public class AutoGraphAction extends ABasicAction<AutoGraph> {
 		return response(true);
 	}
 	
+	public String listFriendAutoGraph()throws Exception{
+		long userId=this.getCurrentUserId();
+		this.conditions=CriterionList.CreateCriterion().put(
+				Restrictions.or(
+						Restrictions.or(
+								Restrictions.and(
+										Restrictions.eq("userId",userId),
+										Restrictions.eq("direction", FriendsDirection.BEFORE.toValue())),
+								Restrictions.and(
+										Restrictions.eq("userId",userId),
+										Restrictions.eq("direction", FriendsDirection.DOUBLE.toValue()))),
+						Restrictions.or(
+								Restrictions.and(
+										Restrictions.eq("friendId",userId),
+										Restrictions.eq("direction", FriendsDirection.AFTER.toValue())),
+								Restrictions.and(
+										Restrictions.eq("friendId",userId),
+										Restrictions.eq("direction", FriendsDirection.DOUBLE.toValue())))
+				));
+		List<Friends> friendList=this.friendService.getList(conditions);
+		Long[] friendIds=new Long[friendList.size()];
+		for(int i=0;i<friendIds.length;i++){
+			if(userId!=friendList.get(i).getUserId()){
+				friendIds[i]=friendList.get(i).getUserId();
+			}else{
+				friendIds[i]=friendList.get(i).getFriendId();
+			}
+		}
+		conditions.clear();
+		conditions.put(Restrictions.in("userId", friendIds));
+		return response(list(true,false));
+	}
+	
 	@Override
 	public JsonItemList getSearchComboList() throws ErrorException {
 		return null;
@@ -42,7 +86,12 @@ public class AutoGraphAction extends ABasicAction<AutoGraph> {
 	
 	@Override
 	public JsonItem getJsonItem(AutoGraph object, boolean isSub) throws Exception {
-		return null;
+		JsonItem item=new JsonItem();
+		item.add("id", object.getId())
+		.add("content", object.getContent())
+		.add("user", this.userService.getObject(object.getUserId()))
+		.add("createDate", DateUtil.formatDate(object.getCreateDate()));
+		return item;
 	}
 
 
@@ -59,5 +108,17 @@ public class AutoGraphAction extends ABasicAction<AutoGraph> {
 	public void setBasicService(IBasicService<AutoGraph> basicService){
 		this.basicService=basicService;
 	}
+	
+	@Resource(name="UserService")
+	public void setUserService(IUserService userService){
+		this.userService=userService;
+	}
+
+	@Resource(name="FriendsService")
+	public void setFriendService(IFriendsService friendService) {
+		this.friendService = friendService;
+	}
+	
+	
 
 }

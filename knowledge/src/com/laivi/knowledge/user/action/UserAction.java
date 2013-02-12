@@ -56,7 +56,6 @@ public class UserAction extends ABasicAction<User> {
     	}else{
     		return "logout";
     	}
-    	
     }
 
     public String add()throws Exception{
@@ -90,6 +89,15 @@ public class UserAction extends ABasicAction<User> {
     	return response(true);
     }
 
+    public String list()throws Exception{
+    	return response(list(true,false));
+    }
+    
+    public String search()throws Exception{
+    	this.getSearchConditions();
+    	return response(list(!notBreakPage,false));
+    }
+    
     public String roleList()throws Exception{
         JsonItemList jsonList=new JsonItemList();
         CriterionList conditions=CriterionList.CreateCriterion().put(Restrictions.ne("name", "ROLE_ADMIN"));

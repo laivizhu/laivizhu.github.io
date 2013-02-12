@@ -12,7 +12,7 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="/knowledge/index.jsp">首页</a></li>
-              <li><a href="#">论坛</a></li>
+              <li><a href="/knowledge/bbs/bbs.jsp">论坛</a></li>
               <li><a href="/knowledge/picture/picture.jsp">记忆点滴</a></li>
               <li><a href="/knowledge/music/music.jsp">音乐天地</a></li>
               <li><a href="/knowledge/shopping/shopping.jsp">商城</a></li>
@@ -32,7 +32,9 @@
 		              <input class="input-medium" type="text" name="user.account" placeholder="Account">
 		              <input class="input-medium" type="password" name="user.password" placeholder="Password">
 		              <button type="button" class="btn btn-small" onclick="userLogin()">Login</button>
+		              <button type="button" class="btn btn-small" onclick="userRegiest()">Create New</button>
 		            </form>
+		            
             	</div>
             </s:if>
             <s:else>
@@ -51,5 +53,5 @@
     </div>
     
     <div id="backTopDivId" style="display: none;position: fixed; float: right;width:30px;height:60px;right:10px;top:500px;">
-    	<a href="#" class="btn btn-small">Top</a>
+    	<a href="#" class="btn btn-small btn-inverse">Top</a>
     </div>

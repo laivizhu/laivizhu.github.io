@@ -1,5 +1,7 @@
 var navigate={
 	user:[
+	  {url:'user_space.jsp',title:'个人空间'},
+	  {url:'user_friend.jsp',title:'朋友管理'},
       {url:'user.jsp',title:'个人信息'},
       {url:'user_article.jsp',title:'博文记录'},
       {url:'#',title:'知识管理'},

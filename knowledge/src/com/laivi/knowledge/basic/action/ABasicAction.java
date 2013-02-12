@@ -64,7 +64,11 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	protected boolean notBreakPage;
 	
 	public String search()throws Exception{
-		CriterionList conditions =this.getUserCriterionList();
+		getSearchConditions();
+		return response(list(!notBreakPage,true));
+	}
+	
+	protected void getSearchConditions()throws Exception{
 		Map<String,Object> paramterMap=ActionContext.getContext().getParameters();
 		String[] keys=(String[])paramterMap.get("key");  
         String[] keyValues=(String[])paramterMap.get("value");
@@ -96,7 +100,6 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 				conditions.put(Restrictions.like(entry.getKey(), values[0],MatchMode.ANYWHERE));
 			}
 		}
-		return response(list(!notBreakPage,true));
 	}
 	
 	public String getKeywordCombolList()throws Exception{
@@ -132,8 +135,8 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 		}
 		if(conditions==null){
 			conditions=CriterionList.CreateCriterion();
-			conditions.put(Order.desc("createDate"));
 		}
+		conditions.put(Order.desc("createDate"));
 		List<T> list;
 		if(isBreakPage){
 			list=this.basicService.getList(conditions, start, limit);

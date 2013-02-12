@@ -2,7 +2,10 @@ package com.laivi.knowledge.user.action;
 
 import javax.annotation.Resource;
 
+import org.hibernate.criterion.Restrictions;
+
 import com.laivi.knowledge.basic.action.ABasicAction;
+import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
@@ -10,6 +13,7 @@ import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.user.model.po.Message;
+import com.laivi.knowledge.user.model.type.MessageType;
 
 /**
  * Copyright Laivi
@@ -47,6 +51,18 @@ public class MessageAction extends ABasicAction<Message> {
 		JsonItemList jsonList=new JsonItemList();
         jsonList.createItem().add("value","").add("text","");
 		return jsonList;
+	}
+	
+	public String list()throws Exception{
+		return response();
+	}
+	
+	public String listFriendMessage()throws Exception{
+		this.conditions=CriterionList.CreateCriterion()
+				.put(Restrictions.eq("type", MessageType.REQUEST.toValue()))
+				.put(Restrictions.eq("toUserId",this.getCurrentUserId()))
+				.put(Restrictions.eq("readIs",false));
+		return response(list(true,false));
 	}
 
 	public Message getMessage() {

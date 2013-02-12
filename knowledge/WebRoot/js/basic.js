@@ -234,7 +234,7 @@ var laivi={
 				});
 			}else{
 				if(firstTime){
-					obj.append("<div class='span12'><h4>暂无记录</h4></div>");
+					obj.append("<div class='span8'><h4>暂无记录</h4></div>");
 					firstTime=false;
 				}
 			}
@@ -312,6 +312,10 @@ function userLogin(){
 	}, false, true);
 }
 
+function userRegiest(){
+	window.location.href="/knowledge/user/user_add.jsp";
+}
+
 function userLogout(){
 	laivi.confirm('确认要注销吗？', function(){
 		laivi.getJson('user_logout.action?fold=true', function(){
@@ -320,8 +324,14 @@ function userLogout(){
 	});
 }
 
-function deleteObject(url){
-	laivi.confirm('确认要删除吗？', function(){
+function deleteObject(url,msg){
+	var message;
+	if(msg==null){
+		message='确认要删除吗？';
+	}else{
+		message=msg;
+	}
+	laivi.confirm(message, function(){
 		laivi.getJson(url, function(){
 			window.location.reload();
 		});
