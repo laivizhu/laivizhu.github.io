@@ -10,7 +10,6 @@ import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
-import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
@@ -68,15 +67,11 @@ public class AlbumAction extends ABasicAction<Album> {
 	}
 	
 	public String list()throws Exception{
-		CriterionList conditions=this.getUserCriterionList();
+		conditions=CriterionList.CreateCriterion();
 		if(type!=0){
 			conditions.put(Restrictions.eq("type", type));
 		}
-		JsonList jsonList=new JsonList();
-		for(Album album:this.basicService.getList(conditions, start, limit)){
-			this.addData(jsonList, album);
-		}
-		return response(jsonList.toPageString(this.basicService.getCount(conditions)));
+		return response(list(true,true));
 	}
 	
 	public String typeList()throws Exception{

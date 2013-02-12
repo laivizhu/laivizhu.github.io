@@ -11,7 +11,6 @@ import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
-import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.shopping.model.po.Category;
@@ -63,16 +62,12 @@ public class CategoryAction extends ABasicAction<Category> {
 	}
 	
 	public String list()throws Exception{
-		JsonList jsonList=new JsonList();
 		CriterionList conditions=CriterionList.CreateCriterion();
 		conditions.put(Order.desc("level")).put(Order.desc("priority"));
 		if(category.getLevel()!=0){
 			conditions.put(Restrictions.eq("level", category.getLevel()));	
 		}
-		for(Category category:basicService.getList(conditions)){
-			jsonList.add(this.getJsonItem(category,true).toString());
-		}
-		return response(jsonList);
+		return response(list(true,true));
 	}
 	
 	public String typeList()throws Exception{

@@ -1,4 +1,4 @@
-package com.laivi.knowledge.knowledge.action;
+package com.laivi.knowledge.bbs.action;
 
 import javax.annotation.Resource;
 
@@ -7,7 +7,9 @@ import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
-import com.laivi.knowledge.knowledge.model.po.Posts;
+import com.laivi.knowledge.basic.util.DataUtil;
+import com.laivi.knowledge.basic.util.ParamAssert;
+import com.laivi.knowledge.bbs.model.po.Posts;
 
 /**
  * Copyright Laivi
@@ -20,6 +22,33 @@ import com.laivi.knowledge.knowledge.model.po.Posts;
 public class PostsAction extends ABasicAction<Posts> {
 
 	private Posts posts;
+	
+	public String add()throws Exception{
+		ParamAssert.isNotEmptyString(posts.getContent(), "");
+		posts.setUserId(this.getCurrentUserId());
+		posts.setParent(false);
+		if(DataUtil.notEmptyString(posts.getTitle())){
+			posts.setParentId(0);
+		}else{
+			Posts parent=this.basicService.getObject(posts.getParentId());
+			parent.setParent(true);
+			this.basicService.modify(parent);
+		}
+		this.basicService.add(posts);
+		return response(true);
+	}
+	
+	public String delete()throws Exception{
+		
+		return response();
+	}
+	
+	public String view()throws Exception{
+		
+		return response();
+	}
+	
+	
 	
 	public JsonItem getJsonItem(Posts object,boolean isSub) throws Exception {
 		JsonItem item=new JsonItem();

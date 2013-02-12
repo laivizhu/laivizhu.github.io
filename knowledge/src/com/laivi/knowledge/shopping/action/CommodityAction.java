@@ -92,14 +92,6 @@ public class CommodityAction extends ABasicAction<Commodity> {
 		return response(item.toFormDataString(true));
 	}
 	
-	public String list()throws Exception{
-		JsonItemList jsonList=new JsonItemList();
-		for(Commodity commodity:this.commodityService.getList(start,limit)){
-			jsonList.add(this.getJsonItem(commodity,true));
-		}
-		return response(jsonList.toPageString(this.commodityService.getCount()));
-	}
-	
 	public String categoryList()throws Exception{
 		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion();

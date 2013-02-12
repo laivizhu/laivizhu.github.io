@@ -1,18 +1,18 @@
-package com.laivi.knowledge.knowledge.dao;
+package com.laivi.knowledge.user.dao;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Service;
 
 import com.laivi.knowledge.basic.dao.ABasicDao;
-import com.laivi.knowledge.knowledge.model.po.Posts;
+import com.laivi.knowledge.user.model.po.Message;
 
 /**
  * User: janlu.sword@gmail.com
  * Time: 12-11-11 下午1:37
  */
-@Service("PostsDao")
-public class PostsDao extends ABasicDao<Posts> implements IPostsDao {
+@Service("MessageDao")
+public class MessageDao extends ABasicDao<Message> implements IMessageDao {
     public DetachedCriteria getCriteria() {
-        return DetachedCriteria.forClass(Posts.class);
+        return DetachedCriteria.forClass(Message.class);
     }
 }

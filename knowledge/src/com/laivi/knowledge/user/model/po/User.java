@@ -1,5 +1,7 @@
 package com.laivi.knowledge.user.model.po;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,6 +20,8 @@ public class User extends BasicEntity{
 	private String account;
 	private String userName;
 	private String password;
+	private String email;
+	private Date createDate=new Date();
 	private boolean sysUser;
 	private String description;
 	private boolean enable;
@@ -108,4 +112,20 @@ public class User extends BasicEntity{
     public void setRoleId(long roleId) {
         this.roleId = roleId;
     }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 }

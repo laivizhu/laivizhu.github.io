@@ -3,6 +3,7 @@ package com.laivi.knowledge.basic.action;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
@@ -59,9 +60,10 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	protected boolean fold;				//是否截取内容
 	protected boolean font;				//是否是前端请求
 	
+	protected CriterionList conditions;
+	protected boolean notBreakPage;
 	
 	public String search()throws Exception{
-		JsonList jsonList = new JsonList();
 		CriterionList conditions =this.getUserCriterionList();
 		Map<String,Object> paramterMap=ActionContext.getContext().getParameters();
 		String[] keys=(String[])paramterMap.get("key");  
@@ -70,8 +72,15 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
         	conditions.put(Restrictions.like(keys[0], encodeString(keyValues[0]),MatchMode.ANYWHERE));
         }
 		for(Map.Entry<String, Object> entry:paramterMap.entrySet()){
-			if("start".equals(entry.getKey()) ||"limit".equals(entry.getKey())
-					|| "key".equals(entry.getKey())|| "value".equals(entry.getKey())){
+			String[] keywords={"start","limit","key","value","notBreakPage","searialRand"};
+			boolean skipFlag=false;
+			for(String keyword:keywords){
+				if(keyword.equals(entry.getKey())){
+					skipFlag=true;
+					break;
+				}
+			}
+			if(skipFlag){
 				continue;
 			}
 			String[] values=(String[])entry.getValue();
@@ -87,10 +96,7 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 				conditions.put(Restrictions.like(entry.getKey(), values[0],MatchMode.ANYWHERE));
 			}
 		}
-		for (T o : basicService.getList(conditions,start, limit)) {
-			this.addData(jsonList,o);
-		}
-		return response(jsonList.toPageString(basicService.getCount(conditions)));
+		return response(list(!notBreakPage,true));
 	}
 	
 	public String getKeywordCombolList()throws Exception{
@@ -116,13 +122,28 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	}
 
 	public String list() throws Exception {
+		return response(list(true,true));
+	}
+	
+	protected String list(boolean isBreakPage,boolean isAddUserCondition)throws Exception{
 		JsonList jsonList = new JsonList();
-		CriterionList conditions=this.getUserCriterionList();
-		conditions.add(Order.desc("createDate"));
-		for (T o : basicService.getList(conditions,start, limit)) {
+		if(isAddUserCondition){
+			this.conditions=this.getUserCriterionList();
+		}
+		if(conditions==null){
+			conditions=CriterionList.CreateCriterion();
+			conditions.put(Order.desc("createDate"));
+		}
+		List<T> list;
+		if(isBreakPage){
+			list=this.basicService.getList(conditions, start, limit);
+		}else{
+			list=this.basicService.getList(conditions);
+		}
+		for (T o :list) {
 			this.addData(jsonList, o);
 		}
-		return response(jsonList.toPageString((int)basicService.getCount(conditions)));
+		return jsonList.toPageString(basicService.getCount(conditions));
 	}
 
 	public String update() throws Exception {
@@ -190,7 +211,9 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 	 * @throws
 	 */
 	protected CriterionList getUserCriterionList() throws ErrorException{
-		CriterionList conditions=CriterionList.CreateCriterion();
+		if(this.conditions==null){
+			this.conditions=CriterionList.CreateCriterion();
+		}
 		if(!this.isSystemUser()){
 			conditions.put(Restrictions.eq("userId", this.getCurrentUserId()));
 		}
@@ -404,6 +427,14 @@ public abstract class ABasicAction<T extends BasicEntity> extends ActionSupport 
 
 	public void setFont(boolean font) {
 		this.font = font;
+	}
+
+	public boolean isNotBreakPage() {
+		return notBreakPage;
+	}
+
+	public void setNotBreakPage(boolean notBreakPage) {
+		this.notBreakPage = notBreakPage;
 	}
 	
 }

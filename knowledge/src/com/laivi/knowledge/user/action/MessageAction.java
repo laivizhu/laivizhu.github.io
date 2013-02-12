@@ -1,4 +1,4 @@
-package com.laivi.knowledge.knowledge.action;
+package com.laivi.knowledge.user.action;
 
 import javax.annotation.Resource;
 
@@ -9,7 +9,7 @@ import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
-import com.laivi.knowledge.knowledge.model.po.Message;
+import com.laivi.knowledge.user.model.po.Message;
 
 /**
  * Copyright Laivi

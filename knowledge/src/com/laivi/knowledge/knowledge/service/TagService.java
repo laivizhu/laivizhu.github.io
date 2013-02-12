@@ -34,7 +34,6 @@ public class TagService extends BasicService<Tag> implements ITagService {
 		}else{
 			return AppConstants.EMPTY;
 		}
-		
 	}
     
 }

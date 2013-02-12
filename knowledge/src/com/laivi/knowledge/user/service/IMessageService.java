@@ -1,7 +1,7 @@
-package com.laivi.knowledge.knowledge.service;
+package com.laivi.knowledge.user.service;
 
 import com.laivi.knowledge.basic.service.IBasicService;
-import com.laivi.knowledge.knowledge.model.po.Message;
+import com.laivi.knowledge.user.model.po.Message;
 
 /**
  * User: laivi.zhu@gmail.com

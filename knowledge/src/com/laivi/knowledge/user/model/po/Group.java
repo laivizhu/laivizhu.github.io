@@ -1,4 +1,4 @@
-package com.laivi.knowledge.knowledge.model.po;
+package com.laivi.knowledge.user.model.po;
 
 import java.util.Date;
 
@@ -17,18 +17,16 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
  * 
  * @author Laivi.Zhu
  * @version 1.0
- * @Date 2013-1-4
+ * @Date Feb 10, 2013
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name="t_posts")
+@Table(name="t_group")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Posts extends BasicEntity{
+public class Group extends BasicEntity {
+
 	private long id;
-	private String title;
-	private String content;
-	private boolean parent;
-	private long postsId;
+	private String name;
 	private long userId;
 	private Date createDate=new Date();
 	
@@ -39,40 +37,12 @@ public class Posts extends BasicEntity{
 		return id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public boolean isParent() {
-		return parent;
-	}
-
-	public void setParent(boolean parent) {
-		this.parent = parent;
-	}
-
-	public long getPostsId() {
-		return postsId;
-	}
-
-	public void setPostsId(long postsId) {
-		this.postsId = postsId;
-	}
-
-	public void setId(long id) {
-		this.id = id;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public long getUserId() {
@@ -89,5 +59,9 @@ public class Posts extends BasicEntity{
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }
