@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.laivi.knowledge.basic.dao.ILBasicDao;
-import com.laivi.knowledge.basic.model.CriterionList;
+import com.laivi.knowledge.basic.model.to.CriterionList;
 
 @Service("LBasicService")
 public class LBasicService<T> {

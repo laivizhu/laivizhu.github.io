@@ -11,7 +11,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
-import com.laivi.knowledge.basic.model.type.InformationLevel;
+import com.laivi.knowledge.knowledge.model.type.InformationLevel;
 
 /**
  * Copyright Laivi

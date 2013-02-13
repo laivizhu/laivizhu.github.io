@@ -6,8 +6,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
 import com.laivi.knowledge.basic.dao.IBasicDao;
-import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
+import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.BasicService;
 import com.laivi.knowledge.search.model.po.SearchItem;
 

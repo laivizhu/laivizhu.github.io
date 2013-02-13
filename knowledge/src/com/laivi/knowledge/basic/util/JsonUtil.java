@@ -7,7 +7,7 @@ import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.processors.JsonValueProcessor;
 
-import com.laivi.knowledge.basic.model.json.JsonEntity;
+import com.laivi.knowledge.basic.model.po.JsonEntity;
 
 /**
  * Util for converting Java object to JSON string.

@@ -1,6 +1,5 @@
 package com.laivi.knowledge.basic.model.po;
 
-import com.laivi.knowledge.basic.model.json.JsonEntity;
 import com.laivi.knowledge.basic.model.json.JsonFormData;
 import com.laivi.knowledge.basic.util.JsonUtil;
 

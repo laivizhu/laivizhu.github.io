@@ -1,4 +1,4 @@
-package com.laivi.knowledge.basic.model;
+package com.laivi.knowledge.basic.model.to;
 
 import java.util.ArrayList;
 

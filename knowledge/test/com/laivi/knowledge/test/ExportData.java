@@ -5,9 +5,9 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-import com.laivi.knowledge.basic.model.type.RoleType;
 import com.laivi.knowledge.user.model.po.Role;
 import com.laivi.knowledge.user.model.po.User;
+import com.laivi.knowledge.user.model.type.RoleType;
 
 public class ExportData {
     private static ClassPathXmlApplicationContext ctx;

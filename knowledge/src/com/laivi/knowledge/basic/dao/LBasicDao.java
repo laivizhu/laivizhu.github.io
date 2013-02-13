@@ -18,8 +18,8 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
 
-import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.po.BaseEntity;
+import com.laivi.knowledge.basic.model.to.CriterionList;
 
 @Service("LBasicDao")
 public class LBasicDao<T extends BaseEntity> implements ILBasicDao<T>{

@@ -1,4 +1,4 @@
-package com.laivi.knowledge.basic.model.json;
+package com.laivi.knowledge.basic.model.po;
 
 /**
  * User: dizem@126.com Time: 12-8-15 下午4:20

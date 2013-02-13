@@ -6,10 +6,10 @@ import org.apache.struts2.ServletActionContext;
 import org.hibernate.criterion.Restrictions;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
-import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
+import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.user.model.po.Role;

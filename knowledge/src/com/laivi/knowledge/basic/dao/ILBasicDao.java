@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 
-import com.laivi.knowledge.basic.model.CriterionList;
+import com.laivi.knowledge.basic.model.to.CriterionList;
 
 public interface ILBasicDao<T> {
 	T getObject(Class<T> clazz,Serializable id);

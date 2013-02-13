@@ -12,8 +12,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.po.BasicEntity;
-import com.laivi.knowledge.basic.model.type.TagType;
 import com.laivi.knowledge.basic.util.DateUtil;
+import com.laivi.knowledge.knowledge.model.type.TagType;
 
 @SuppressWarnings("serial")
 @Entity

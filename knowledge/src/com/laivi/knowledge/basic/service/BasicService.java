@@ -6,9 +6,9 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
 import com.laivi.knowledge.basic.dao.IBasicDao;
-import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.po.BaseEntity;
+import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.util.DataUtil;
 
 public class BasicService<T extends BaseEntity> implements IBasicService<T> {

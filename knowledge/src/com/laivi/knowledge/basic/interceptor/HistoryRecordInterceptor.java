@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.criterion.Restrictions;
 
-import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.annotation.HistoryRecordTag;
+import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.LBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.common.model.po.History;

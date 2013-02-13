@@ -1,4 +1,4 @@
-package com.laivi.knowledge.basic.model.type;
+package com.laivi.knowledge.user.model.type;
 
 public enum RoleType {
 	ROLE_ADMIN("管理员"),

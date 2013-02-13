@@ -111,9 +111,9 @@
 			});
 		};
 		
-		$('#myModal').on('show', function () {
+		/* $('#myModal').on('show', function () {
   			
-		});
+		}); */
 		
 		$(document).ready(laivi.init(function(){
 			getDataList('information_getIndexList.action',$('#informationListId'));

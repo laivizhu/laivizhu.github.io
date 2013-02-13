@@ -5,11 +5,11 @@ import javax.annotation.Resource;
 import org.hibernate.criterion.Restrictions;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
-import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
+import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
@@ -89,7 +89,7 @@ public class AlbumAction extends ABasicAction<Album> {
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("type",object.getType().toText())
 		.add("user", this.userService.getObject(object.getUserId()).getUserName());
-		if(DataUtil.notEmptyString(object.getItemIds())){
+		if(DataUtil.notEmptyString(object.getItemIds()) && object.getType().toText().equals(AlbumType.PICTURE)){
 			item.add("defaultPicture", this.pictureService.getObject(DataUtil.getIndexStringId(object.getItemIds(), 1)).getPath());
 		}else{
 			item.add("defaultPicture", "album.jpg");

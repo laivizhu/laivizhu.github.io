@@ -1,4 +1,6 @@
-package com.laivi.knowledge.basic.model.type;
+package com.laivi.knowledge.knowledge.model.type;
+
+import com.laivi.knowledge.basic.model.type.BasicType;
 
 /**
  * User: laivi.zhu

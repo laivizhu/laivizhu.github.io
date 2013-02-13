@@ -5,18 +5,18 @@ import javax.annotation.Resource;
 import org.hibernate.criterion.Order;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
-import com.laivi.knowledge.basic.model.CriterionList;
 import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
-import com.laivi.knowledge.basic.model.type.InformationLevel;
+import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.knowledge.model.po.Information;
+import com.laivi.knowledge.knowledge.model.type.InformationLevel;
 import com.laivi.knowledge.user.service.IUserService;
 
 /**
