@@ -9,6 +9,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.shopping.model.type.CategoryLevel;
 
 /**
  * Copyright Laivi
@@ -24,7 +25,7 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
 public class Category extends BasicEntity {
 	private long id;
 	private String name;
-	private int level;
+	private CategoryLevel level;
 	private int priority;
 	private long parentId;
 	@Override
@@ -40,14 +41,6 @@ public class Category extends BasicEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
 	}
 
 	public void setId(long id) {
@@ -68,5 +61,13 @@ public class Category extends BasicEntity {
 
 	public void setPriority(int priority) {
 		this.priority = priority;
+	}
+
+	public CategoryLevel getLevel() {
+		return level;
+	}
+
+	public void setLevel(CategoryLevel level) {
+		this.level = level;
 	}
 }

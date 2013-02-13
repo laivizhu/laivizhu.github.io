@@ -11,6 +11,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.basic.model.type.InformationLevel;
 
 /**
  * Copyright Laivi
@@ -29,7 +30,7 @@ public class Information extends BasicEntity{
 	private String content;
 	private Date createDate=new Date();
 	private long userId;
-	private int level;
+	private InformationLevel level;
 	
 	@Id
 	@GeneratedValue
@@ -63,10 +64,10 @@ public class Information extends BasicEntity{
 	public void setId(long id) {
 		this.id = id;
 	}
-	public int getLevel() {
+	public InformationLevel getLevel() {
 		return level;
 	}
-	public void setLevel(int level) {
+	public void setLevel(InformationLevel level) {
 		this.level = level;
 	}
 }

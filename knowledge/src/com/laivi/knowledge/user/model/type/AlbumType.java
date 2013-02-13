@@ -1,27 +1,23 @@
 package com.laivi.knowledge.user.model.type;
 
+import com.laivi.knowledge.basic.model.type.BasicType;
+
 /**
  * User: laivi.zhu
  * Time: 12-6-18 下午11:32
  */
-public enum AlbumType {
-	MUSIC("音乐专辑",1),
-	PICTURE("图片相册",2);
+public enum AlbumType implements BasicType<AlbumType>{
+	MUSIC("音乐专辑"),
+	PICTURE("图片相册");
 	
 	private final String text;
-	private final int value;
 	
-	AlbumType(String text,int value){
+	AlbumType(String text){
 		this.text=text;
-		this.value=value;
 	}
 	
 	public String toText() {
 		return text;
-	}
-	
-	public int toValue() {
-		return value;
 	}
 	
 	public static AlbumType fromText(String value) {
@@ -32,13 +28,10 @@ public enum AlbumType {
 		}
 		throw new IllegalArgumentException("not support value: " + value);
 	}
-	
-	public static AlbumType fromValue(int value) {
-		for (AlbumType type : values()) {
-			if (type.toValue() == value) {
-				return type;
-			}
-		}
-		throw new IllegalArgumentException("not support value: " + value);
+
+
+	@Override
+	public AlbumType getFromText(String text) {
+		return AlbumType.fromText(text);
 	}
 }

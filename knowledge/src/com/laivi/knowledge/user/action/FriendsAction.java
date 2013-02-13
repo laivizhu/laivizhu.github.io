@@ -29,7 +29,6 @@ import com.laivi.knowledge.user.service.IUserService;
 public class FriendsAction extends ABasicAction<Friends> {
 
 	private Friends friend;
-	private int friendDirection;
 	private IMessageService messageService;
 	
 	public String add()throws Exception{
@@ -48,7 +47,7 @@ public class FriendsAction extends ABasicAction<Friends> {
 			throw new ErrorException("该朋友已经存在",true);
 		}
 		friend.setUserId(userId);
-		friend.setDirection(FriendsDirection.INIT.toValue());
+		friend.setDirection(FriendsDirection.INIT);
 		this.basicService.add(friend);
 		messageService.sendAddFriendMessage(userId, friend.getFriendId());
 		return response(true);
@@ -57,11 +56,11 @@ public class FriendsAction extends ABasicAction<Friends> {
 	public String delete()throws Exception{
 		ParamAssert.isTrue(id!=0, "error.object.notChoose");
 		Friends friend=this.basicService.getObject(id);
-		if(friend.getDirection()==FriendsDirection.DOUBLE.toValue()){
+		if(friend.getDirection()==FriendsDirection.DOUBLE){
 			if(friend.getUserId()==this.getCurrentUserId()){
-				friend.setDirection(FriendsDirection.AFTER.toValue());
+				friend.setDirection(FriendsDirection.AFTER);
 			}else{
-				friend.setDirection(FriendsDirection.BEFORE.toValue());
+				friend.setDirection(FriendsDirection.BEFORE);
 			}
 			this.basicService.modify(friend);
 		}else{
@@ -76,9 +75,8 @@ public class FriendsAction extends ABasicAction<Friends> {
 		CriterionList condition=CriterionList.CreateCriterion()
 				.put(Restrictions.eq("userId",message.getUserId()))
 				.put(Restrictions.eq("friendId", message.getToUserId()))
-				.put(Restrictions.eq("direction",FriendsDirection.INIT.toValue()));
+				.put(Restrictions.eq("direction",FriendsDirection.INIT));
 		Friends friend=this.basicService.getObject(condition);
-		friend.setDirection(friendDirection);
 		this.basicService.modify(friend);
 		message.setReadIs(true);
 		this.messageService.modify(message);
@@ -92,17 +90,17 @@ public class FriendsAction extends ABasicAction<Friends> {
 						Restrictions.or(
 								Restrictions.and(
 										Restrictions.eq("userId",userId),
-										Restrictions.eq("direction", FriendsDirection.BEFORE.toValue())),
+										Restrictions.eq("direction", FriendsDirection.BEFORE)),
 								Restrictions.and(
 										Restrictions.eq("userId",userId),
-										Restrictions.eq("direction", FriendsDirection.DOUBLE.toValue()))),
+										Restrictions.eq("direction", FriendsDirection.DOUBLE))),
 						Restrictions.or(
 								Restrictions.and(
 										Restrictions.eq("friendId",userId),
-										Restrictions.eq("direction", FriendsDirection.AFTER.toValue())),
+										Restrictions.eq("direction", FriendsDirection.AFTER)),
 								Restrictions.and(
 										Restrictions.eq("friendId",userId),
-										Restrictions.eq("direction", FriendsDirection.DOUBLE.toValue())))
+										Restrictions.eq("direction", FriendsDirection.DOUBLE)))
 				));
 		
 		return response(list(true,false));
@@ -125,11 +123,11 @@ public class FriendsAction extends ABasicAction<Friends> {
 		User user=this.userService.getObject(object.getUserId());
 		User friend=this.userService.getObject(object.getFriendId());
 		if(user.getId()==this.getCurrentUserId()){
-			item.add("user", user.getUserName())
-			.add("friend", friend.getUserName());
+			item.add("user", user)
+			.add("friend", friend);
 		}else{
-			item.add("friend", user.getUserName())
-			.add("user", friend.getUserName());
+			item.add("friend", user)
+			.add("user", friend);
 		}
 		return item;
 	}
@@ -151,15 +149,6 @@ public class FriendsAction extends ABasicAction<Friends> {
 	public void setFriend(Friends friend) {
 		this.friend = friend;
 	}
-
-	public int getFriendDirection() {
-		return friendDirection;
-	}
-
-	public void setFriendDirection(int friendDirection) {
-		this.friendDirection = friendDirection;
-	}
-
 	@Resource(name="MessageService")
 	public void setMessageService(IMessageService messageService) {
 		this.messageService = messageService;

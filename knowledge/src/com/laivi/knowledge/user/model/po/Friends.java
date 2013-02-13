@@ -11,6 +11,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.user.model.type.FriendsDirection;
 
 /**
  * Copyright Laivi
@@ -31,7 +32,7 @@ public class Friends extends BasicEntity {
 	private Date createDate=new Date();
 	private long userGroupId;
 	private long friendGroupId;
-	private int direction;
+	private FriendsDirection direction;
 	
 	@Override
 	@Id
@@ -68,14 +69,6 @@ public class Friends extends BasicEntity {
 		this.id = id;
 	}
 
-	public int getDirection() {
-		return direction;
-	}
-
-	public void setDirection(int direction) {
-		this.direction = direction;
-	}
-
 	public long getUserGroupId() {
 		return userGroupId;
 	}
@@ -91,4 +84,13 @@ public class Friends extends BasicEntity {
 	public void setFriendGroupId(long friendGroupId) {
 		this.friendGroupId = friendGroupId;
 	}
+
+	public FriendsDirection getDirection() {
+		return direction;
+	}
+
+	public void setDirection(FriendsDirection direction) {
+		this.direction = direction;
+	}
+	
 }

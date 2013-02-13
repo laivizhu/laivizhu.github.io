@@ -46,7 +46,7 @@
 	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
 		$(document).ready(laivi.init(function(){
-			loadRemoteNavigate('category_list.action?category.level=1','shopping_commotity.jsp?categoryId=');
+			loadRemoteNavigate('category_list.action?category.level=Root','shopping_commotity.jsp?categoryId=');
 			var categoryId=laivi.getUrlVar("categoryId");
 			if(categoryId!=null && categoryId!=0){
 				laivi.scrollBreakPage('commodity_categoryList.action?categoryId='+categoryId, $("#commotityListDivId"), function(item){

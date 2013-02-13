@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.shopping.model.type.StatusType;
 
 /**
  * Copyright Laivi
@@ -36,7 +37,7 @@ public class Order extends BasicEntity {
 	private List<ShoppingItem> item=new ArrayList<ShoppingItem>();
 	private Date createDate=new Date();
 	private long userId;
-	private int status;
+	private StatusType status;
 	@Override
 	@Id
 	@GeneratedValue
@@ -72,10 +73,11 @@ public class Order extends BasicEntity {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public int getStatus() {
+	public StatusType getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(StatusType status) {
 		this.status = status;
 	}
+	
 }

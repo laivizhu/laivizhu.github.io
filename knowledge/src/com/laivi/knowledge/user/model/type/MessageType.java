@@ -1,31 +1,27 @@
 package com.laivi.knowledge.user.model.type;
 
+import com.laivi.knowledge.basic.model.type.BasicType;
+
 /**
  * User: laivi.zhu
  * Time: 12-6-18 下午11:32
  */
-public enum MessageType {
-	CONFIRM("确认",1),
-	ALERT("警告",2),
-	INFORMATION("信息",3),
-	REQUEST("请求",4);
+public enum MessageType implements BasicType<MessageType>{
+	CONFIRM("确认"),
+	ALERT("警告"),
+	INFORMATION("信息"),
+	REQUEST("请求");
 	
 	private final String text;
-	private final int value;
 	
-	MessageType(String text,int value){
+	MessageType(String text){
 		this.text=text;
-		this.value=value;
 	}
 	
 	public String toText() {
 		return text;
 	}
-	
-	public int toValue() {
-		return value;
-	}
-	
+		
 	public static MessageType fromText(String value) {
 		for (MessageType type : values()) {
 			if (type.toText().equals(value)) {
@@ -35,12 +31,9 @@ public enum MessageType {
 		throw new IllegalArgumentException("not support value: " + value);
 	}
 	
-	public static MessageType fromValue(int value) {
-		for (MessageType type : values()) {
-			if (type.toValue() == value) {
-				return type;
-			}
-		}
-		throw new IllegalArgumentException("not support value: " + value);
+	@Override
+	public MessageType getFromText(String text) {
+		return MessageType.fromText(text);
 	}
+
 }

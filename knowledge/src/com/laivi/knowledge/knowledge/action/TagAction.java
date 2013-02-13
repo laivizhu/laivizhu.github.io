@@ -28,7 +28,7 @@ public class TagAction extends ABasicAction<Tag> {
 	public String add()throws Exception{
 		ParamAssert.isNotNull(tag, "error.tag.name.notNULL");
 		ParamAssert.isNotEmptyString(tag.getName(), "error.tag.name.notNULL");
-		ParamAssert.isTrue(tag.getType()!=0, "error.tag.type.notNULL");
+		ParamAssert.isTrue(tag.getType()!=null, "error.tag.type.notNULL");
 		tag.setUserId(this.getCurrentUserId());
 		tagService.add(tag);
 		return response(true);
@@ -38,7 +38,7 @@ public class TagAction extends ABasicAction<Tag> {
 		ParamAssert.isTrue(id!=0, "error.object.notChoose");
 		ParamAssert.isNotNull(tag, "error.tag.name.notNULL");
 		ParamAssert.isNotEmptyString(tag.getName(), "error.tag.name.notNULL");
-		ParamAssert.isTrue(tag.getType()!=0, "error.tag.type.notNULL");
+		ParamAssert.isTrue(tag.getType()!=null, "error.tag.type.notNULL");
 		Tag dTag=this.tagService.getObject(id);
 		dTag.setName(tag.getName());
 		dTag.setType(tag.getType());
@@ -59,7 +59,7 @@ public class TagAction extends ABasicAction<Tag> {
 	public String typeList()throws Exception{
 		JsonItemList jsonList=new JsonItemList();
 		for(TagType type:TagType.values()){
-			jsonList.createItem().add("value", type.toValue()).add("text", type.toText());
+			jsonList.createItem().add("value", type.name()).add("text", type.toText());
 		}
 		return response(jsonList);
 	}

@@ -66,7 +66,7 @@
 					}
 				});
 			});
-			laivi.comboList($("#tagSelectId"), 'tag_comboList.action?tag.type=2');
+			laivi.comboList($("#tagSelectId"), 'tag_comboList.action?tag.type=ARTICLE');
 			var id=laivi.getUrlVar('id');
 			if(id!=null&&id!=0){
 				$("#titleContentId").html("修改博文");

@@ -52,17 +52,17 @@ public class AutoGraphAction extends ABasicAction<AutoGraph> {
 						Restrictions.or(
 								Restrictions.and(
 										Restrictions.eq("userId",userId),
-										Restrictions.eq("direction", FriendsDirection.BEFORE.toValue())),
+										Restrictions.eq("direction", FriendsDirection.BEFORE)),
 								Restrictions.and(
 										Restrictions.eq("userId",userId),
-										Restrictions.eq("direction", FriendsDirection.DOUBLE.toValue()))),
+										Restrictions.eq("direction", FriendsDirection.DOUBLE))),
 						Restrictions.or(
 								Restrictions.and(
 										Restrictions.eq("friendId",userId),
-										Restrictions.eq("direction", FriendsDirection.AFTER.toValue())),
+										Restrictions.eq("direction", FriendsDirection.AFTER)),
 								Restrictions.and(
 										Restrictions.eq("friendId",userId),
-										Restrictions.eq("direction", FriendsDirection.DOUBLE.toValue())))
+										Restrictions.eq("direction", FriendsDirection.DOUBLE)))
 				));
 		List<Friends> friendList=this.friendService.getList(conditions);
 		Long[] friendIds=new Long[friendList.size()];
@@ -82,7 +82,6 @@ public class AutoGraphAction extends ABasicAction<AutoGraph> {
 	public JsonItemList getSearchComboList() throws ErrorException {
 		return null;
 	}
-
 	
 	@Override
 	public JsonItem getJsonItem(AutoGraph object, boolean isSub) throws Exception {
@@ -94,11 +93,9 @@ public class AutoGraphAction extends ABasicAction<AutoGraph> {
 		return item;
 	}
 
-
 	public AutoGraph getAutoGraph() {
 		return autoGraph;
 	}
-
 
 	public void setAutoGraph(AutoGraph autoGraph) {
 		this.autoGraph = autoGraph;
@@ -118,7 +115,4 @@ public class AutoGraphAction extends ABasicAction<AutoGraph> {
 	public void setFriendService(IFriendsService friendService) {
 		this.friendService = friendService;
 	}
-	
-	
-
 }

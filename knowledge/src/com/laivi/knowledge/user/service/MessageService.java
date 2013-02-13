@@ -27,7 +27,7 @@ public class MessageService extends BasicService<Message> implements IMessageSer
 		message.setToUserId(friendId);
 		message.setTitle("申请加好友");
 		message.setContent(user.getUserName()+"向"+friend.getUserName()+"申请加为好友，是否同意？");
-		message.setType(MessageType.REQUEST.toValue());
+		message.setType(MessageType.REQUEST);
 		basicDao.add(message);
 	}
 	

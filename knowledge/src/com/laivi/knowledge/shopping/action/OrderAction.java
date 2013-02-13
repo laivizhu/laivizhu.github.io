@@ -53,7 +53,7 @@ public class OrderAction extends ABasicAction<Order> {
 		item.setCommodity(commodity);
 		item.setPrice(commodity.getPrice());
 		CriterionList conditions=this.getUserCriterionList();
-		conditions.put(Restrictions.eq("status", StatusType.INIT.toValue()));
+		conditions.put(Restrictions.eq("status", StatusType.INIT));
 		Order order=this.orderService.getObject(conditions);
 		if(order!=null){
 			order.getItem().add(item);
@@ -62,7 +62,7 @@ public class OrderAction extends ABasicAction<Order> {
 			order=new Order();
 			order.setCode("L"+DateUtil.formatDate(new Date(), DateUtil.DATEUPLOADFORMAT));
 			order.setUserId(this.getCurrentUserId());
-			order.setStatus(StatusType.INIT.toValue());
+			order.setStatus(StatusType.INIT);
 			order.getItem().add(item);
 			this.orderService.add(order);
 		}
@@ -108,7 +108,7 @@ public class OrderAction extends ABasicAction<Order> {
 		Order order=null;
 		if(id==0){
 			CriterionList conditions=CriterionList.CreateCriterion()
-					.put(Restrictions.eq("status", StatusType.INIT.toValue()))
+					.put(Restrictions.eq("status", StatusType.INIT))
 					.put(Restrictions.eq("userId", this.getCurrentUserId()));
 			order=this.orderService.getObject(conditions);
 		}else{
@@ -128,7 +128,7 @@ public class OrderAction extends ABasicAction<Order> {
 	public String delete()throws Exception{
 		ParamAssert.isTrue(id>0,ErrorMessageConstants.OBJECT_NOT_EXIST);
 		Order order=this.orderService.getObject(id);
-		if(order.getStatus()==StatusType.INIT.toValue()){
+		if(order.getStatus()==StatusType.INIT){
 			order.setItem(null);
 			this.orderService.remove(order);
 			this.shoppingItemService.executeSql("delete from t_shoppingitem where orderId is null", null);
@@ -141,7 +141,7 @@ public class OrderAction extends ABasicAction<Order> {
 	public String commit()throws Exception{
 		ParamAssert.isTrue(id>0,ErrorMessageConstants.OBJECT_NOT_EXIST);
 		Order order=this.orderService.getObject(id);
-		order.setStatus(status);
+		order.setStatus(order.getStatus());
 		this.orderService.modify(order);
 		return response(true);
 	}
@@ -158,7 +158,7 @@ public class OrderAction extends ABasicAction<Order> {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("code", object.getCode())
-		.add("status", StatusType.fromValue(object.getStatus()).toText())
+		.add("status", object.getStatus().toText())
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("user", userService.getObject(object.getUserId()).getUserName());
 		int totalPrice=0;

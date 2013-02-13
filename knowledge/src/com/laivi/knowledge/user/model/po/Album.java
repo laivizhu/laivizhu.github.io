@@ -11,6 +11,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.user.model.type.AlbumType;
 
 /**
  * Copyright Laivi
@@ -28,7 +29,7 @@ public class Album extends BasicEntity {
 	private long id;
 	private String name;
 	private String description;
-	private int type;
+	private AlbumType type;
 	private Date createDate=new Date();
 	private long userId;
 	private String itemIds;
@@ -75,19 +76,19 @@ public class Album extends BasicEntity {
 		this.id = id;
 	}
 
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-
 	public String getItemIds() {
 		return itemIds;
 	}
 
 	public void setItemIds(String itemIds) {
 		this.itemIds = itemIds;
+	}
+
+	public AlbumType getType() {
+		return type;
+	}
+
+	public void setType(AlbumType type) {
+		this.type = type;
 	}
 }

@@ -45,7 +45,7 @@
 	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
 		$(document).ready(laivi.init(function(){
-			loadRemoteNavigate('category_list.action?category.level=1','shopping_commotity.jsp?categoryId=');
+			loadRemoteNavigate('category_list.action?category.level=Root','shopping_commotity.jsp?categoryId=');
 			laivi.getJson('order_itemList.action', function(result){
 				if(result.totalProperty>0){
 					$.each(result.root,function(i,item){

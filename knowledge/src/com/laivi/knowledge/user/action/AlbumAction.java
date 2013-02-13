@@ -32,12 +32,11 @@ public class AlbumAction extends ABasicAction<Album> {
 	private IUserService userService;
 	private IPictureService pictureService;
 	private Album album;
-	private int type;
 	
 	public String add()throws Exception{
 		ParamAssert.isNotEmptyString(album.getName(), "error.album.name.notNULL");
 		ParamAssert.isNotEmptyString(album.getDescription(), "error.album.description.notNULL");
-		ParamAssert.isTrue(album.getType()>0, "");
+		ParamAssert.isTrue(album.getType()!=null, "");
 		album.setUserId(this.getCurrentUserId());
 		this.basicService.add(album);
 		return response(true);
@@ -68,8 +67,8 @@ public class AlbumAction extends ABasicAction<Album> {
 	
 	public String list()throws Exception{
 		conditions=CriterionList.CreateCriterion();
-		if(type!=0){
-			conditions.put(Restrictions.eq("type", type));
+		if(album.getType()!=null){
+			conditions.put(Restrictions.eq("type",album.getType()));
 		}
 		return response(list(true,true));
 	}
@@ -77,7 +76,7 @@ public class AlbumAction extends ABasicAction<Album> {
 	public String typeList()throws Exception{
 		JsonItemList jsonList=new JsonItemList();
 		for(AlbumType type:AlbumType.values()){
-			jsonList.createItem().add("value", type.toValue()).add("text", type.toText());
+			jsonList.createItem().add("value", type.name()).add("text", type.toText());
 		}
 		return response(jsonList);
 	}
@@ -88,7 +87,7 @@ public class AlbumAction extends ABasicAction<Album> {
 		.add("name", object.getName())
 		.add("description", isSub?DataUtil.getDefaultChar(object.getDescription()):object.getDescription())
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
-		.add("type", AlbumType.fromValue(object.getType()).toText())
+		.add("type",object.getType().toText())
 		.add("user", this.userService.getObject(object.getUserId()).getUserName());
 		if(DataUtil.notEmptyString(object.getItemIds())){
 			item.add("defaultPicture", this.pictureService.getObject(DataUtil.getIndexStringId(object.getItemIds(), 1)).getPath());
@@ -103,14 +102,6 @@ public class AlbumAction extends ABasicAction<Album> {
 		jsonList.createItem().add("value", "name").add("text", "相册名");
 		jsonList.createItem().add("value", "description").add("text", "相册描述");
 		return jsonList;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
 	}
 	
 	@Resource(name="AlbumService")

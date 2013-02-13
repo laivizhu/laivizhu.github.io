@@ -59,7 +59,7 @@ public class MessageAction extends ABasicAction<Message> {
 	
 	public String listFriendMessage()throws Exception{
 		this.conditions=CriterionList.CreateCriterion()
-				.put(Restrictions.eq("type", MessageType.REQUEST.toValue()))
+				.put(Restrictions.eq("type", MessageType.REQUEST))
 				.put(Restrictions.eq("toUserId",this.getCurrentUserId()))
 				.put(Restrictions.eq("readIs",false));
 		return response(list(true,false));

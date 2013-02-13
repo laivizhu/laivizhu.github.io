@@ -11,6 +11,7 @@ import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
+import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.shopping.model.po.Category;
@@ -64,16 +65,20 @@ public class CategoryAction extends ABasicAction<Category> {
 	public String list()throws Exception{
 		CriterionList conditions=CriterionList.CreateCriterion();
 		conditions.put(Order.desc("level")).put(Order.desc("priority"));
-		if(category.getLevel()!=0){
+		if(category.getLevel()!=null){
 			conditions.put(Restrictions.eq("level", category.getLevel()));	
 		}
-		return response(list(true,true));
+		JsonList jsonList=new JsonList();
+		for(Category category:basicService.getList(conditions,start,limit)){
+			this.addData(jsonList, category);
+		}
+		return response(jsonList.toPageString(this.basicService.getCount(conditions)));
 	}
 	
 	public String typeList()throws Exception{
 		JsonItemList jsonList=new JsonItemList();
 		for(CategoryLevel level:CategoryLevel.values()){
-			jsonList.createItem().add("value", level.toValue()).add("text", level.toText());
+			jsonList.createItem().add("value", level.name()).add("text", level.toText());
 		}
 		return response(jsonList);
 	}
@@ -82,8 +87,8 @@ public class CategoryAction extends ABasicAction<Category> {
 		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion();
 		conditions.put(Order.desc("priority"));
-		if(category.getLevel()!=0){
-			conditions.put(Restrictions.eq("level", category.getLevel()-1));	
+		if(category.getLevel()!=null){
+			conditions.put(Restrictions.eq("level", category.getLevel()));	
 		}
 		for(Category category:basicService.getList(conditions)){
 			jsonList.createItem().add("value", category.getId()).add("text", category.getName());
@@ -115,7 +120,7 @@ public class CategoryAction extends ABasicAction<Category> {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("name", object.getName())
-		.add("level", CategoryLevel.fromValue(object.getLevel()).toText());
+		.add("level", object.getLevel().toText());
 		if(object.getParentId()!=0){
 			item.add("parent", basicService.getObject(object.getParentId()).getName());
 		}else{

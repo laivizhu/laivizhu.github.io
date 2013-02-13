@@ -11,6 +11,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.user.model.type.MessageType;
 
 /**
  * Copyright Laivi
@@ -31,7 +32,7 @@ public class Message extends BasicEntity{
 	private long userId;
 	private long toUserId;
 	private boolean readIs;
-	private int  type;
+	private MessageType  type;
 	@Id
 	@GeneratedValue
 	public long getId() {
@@ -77,10 +78,11 @@ public class Message extends BasicEntity{
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	public int getType() {
+	public MessageType getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(MessageType type) {
 		this.type = type;
 	}
+	
 }

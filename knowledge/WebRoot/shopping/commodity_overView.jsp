@@ -68,7 +68,7 @@
 			});
 		};
 		$(document).ready(laivi.init(function(){
-			loadRemoteNavigate('category_list.action?category.level=1','shopping_commotity.jsp?categoryId=');
+			loadRemoteNavigate('category_list.action?category.level=Root','shopping_commotity.jsp?categoryId=');
 			
 			var id=laivi.getUrlVar("id");
 			laivi.getJson('commodity_get.action?font=true&id='+id, function(result){

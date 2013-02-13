@@ -1,27 +1,24 @@
 package com.laivi.knowledge.shopping.model.type;
 
+import com.laivi.knowledge.basic.model.type.BasicType;
+
 /**
  * User: laivi.zhu
  * Time: 13-01-17 下午11:32
  */
-public enum StatusType {
-	INIT("购物中",1),CONFIRM("已提交，等待发货",2),WAITING("发货中,等待确认",3),FINISH("确认收货,交易成功",4),RETURN("退货",5);
+public enum StatusType implements BasicType<StatusType>{
+	INIT("购物中"),CONFIRM("已提交，等待发货"),WAITING("发货中,等待确认"),FINISH("确认收货,交易成功"),RETURN("退货");
 	
 	private final String text;
-	private final int value;
 	
-	StatusType(String text,int value){
+	StatusType(String text){
 		this.text=text;
-		this.value=value;
 	}
 	
 	public String toText() {
 		return text;
 	}
 	
-	public int toValue() {
-		return value;
-	}
 	
 	public static StatusType fromText(String value) {
 		for (StatusType type : values()) {
@@ -32,12 +29,9 @@ public enum StatusType {
 		throw new IllegalArgumentException("not support value: " + value);
 	}
 	
-	public static StatusType fromValue(int value) {
-		for (StatusType type : values()) {
-			if (type.toValue() == value) {
-				return type;
-			}
-		}
-		throw new IllegalArgumentException("not support value: " + value);
+	@Override
+	public StatusType getFromText(String text) {
+		return StatusType.fromText(text);
 	}
+
 }

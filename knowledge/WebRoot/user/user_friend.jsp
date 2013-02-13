@@ -89,23 +89,23 @@
 			});
 			
 			laivi.scrollBreakPage('friend_listUserFriends.action', $("#friendListDivId"), function(item){
-				return "<div class='span2'><p>"+item.friend+"</p><p><div align='right'><a onclick=deleteObject('friend_delete.action?id="+item.id+"')>删除</a></div></p></div>";
+				return "<div class='span2'><p>"+item.friend.userName+"</p><p><div align='right'><a onclick=deleteObject('friend_delete.action?id="+item.id+"')>删除</a></div></p></div>";
 			});
 			
 			laivi.scrollBreakPage('message_listFriendMessage.action', $("#messageListDivId"), function(item){
-				return "<div class='span2'><p><h5>"+item.title+"</h5></p><p>"+item.content+"</p><p><div align='right'><button type='button' class='btn btn-success' onclick=confirm("+item.id+",4)>同意</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn-warning' onclick=confirm("+item.id+",1)>拒绝</button></div></p></div>";
+				return "<div class='span2'><p><h5>"+item.title+"</h5></p><p>"+item.content+"</p><p><div align='right'><button type='button' class='btn btn-success' onclick=confirm("+item.id+",'DOUBLE')>同意</button>&nbsp;&nbsp;&nbsp;<button type='button' class='btn-warning' onclick=confirm("+item.id+",'REJECT')>拒绝</button></div></p></div>";
 			});
 		}));
 		
 		var confirm=function(id,status){
 			var msg='确认要';
-			if(status==1){
+			if(status=='REJECT'){
 				msg=msg+'拒绝';
 			}else{
 				msg=msg+'同意';
 			}
 			laivi.confirm(msg, function(){
-				laivi.getJson('friend_confirm.action?id='+id+'&friendDirection='+status, function(){
+				laivi.getJson('friend_confirm.action?id='+id+'&friend.direction='+status, function(){
 					window.location.reload();
 				});	
 			});

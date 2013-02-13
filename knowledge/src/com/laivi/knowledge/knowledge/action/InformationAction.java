@@ -11,7 +11,7 @@ import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
-import com.laivi.knowledge.basic.model.type.InformationLevelType;
+import com.laivi.knowledge.basic.model.type.InformationLevel;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
@@ -88,8 +88,8 @@ public class InformationAction extends ABasicAction<Information> {
 	
 	public String typeList()throws Exception{
 		JsonItemList jsonList=new JsonItemList();
-		for(InformationLevelType type:InformationLevelType.values()){
-			jsonList.createItem().add("value", type.toValue()).add("text", type.toText());
+		for(InformationLevel type:InformationLevel.values()){
+			jsonList.createItem().add("value", type.name()).add("text", type.toText());
 		}
 		return response(jsonList);
 	}
@@ -100,7 +100,7 @@ public class InformationAction extends ABasicAction<Information> {
 		.add("title", object.getTitle())
 		.add("content", DataUtil.getDefaultChar(object.getContent()))
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
-		.add("level",InformationLevelType.fromValue(object.getLevel()).toText())
+		.add("level",object.getLevel().toText())
 		.add("user", userService.getObject(object.getUserId()).getUserName());
 		return item;
 	}

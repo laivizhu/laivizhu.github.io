@@ -26,7 +26,7 @@ public class Tag extends BasicEntity{
     
     private long userId;
     
-    private int type;
+    private TagType type;
     
     private Date createDate=new Date();
 
@@ -56,14 +56,6 @@ public class Tag extends BasicEntity{
 		this.userId = userId;
 	}
 
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -72,12 +64,20 @@ public class Tag extends BasicEntity{
 		this.createDate = createDate;
 	}
 
+	public TagType getType() {
+		return type;
+	}
+
+	public void setType(TagType type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toJson() {
 		JsonItem item=new JsonItem();
     	item.add("id", this.getId())
     	.add("name", this.getName())
-    	.add("type", TagType.fromValue(this.getType()).toText())
+    	.add("type", this.getType().toText())
     	.add("createDate", DateUtil.formatDate(this.getCreateDate()));
 		return item.toString();
 	}
