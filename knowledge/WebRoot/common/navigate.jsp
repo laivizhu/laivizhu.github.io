@@ -52,6 +52,12 @@
       </div>
     </div>
     
-    <div id="backTopDivId" style="display: none;position: fixed; float: right;width:30px;height:60px;right:10px;top:500px;">
-    	<a href="#" class="btn btn-small btn-inverse">Top</a>
+    <div id="backTopDivId" style="display: none; width: 50px; height: 95px; position: fixed; left: 50%; top: 480px; margin-left: 600px; z-index: 100; text-align: center; cursor: pointer;">
+    	<a href="#">
+    		<img src='/knowledge/images/back-top.png' alt='返回顶部' title='返回顶部' border='0'>
+    	</a>
+    </div>
+
+    <div id="backDivId" style="display: none;position: fixed; float: right;width:30px;height:60px;right:10px;top:550px;">
+    	<button onclick="history.back()" class="btn btn-small btn-warning">back</button>
     </div>

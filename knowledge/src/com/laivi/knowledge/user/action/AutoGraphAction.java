@@ -10,6 +10,7 @@ import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
+import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
@@ -65,17 +66,22 @@ public class AutoGraphAction extends ABasicAction<AutoGraph> {
 										Restrictions.eq("direction", FriendsDirection.DOUBLE)))
 				));
 		List<Friends> friendList=this.friendService.getList(conditions);
-		Long[] friendIds=new Long[friendList.size()];
-		for(int i=0;i<friendIds.length;i++){
-			if(userId!=friendList.get(i).getUserId()){
-				friendIds[i]=friendList.get(i).getUserId();
-			}else{
-				friendIds[i]=friendList.get(i).getFriendId();
+		Long[] friendIds=null;
+		if(friendList.size()>0){
+			friendIds=new Long[friendList.size()];
+			for(int i=0;i<friendIds.length;i++){
+				if(userId!=friendList.get(i).getUserId()){
+					friendIds[i]=friendList.get(i).getUserId();
+				}else{
+					friendIds[i]=friendList.get(i).getFriendId();
+				}
 			}
+			conditions.clear();
+			conditions.put(Restrictions.in("userId", friendIds));
+			return response(list(true,false));
+		}else{
+			return response(new JsonList());
 		}
-		conditions.clear();
-		conditions.put(Restrictions.in("userId", friendIds));
-		return response(list(true,false));
 	}
 	
 	@Override

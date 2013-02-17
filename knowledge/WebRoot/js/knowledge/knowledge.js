@@ -49,7 +49,7 @@ Ext.onReady(function(){
             if(!Fmp.isEmpty(knowledgeId)){
             	Fmp.confirm('确认要添加到收藏夹吗？',function(){
          			Fmp.ajaxCall({
-                         url:'favorite_add.action?favorite.type=1&id='+knowledgeId+'&favorite.title='+Ext.util.JSON.encode(Fmp.getSelectedField(knowledgeGrid,'title')),
+                         url:'favorite_add.action?favorite.type=KNOWLEDGE&id='+knowledgeId+'&favorite.title='+Ext.util.JSON.encode(Fmp.getSelectedField(knowledgeGrid,'title')),
                          successHandler:function(){
                         	 Fmp.alert("添加成功");
                          }

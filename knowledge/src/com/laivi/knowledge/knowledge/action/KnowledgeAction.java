@@ -19,6 +19,7 @@ import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.common.model.type.FavoriteType;
 import com.laivi.knowledge.knowledge.model.po.Knowledge;
 import com.laivi.knowledge.knowledge.service.ITagService;
+import com.laivi.knowledge.user.service.IUserService;
 
 /**
  * User: janlu.sword@gmail.com
@@ -48,12 +49,17 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 	public String get()throws Exception{
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
 		Knowledge dKnowledge=this.basicService.getObject(id);
-		JsonItem item =new JsonItem();
-		item.add("id", dKnowledge.getId())
-		.add("knowledge.title", dKnowledge.getTitle())
-		.add("knowledge.question", dKnowledge.getQuestion())
-		.add("knowledge.content", dKnowledge.getContent())
-		.add("knowledge.tagIds",dKnowledge.getTagIds());
+		JsonItem item =null;
+		if(font){
+			item=this.getJsonItem(dKnowledge, fold);
+		}else{
+			item =new JsonItem();
+			item.add("id", dKnowledge.getId())
+			.add("knowledge.title", dKnowledge.getTitle())
+			.add("knowledge.question", dKnowledge.getQuestion())
+			.add("knowledge.content", dKnowledge.getContent())
+			.add("knowledge.tagIds",dKnowledge.getTagIds());
+		}
 		return response(item.toFormDataString(true));
 	}
 
@@ -61,9 +67,10 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("title", object.getTitle())
-		.add("question",DataUtil.getDefaultChar(object.getQuestion()))
-		.add("content", DataUtil.getDefaultChar(object.getContent()))
+		.add("question",object.getQuestion())
+		.add("content", isSub?DataUtil.getDefaultChar(object.getContent()):object.getContent())
 		.add("tags",this.tagService.getTagsName(object.getTagIds()))
+		.add("user", this.userService.getObject(object.getUserId()).getUserName())
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()));
         return item;
     }
@@ -112,5 +119,10 @@ public class KnowledgeAction extends ABasicAction<Knowledge> {
 	@Resource(name = "TagService")
 	public void setTagService(ITagService tagService) {
 		this.tagService = tagService;
+	}
+	
+	@Resource(name="UserService")
+	public void setUserService(IUserService userService){
+		this.userService=userService;
 	}
 }

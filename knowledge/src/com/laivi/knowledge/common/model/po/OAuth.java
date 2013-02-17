@@ -11,28 +11,26 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
-import com.laivi.knowledge.common.model.type.FavoriteType;
 
 /**
  * Copyright Laivi
  * 
  * @author Laivi.Zhu
  * @version 1.0
- * @Date Jan 15, 2013
+ * @Date Feb 14, 2013
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name="t_favorite")
+@Table(name="t_oauth")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Favorite extends BasicEntity {
+public class OAuth extends BasicEntity {
 
 	private long id;
-	private String title;
-	private Date createDate=new Date();
-	private FavoriteType type;
+	private long applicationId;
 	private long userId;
-	private String url;
-
+	private String token;
+	private Date createDate=new Date();
+	
 	
 	@Override
 	@Id
@@ -41,12 +39,20 @@ public class Favorite extends BasicEntity {
 		return id;
 	}
 
-	public String getTitle() {
-		return title;
+	public long getApplicationId() {
+		return applicationId;
 	}
 
-	public void setTitle(String title) {
-		this.title=title;
+	public void setApplicationId(long applicationId) {
+		this.applicationId = applicationId;
+	}
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public Date getCreateDate() {
@@ -61,27 +67,12 @@ public class Favorite extends BasicEntity {
 		this.id = id;
 	}
 
-	public long getUserId() {
-		return userId;
+	public String getToken() {
+		return token;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setToken(String token) {
+		this.token = token;
 	}
-
-	public FavoriteType getType() {
-		return type;
-	}
-
-	public void setType(FavoriteType type) {
-		this.type = type;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
+	
 }

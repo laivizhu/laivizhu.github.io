@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.annotation.Resource;
 
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.laivi.knowledge.basic.action.ABasicAction;
@@ -68,6 +69,7 @@ public class PictureAction extends ABasicAction<Picture> {
 		JsonList jsonList=new JsonList();
 		CriterionList conditions=CriterionList.CreateCriterion();
 		if(DataUtil.notEmptyString(album.getItemIds())){
+			conditions.put(Order.desc("createDate"));
 			conditions.put(Restrictions.in("id", DataUtil.changeIdString(album.getItemIds())));
 			for(Picture pictrue:this.pictureService.getList(conditions,start,limit)){
 				this.addData(jsonList, pictrue);

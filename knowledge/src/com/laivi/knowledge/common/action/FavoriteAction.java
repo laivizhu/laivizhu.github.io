@@ -11,7 +11,6 @@ import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DateUtil;
-import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.common.model.po.Favorite;
 
 /**
@@ -26,15 +25,18 @@ public class FavoriteAction extends ABasicAction<Favorite> {
     private Favorite favorite;
 
     public String add()throws Exception{
-        ParamAssert.isTrue(id!=0,"");
+    	long userId=this.getCurrentUserId();
         CriterionList conditions=this.getUserCriterionList();
-        conditions.put(Restrictions.eq("favoriteId", id)).put(Restrictions.eq("type", favorite.getType()));
+        conditions.put(Restrictions.eq("url", favorite.getUrl())).put(Restrictions.eq("userId",userId ));
         if(this.basicService.getCount(conditions)>0){
         	return response(false,"已收藏");
         }else{
-	        favorite.setUserId(this.getCurrentUserId());
-	        favorite.setFavoriteId(id);
-	        favorite.setTitle(this.encodeExtString(favorite.getTitle()));
+	        favorite.setUserId(userId);
+	        if(!font){
+	        	favorite.setTitle(this.encodeExtString(favorite.getTitle()));
+	        }else{
+	        	favorite.setTitle(this.encodeString(favorite.getTitle()));
+	        }
 	        this.basicService.add(favorite);
 	        return response(true);
         }
@@ -54,7 +56,7 @@ public class FavoriteAction extends ABasicAction<Favorite> {
 		.add("title", object.getTitle())
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("user", object.getUserId())
-		.add("favoriteId", object.getFavoriteId())
+		.add("url", object.getUrl())
 		.add("type", object.getType());
 		return item;
 	}
@@ -71,4 +73,5 @@ public class FavoriteAction extends ABasicAction<Favorite> {
     public void setBasicService(IBasicService<Favorite> basicService){
     	this.basicService=basicService;
     }
+
 }

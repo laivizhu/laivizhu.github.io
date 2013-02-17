@@ -23,10 +23,10 @@
 		<div class="row">
 		    <div class="span12">
 		    	<!-- Main hero unit for a primary marketing message or call to action -->
-		    	<div style="position: fixed; float: right;width:90px;height:60px; right:5px;" >
+		    	<div style="position: fixed; float: right;width:100px;height:60px; right:5px;" >
 		    		<ul class="nav nav-pills">
 						      <li>
-						      	<button class="btn" id="uploadPictureButtonId">上传音乐</button>
+						      	<button class="btn" id="uploadPictureButtonId"><i class='icon-upload'></i>上传音乐</button>
 						      </li>
 					    </ul>
 				</div>

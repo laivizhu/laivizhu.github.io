@@ -32,6 +32,7 @@ public class Article extends BasicEntity{
 	private Date createDate=new Date();
 	private long userId;
 	private String tagIds;
+	private boolean otherIs;
 	@Id
 	@GeneratedValue
 	public long getId() {
@@ -71,5 +72,11 @@ public class Article extends BasicEntity{
 	}
 	public void setTagIds(String tagIds) {
 		this.tagIds = tagIds;
+	}
+	public boolean isOtherIs() {
+		return otherIs;
+	}
+	public void setOtherIs(boolean otherIs) {
+		this.otherIs = otherIs;
 	}
 }

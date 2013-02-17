@@ -11,28 +11,25 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
-import com.laivi.knowledge.common.model.type.FavoriteType;
 
 /**
  * Copyright Laivi
  * 
  * @author Laivi.Zhu
  * @version 1.0
- * @Date Jan 15, 2013
+ * @Date Feb 14, 2013
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name="t_favorite")
+@Table(name="t_application")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Favorite extends BasicEntity {
+public class Application extends BasicEntity {
 
 	private long id;
-	private String title;
+	private String name;
+	private boolean legalIs;
+	private long time=0;
 	private Date createDate=new Date();
-	private FavoriteType type;
-	private long userId;
-	private String url;
-
 	
 	@Override
 	@Id
@@ -41,12 +38,12 @@ public class Favorite extends BasicEntity {
 		return id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title=title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Date getCreateDate() {
@@ -61,27 +58,19 @@ public class Favorite extends BasicEntity {
 		this.id = id;
 	}
 
-	public long getUserId() {
-		return userId;
+	public long getTime() {
+		return time;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setTime(long time) {
+		this.time = time;
 	}
 
-	public FavoriteType getType() {
-		return type;
+	public boolean isLegalIs() {
+		return legalIs;
 	}
 
-	public void setType(FavoriteType type) {
-		this.type = type;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
+	public void setLegalIs(boolean legalIs) {
+		this.legalIs = legalIs;
 	}
 }

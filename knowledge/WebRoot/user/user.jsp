@@ -94,13 +94,7 @@
 			  $(this).tab('show');
 			});
 			laivi.scrollBreakPage('favorite_list.action', $("#favoriteListDivId"), function(item){
-				if(item.type==1){
-					return "<div class='span8'><a href='/knowledge/knowledge/knowledge_view.jsp?id="+item.favoriteId+"'><h2>"+item.title+"</h2></a></div>";
-				}else if(item.type==2){
-					return "<div class='span8'><a href='/knowledge/knowledge/article_view.jsp?id="+item.favoriteId+"'><h2>"+item.title+"</h2></a></div>";
-				}else if(item.type==3){
-					return "<div class='span8'><a href='/knowledge/shopping/commotity_view.jsp?id="+item.favoriteId+"'><h2>"+item.title+"</h2></a></div>";
-				}
+					return "<div class='span8'><h5><a href='"+item.url+"'><h2>"+item.title+"</h2></a></h5><p><div align='right'><a class='btn' onclick=deleteObject('favorite_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a></div></p></div>";
 			});
 		}));
 	</script>

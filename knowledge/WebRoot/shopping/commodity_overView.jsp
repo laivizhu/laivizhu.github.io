@@ -74,7 +74,7 @@
 			laivi.getJson('commodity_get.action?font=true&id='+id, function(result){
 				var item=result.data;
 				$("#imageDivId").append("<img src='../admin/shopping/picture/"+item.pictrue+"'/></a>");
-				$("#otherDivId").append("<p>"+item.name+"</p><p> 数量:"+item.saveCount+"&nbsp;&nbsp;价格:"+item.price+"</p><p><button class='btn btn-success' onclick='addShoppingCart("+item.id+")'>加入购物车</button></p>");
+				$("#otherDivId").append("<p>"+item.name+"</p><p> 数量:"+item.saveCount+"&nbsp;&nbsp;价格:"+item.price+"</p><p><button class='btn' onclick='addShoppingCart("+item.id+")'><i class='icon-shopping-cart'></i>加入购物车</button></p>");
 				$("#descriptionDivId").append("<h2>商品描述</h2><p>"+item.description+"</p>");
 			});
 		}));

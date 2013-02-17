@@ -17,6 +17,9 @@
 	        	<p><label id="contentFormFieldId"></label></p>
 			</div>
 			<div class="span12">
+				<p><a class="btn btn-large" href="#"><i class="icon-star"></i>收藏</a></p>
+			</div>
+			<div class="span12">
 				<h3>评论</h3>
 			</div>
 			<div id="replyListDivId">

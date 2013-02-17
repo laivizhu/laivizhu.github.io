@@ -1,4 +1,4 @@
-package com.laivi.knowledge.knowledge.model.po;
+package com.laivi.knowledge.common.model.po;
 
 import java.util.Date;
 
@@ -7,9 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.laivi.knowledge.basic.model.po.BasicEntity;
 
 /**
@@ -17,31 +14,29 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
  * 
  * @author Laivi.Zhu
  * @version 1.0
- * @Date 2013-1-4
+ * @Date Feb 14, 2013
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name="t_reply")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Reply extends BasicEntity{
+@Table(name="t_share")
+public class Share extends BasicEntity {
+
 	private long id;
-	private String context;
+	private long autoGraphId;
 	private long userId;
-	private long articleId;
-	private Date createDate=new Date();
+	private Date createDate;
+	
+	@Override
 	@Id
 	@GeneratedValue
 	public long getId() {
 		return id;
 	}
-	public void setId(long id) {
-		this.id = id;
+	public long getAutoGraphId() {
+		return autoGraphId;
 	}
-	public String getContext() {
-		return context;
-	}
-	public void setContext(String context) {
-		this.context = context;
+	public void setAutoGraphId(long autoGraphId) {
+		this.autoGraphId = autoGraphId;
 	}
 	public long getUserId() {
 		return userId;
@@ -49,16 +44,13 @@ public class Reply extends BasicEntity{
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
-	public long getArticleId() {
-		return articleId;
-	}
-	public void setArticleId(long articleId) {
-		this.articleId = articleId;
-	}
 	public Date getCreateDate() {
 		return createDate;
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 }

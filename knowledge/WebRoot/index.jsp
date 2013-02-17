@@ -74,8 +74,8 @@
 	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 	    <h3 id="myModalLabel">Modal header</h3>
 	  </div>
-	  <div class="modal-body">
-	    <p>One fine body…</p>
+	  <div class="modal-body" id="pictureDivId">
+	    
 	  </div>
 	  <div class="modal-footer">
 	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -93,15 +93,14 @@
 
     </div>
     
-    
-    
-    
     <script type="text/javascript" src="js/jquery-1.8.2.js"></script>
     <script type="text/javascript" src="js/jquery.form.js"></script>
     <script type="text/javascript" src="js/jquery.jBox-2.3.min.js"></script>
 	<script type="text/javascript" src="js/jquery.jBox-zh-CN.js"></script>
 	<script type="text/javascript" src="js/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="js/bootstrap/bootstrap-carousel.js"></script>
 	<script type="text/javascript" src="js/basic.js"></script>
+	<script type="text/javascript" src="js/common/laivi-Carousel.js"></script>
 	<script type="text/javascript">
 		var getDataList=function(url,obj){
 			laivi.getJson(url, function(result){
@@ -116,6 +115,10 @@
 		}); */
 		
 		$(document).ready(laivi.init(function(){
+			new LaiviCarousel({
+				parentContainer:'#pictureDivId',
+				url:'picture_list.action?start=0&limit=200'
+			});
 			getDataList('information_getIndexList.action',$('#informationListId'));
 			//getDataList('posts_indexList.action',$('postsListId'));
 			getDataList('article_getIndexList.action',$('#articleListId'));

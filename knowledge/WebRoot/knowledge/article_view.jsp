@@ -22,8 +22,15 @@
 	
 	<div class="row">
 		<div class="span12">
+			<input type='hidden' id="idFormFieldId">
 			<h2 id="titleFormFieldId"></h2>
         	<p><label id="contentFormFieldId"></label></p>
+		</div>
+		<div class="span12" align="right">
+				<p><button class="btn btn-small" onclick="addFavorite('ARTICLE')" id='favoriteButtonId'><i class="icon-heart"></i>收藏</button>
+				   <button class="btn btn-small" href="#"><i class="icon-share"></i>分享</button>
+				   <button class="btn btn-small" onclick="fromOther('ARTICLE',1)" id='fromOtherButtonId'><i class="icon-share-alt"></i>转载</button>
+				</p>
 		</div>
 		<div class="span12">
 			<h3>评论</h3>
@@ -62,6 +69,7 @@
 	<script type="text/javascript">
 		$(document).ready(laivi.init(function(){
 			var articleId=laivi.getUrlVar("id");
+			$('#idFormFieldId').val(articleId);
 			var editor;
 			KindEditor.ready(function(K) {
 				editor = K.create('textarea[id="replyContentId"]', {
@@ -77,7 +85,7 @@
 					}
 				});
 			});
-			laivi.setFormVaule("article_get.action?type=1&id="+articleId, false);
+			laivi.setFormVaule("article_get.action?font=true&id="+articleId, false);
 			laivi.getJson('reply_list.action?id='+articleId, function(result){
 				if(result.totalProperty>0){
 					$.each(result.root,function(i,item){

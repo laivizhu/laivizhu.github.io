@@ -1,11 +1,12 @@
 package com.laivi.knowledge.test;
 
-import com.laivi.knowledge.basic.util.JsonUtil;
-import com.laivi.knowledge.common.model.type.FavoriteType;
 import org.junit.Test;
 
 import com.laivi.knowledge.basic.model.exception.ErrorException;
+import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.util.DataUtil;
+import com.laivi.knowledge.basic.util.JsonUtil;
+import com.laivi.knowledge.common.model.type.FavoriteType;
 
 /**
  * Copyright Laivi
@@ -25,6 +26,14 @@ public class UtilTest {
     public void testEnumJson()throws ErrorException{
         FavoriteType type=FavoriteType.ARTICLE;
         System.out.println(JsonUtil.parseArray(type));
+    }
+    @Test
+    public void testJsonList()throws ErrorException{
+    	JsonList jsonList=new JsonList();
+    	jsonList.add("abc");
+    	jsonList.add("abe");
+    	jsonList.add("abf");
+    	System.out.print(jsonList.toString());
     }
 
 }

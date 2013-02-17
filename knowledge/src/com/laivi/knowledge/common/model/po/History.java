@@ -11,6 +11,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.common.model.type.FavoriteType;
 
 /**
  * Copyright Laivi
@@ -28,7 +29,7 @@ public class History extends BasicEntity {
 	private long id;
 	private String title;
 	private Date createDate=new Date();
-	private int type;
+	private FavoriteType type;
 	private long accessId;
 	private long userId;
 	private String url;
@@ -55,14 +56,6 @@ public class History extends BasicEntity {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
 	}
 
 	public long getUserId() {
@@ -99,5 +92,13 @@ public class History extends BasicEntity {
 
 	public void setAccessId(long accessId) {
 		this.accessId = accessId;
+	}
+
+	public FavoriteType getType() {
+		return type;
+	}
+
+	public void setType(FavoriteType type) {
+		this.type = type;
 	}
 }

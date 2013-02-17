@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>Laivi 感悟生活</title>
+    <title>Laivi 知识积累</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
@@ -19,14 +19,14 @@
 		    	<div style="position: fixed; float: right;width:100px;height:60px; right:10px;" >
 		    		<ul class="nav nav-pills">
 						      <li>
-						        <a href="album_add.jsp" class="btn"><i class='icon-camera'></i>创建相册</a>
+						        <a href="user_addKnowledge.jsp" class="btn">新建知识</a>
 						      </li>
 					    </ul>
 				</div>
 
-		     	<section id="album">
+		     	<section id="article">
 		     		<!-- Example row of columns -->
-			     	<div class="row" id="albumListDivId">
+			     	<div class="row" id="knowledgeListDivId">
 	      			</div>
 		     	</section>
 		      	
@@ -35,7 +35,7 @@
   		</div>
       <hr>
       <footer>
-      	  <p class="pull-right"><a href="#">Back to top</a></p>
+      	  <p class="pull-right"><button class='btn btn-warning' onclick="history.back()">Back</button><a class='btn' href="#">Back to top</a></p>
 	      <div align="center">
 	      	<p>&copy; Laivi 2013-2014</p>
 	      	<p><a href="mailto:laivi.zhu@gmail.com">联系我们:laivi.zhu@gmail.com</a></p>
@@ -52,10 +52,22 @@
 	<script type="text/javascript" src="../js/basic.js"></script>
 	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
+		var getMoreData=function(id){
+			laivi.getJson('knowledge_get.action?font=true&id='+id, function(result){
+				var comb="<a class='btn btn-primary btn-small' onclick='getLessData("+result.data.id+")'>Fold &raquo;</a>";
+				$('#content'+id).html(result.data.content+comb);
+			});
+		};
+		var getLessData=function(id){
+			laivi.getJson('knowledge_get.action?fold=true&font=true&id='+id, function(result){
+				var comb="<a class='btn btn-primary btn-small' onclick='getMoreData("+result.data.id+")'>More &raquo;</a>";
+				$('#content'+id).html(result.data.content+comb);
+			});
+		};
 		$(document).ready(laivi.init(function(){
 			loadLocalNavigate(navigate.user);
-			laivi.scrollBreakPage('album_list.action?album.type=PICTURE', $("#albumListDivId"), function(item){
-				return "<div class='span4'><div class='thumbnail'><a href='album_view.jsp?id="+item.id+"'><img src='../picture/"+item.defaultPicture+"'></img></a><div class='caption'><p>"+item.name+"</p><p>"+item.description+"</p><p><a class='btn' href='#' onclick=deleteObject('album_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>&nbsp;<a class='btn' href='album_add.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div></div>";
+			laivi.scrollBreakPage('knowledge_list.action', $("#knowledgeListDivId"), function(item){
+				return "<div class='span8'><a href='../knowledge/knowledge_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p>"+item.question+"</p><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p>"+item.createDate+"|"+item.user+"<a class='btn' onclick=deleteObject('knowledge_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addKnowledge.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>";
 			});
 		}));
 	

@@ -23,12 +23,13 @@
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
       	<h2 id="titleContentId"></h2>
-      		<form action="article_add.action" id="articleAddFormId">
-      			<input type="text" class="input-block-level" name="article.title" id="titleFormFieldId">
-      			<select id="tagSelectId" name="article.tagIds" id="tagIdsFormFieldId">
+      		<form action="knowledge_add.action" id="knowledgeAddFormId">
+      			<input type="text" class="input-block-level" name="knowledge.title" id="titleFormFieldId">
+      			<select id="tagSelectId" name="knowledge.tagIds" id="tagIdsFormFieldId">
       				<option value='0'>--请选择--</option>
       			</select>
-      			<textarea rows="20" style="width:100%" name="article.content" id='articleContentId'></textarea>
+      			<textarea rows="20" style="width:100%" name="knowledge.question" id='questionContentId'></textarea>
+      			<textarea rows="20" style="width:100%" name="knowledge.content" id='knowledgeContentId'></textarea>
       			<div align='center'><p><button type="reset" class="btn btn-warning">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">提交</button></p></div>
       		</form>
       </div>
@@ -58,28 +59,36 @@
 	<script type="text/javascript">
 		$(document).ready(laivi.init(function(){
 			var editor;
+			var editor1;
 			KindEditor.ready(function(K) {
-				editor = K.create('textarea[id="articleContentId"]', {
+				editor = K.create('textarea[id="knowledgeContentId"]', {
+					allowFileManager : true,
+					afterBlur:function(){
+						this.sync();
+					}
+				});
+				editor1 = K.create('textarea[id="questionContentId"]', {
 					allowFileManager : true,
 					afterBlur:function(){
 						this.sync();
 					}
 				});
 			});
-			laivi.comboList($("#tagSelectId"), 'tag_comboList.action?tag.type=ARTICLE');
+			laivi.comboList($("#tagSelectId"), 'tag_comboList.action?tag.type=KNOWLEDGE');
 			var id=laivi.getUrlVar('id');
 			if(id!=null&&id!=0){
-				$("#titleContentId").html("修改博文");
-				laivi.setFormVaule('article_get.action?font=true&fold=false&id='+id,true,function(result){
+				$("#titleContentId").html("修改知识");
+				laivi.setFormVaule('knowledge_get.action?font=true&fold=false&id='+id,true,function(result){
 					editor.html(result.data.content);
+					editor1.html(result.data.question);
 				});
-				laivi.submitForm($("#articleAddFormId"), 'article_update.action?id='+id, function(){
-					window.location.href="user_article.jsp";
+				laivi.submitForm($("#knowledgeAddFormId"), 'knowledge_update.action?id='+id, function(){
+					window.location.href="user_knowledge.jsp";
 				}, false, false);
 			}else{
-				$("#titleContentId").html("发表博文");
-				laivi.submitForm($("#articleAddFormId"), 'article_add.action', function(){
-					window.location.href="user_article.jsp";
+				$("#titleContentId").html("新建知识");
+				laivi.submitForm($("#knowledgeAddFormId"), 'knowledge_add.action', function(){
+					window.location.href="user_knowledge.jsp";
 				}, false, false);
 			}
 			

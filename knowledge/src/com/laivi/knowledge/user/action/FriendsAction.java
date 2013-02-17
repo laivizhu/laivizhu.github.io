@@ -8,6 +8,7 @@ import com.laivi.knowledge.basic.action.ABasicAction;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
+import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.ParamAssert;
@@ -76,11 +77,20 @@ public class FriendsAction extends ABasicAction<Friends> {
 				.put(Restrictions.eq("userId",message.getUserId()))
 				.put(Restrictions.eq("friendId", message.getToUserId()))
 				.put(Restrictions.eq("direction",FriendsDirection.INIT));
-		Friends friend=this.basicService.getObject(condition);
-		this.basicService.modify(friend);
+		Friends dfriend=this.basicService.getObject(condition);
+		dfriend.setDirection(friend.getDirection());
+		this.basicService.modify(dfriend);
 		message.setReadIs(true);
 		this.messageService.modify(message);
 		return response(true);
+	}
+	
+	public String listAllFriendsName()throws Exception{
+		JsonList jsonList=new JsonList();
+		for(User user:this.userService.getList()){
+			jsonList.add("\""+user.getUserName()+"\"");
+		}
+		return response(jsonList);
 	}
 	
 	public String listUserFriends()throws Exception{

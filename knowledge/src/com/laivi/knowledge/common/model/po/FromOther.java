@@ -1,4 +1,4 @@
-package com.laivi.knowledge.knowledge.model.po;
+package com.laivi.knowledge.common.model.po;
 
 import java.util.Date;
 
@@ -7,41 +7,37 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.common.model.type.FromOtherType;
 
 /**
  * Copyright Laivi
  * 
  * @author Laivi.Zhu
  * @version 1.0
- * @Date 2013-1-4
+ * @Date Feb 17, 2013
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name="t_reply")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Reply extends BasicEntity{
+@Table(name="t_fromOther")
+public class FromOther extends BasicEntity {
+
 	private long id;
-	private String context;
+	private long objectId;
 	private long userId;
-	private long articleId;
+	private FromOtherType type;
 	private Date createDate=new Date();
+	@Override
 	@Id
 	@GeneratedValue
 	public long getId() {
 		return id;
 	}
-	public void setId(long id) {
-		this.id = id;
+	public long getObjectId() {
+		return objectId;
 	}
-	public String getContext() {
-		return context;
-	}
-	public void setContext(String context) {
-		this.context = context;
+	public void setObjectId(long objectId) {
+		this.objectId = objectId;
 	}
 	public long getUserId() {
 		return userId;
@@ -49,16 +45,19 @@ public class Reply extends BasicEntity{
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
-	public long getArticleId() {
-		return articleId;
+	public FromOtherType getType() {
+		return type;
 	}
-	public void setArticleId(long articleId) {
-		this.articleId = articleId;
+	public void setType(FromOtherType type) {
+		this.type = type;
 	}
 	public Date getCreateDate() {
 		return createDate;
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 }

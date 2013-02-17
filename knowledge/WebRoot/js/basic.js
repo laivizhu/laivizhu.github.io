@@ -10,6 +10,12 @@ var laivi={
 			}else{
 				$("#backTopDivId").show();
 			}
+			var range=700;
+			if(range>=($(document).height()-$(document).scrollTop())) {
+		    	$("#backDivId").show();
+		    }else{
+		    	$("#backDivId").hide();
+		    }
 		});
 		otherHandler();
 	},
@@ -28,6 +34,7 @@ var laivi={
 	errorMsg:function(msg,tip){
 		tip=tip||'错误';
 		$.jBox.error(msg, '错误');
+		
 	},
 	alert:function(msg,tip){
 		tip=tip||'提示';
@@ -316,6 +323,39 @@ function userRegiest(){
 	window.location.href="/knowledge/user/user_add.jsp";
 }
 
+function fromOther(type,id){
+	laivi.confirm('确认要转载吗？', function(){
+		laivi.getJson('fromOther_add.action', function(){
+			laivi.alert('转载成功');
+			$('#fromOtherButtonId').addClass('disabled');
+			$('#fromOtherButtonId').attr('disabled',true);
+		},false,{
+			'fromOther.objectId':$('#idFormFieldId').val(),
+			'fromOther.type':type
+		});
+	});
+}
+
+function addFavorite(type,name){
+	var title;
+	if(name==null){
+		title=$('#titleFormFieldId').html();
+	}else{
+		title=$('#'+name).html();
+	}
+	laivi.getJson('favorite_add.action', function(){
+		laivi.alert('添加收藏成功');
+		$('#favoriteButtonId').addClass('disabled');
+		$('#favoriteButtonId').attr('disabled',true);
+	},false,{
+		'font':true,
+		'favorite.title':title,
+		'favorite.type':type,
+		'favorite.url':window.location.href
+	});
+	
+}
+
 function userLogout(){
 	laivi.confirm('确认要注销吗？', function(){
 		laivi.getJson('user_logout.action?fold=true', function(){
@@ -337,4 +377,3 @@ function deleteObject(url,msg){
 		});
 	});
 }
-

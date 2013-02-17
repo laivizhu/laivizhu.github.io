@@ -8,10 +8,12 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.laivi.knowledge.basic.dao.ILBasicDao;
+import com.laivi.knowledge.basic.model.po.BasicEntity;
 import com.laivi.knowledge.basic.model.to.CriterionList;
+import com.laivi.knowledge.basic.util.DataUtil;
 
 @Service("LBasicService")
-public class LBasicService<T> {
+public class LBasicService<T extends BasicEntity> {
 	
 	private ILBasicDao<T> basicDao;
 	
@@ -30,6 +32,12 @@ public class LBasicService<T> {
 	
 	public void remove(T object){
 		this.basicDao.remove(object);
+	}
+	
+	public void remove(Class<T> clazz,String ids){
+		for(long id:DataUtil.changeIdString(ids)){
+			this.remove(clazz,id);
+		}
 	}
 	
 	public void modify(T object){
@@ -59,5 +67,13 @@ public class LBasicService<T> {
 	
 	public long getCount(Class<T> clazz, CriterionList conditions){
 		return this.basicDao.getCount(this.basicDao.getConditionCriteria(clazz, conditions));
+	}
+	
+	Long[] getListIds(List<T> list){
+		Long[] idArray=new Long[list.size()];
+		for(int i=0;i<idArray.length;i++){
+			idArray[i]=list.get(i).getId();
+		}
+		return idArray;
 	}
 }

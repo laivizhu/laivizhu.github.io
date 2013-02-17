@@ -39,7 +39,7 @@
 							<div class='tab-pane fade' id='searchFriend'>
 								<div class="row">
 									<div class="span8" align="center">
-										<input type="text" id="searchWord" class="search-query" style="height:30px;width:400px;" placeholder="userName"/>
+										<input type="text" id="searchWord" class="search-query" style="height:30px;width:400px;"/>
 										<button type="button" class="btn btn-success" onclick="searchFriend()">搜索</button>
 									</div>
 									<div class="span8 row" id="searchFriendListDivId">
@@ -76,6 +76,8 @@
 	<script type="text/javascript" src="../js/jquery.jBox-zh-CN.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap-tab.js"></script>
+	<script type="text/javascript" src="../js/bootstrap/bootstrap-typeahead.js"></script>
+	<script type="text/javascript" src="../js/common/laivi-typeahead.js"></script>
 	<script  src="../kindeditor/kindeditor-min.js"></script>
 	<script  src="../kindeditor/lang/zh_CN.js"></script>
 	<script type="text/javascript" src="../js/basic.js"></script>
@@ -83,13 +85,17 @@
 	<script type="text/javascript">
 		$(document).ready(laivi.init(function(){
 			loadLocalNavigate(navigate.user);
+			new LaiviTypeahead({
+				url:'friend_listAllFriendsName.action',
+				object:'#searchWord'
+			});
 			$('#myTab a').click(function (e) {
 			  e.preventDefault();
 			  $(this).tab('show');
 			});
 			
 			laivi.scrollBreakPage('friend_listUserFriends.action', $("#friendListDivId"), function(item){
-				return "<div class='span2'><p>"+item.friend.userName+"</p><p><div align='right'><a onclick=deleteObject('friend_delete.action?id="+item.id+"')>删除</a></div></p></div>";
+				return "<div class='span2'><p>"+item.friend.userName+"</p><p><div align='right'><a class='btn' onclick=deleteObject('friend_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a></div></p></div>";
 			});
 			
 			laivi.scrollBreakPage('message_listFriendMessage.action', $("#messageListDivId"), function(item){
@@ -118,7 +124,7 @@
 				laivi.getJson('user_search.action?notBreakPage=true&key=userName&value='+searchWord, function(result){
 					$("#searchFriendListDivId").html("");
 					$.each(result.root,function(i,item){
-						$("#searchFriendListDivId").append("<div class='span2'><p>"+item.userName+"</p><p><div align='right'><a onclick=deleteObject('friend_add.action?friend.friendId="+item.id+"','确认要添加用户')>添加用户</a></div></p></div>");
+						$("#searchFriendListDivId").append("<div class='span2'><p>"+item.userName+"</p><p><div align='right'><a class='btn' onclick=deleteObject('friend_add.action?friend.friendId="+item.id+"','确认要添加用户')><i class='icon-plus'></i>加为好友</a></div></p></div>");
 					});
 				});
 				

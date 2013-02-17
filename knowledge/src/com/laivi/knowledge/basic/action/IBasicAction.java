@@ -32,6 +32,8 @@ public interface IBasicAction<T> extends Serializable {
 	 * @throws Exception
 	 */
 	String delete() throws Exception;
+	
+	String deletes()throws Exception;
 
 	/**
 	 * 
@@ -66,6 +68,8 @@ public interface IBasicAction<T> extends Serializable {
 	JsonItemList getSearchComboList()throws ErrorException;
 	
 	JsonItem getJsonItem(T object,boolean isSub) throws Exception;
+	
+	T getNewObject();
 	
 	
 	/**

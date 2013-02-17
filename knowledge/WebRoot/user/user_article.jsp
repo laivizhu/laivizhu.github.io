@@ -53,13 +53,13 @@
 	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
 		var getMoreData=function(id){
-			laivi.getJson('article_get.action?type=1&id='+id, function(result){
+			laivi.getJson('article_get.action?font=true&id='+id, function(result){
 				var comb="<a class='btn btn-primary btn-small' onclick='getLessData("+result.data.id+")'>Fold &raquo;</a>";
 				$('#content'+id).html(result.data.content+comb);
 			});
 		};
 		var getLessData=function(id){
-			laivi.getJson('article_get.action?fold=true&type=1&id='+id, function(result){
+			laivi.getJson('article_get.action?fold=true&font=true&id='+id, function(result){
 				var comb="<a class='btn btn-primary btn-small' onclick='getMoreData("+result.data.id+")'>More &raquo;</a>";
 				$('#content'+id).html(result.data.content+comb);
 			});
@@ -67,7 +67,7 @@
 		$(document).ready(laivi.init(function(){
 			loadLocalNavigate(navigate.user);
 			laivi.scrollBreakPage('article_list.action', $("#articleListDivId"), function(item){
-				return "<div class='span8'><a href='../knowledge/article_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p><a onclick=deleteObject('article_delete.action?id="+item.id+"')>删除</a>|<a href='user_addArticle.jsp?id="+item.id+"'>编辑</a>|"+item.createDate+"|"+item.user+"</p></div></div>";
+				return "<div class='span8'><a href='../knowledge/article_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p>"+item.createDate+"|"+item.user+"<a class='btn' onclick=deleteObject('article_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addArticle.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>";
 			});
 		}));
 	

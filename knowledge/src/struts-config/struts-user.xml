@@ -25,12 +25,14 @@
         <action name="message_*" class="com.laivi.knowledge.user.action.MessageAction" method="{1}"/>
         <action name="article_*" class="com.laivi.knowledge.knowledge.action.ArticleAction" method="{1}"/>
         <action name="knowledge_*" class="com.laivi.knowledge.knowledge.action.KnowledgeAction" method="{1}"/>
+        <action name="picture_*" class="com.laivi.knowledge.user.action.PictureAction" method="{1}"/>
     </package>
     
     <package name="user" extends="struts-base" namespace="/user">
         <action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}">
         	<result name="logout">login.jsp</result>
         </action>
+        <action name="fromOther_*" class="com.laivi.knowledge.common.action.FromOtherAction" method="{1}"/>
         <action name="album_*" class="com.laivi.knowledge.user.action.AlbumAction" method="{1}"/>
         <action name="music_*" class="com.laivi.knowledge.user.action.MusicAction" method="{1}"/>
         <action name="autoGraph_*" class="com.laivi.knowledge.user.action.AutoGraphAction" method="{1}"/>

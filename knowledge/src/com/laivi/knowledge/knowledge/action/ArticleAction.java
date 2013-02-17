@@ -34,7 +34,6 @@ public class ArticleAction extends ABasicAction<Article> {
 	private ITagService tagService;
 	private IUserService userService;
 	private Article article;
-	private int type;
 	
 	public String add()throws Exception{
 		ParamAssert.isNotEmptyString(article.getTitle(), "error.article.title.notNULL");
@@ -63,7 +62,7 @@ public class ArticleAction extends ABasicAction<Article> {
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
 		Article dArticle=this.basicService.getObject(id);
 		JsonItem item=null;
-		if(type==1){
+		if(font){
 			item=this.getJsonItem(dArticle,fold);
 		}else{
 			item=new JsonItem();
@@ -110,14 +109,6 @@ public class ArticleAction extends ABasicAction<Article> {
 
 	public void setArticle(Article article) {
 		this.article = article;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
 	}
 
 	@Resource(name="ArticleService")

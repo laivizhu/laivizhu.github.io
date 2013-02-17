@@ -55,7 +55,7 @@ Ext.onReady(function(){
             if(!Fmp.isEmpty(commodityId)){
             	Fmp.confirm('确认要添加到收藏夹吗？',function(){
          			Fmp.ajaxCall({
-                         url:'favorite_add.action?favorite.type=3&id='+commodityId+'&favorite.title='+Ext.util.JSON.encode(Fmp.getSelectedField(commodityGrid,'title')),
+                         url:'favorite_add.action?favorite.type=COMMOTITY&id='+commodityId+'&favorite.title='+Ext.util.JSON.encode(Fmp.getSelectedField(commodityGrid,'title')),
                          successHandler:function(){
                         	 Fmp.alert("添加成功");
                          }

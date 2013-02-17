@@ -89,7 +89,7 @@ public class AlbumAction extends ABasicAction<Album> {
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("type",object.getType().toText())
 		.add("user", this.userService.getObject(object.getUserId()).getUserName());
-		if(DataUtil.notEmptyString(object.getItemIds()) && object.getType().toText().equals(AlbumType.PICTURE)){
+		if(DataUtil.notEmptyString(object.getItemIds()) && object.getType().toText().equals(AlbumType.PICTURE.toText())){
 			item.add("defaultPicture", this.pictureService.getObject(DataUtil.getIndexStringId(object.getItemIds(), 1)).getPath());
 		}else{
 			item.add("defaultPicture", "album.jpg");

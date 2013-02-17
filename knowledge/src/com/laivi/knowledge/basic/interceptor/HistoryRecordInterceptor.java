@@ -61,7 +61,7 @@ public class HistoryRecordInterceptor extends AbstractInterceptor {
 						if(DataUtil.notEmptyString(ids[0])){
 							history.setAccessId(Long.parseLong(ids[0]));
 						}
-						history.setType(historyTag.type().toValue());
+						history.setType(historyTag.type());
 						this.historyService.add(history);
 					}else{
 						history.setCount(history.getCount()+1);
