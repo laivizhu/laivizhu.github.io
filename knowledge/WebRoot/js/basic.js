@@ -2,6 +2,55 @@ var currentDialog;
 var pageCount=10;
 var pageSize=0;
 var firstTime=true;
+
+function msgBox(string, tip){
+	$('body').append('<div class="modal hide fade" id="bodyId"></div>');
+	$('#bodyId').append('<div class="modal-header" id="headId"></div>');
+	$('#headId').append('<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick=CloseMsg()>×</button>');
+	if(tip){
+		$('#headId').append('<h3>'+tip+'</h3>');
+	}else{
+		$('#headId').append('<h3>提示</h3>');
+	}
+	$('#bodyId').append('<div class="modal-body" id="msgBodyId"></div>');
+	if(tip=='错误'){
+		$('#msgBodyId').append("<img src='../images/wrong.gif'>");
+	}else{
+		$('#msgBodyId').append("<img src=''>");
+	}
+	$('#msgBodyId').append(string);
+	$('#bodyId').append('<div class="modal-footer" id="footId"></div>');
+	$('#footId').append('<button class="btn" data-dismiss="modal" aria-hidden="true" onclick=CloseMsg()>确定</button>');
+	$('#bodyId').on('hide', function () {
+		$('#bodyId').remove();
+	}); 
+	$('#bodyId').modal('show');
+}
+
+function confirm(string,callBack){
+	$('body').append('<div class="modal hide fade" id="bodyId"></div>');
+	$('#bodyId').append('<div class="modal-header" id="headId"></div>');
+	$('#headId').append('<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick=CloseMsg()>×</button>');
+	$('#headId').append('<h3>提示</h3>');
+	$('#bodyId').append('<div class="modal-body" id="msgBodyId"></div>');
+	$('#msgBodyId').append('<img src="../images/help.png">'+string);
+	$('#bodyId').append('<div class="modal-footer" id="footId"></div>');
+	$('#footId').append('<button class="btn" data-dismiss="modal" aria-hidden="true" id="msgConfirmButtonId">确定</button>');
+	$('#footId').append('<button class="btn" data-dismiss="modal" aria-hidden="true" onclick=CloseMsg()>取消</button>');
+	$('#bodyId').on('hide', function () {
+		$('#bodyId').remove();
+	});
+	$('#msgConfirmButtonId').on('click',function(){
+		callBack();
+	});
+	$('#bodyId').modal('show');
+}
+
+function CloseMsg(){
+	$('#bodyId').modal('hide');
+}
+
+
 var laivi={
 	init:function(otherHandler){
 		$(window).scroll(function(){
@@ -30,15 +79,20 @@ var laivi={
 				return true;
 			}
 		});
+		/*confirm(title,function(){
+			OkHandler();
+		});*/
 	},
 	errorMsg:function(msg,tip){
 		tip=tip||'错误';
 		$.jBox.error(msg, '错误');
-		
+		//apprise(msg);
+		//msgBox(msg,tip);
 	},
 	alert:function(msg,tip){
 		tip=tip||'提示';
 		$.jBox.alert(msg, tip);
+		//msgBox(msg,tip);
 	},
 	getJson:function(url,successHandler,isLoding,params){
 		url=laivi.getRandParamUrl(url);
@@ -66,13 +120,14 @@ var laivi={
 				}
 				if(isInput){
 					var value=result.data[key]+"";
-					if(value.indexOf('.xlsx')!=-1||value.indexOf('.pdf')!=-1){
-						$("#"+key+"FormFieldId").html(result.data[key]);
-					}else{
-						$("#"+key+"FormFieldId").val(result.data[key]);
-					}
+					$("#"+key+"FormFieldId").val(result.data[key]);
 				}else{
-					$("#"+key+"FormFieldId").html(result.data[key]);
+					if(key=='id'){
+						$("#"+key+"FormFieldId").val(result.data[key]);
+					}else{
+						$("#"+key+"FormFieldId").html(result.data[key]);
+					}
+					
 				}
 			}
 			if(OtherHandler!=null){

@@ -1,4 +1,4 @@
-package com.laivi.knowledge.user.model.po;
+package com.laivi.knowledge.book.model.po;
 
 import java.util.Date;
 
@@ -17,71 +17,64 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
  * 
  * @author Laivi.Zhu
  * @version 1.0
- * @Date 2013-1-28
+ * @Date Feb 17, 2013
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name="t_music")
+@Table(name="t_book")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Music extends BasicEntity {
+public class Book extends BasicEntity{
 
 	private long id;
 	private String name;
-	private Date createDate=new Date();
 	private String path;
+	private Date createDate=new Date();
+	private long userId;
 	private int price;
-
-	public Music() {
+	
+	public Book() {
 	}
-
-	/**
-	 * @param name
-	 * @param path
-	 */
-	public Music(String name, String path) {
+	public Book(String name, String path, long userId) {
 		this.name = name;
 		this.path = path;
+		this.userId = userId;
 	}
-
 	@Override
 	@Id
 	@GeneratedValue
 	public long getId() {
 		return id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public Date getCreateDate() {
 		return createDate;
 	}
-
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-
-	public String getPath() {
-		return path;
+	public long getUserId() {
+		return userId;
 	}
-
-	public void setPath(String path) {
-		this.path = path;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
 	public int getPrice() {
 		return price;
 	}
-
 	public void setPrice(int price) {
 		this.price = price;
 	}

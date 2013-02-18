@@ -45,7 +45,7 @@ function apprise(string, args, callback)
 			{ $('.appriseOuter').css('top', '100px').fadeIn(200); }
 		}
 	else
-		{ $('.appriseOuter').css('top', '100px').fadeIn(200); }
+		{ $('.appriseOuter').css('top', '250px').fadeIn(200); }
     
     if(args)
     	{

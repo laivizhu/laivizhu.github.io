@@ -25,6 +25,7 @@
                   <li><a href="/knowledge/knowledge/knowledge.jsp">知识</a></li>
                 </ul>
               </li>
+              <li><a href="/knowledge/aboutus/aboutus.jsp">关于我们</a></li>
             </ul>
             <s:if test="#session.user==null">
             	<div>

@@ -54,6 +54,7 @@
 		    </div>
   		</div>
       <hr>
+
       <footer>
       	  <p class="pull-right"><a href="#">Back to top</a></p>
 	      <div align="center">

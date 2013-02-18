@@ -15,7 +15,7 @@ import com.laivi.knowledge.basic.util.DataUtil;
 @Service("LBasicService")
 public class LBasicService<T extends BasicEntity> {
 	
-	private ILBasicDao<T> basicDao;
+	protected ILBasicDao<T> basicDao;
 	
 	@Resource(name="LBasicDao")
 	public void setBasicDao(ILBasicDao<T> basicDao) {

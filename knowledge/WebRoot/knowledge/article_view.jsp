@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/docs.css"/>
     <link rel="stylesheet" type="text/css" href="../css/jbox_Green/jbox.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/apprise.css"/>
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -62,6 +63,7 @@
 	<script type="text/javascript" src="../js/jquery.form.js"></script>
     <script type="text/javascript" src="../js/jquery.jBox-2.3.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.jBox-zh-CN.js"></script>
+	<script type="text/javascript" src="../js/plug/apprise/apprise.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
 	<script  src="../kindeditor/kindeditor-min.js"></script>
 	<script  src="../kindeditor/lang/zh_CN.js"></script>

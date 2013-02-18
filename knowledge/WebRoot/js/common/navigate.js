@@ -6,6 +6,7 @@ var navigate={
       {url:'user_article.jsp',title:'博文记录'},
       {url:'user_knowledge.jsp',title:'知识管理'},
       {url:'user_album.jsp',title:'相册'},
+      {url:'user_book.jsp',title:'书籍'},
       {url:'user_musicAlbum.jsp',title:'音乐专辑'}
     ]
 };

@@ -24,6 +24,7 @@ public class User extends BasicEntity{
 	private Date createDate=new Date();
 	private boolean sysUser;
 	private String description;
+	private long money;
 	private boolean enable;
 	private long roleId;
 	private boolean reset; // 0表示不需要重置密码；1表示需要重置密码
@@ -127,5 +128,13 @@ public class User extends BasicEntity{
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public long getMoney() {
+		return money;
+	}
+
+	public void setMoney(long money) {
+		this.money = money;
 	}
 }

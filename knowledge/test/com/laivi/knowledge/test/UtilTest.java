@@ -1,11 +1,16 @@
 package com.laivi.knowledge.test;
 
+import java.io.File;
+import java.util.List;
+
 import org.junit.Test;
 
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.JsonUtil;
+import com.laivi.knowledge.book.model.po.Chapter;
+import com.laivi.knowledge.book.util.BookChapterUtil;
 import com.laivi.knowledge.common.model.type.FavoriteType;
 
 /**
@@ -34,6 +39,13 @@ public class UtilTest {
     	jsonList.add("abe");
     	jsonList.add("abf");
     	System.out.print(jsonList.toString());
+    }
+    
+    @Test
+    public void testBook()throws ErrorException{
+    	File file=new File("D:\\Media\\Book\\book\\采花录.txt");
+    	List<Chapter> chapterList=BookChapterUtil.getChapters(file);
+    	System.out.println("size:"+chapterList.size());
     }
 
 }

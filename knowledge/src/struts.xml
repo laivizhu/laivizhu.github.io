@@ -34,6 +34,7 @@
 	</package>
     <include file="./struts-config/struts-user.xml"/>
     <include file="./struts-config/struts-knowledge.xml"/>
+    <include file="./struts-config/struts-book.xml"/>
     <include file="./struts-config/struts-shopping.xml"/>
     <include file="./struts-config/struts-search.xml"/>
     <include file="./struts-config/struts-system.xml"/>
