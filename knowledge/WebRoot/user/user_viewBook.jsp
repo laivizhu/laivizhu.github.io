@@ -22,6 +22,13 @@
 		<div class="row">
 		    <jsp:include page="../common/navigate_left.jsp"/>
 		    <div class="span9">
+		    	<div style="position: fixed; float: right;width:100px;height:60px; right:10px;" >
+		    		<ul class="nav nav-pills">
+						      <li>
+						        <button onclick="addBookChapter()" class="btn"><i class='icon-book'></i>新增章节</button>
+						      </li>
+					</ul>
+				</div>
 		     	<div class="row" id="chapterListDivId">
 	      		</div>		      	
 		      	
@@ -46,20 +53,25 @@
 	<script type="text/javascript" src="../js/basic.js"></script>
 	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
+		var bookId;
+		var addBookChapter=function(){
+			window.location.href='user_addBookChapter.jsp?bookId='+bookId;
+		};
+		
 		var getMoreData=function(id){
-			laivi.getJson('book_getChapter.action?id='+id, function(result){
+			laivi.getJson('book_getBookChapter.action?id='+id, function(result){
 				var comb="<a class='btn btn-primary btn-small' onclick='getLessData("+result.data.id+")'>Fold &raquo;</a>";
 				$('#content'+id).html(result.data.content+comb);
 			});
 		};
 		var getLessData=function(id){
-			laivi.getJson('book_getChapter.action?fold=true&id='+id, function(result){
+			laivi.getJson('book_getBookChapter.action?fold=true&id='+id, function(result){
 				var comb="<a class='btn btn-primary btn-small' onclick='getMoreData("+result.data.id+")'>More &raquo;</a>";
 				$('#content'+id).html(result.data.content+comb);
 			});
 		};
 		$(document).ready(laivi.init(function(){
-			var bookId=laivi.getUrlVar("id");
+			bookId=laivi.getUrlVar("id");
 			loadLocalNavigate(navigate.user);
 			laivi.scrollBreakPage('book_listChapter.action?id='+bookId, $("#chapterListDivId"), function(item){
 				return "<div class='span9'><a href='../book/chapter_view.jsp?id="+item.id+"'><h2>"+item.title+"</h2></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p><a class='btn' href='#' onclick=deleteObject('book_deleteChapter.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a></p></div></div>";

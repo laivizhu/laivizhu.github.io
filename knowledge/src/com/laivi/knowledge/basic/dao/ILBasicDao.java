@@ -29,4 +29,8 @@ public interface ILBasicDao<T> {
 	void remove(T object);
 	
 	void modify(T object);
+	
+	void executeSql(String sql,Object[] params);
+	
+	Object getObjectByHql(String hql, Object[] parameters);
 }

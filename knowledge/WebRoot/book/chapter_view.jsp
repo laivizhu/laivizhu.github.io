@@ -32,7 +32,7 @@
 		<hr>
 		<div class="span12" align="right">
 				<p><button class="btn btn-small" onclick="addFavorite('BOOK')" id='favoriteButtonId'><i class="icon-heart"></i>收藏</button>
-				   <button class="btn btn-small" href="#"><i class="icon-share"></i>分享</button>
+				   <button class="btn btn-small" onclick=""><i class="icon-share"></i>分享</button>
 				   <button class="btn btn-small" onclick="addBookMark()" id='fromOtherButtonId'><i class="icon-bookmark"></i>加入书签</button>
 				</p>
 		</div>
@@ -43,7 +43,7 @@
 		</div>
 		<div class="span12" align="right">
 				<p><button class="btn btn-small" onclick="addFavorite('BOOK')" id='favoriteButtonId'><i class="icon-heart"></i>收藏</button>
-				   <button class="btn btn-small" href="#"><i class="icon-share"></i>分享</button>
+				   <button class="btn btn-small" onclick=""><i class="icon-share"></i>分享</button>
 				   <button class="btn btn-small" onclick="addBookMark()" id='fromOtherButtonId'><i class="icon-bookmark"></i>加入书签</button>
 				</p>
 		</div>
@@ -78,13 +78,13 @@
 		$(document).ready(laivi.init(function(){
 			var chapterId=laivi.getUrlVar("id");
 			$('#idFormFieldId').val(chapterId);
-			laivi.setFormVaule("book_getChapter.action?id="+chapterId, false);
+			laivi.setFormVaule("book_getBookChapter.action?id="+chapterId, false);
 		}));
 		
 		var jumpChapter=function(dir){
 			var chapterId=$('#idFormFieldId').val();			
 			if(dir!='list'){
-				laivi.setFormVaule('book_getChapter.action?id='+chapterId+'&dir='+dir, false);
+				laivi.setFormVaule('book_getBookChapter.action?id='+chapterId+'&dir='+dir, false);
 			}else{
 				//window.location.href="";
 				history.back();

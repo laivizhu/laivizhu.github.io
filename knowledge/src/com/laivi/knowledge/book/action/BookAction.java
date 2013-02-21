@@ -36,11 +36,25 @@ public class BookAction extends ALBasicAction<Book> {
 	private LBasicService<Chapter> chapterService;
 	private LBasicService<BookMark> bookMarkService;
 	private Book book;
+	private Chapter chapter;
 	private File[] books;
 	private String[] booksFileName;
 	private String dir;
 	public BookAction(){
 		this.downLoadPath=BookConstants.BOOK_DOWNLOAD;
+	}
+	
+	public String add()throws Exception{
+		ParamAssert.isNotEmptyString(book.getName(), "书籍名不能为空",true);
+		ParamAssert.isNotEmptyString(book.getDescription(), "描述不能为空",true);
+		book.setUserId(this.getCurrentUserId());
+		book.setCreateIs(true);
+		this.basicService.add(book);
+		return response(true);
+	}
+	
+	public String update()throws Exception{
+		return response();
 	}
 	
 	public String upload()throws Exception{
@@ -58,8 +72,35 @@ public class BookAction extends ALBasicAction<Book> {
 		if(file.exists()){
 			file.delete();
 		}
+		chapterService.executeSql("delete from t_chapter where bookId="+id, null);
 		return response(true);
 	}
+	
+	public String list()throws Exception{
+		this.conditions=CriterionList.CreateCriterion()
+				.put(Restrictions.eq("createIs", book.isCreateIs()));
+		return response(list(true,true));
+	}
+	
+	public String addChapter()throws Exception{
+		ParamAssert.isNotEmptyString(this.chapter.getTitle(),"章节标题",true);
+		ParamAssert.isNotEmptyString(this.chapter.getContent(),"章节内容",true);
+		Integer value = (Integer) chapterService.getObjectByHql("select max(c.indexChapter) from Chapter c where bookId="+chapter.getBookId(), null);
+		if(value==null){
+			chapter.setIndexChapter(1);
+		}else{
+			chapter.setIndexChapter(value+1);
+		}
+		this.chapterService.add(chapter);
+		return response(true);
+	}
+	
+	public String updateChapter()throws Exception{
+		
+		return response();
+	}
+	
+	
 	
 	public String deleteChapter()throws Exception{
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
@@ -67,7 +108,7 @@ public class BookAction extends ALBasicAction<Book> {
 		return response(true);
 	}
 	
-	public String getChapter()throws Exception{
+	public String getBookChapter()throws Exception{
 		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
 		Chapter chapter=this.chapterService.getObject(Chapter.class, id);
 		JsonItem item=null;
@@ -211,4 +252,13 @@ public class BookAction extends ALBasicAction<Book> {
 	public void setDir(String dir) {
 		this.dir = dir;
 	}
+
+	public void setChapter(Chapter chapter) {
+		this.chapter = chapter;
+	}
+
+	public Chapter getChapter() {
+		return chapter;
+	}
+	
 }

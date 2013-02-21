@@ -1,4 +1,4 @@
-package com.laivi.knowledge.knowledge.model.type;
+package com.laivi.knowledge.common.model.type;
 
 import com.laivi.knowledge.basic.model.type.BasicType;
 
@@ -6,17 +6,16 @@ import com.laivi.knowledge.basic.model.type.BasicType;
  * User: laivi.zhu
  * Time: 12-6-18 下午11:32
  */
-public enum TagType implements BasicType<TagType>{
+public enum CategoryType implements BasicType<CategoryType> {
 	KNOWLEDGE("知识"),
 	ARTICLE("文章"),
-	BOOK("书籍"),
-	MUSIC("音乐"),
-	PICTURE("图片");
+	COMMOTITY("商品"),
+	PICTURE("图片"),
+	MUSIC("音乐");
 	
 	private final String text;
 	
-	
-	TagType(String text){
+	CategoryType(String text){
 		this.text=text;
 	}
 	
@@ -24,17 +23,17 @@ public enum TagType implements BasicType<TagType>{
 		return text;
 	}
 	
-	public static TagType fromText(String value) {
-		for (TagType type : values()) {
+	public static CategoryType fromText(String value) {
+		for (CategoryType type : values()) {
 			if (type.toText().equals(value)) {
 				return type;
 			}
 		}
 		throw new IllegalArgumentException("not support value: " + value);
 	}
-	
+
 	@Override
-	public TagType getFromText(String text) {
-		return TagType.fromText(text);
+	public CategoryType getFromText(String text) {
+		return CategoryType.fromText(text);
 	}
 }

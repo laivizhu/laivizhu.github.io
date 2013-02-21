@@ -27,10 +27,13 @@ public class Book extends BasicEntity{
 
 	private long id;
 	private String name;
+	private String description;
+	private String tagIds;
 	private String path;
 	private Date createDate=new Date();
 	private long userId;
 	private int price;
+	private boolean createIs;
 	
 	public Book() {
 	}
@@ -77,5 +80,23 @@ public class Book extends BasicEntity{
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getTagIds() {
+		return tagIds;
+	}
+	public void setTagIds(String tagIds) {
+		this.tagIds = tagIds;
+	}
+	public boolean isCreateIs() {
+		return createIs;
+	}
+	public void setCreateIs(boolean createIs) {
+		this.createIs = createIs;
 	}
 }

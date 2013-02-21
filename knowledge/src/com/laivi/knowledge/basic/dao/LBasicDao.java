@@ -14,6 +14,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,16 @@ import com.laivi.knowledge.basic.model.to.CriterionList;
 @Service("LBasicDao")
 public class LBasicDao<T extends BaseEntity> implements ILBasicDao<T>{
 	protected HibernateTemplate hibernateTemplate;
+	protected JdbcTemplate jdbcTemplate;
 
 	@Resource
 	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
 		this.hibernateTemplate = hibernateTemplate;
+	}
+	
+	@Resource(name="jdbcTemplate")
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	@Override
@@ -118,5 +125,13 @@ public class LBasicDao<T extends BaseEntity> implements ILBasicDao<T>{
 		}else{
 			return null;
 		}
+	}
+	
+	public void executeSql(String sql,Object[] params){
+		jdbcTemplate.update(sql);
+	}
+	
+	public Object getObjectByHql(String hql, Object[] parameters) {
+		return hibernateTemplate.find(hql, parameters).get(0);
 	}
 }

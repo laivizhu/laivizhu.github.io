@@ -11,36 +11,38 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.common.model.type.CategoryType;
 
 /**
  * Copyright Laivi
  * 
  * @author Laivi.Zhu
  * @version 1.0
- * @Date Feb 14, 2013
+ * @Date Feb 19, 2013
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name="t_share")
+@Table(name="t_common_StatisticSore")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Share extends BasicEntity {
+public class StatisticScore extends BasicEntity {
 
 	private long id;
-	private long autoGraphId;
+	private long objectId;
 	private long userId;
-	private Date createDate;
-	
+	private int score;
+	private Date createDate=new Date();
+	private CategoryType type;
 	@Override
 	@Id
 	@GeneratedValue
 	public long getId() {
 		return id;
 	}
-	public long getAutoGraphId() {
-		return autoGraphId;
+	public long getObjectId() {
+		return objectId;
 	}
-	public void setAutoGraphId(long autoGraphId) {
-		this.autoGraphId = autoGraphId;
+	public void setObjectId(long objectId) {
+		this.objectId = objectId;
 	}
 	public long getUserId() {
 		return userId;
@@ -48,11 +50,23 @@ public class Share extends BasicEntity {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
 	public Date getCreateDate() {
 		return createDate;
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+	public CategoryType getType() {
+		return type;
+	}
+	public void setType(CategoryType type) {
+		this.type = type;
 	}
 	public void setId(long id) {
 		this.id = id;

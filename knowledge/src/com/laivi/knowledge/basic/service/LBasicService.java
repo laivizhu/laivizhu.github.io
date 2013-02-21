@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.laivi.knowledge.basic.dao.ILBasicDao;
+import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.po.BasicEntity;
 import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.util.DataUtil;
@@ -75,5 +76,17 @@ public class LBasicService<T extends BasicEntity> {
 			idArray[i]=list.get(i).getId();
 		}
 		return idArray;
+	}
+	
+	public void executeSql(String sql,Object[] params)throws ErrorException{
+		try{
+			basicDao.executeSql(sql, params);
+		}catch(Exception e){
+			throw new ErrorException("error.sql");
+		}
+	}
+	
+	public Object getObjectByHql(String hql, Object[] parameters) {
+		return basicDao.getObjectByHql(hql, parameters);
 	}
 }

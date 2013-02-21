@@ -25,7 +25,7 @@
 		    	<div style="position: fixed; float: right;width:100px;height:60px; right:10px;" >
 		    		<ul class="nav nav-pills">
 						      <li>
-						        <a href="book_add.jsp" class="btn"><i class='icon-camera'></i>上传书籍</a>
+						        <a href="book_add.jsp" class="btn"><i class='icon-book'></i>上传书籍</a>
 						      </li>
 					</ul>
 				</div>
@@ -33,11 +33,21 @@
 				<div>
 					<ul class="nav nav-tabs" id="myTab">
 						  <li class="active"><a href="#myBook" data-toggle="tab">我的书籍</a></li>
+						  <li><a href="#myCreateBook" data-toggle="tab">我创作的书籍</a></li>
 						  <li><a href="#myBookMark" data-toggle="tab">我的书签</a></li>
 					</ul>
 					<div class='tab-content'>
 						<div class='tab-pane fade in active' id='myBook'>
 							<div class="row" id="bookListDivId">
+	      					</div>
+						</div>
+						<div class='tab-pane fade' id='myCreateBook'>
+							<div class="span8">
+								<div align='right'>
+									<a href="user_addBook.jsp" class="btn btn-success"><i class='icon-book'></i>创作书籍</a>
+								</div>
+							</div>
+							<div class="row" id="myCreateBookListDivId">
 	      					</div>
 						</div>
 						
@@ -77,8 +87,11 @@
 			  e.preventDefault();
 			  $(this).tab('show');
 			});
-			laivi.scrollBreakPage('book_list.action', $("#bookListDivId"), function(item){
+			laivi.scrollBreakPage('book_list.action?book.createIs=false', $("#bookListDivId"), function(item){
 				return "<div class='span3'><div class='thumbnail'><a href='user_viewBook.jsp?id="+item.id+"'><img src='../picture/musicAlbum.jpg'></a><div class='caption'><p>"+item.name+"</p><p><a class='btn' href='#' onclick=deleteObject('book_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>&nbsp;<a class='btn' href='book_add.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div></div>";
+			});
+			laivi.scrollBreakPage('book_list.action?book.createIs=true', $("#myCreateBookListDivId"), function(item){
+				return "<div class='span4'><div class='thumbnail'><a href='user_viewBook.jsp?id="+item.id+"'><img src='../picture/musicAlbum.jpg'></a><div class='caption'><p>"+item.name+"</p><p>"+item.description+"</p><p><a class='btn' href='#' onclick=deleteObject('book_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>&nbsp;<a class='btn' href='book_add.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div></div>";
 			});
 			laivi.scrollBreakPage('book_bookMarklist.action', $("#bookMarkListDivId"), function(item){
 				return "<div class='span8'><p><a href='../book/chapter_view.jsp?id="+item.chapter.id+"'>"+item.chapter.title+"</a></p><div align='right'><button onclick=deleteObject('book_deleteBookMark.action?id="+item.id+"')><i class='icon-remove'></i>删除</button></div></div>";

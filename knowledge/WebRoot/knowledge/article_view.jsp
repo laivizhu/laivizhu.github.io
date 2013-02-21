@@ -27,8 +27,12 @@
 			<h2 id="titleFormFieldId"></h2>
         	<p><label id="contentFormFieldId"></label></p>
 		</div>
+		<div class="span12" align="center">
+			<div id="articleStarDivId"></div>
+		</div>
 		<div class="span12" align="right">
-				<p><button class="btn btn-small" onclick="addFavorite('ARTICLE')" id='favoriteButtonId'><i class="icon-heart"></i>收藏</button>
+				<p>
+				   <button class="btn btn-small" onclick="addFavorite('ARTICLE')" id='favoriteButtonId'><i class="icon-heart"></i>收藏</button>
 				   <button class="btn btn-small" href="#"><i class="icon-share"></i>分享</button>
 				   <button class="btn btn-small" onclick="fromOther('ARTICLE',1)" id='fromOtherButtonId'><i class="icon-share-alt"></i>转载</button>
 				</p>
@@ -63,11 +67,12 @@
 	<script type="text/javascript" src="../js/jquery.form.js"></script>
     <script type="text/javascript" src="../js/jquery.jBox-2.3.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.jBox-zh-CN.js"></script>
-	<script type="text/javascript" src="../js/plug/apprise/apprise.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
 	<script  src="../kindeditor/kindeditor-min.js"></script>
 	<script  src="../kindeditor/lang/zh_CN.js"></script>
+	<script type="text/javascript" src="../js/plug/raty/jquery.raty.js"></script>
 	<script type="text/javascript" src="../js/basic.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
 	<script type="text/javascript">
 		$(document).ready(laivi.init(function(){
 			var articleId=laivi.getUrlVar("id");
@@ -100,6 +105,8 @@
 			laivi.submitForm($("#replyFormId"), 'reply_add.action?reply.articleId='+articleId, function(){
 				window.location.reload();
 			}, false, false);
+			plug.raty('#articleStarDivId','score_get.action?score.type=ARTICLE&score.objectId='+articleId, 'score_add.action?score.type=ARTICLE&score.objectId='+articleId);
+
 		}));
 	</script>
   </body>

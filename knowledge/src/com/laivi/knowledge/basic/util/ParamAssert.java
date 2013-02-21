@@ -20,6 +20,10 @@ public final class ParamAssert {
 	public static void isNotEmptyString(String s, String errorInfo) throws ErrorException {
 		isTrue(s != null && DataUtil.notEmptyString(s), errorInfo);
 	}
+	
+	public static void isNotEmptyString(String s, String errorInfo,boolean isMsg) throws ErrorException {
+		isTrue(s != null && DataUtil.notEmptyString(s), errorInfo,isMsg);
+	}
 
 	public static void isNotNull(Object o, String errorInfo) throws ErrorException {
 		isTrue(o != null, errorInfo);
@@ -44,6 +48,12 @@ public final class ParamAssert {
 	public static void isTrue(boolean result, String errorInfo) throws ErrorException {
 		if (!result) {
 			throw new ErrorException(errorInfo);
+		}
+	}
+	
+	public static void isTrue(boolean result, String errorInfo,boolean isMsg) throws ErrorException {
+		if (!result) {
+			throw new ErrorException(errorInfo,isMsg);
 		}
 	}
 

@@ -25,6 +25,7 @@ public class User extends BasicEntity{
 	private boolean sysUser;
 	private String description;
 	private long money;
+	private long score;
 	private boolean enable;
 	private long roleId;
 	private boolean reset; // 0表示不需要重置密码；1表示需要重置密码
@@ -137,4 +138,13 @@ public class User extends BasicEntity{
 	public void setMoney(long money) {
 		this.money = money;
 	}
+
+	public long getScore() {
+		return score;
+	}
+
+	public void setScore(long score) {
+		this.score = score;
+	}
+	
 }
