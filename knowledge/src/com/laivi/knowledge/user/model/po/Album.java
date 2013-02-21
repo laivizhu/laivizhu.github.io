@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.basic.model.po.UserEntity;
 import com.laivi.knowledge.user.model.type.AlbumType;
 
 /**
@@ -25,7 +25,7 @@ import com.laivi.knowledge.user.model.type.AlbumType;
 @Entity
 @Table(name="t_album")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Album extends BasicEntity {
+public class Album extends UserEntity {
 
 	private long id;
 	private String name;

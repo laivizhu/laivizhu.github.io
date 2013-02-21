@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.basic.model.po.UserEntity;
 
 /**
  * Copyright Laivi
@@ -23,12 +23,12 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
 @Entity
 @Table(name="t_share")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Share extends BasicEntity {
+public class Share extends UserEntity {
 
 	private long id;
 	private long autoGraphId;
 	private long userId;
-	private Date createDate;
+	private Date createDate=new Date();
 	
 	@Override
 	@Id

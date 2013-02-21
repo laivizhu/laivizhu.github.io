@@ -11,7 +11,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.json.JsonItem;
-import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.basic.model.po.UserEntity;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.knowledge.model.type.TagType;
 
@@ -19,7 +19,7 @@ import com.laivi.knowledge.knowledge.model.type.TagType;
 @Entity
 @Table(name="t_tag")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Tag extends BasicEntity{
+public class Tag extends UserEntity{
     private long id;
 
     private String name;

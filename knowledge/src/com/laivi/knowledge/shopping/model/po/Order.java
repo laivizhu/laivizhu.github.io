@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.basic.model.po.UserEntity;
 import com.laivi.knowledge.shopping.model.type.StatusType;
 
 /**
@@ -30,7 +30,7 @@ import com.laivi.knowledge.shopping.model.type.StatusType;
 @Entity
 @Table(name="t_order")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Order extends BasicEntity {
+public class Order extends UserEntity {
 
 	private long id;
 	private String code;

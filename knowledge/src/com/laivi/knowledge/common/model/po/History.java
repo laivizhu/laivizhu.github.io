@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.basic.model.po.UserEntity;
 import com.laivi.knowledge.common.model.type.FavoriteType;
 
 /**
@@ -24,7 +24,7 @@ import com.laivi.knowledge.common.model.type.FavoriteType;
 @Entity
 @Table(name="t_history")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class History extends BasicEntity {
+public class History extends UserEntity {
 
 	private long id;
 	private String title;

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.basic.model.po.UserEntity;
 
 /**
  * Copyright Laivi
@@ -23,7 +23,7 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
 @Entity
 @Table(name="t_oauth")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class OAuth extends BasicEntity {
+public class OAuth extends UserEntity {
 
 	private long id;
 	private long applicationId;

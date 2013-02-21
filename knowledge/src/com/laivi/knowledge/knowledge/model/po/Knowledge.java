@@ -11,13 +11,13 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.basic.model.po.UserEntity;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name="t_knowledge")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Knowledge extends BasicEntity{
+public class Knowledge extends UserEntity{
     private long id;
     private String title;
 	private String question;

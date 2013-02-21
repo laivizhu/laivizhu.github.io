@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.basic.model.po.UserEntity;
 import com.laivi.knowledge.user.model.type.FriendsDirection;
 
 /**
@@ -24,7 +24,7 @@ import com.laivi.knowledge.user.model.type.FriendsDirection;
 @Entity
 @Table(name="t_friends")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Friends extends BasicEntity {
+public class Friends extends UserEntity {
 
 	private long id;
 	private long userId;

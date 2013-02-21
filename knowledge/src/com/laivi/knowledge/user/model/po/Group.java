@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.laivi.knowledge.basic.model.po.BasicEntity;
+import com.laivi.knowledge.basic.model.po.UserEntity;
 
 /**
  * Copyright Laivi
@@ -23,7 +23,7 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
 @Entity
 @Table(name="t_group")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Group extends BasicEntity {
+public class Group extends UserEntity {
 
 	private long id;
 	private String name;
