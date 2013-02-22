@@ -11,6 +11,7 @@ import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
+import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.IBasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
@@ -81,6 +82,15 @@ public class ArticleAction extends ABasicAction<Article> {
 		for(Article article:this.basicService.getList(conditions, 0, AppConstants.INDEXSIZE)){
 			jsonList.createItem().add("url", "knowledge/article_view.jsp?id="+article.getId())
 			.add("title", DataUtil.getDefaultChar(article.getTitle(),10)).add("createDate", DateUtil.formatDate(article.getCreateDate()));
+		}
+		return response(jsonList);
+	}
+	
+	public String listAllTitle()throws Exception{
+		JsonList jsonList=new JsonList();
+		this.conditions=this.getUserCriterionList();
+		for(Article article:this.basicService.getList(conditions)){
+			jsonList.add("\""+article.getTitle()+"\"");
 		}
 		return response(jsonList);
 	}

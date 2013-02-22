@@ -48,7 +48,7 @@ public class TagAction extends ABasicAction<Tag> {
 	
 	public String comboList()throws Exception{
 		JsonItemList jsonList=new JsonItemList();
-		CriterionList conditions=this.getUserCriterionList();
+		this.conditions=CriterionList.CreateCriterion();
 		conditions.put(Restrictions.eq("type", tag.getType()));
 		for(Tag tag:tagService.getList(conditions,start,limit)){
 			jsonList.createItem().add("value", tag.getId()).add("text", tag.getName());

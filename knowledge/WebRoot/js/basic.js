@@ -59,17 +59,11 @@ var laivi={
 			}else{
 				$("#backTopDivId").show();
 			}
-			var range=700;
-			if(range>=($(document).height()-$(document).scrollTop())) {
-		    	$("#backDivId").show();
-		    }else{
-		    	$("#backDivId").hide();
-		    }
 		});
 		otherHandler();
 	},
 	confirm:function(title,OkHandler,NoHandler){
-		$.jBox.confirm(title,'提示',function(v, h, f){
+		/*$.jBox.confirm(title,'提示',function(v, h, f){
 			if (v == 'ok'){
 				OkHandler();
 			}else{
@@ -78,21 +72,21 @@ var laivi={
 				}
 				return true;
 			}
-		});
-		/*confirm(title,function(){
-			OkHandler();
 		});*/
+		confirm(title,function(){
+			OkHandler();
+		});
 	},
 	errorMsg:function(msg,tip){
 		tip=tip||'错误';
-		$.jBox.error(msg, '错误');
+		//$.jBox.error(msg, '错误');
 		//apprise(msg);
-		//msgBox(msg,tip);
+		msgBox(msg,tip);
 	},
 	alert:function(msg,tip){
 		tip=tip||'提示';
-		$.jBox.alert(msg, tip);
-		//msgBox(msg,tip);
+		//$.jBox.alert(msg, tip);
+		msgBox(msg,tip);
 	},
 	getJson:function(url,successHandler,isLoding,params){
 		url=laivi.getRandParamUrl(url);
@@ -133,7 +127,7 @@ var laivi={
 			if(OtherHandler!=null){
 				OtherHandler(result);
 			}
-		},params);
+		},true,params);
 	},
 	submitForm:function(formObject,url,successHandler,isIncludeFile,isClick){
 		if(isIncludeFile==null){

@@ -7,7 +7,7 @@ LaiviTypeahead.prototype.init = function(){
 	var dataUrl=this.options.url;
 	var object = this.options.object;
 	$(object).attr('data-provide','typeahead');
-	$(object).attr('data-items','4');
+	$(object).attr('data-items','10');
 	$.getJSON(dataUrl,this.options.params,function(result){
 		if(result.success){
 			$(object).attr('data-source',"["+result.root+"]");

@@ -95,7 +95,7 @@
 			laivi.getJson('book_addBookMark.action?id='+chapterId, function(){
 				laivi.alert('添加书签成功');
 			});
-		}
+		};
 	</script>
   </body>
 </html>

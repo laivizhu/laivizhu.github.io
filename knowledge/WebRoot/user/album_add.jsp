@@ -28,7 +28,7 @@
       			<select id="typeSelectId" name="album.type" id="typeFormFieldId">
       				<option value='0'>--请选择--</option>
       			</select>
-      			<textarea rows="20" style="width:100%" name="album.description" id='descriptionFormFieldId'></textarea>
+      			<textarea rows="14" style="width:100%" name="album.description" id='descriptionFormFieldId'></textarea>
       			<div align='center'><p><button type="reset" class="btn btn-warning">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">提交</button></p></div>
       		</form>
       </div>

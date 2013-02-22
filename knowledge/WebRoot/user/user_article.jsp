@@ -24,11 +24,16 @@
 					    </ul>
 				</div>
 
-		     	<section id="article">
-		     		<!-- Example row of columns -->
-			     	<div class="row" id="articleListDivId">
-	      			</div>
-		     	</section>
+		     	
+			    <div class="row">
+			    	<div class="span8" align="center" style="margin-top: 30px;">
+						<input type="text" id="searchWord" class="search-query" style="height:30px;width:400px;"/>
+						<button type="button" class="btn btn-success" onclick="searchArticle()">搜索</button>
+					</div>
+					<div class="row span8" id="articleListDivId">
+					</div>
+	      		</div>
+		     	
 		      	
 		      	
 		    </div>
@@ -49,6 +54,8 @@
     <script type="text/javascript" src="../js/jquery.jBox-2.3.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.jBox-zh-CN.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/bootstrap/bootstrap-typeahead.js"></script>
+	<script type="text/javascript" src="../js/common/laivi-typeahead.js"></script>
 	<script type="text/javascript" src="../js/basic.js"></script>
 	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
@@ -64,12 +71,32 @@
 				$('#content'+id).html(result.data.content+comb);
 			});
 		};
+		
+		var searchArticle=function(){
+			var searchWord=$("#searchWord").val();
+			if(laivi.isNotNull(searchWord, '请输入搜索文章关键字')){
+				laivi.getJson('article_search.action?notBreakPage=true&key=title&value='+searchWord, function(result){
+					$("#articleListDivId").html("");
+					$.each(result.root,function(i,item){
+						$("#articleListDivId").append("<div class='span8'><a href='../knowledge/article_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p>"+item.createDate+"|"+item.user+"<a class='btn' onclick=deleteObject('article_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addArticle.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>");
+					});
+				});
+				
+			}
+		};
+		
 		$(document).ready(laivi.init(function(){
 			loadLocalNavigate(navigate.user);
+			new LaiviTypeahead({
+				url:'article_listAllTitle.action',
+				object:'#searchWord'
+			});
 			laivi.scrollBreakPage('article_list.action', $("#articleListDivId"), function(item){
 				return "<div class='span8'><a href='../knowledge/article_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p>"+item.createDate+"|"+item.user+"<a class='btn' onclick=deleteObject('article_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addArticle.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>";
 			});
 		}));
+		
+		
 	
 	</script>
   </body>
