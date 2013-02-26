@@ -32,4 +32,9 @@ public class ExportData {
         User user=new User("laivi","laivi", "laivi",true,true);
         hibernatetemplate.save(user);
     }
+    
+    @Test
+    public void testAddTagData(){
+    	
+    }
 }
