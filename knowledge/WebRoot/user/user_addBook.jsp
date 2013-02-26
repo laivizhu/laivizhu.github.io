@@ -25,7 +25,7 @@
       	<h2 id="titleContentId"></h2>
       		<form action="book_add.action" id="bookAddFormId">
       			<input type="text" class="input-block-level" name="book.name" id="nameFormFieldId" placeholder='书名'>
-      			<select id="tagSelectId" name="book.tagIds" id="tagIdsFormFieldId">
+      			<select id="tagSelectId" name="book.tagId" id="tagIdsFormFieldId">
       				<option value='0'>--请选择--</option>
       			</select>
       			<input type="text" class="input-block-level" name="book.price" id="priceFormFieldId" placeholder='价格'>

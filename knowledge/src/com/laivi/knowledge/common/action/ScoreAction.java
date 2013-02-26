@@ -12,7 +12,7 @@ import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.LBasicService;
 import com.laivi.knowledge.basic.util.ParamAssert;
-import com.laivi.knowledge.common.model.po.StatisticScore;
+import com.laivi.knowledge.common.model.po.RateScore;
 import com.laivi.knowledge.user.model.po.User;
 
 /**
@@ -23,9 +23,9 @@ import com.laivi.knowledge.user.model.po.User;
  * @Date Feb 19, 2013
  */
 @SuppressWarnings("serial")
-public class ScoreAction extends ALBasicAction<StatisticScore>{
+public class ScoreAction extends ALBasicAction<RateScore>{
 
-	private StatisticScore score;
+	private RateScore score;
 	
 	public String add()throws Exception{
 		long userId=this.getCurrentUserId();
@@ -52,7 +52,7 @@ public class ScoreAction extends ALBasicAction<StatisticScore>{
 				
 		JsonItem item=new JsonItem();
 		if(!notLogin && this.basicService.getCount(this.getObjectClass(), conditions)>0){
-			StatisticScore statScore=this.basicService.getObject(this.getObjectClass(), conditions);
+			RateScore statScore=this.basicService.getObject(this.getObjectClass(), conditions);
 			item.add("score", statScore.getScore());
 		}else{
 			if(!notLogin){
@@ -60,7 +60,7 @@ public class ScoreAction extends ALBasicAction<StatisticScore>{
 			}
 			long totalScore=0;
 			int i=0;
-			for(StatisticScore statScore:this.basicService.getList(this.getObjectClass(), conditions)){
+			for(RateScore statScore:this.basicService.getList(this.getObjectClass(), conditions)){
 				i++;
 				totalScore+=statScore.getScore();
 			}
@@ -80,25 +80,25 @@ public class ScoreAction extends ALBasicAction<StatisticScore>{
 	}
 
 	@Override
-	public JsonItem getJsonItem(StatisticScore object, boolean isSub) throws Exception {
+	public JsonItem getJsonItem(RateScore object, boolean isSub) throws Exception {
 		return null;
 	}
 
 	@Override
-	public Class<StatisticScore> getObjectClass() throws Exception {
-		return StatisticScore.class;
+	public Class<RateScore> getObjectClass() throws Exception {
+		return RateScore.class;
 	}
 	
 	@Resource(name="LBasicService")
-	public void setBasicService(LBasicService<StatisticScore> basicService){
+	public void setBasicService(LBasicService<RateScore> basicService){
 		this.basicService=basicService;
 	}
 
-	public StatisticScore getScore() {
+	public RateScore getScore() {
 		return score;
 	}
 
-	public void setScore(StatisticScore score) {
+	public void setScore(RateScore score) {
 		this.score = score;
 	}
 

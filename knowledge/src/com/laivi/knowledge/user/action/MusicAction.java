@@ -13,14 +13,11 @@ import com.laivi.knowledge.basic.model.json.JsonItem;
 import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.IBasicService;
-import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.FileUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.user.model.constant.SystemConstants;
-import com.laivi.knowledge.user.model.po.Album;
 import com.laivi.knowledge.user.model.po.Music;
-import com.laivi.knowledge.user.service.IAlbumService;
 import com.laivi.knowledge.user.service.IMusicService;
 
 /**
@@ -33,7 +30,6 @@ import com.laivi.knowledge.user.service.IMusicService;
 @SuppressWarnings("serial")
 public class MusicAction extends ABasicAction<Music> {
 	private IMusicService musicService;
-	private IAlbumService albumService;
 	private Music music;
 	private File[] musics;
 	private String[] musicsFileName;
@@ -63,14 +59,11 @@ public class MusicAction extends ABasicAction<Music> {
 	
 	public String musicList()throws Exception{
 		ParamAssert.isTrue(albumId != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
-		Album album=this.albumService.getObject(albumId);
 		JsonItemList jsonList=new JsonItemList();
 		CriterionList conditions=CriterionList.CreateCriterion();
-		if(DataUtil.notEmptyString(album.getItemIds())){
-			conditions.put(Restrictions.in("id", DataUtil.changeIdString(album.getItemIds())));
-			for(Music music:this.basicService.getList(conditions,start,limit)){
-				jsonList.createItem().add("title", music.getName()).add("mp3", "../music/"+music.getPath());
-			}
+		conditions.put(Restrictions.eq("albumId", albumId));
+		for(Music music:this.basicService.getList(conditions,start,limit)){
+			jsonList.createItem().add("title", music.getName()).add("mp3", "../music/"+music.getPath());
 		}
 		return response(jsonList.toPageString(this.basicService.getCount(conditions)));
 	}
@@ -125,10 +118,6 @@ public class MusicAction extends ABasicAction<Music> {
 	@Resource(name="MusicService")
 	public void setMusicService(IMusicService musicService) {
 		this.musicService = musicService;
-	}
-	@Resource(name="AlbumService")
-	public void setAlbumService(IAlbumService albumService) {
-		this.albumService = albumService;
 	}
 	
 	@Resource(name="MusicService")

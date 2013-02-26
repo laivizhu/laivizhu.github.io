@@ -17,8 +17,8 @@ import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.common.model.type.FavoriteType;
+import com.laivi.knowledge.common.service.ITagService;
 import com.laivi.knowledge.knowledge.model.po.Knowledge;
-import com.laivi.knowledge.knowledge.service.ITagService;
 import com.laivi.knowledge.user.service.IUserService;
 
 /**

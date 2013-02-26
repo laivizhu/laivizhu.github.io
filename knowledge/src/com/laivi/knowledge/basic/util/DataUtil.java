@@ -110,6 +110,16 @@ public class DataUtil {
 		return DataUtil.getNumberString(value, 0, length);
 	}
 	
+	public static boolean isIncludeId(long id,String ids){
+		if(DataUtil.notEmptyString(ids)){
+			Long[] idArrays=DataUtil.changeIdString(ids);
+			for(Long tempId:idArrays){
+				if(id==tempId) return true;
+			}
+		}
+		return false;
+	}
+	
 	public static String getNumberString(String value,int prefix,int length){
 		if(DataUtil.notEmptyString(value)){
 			return String.valueOf(Long.parseLong(value)+1);

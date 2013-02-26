@@ -1,4 +1,4 @@
-package com.laivi.knowledge.user.model.po;
+package com.laivi.knowledge.common.model.po;
 
 import java.util.Date;
 
@@ -11,75 +11,64 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.laivi.knowledge.basic.model.po.UserEntity;
-import com.laivi.knowledge.user.model.type.AlbumType;
+import com.laivi.knowledge.common.model.type.CategoryType;
 
 /**
  * Copyright Laivi
  * 
  * @author Laivi.Zhu
  * @version 1.0
- * @Date 2013-1-24
+ * @Date Feb 19, 2013
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name="t_album")
+@Table(name="t_common_StatisticSore")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Album extends UserEntity {
+public class RateScore extends UserEntity {
 
 	private long id;
-	private String name;
-	private String description;
-	private AlbumType type;
-	private Date createDate=new Date();
+	private long objectId;
 	private long userId;
+	private int score;
+	private Date createDate=new Date();
+	private CategoryType type;
 	@Override
 	@Id
 	@GeneratedValue
 	public long getId() {
 		return id;
 	}
-
-	public String getName() {
-		return name;
+	public long getObjectId() {
+		return objectId;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setObjectId(long objectId) {
+		this.objectId = objectId;
 	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
 	public long getUserId() {
 		return userId;
 	}
-
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
-
-	public void setId(long id) {
-		this.id = id;
+	public int getScore() {
+		return score;
 	}
-
-	public AlbumType getType() {
+	public void setScore(int score) {
+		this.score = score;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public CategoryType getType() {
 		return type;
 	}
-
-	public void setType(AlbumType type) {
+	public void setType(CategoryType type) {
 		this.type = type;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 }

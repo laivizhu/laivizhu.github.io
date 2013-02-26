@@ -23,7 +23,6 @@
 		    <jsp:include page="../common/navigate_left.jsp"/>
 		    <div class="span9">
 		    	<!-- Main hero unit for a primary marketing message or call to action -->
-		    	<section id="all">
 			    	<div>
 				        <ul class="nav nav-tabs" id="myTab">
 						  <li class="active"><a href="#basic" data-toggle="tab">个人基本信息</a></li>
@@ -61,9 +60,6 @@
 							</div>
 						</div>
 			      	</div>
-		    	</section>
-		     	
-		      	
 		      	
 		    </div>
   		</div>

@@ -28,14 +28,15 @@ public class Picture extends BasicEntity{
 	private String description;
 	private String path;
 	private Date createDate=new Date();
+	private long albumId;
 
 	public Picture() {
 	}
 
-	public Picture(String description, String path, Date indate) {
+	public Picture(String description, String path,long albumId) {
 		this.description = description;
 		this.path = path;
-		this.createDate = indate;
+		this.albumId=albumId;
 	}
 
 	@Id
@@ -70,5 +71,13 @@ public class Picture extends BasicEntity{
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public long getAlbumId() {
+		return albumId;
+	}
+
+	public void setAlbumId(long albumId) {
+		this.albumId = albumId;
 	}
 }

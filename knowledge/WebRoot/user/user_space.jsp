@@ -23,7 +23,6 @@
 		    <jsp:include page="../common/navigate_left.jsp"/>
 		    <div class="span9">
 		    	<!-- Main hero unit for a primary marketing message or call to action -->
-		    	<section id="all">
 			    	<div>
 				        <ul class="nav nav-tabs" id="myTab">
 						  <li class="active"><a href="#person" data-toggle="tab">个人动态</a></li>
@@ -32,12 +31,14 @@
 						</ul>
 						<div class='tab-content'>
 							<div class='tab-pane fade in active' id='person'>
-								<div class="row" id="personListDivId">
+								<div class="row" >
 									<div class="span8">
 										<form id="autoGraphAddFormId">
 											<textarea rows="5" style="width:100%" name="autoGraph.content" id="contentFormFieldId"></textarea>
 											<div align='center'><p><button type="reset" class="btn btn-warning">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">提交</button></p></div>
 										</form>
+									</div>
+									<div class="span8 row" id="personListDivId">
 									</div>
 								</div>
 								<hr>
@@ -52,7 +53,6 @@
 							</div>
 						</div>
 			      	</div>
-		    	</section>
 		     	
 		      	
 		      	

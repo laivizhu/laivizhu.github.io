@@ -1,8 +1,8 @@
-package com.laivi.knowledge.knowledge.service;
+package com.laivi.knowledge.common.service;
 
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.service.IBasicService;
-import com.laivi.knowledge.knowledge.model.po.Tag;
+import com.laivi.knowledge.common.model.po.Tag;
 
 /**
  * User: laivi.zhu@gmail.com

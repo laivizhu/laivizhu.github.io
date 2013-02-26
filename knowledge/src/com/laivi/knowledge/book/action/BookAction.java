@@ -4,10 +4,12 @@ import java.io.File;
 
 import javax.annotation.Resource;
 
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.laivi.knowledge.basic.action.ALBasicAction;
+import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.constants.ErrorMessageConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.model.json.JsonItem;
@@ -22,6 +24,7 @@ import com.laivi.knowledge.book.model.po.Book;
 import com.laivi.knowledge.book.model.po.BookMark;
 import com.laivi.knowledge.book.model.po.Chapter;
 import com.laivi.knowledge.book.service.BookService;
+import com.laivi.knowledge.user.model.po.User;
 
 /**
  * Copyright Laivi
@@ -53,6 +56,24 @@ public class BookAction extends ALBasicAction<Book> {
 		return response(true);
 	}
 	
+	public String addUserBookShelf()throws Exception{
+		long userId=this.getCurrentUserId();
+		Book book=this.basicService.getObject(this.getObjectClass(), id);
+		ParamAssert.isTrue(userId!=book.getUserId(), "用户是该书的创作者", true);
+		ParamAssert.isTrue(!DataUtil.isIncludeId(userId, book.getUserIds()), "用户书架已包含该书",true);
+		User user=this.userService.getObject(User.class, userId);
+		ParamAssert.isTrue(user.getScore()>=book.getPrice(), "分数不够，不能加入书架，请先充值！",true);
+		if(DataUtil.notEmptyString(book.getUserIds())){
+			book.setUserIds(book.getUserIds()+","+userId);
+		}else{
+			book.setUserIds(userId+AppConstants.EMPTY);
+		}
+		user.setScore(user.getScore()-book.getPrice());
+		this.userService.modify(user);
+		this.basicService.modify(book);
+		return response(true);
+	}
+	
 	public String update()throws Exception{
 		return response();
 	}
@@ -77,9 +98,30 @@ public class BookAction extends ALBasicAction<Book> {
 	}
 	
 	public String list()throws Exception{
+		if(this.getCurrentUser()!=null){
+			long userId=this.getCurrentUserId();
+			this.conditions=CriterionList.CreateCriterion().put(
+					Restrictions.or(
+							Restrictions.eq("userId", userId), 
+							Restrictions.or(
+									Restrictions.like("userIds", userId+AppConstants.EMPTY,MatchMode.START), 
+									Restrictions.or(
+											Restrictions.like("userIds", ","+userId,MatchMode.END),
+											Restrictions.like("userIds", ","+userId+",",MatchMode.ANYWHERE)))));
+		}
+		if(book!=null){
+			if(conditions!=null){
+				this.conditions=CriterionList.CreateCriterion();
+			}
+			conditions.put(Restrictions.eq("createIs", book.isCreateIs()));
+		}
+		return response(list(true,false));
+	}
+	
+	public String tagCategoryList()throws Exception{
 		this.conditions=CriterionList.CreateCriterion()
-				.put(Restrictions.eq("createIs", book.isCreateIs()));
-		return response(list(true,true));
+				.put(Restrictions.eq("tagId", book.getTagId()));
+		return response(list(true,false));
 	}
 	
 	public String addChapter()throws Exception{
@@ -99,7 +141,6 @@ public class BookAction extends ALBasicAction<Book> {
 		
 		return response();
 	}
-	
 	
 	
 	public String deleteChapter()throws Exception{
@@ -193,7 +234,17 @@ public class BookAction extends ALBasicAction<Book> {
 
 	@Override
 	public JsonItem getJsonItem(Book object, boolean isSub) throws Exception {
-		return null;
+		JsonItem item=new JsonItem();
+		item.add("id", object.getId())
+		.add("name", object.getName())
+		.add("description", object.getDescription())
+		.add("price", object.getPrice());
+		if(object.isCreateIs()){
+			item.add("path", item);
+		}else{
+			item.add("path",FileUtil.getFileUrl("book_downLoad.action",object.getPath(),object.getName()));
+		}
+		return item;
 	}
 
 	@Override
@@ -219,6 +270,10 @@ public class BookAction extends ALBasicAction<Book> {
 	@Resource(name="BookService")
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
+	}
+	@Resource(name="LBasicService")
+	public void setUserService(LBasicService<User> userService){
+		this.userService=userService;
 	}
 
 	public Book getBook() {

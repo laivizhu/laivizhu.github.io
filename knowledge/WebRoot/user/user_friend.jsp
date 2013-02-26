@@ -23,39 +23,35 @@
 		    <jsp:include page="../common/navigate_left.jsp"/>
 		    <div class="span9">
 		    	<!-- Main hero unit for a primary marketing message or call to action -->
-		    	<section id="all">
-			    	<div>
-				        <ul class="nav nav-tabs" id="myTab">
-						  <li class="active"><a href="#myFriendList" data-toggle="tab">我的朋友</a></li>
-						  <li><a href="#searchFriend" data-toggle="tab">查找朋友</a></li>
-						  <li><a href="#friendMessage" data-toggle="tab">朋友消息管理</a></li>
-						</ul>
-						<div class='tab-content'>
-							<div class='tab-pane fade in active' id='myFriendList'>
-								<div class="row" id="friendListDivId">
-									
-								</div>
-							</div>
-							<div class='tab-pane fade' id='searchFriend'>
-								<div class="row">
-									<div class="span8" align="center">
-										<input type="text" id="searchWord" class="search-query" style="height:30px;width:400px;"/>
-										<button type="button" class="btn btn-success" onclick="searchFriend()">搜索</button>
-									</div>
-									<div class="span8 row" id="searchFriendListDivId">
-									</div>
-	      						</div>
-							</div>
-							<div class='tab-pane fade' id='friendMessage'>
-								<div class="row" id="messageListDivId">
-									
-								</div>
+		    	<div>
+			        <ul class="nav nav-tabs" id="myTab">
+					  <li class="active"><a href="#myFriendList" data-toggle="tab">我的朋友</a></li>
+					  <li><a href="#searchFriend" data-toggle="tab">查找朋友</a></li>
+					  <li><a href="#friendMessage" data-toggle="tab">朋友消息管理</a></li>
+					</ul>
+					<div class='tab-content'>
+						<div class='tab-pane fade in active' id='myFriendList'>
+							<div class="row" id="friendListDivId">
+								
 							</div>
 						</div>
-			      	</div>
-		    	</section>
-		     	
-		      	
+						<div class='tab-pane fade' id='searchFriend'>
+							<div class="row">
+								<div class="span8" align="center">
+									<input type="text" id="searchWord" class="search-query" style="height:30px;width:400px;"/>
+									<button type="button" class="btn btn-success" onclick="searchFriend()">搜索</button>
+								</div>
+								<div class="span8 row" id="searchFriendListDivId">
+								</div>
+      						</div>
+						</div>
+						<div class='tab-pane fade' id='friendMessage'>
+							<div class="row" id="messageListDivId">
+								
+							</div>
+						</div>
+					</div>
+		      	</div>
 		      	
 		    </div>
   		</div>
@@ -115,7 +111,6 @@
 					window.location.reload();
 				});	
 			});
-			
 		};
 		
 		var searchFriend=function(){
@@ -127,7 +122,6 @@
 						$("#searchFriendListDivId").append("<div class='span2'><p>"+item.userName+"</p><p><div align='right'><a class='btn' onclick=deleteObject('friend_add.action?friend.friendId="+item.id+"','确认要添加用户')><i class='icon-plus'></i>加为好友</a></div></p></div>");
 					});
 				});
-				
 			}
 		};
 	</script>

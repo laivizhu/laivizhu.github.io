@@ -16,9 +16,9 @@ import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.IBasicService;
+import com.laivi.knowledge.common.service.ITagService;
 import com.laivi.knowledge.knowledge.model.po.Knowledge;
 import com.laivi.knowledge.knowledge.service.IKnowledgeService;
-import com.laivi.knowledge.knowledge.service.ITagService;
 import com.laivi.knowledge.search.model.po.SearchItem;
 import com.laivi.knowledge.search.service.ISearchItemService;
 

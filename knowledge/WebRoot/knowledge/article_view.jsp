@@ -25,6 +25,13 @@
 		<div class="span12">
 			<input type='hidden' id="idFormFieldId">
 			<h2 id="titleFormFieldId"></h2>
+			<div class="span12" align="right">
+				<p>
+				   <button class="btn btn-small" onclick="addFavorite('ARTICLE')" id='favoriteButtonId'><i class="icon-heart"></i>收藏</button>
+				   <button class="btn btn-small" href="#"><i class="icon-share"></i>分享</button>
+				   <button class="btn btn-small" onclick="fromOther('ARTICLE',1)" id='fromOtherButtonId'><i class="icon-share-alt"></i>转载</button>
+				</p>
+		</div>
         	<p><label id="contentFormFieldId"></label></p>
 		</div>
 		<div class="span12" align="center">

@@ -3,7 +3,7 @@
  "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
 	<package name="admin-system" extends="struts-base" namespace="/admin/system">
-        <action name="tag_*" class="com.laivi.knowledge.knowledge.action.TagAction" method="{1}"/>
+        <action name="tag_*" class="com.laivi.knowledge.common.action.TagAction" method="{1}"/>
         <action name="knowledge_*" class="com.laivi.knowledge.knowledge.action.KnowledgeAction" method="{1}"/>
         <action name="picture_*" class="com.laivi.knowledge.knowledge.action.PictureAction" method="{1}"/>
         <action name="article_*" class="com.laivi.knowledge.knowledge.action.ArticleAction" method="{1}"/>

@@ -30,6 +30,7 @@ public class Music extends BasicEntity {
 	private Date createDate=new Date();
 	private String path;
 	private int price;
+	private long albumId;
 
 	public Music() {
 	}
@@ -38,9 +39,10 @@ public class Music extends BasicEntity {
 	 * @param name
 	 * @param path
 	 */
-	public Music(String name, String path) {
+	public Music(String name, String path,long albumId) {
 		this.name = name;
 		this.path = path;
+		this.albumId=albumId;
 	}
 
 	@Override
@@ -84,5 +86,13 @@ public class Music extends BasicEntity {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public long getAlbumId() {
+		return albumId;
+	}
+
+	public void setAlbumId(long albumId) {
+		this.albumId = albumId;
 	}
 }

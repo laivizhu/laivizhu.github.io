@@ -1,10 +1,10 @@
-package com.laivi.knowledge.knowledge.dao;
+package com.laivi.knowledge.common.dao;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Service;
 
 import com.laivi.knowledge.basic.dao.ABasicDao;
-import com.laivi.knowledge.knowledge.model.po.Tag;
+import com.laivi.knowledge.common.model.po.Tag;
 
 /**
  * User: janlu.sword@gmail.com

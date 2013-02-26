@@ -102,7 +102,7 @@ public class FileUtil {
 				return "<a href='" + url + "?fileName=" + fileName + "&downLoadFileName=" + fileTitle+ "'>" + fileTitle + "</a>";
 			}
 			return "<a href='" + url + "?fileName=" + fileName + "&downLoadFileName=" + fileTitle + type.toSuffix()
-					+ "'>" + fileTitle + "</a>";
+					+ "' class='btn btn-success'>下载</a>";
 		} else {
 			return AppConstants.EMPTY;
 		}

@@ -16,7 +16,6 @@ import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
 import com.laivi.knowledge.user.model.po.Album;
 import com.laivi.knowledge.user.model.type.AlbumType;
-import com.laivi.knowledge.user.service.IPictureService;
 import com.laivi.knowledge.user.service.IUserService;
 
 /**
@@ -30,7 +29,6 @@ import com.laivi.knowledge.user.service.IUserService;
 public class AlbumAction extends ABasicAction<Album> {
 	
 	private IUserService userService;
-	private IPictureService pictureService;
 	private Album album;
 	
 	public String add()throws Exception{
@@ -39,6 +37,21 @@ public class AlbumAction extends ABasicAction<Album> {
 		ParamAssert.isTrue(album.getType()!=null, "");
 		album.setUserId(this.getCurrentUserId());
 		this.basicService.add(album);
+		return response(true);
+	}
+	
+	public String delete()throws Exception{
+		ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
+		Album album=this.basicService.getObject(id);
+		switch(album.getType()){
+		case MUSIC:
+			this.basicService.executeSql("delete from t_music where albumId="+id, null);
+			break;
+		case PICTURE:
+			this.basicService.executeSql("delete from t_picture where albumId="+id, null);
+			break;
+		}
+		this.basicService.remove(album);
 		return response(true);
 	}
 	
@@ -89,11 +102,9 @@ public class AlbumAction extends ABasicAction<Album> {
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("type",object.getType().toText())
 		.add("user", this.userService.getObject(object.getUserId()).getUserName());
-		if(DataUtil.notEmptyString(object.getItemIds()) && object.getType().toText().equals(AlbumType.PICTURE.toText())){
-			item.add("defaultPicture", this.pictureService.getObject(DataUtil.getIndexStringId(object.getItemIds(), 1)).getPath());
-		}else{
-			item.add("defaultPicture", "album.jpg");
-		}
+		
+		item.add("defaultPicture", "album.jpg");
+		
 		return item;
 	}
 	
@@ -114,11 +125,6 @@ public class AlbumAction extends ABasicAction<Album> {
 		this.userService = userService;
 	}
 	
-	@Resource(name="PictureService")
-	public void setPictureService(IPictureService pictureService) {
-		this.pictureService = pictureService;
-	}
-
 	public Album getAlbum() {
 		return album;
 	}

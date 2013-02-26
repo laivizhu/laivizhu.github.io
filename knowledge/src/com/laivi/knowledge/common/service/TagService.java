@@ -1,4 +1,4 @@
-package com.laivi.knowledge.knowledge.service;
+package com.laivi.knowledge.common.service;
 
 import javax.annotation.Resource;
 
@@ -9,7 +9,7 @@ import com.laivi.knowledge.basic.model.constants.AppConstants;
 import com.laivi.knowledge.basic.model.exception.ErrorException;
 import com.laivi.knowledge.basic.service.BasicService;
 import com.laivi.knowledge.basic.util.DataUtil;
-import com.laivi.knowledge.knowledge.model.po.Tag;
+import com.laivi.knowledge.common.model.po.Tag;
 
 /**
  * User: janlu.sword@gmail.com

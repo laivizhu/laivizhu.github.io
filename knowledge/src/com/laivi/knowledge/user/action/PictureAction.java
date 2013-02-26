@@ -16,13 +16,10 @@ import com.laivi.knowledge.basic.model.json.JsonItemList;
 import com.laivi.knowledge.basic.model.json.JsonList;
 import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.IBasicService;
-import com.laivi.knowledge.basic.util.DataUtil;
 import com.laivi.knowledge.basic.util.DateUtil;
 import com.laivi.knowledge.basic.util.FileUtil;
 import com.laivi.knowledge.basic.util.ParamAssert;
-import com.laivi.knowledge.user.model.po.Album;
 import com.laivi.knowledge.user.model.po.Picture;
-import com.laivi.knowledge.user.service.IAlbumService;
 import com.laivi.knowledge.user.service.IPictureService;
 
 /**
@@ -35,7 +32,6 @@ import com.laivi.knowledge.user.service.IPictureService;
 @SuppressWarnings("serial")
 public class PictureAction extends ABasicAction<Picture> {
 	private IPictureService pictureService;
-	private IAlbumService albumService;
 	private Picture picture;
 	private File[] pictures;
 	private String[] picturesFileName;
@@ -65,15 +61,11 @@ public class PictureAction extends ABasicAction<Picture> {
 	
 	public String pictureList()throws Exception{
 		ParamAssert.isTrue(albumId != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
-		Album album=this.albumService.getObject(albumId);
 		JsonList jsonList=new JsonList();
 		CriterionList conditions=CriterionList.CreateCriterion();
-		if(DataUtil.notEmptyString(album.getItemIds())){
-			conditions.put(Order.desc("createDate"));
-			conditions.put(Restrictions.in("id", DataUtil.changeIdString(album.getItemIds())));
-			for(Picture pictrue:this.pictureService.getList(conditions,start,limit)){
-				this.addData(jsonList, pictrue);
-			}
+		conditions.put(Restrictions.eq("albumId", albumId)).put(Order.desc("createDate"));
+		for(Picture pictrue:this.pictureService.getList(conditions,start,limit)){
+			this.addData(jsonList, pictrue);
 		}
 		return response(jsonList.toPageString(this.pictureService.getCount(conditions)));
 	}
@@ -101,11 +93,6 @@ public class PictureAction extends ABasicAction<Picture> {
     public void setBasicService(IBasicService<Picture> basicService){
     	this.basicService=basicService;
     }
-
-	@Resource(name = "AlbumService")
-	public void setAlbumService(IAlbumService albumService) {
-		this.albumService = albumService;
-	}
 
 	public Picture getPicture() {
 		return picture;

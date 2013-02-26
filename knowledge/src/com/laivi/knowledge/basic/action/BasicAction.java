@@ -126,6 +126,10 @@ public abstract class BasicAction<T extends BasicEntity> extends ActionSupport i
 		}
 	}
 	
+	protected User getCurrentUser() throws ErrorException{
+		return (User)ServletActionContext.getRequest().getSession().getAttribute("user");
+	}
+	
 	/**
 	 * 
 	 * 函数功能说明:判断是否是系统管理员

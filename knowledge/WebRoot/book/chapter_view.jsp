@@ -85,6 +85,7 @@
 			var chapterId=$('#idFormFieldId').val();			
 			if(dir!='list'){
 				laivi.setFormVaule('book_getBookChapter.action?id='+chapterId+'&dir='+dir, false);
+				laivi.jumpToTop();
 			}else{
 				//window.location.href="";
 				history.back();

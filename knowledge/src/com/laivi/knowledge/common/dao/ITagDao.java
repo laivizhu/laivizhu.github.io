@@ -1,7 +1,7 @@
-package com.laivi.knowledge.knowledge.dao;
+package com.laivi.knowledge.common.dao;
 
 import com.laivi.knowledge.basic.dao.IBasicDao;
-import com.laivi.knowledge.knowledge.model.po.Tag;
+import com.laivi.knowledge.common.model.po.Tag;
 
 /**
  * User: laivi.zhu@Gmail.com

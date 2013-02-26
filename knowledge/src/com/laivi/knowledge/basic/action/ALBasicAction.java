@@ -11,6 +11,7 @@ import com.laivi.knowledge.basic.model.po.BasicEntity;
 import com.laivi.knowledge.basic.model.to.CriterionList;
 import com.laivi.knowledge.basic.service.LBasicService;
 import com.laivi.knowledge.basic.util.ParamAssert;
+import com.laivi.knowledge.user.model.po.User;
 
 
 /**
@@ -24,6 +25,7 @@ import com.laivi.knowledge.basic.util.ParamAssert;
 public abstract class ALBasicAction<T extends BasicEntity> extends BasicAction<T> {
 
 	protected LBasicService<T> basicService;
+	protected LBasicService<User> userService;
 	
 	@Override
 	public String add() throws Exception {

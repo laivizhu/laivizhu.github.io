@@ -55,7 +55,7 @@
 		$(document).ready(laivi.init(function(){
 			loadLocalNavigate(navigate.user);
 			laivi.scrollBreakPage('album_list.action?album.type=MUSIC', $("#albumListDivId"), function(item){
-				return "<div class='span4'><div class='thumbnail'><a href='musicAlbum_view.jsp?id="+item.id+"'><img src='../picture/musicAlbum.jpg'></img></a><div class='caption'><p>"+item.name+"</p><p>"+item.description+"</p><p><a  class='btn' href='#' onclick=deleteObject('album_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>&nbsp;<a class='btn' href='album_add.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div></div>";
+				return "<div class='span4'><div class='thumbnail'><a href='musicAlbum_view.jsp?id="+item.id+"' target='blank'><img src='../picture/musicAlbum.jpg'></img></a><div class='caption'><p>"+item.name+"</p><p>"+item.description+"</p><p><a  class='btn' href='#' onclick=deleteObject('album_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>&nbsp;<a class='btn' href='album_add.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div></div>";
 			});
 		}));
 	</script>

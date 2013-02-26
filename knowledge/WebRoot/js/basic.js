@@ -113,7 +113,6 @@ var laivi={
 					continue;
 				}
 				if(isInput){
-					var value=result.data[key]+"";
 					$("#"+key+"FormFieldId").val(result.data[key]);
 				}else{
 					if(key=='id'){
@@ -231,7 +230,7 @@ var laivi={
 		$.getJSON(url,function(data){
 			$.each(data.root,function(i,item){
 				console.log(item.text);
-				combo.append("<option value='"+item.value+"'>"+item.text+"</option>");
+				combo.append("<option value='"+item.id+"'>"+item.name+"</option>");
 			});
 			if(successHandler!=null){
 				successHandler();
@@ -300,6 +299,7 @@ var laivi={
 		pageSize=0;
 		var range = 700;
 		var num=0;
+        obj.html("");
 		laivi.getScrollOnceData(url,0,obj,function(item){
 			return getDataDiv(item);
 		});
@@ -323,6 +323,13 @@ var laivi={
 			supplied: "wma,mp3",
 			wmode: "window"
 		});
+	},
+	jumpToTop:function(speed){
+		var defaultSpeed=1000;
+		if(speed!=null){
+			defaultSpeed=speed;
+		}
+		$("html,body").animate({scrollTop: 0}, defaultSpeed);
 	}
 };
 

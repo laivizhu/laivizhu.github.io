@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -28,12 +29,13 @@ public class Book extends UserEntity{
 	private long id;
 	private String name;
 	private String description;
-	private String tagIds;
+	private long tagId;
 	private String path;
 	private Date createDate=new Date();
 	private long userId;
 	private int price;
 	private boolean createIs;
+	private String userIds;
 	
 	public Book() {
 	}
@@ -81,17 +83,12 @@ public class Book extends UserEntity{
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	@Lob
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public String getTagIds() {
-		return tagIds;
-	}
-	public void setTagIds(String tagIds) {
-		this.tagIds = tagIds;
 	}
 	public boolean isCreateIs() {
 		return createIs;
@@ -99,4 +96,18 @@ public class Book extends UserEntity{
 	public void setCreateIs(boolean createIs) {
 		this.createIs = createIs;
 	}
+	public long getTagId() {
+		return tagId;
+	}
+	public void setTagId(long tagId) {
+		this.tagId = tagId;
+	}
+	@Lob
+	public String getUserIds() {
+		return userIds;
+	}
+	public void setUserIds(String userIds) {
+		this.userIds = userIds;
+	}
+	
 }

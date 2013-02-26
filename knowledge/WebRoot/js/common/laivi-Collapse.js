@@ -1,13 +1,12 @@
 var LaiviCarousel = function(options,afterHandler){
 	this.options = options;
 	this.init(function(){
-		if(afterHandler) {
+		if(afterHandler){
 			afterHandler();
 		}
 	});
 };
-
-LaiviCarousel.prototype.init = function(afterHandler){
+LaiviCollapse.prototype.init = function(afterHandler){
     var content = "<div id='myCarousel' class='carousel slide'><div class='carousel-inner'>";
     var dataUrl=this.options.url;
     var activeIndex=this.options.activeIndex;
