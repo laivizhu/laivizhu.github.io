@@ -89,7 +89,7 @@ public class AlbumAction extends ABasicAction<Album> {
 	public String typeList()throws Exception{
 		JsonItemList jsonList=new JsonItemList();
 		for(AlbumType type:AlbumType.values()){
-			jsonList.createItem().add("value", type.name()).add("text", type.toText());
+			jsonList.createItem().add("id", type.name()).add("name", type.toText());
 		}
 		return response(jsonList);
 	}
@@ -100,7 +100,7 @@ public class AlbumAction extends ABasicAction<Album> {
 		.add("name", object.getName())
 		.add("description", isSub?DataUtil.getDefaultChar(object.getDescription()):object.getDescription())
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
-		.add("type",object.getType().toText())
+		.add("type",object.getType().name())
 		.add("user", this.userService.getObject(object.getUserId()).getUserName());
 		
 		item.add("defaultPicture", "album.jpg");

@@ -79,6 +79,17 @@ public class DataUtil {
 		return sb.toString();
 	}
 	
+	public static String append(Object... objects) {
+		if (objects.length == 1) {
+			return objects[0].toString();
+		}
+		StringBuilder sb = new StringBuilder();
+		for (Object o : objects) {
+			sb.append(o);
+		}
+		return sb.toString();
+	}
+	
 	public static Long[] changeIdString(String idStrings){
 		String[] idArray=idStrings.split(",");
 		Long[] ids=new Long[idArray.length];

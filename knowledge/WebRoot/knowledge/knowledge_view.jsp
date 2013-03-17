@@ -22,7 +22,13 @@
 	
 	<div class="row">
 		<div class="span12">
-			<h2 id="titleFormFieldId"></h2>
+			<h2 align="center" id="titleFormFieldId"></h2>
+            <hr>
+            <h3>问题描述</h3>
+            <hr>
+            <p><label id="questionFormFieldId"></label></p>
+            <h3>解决方案</h3>
+            <hr>
         	<p><label id="contentFormFieldId"></label></p>
 		</div>
 		<div class="span12" align="right">

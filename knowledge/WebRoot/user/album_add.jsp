@@ -66,18 +66,22 @@
 					}
 				});
 			});
-			laivi.comboList($("#typeSelectId"), 'album_typeList.action');
+
 			var id=laivi.getUrlVar('id');
 			if(id!=null&&id!=0){
 				$("#titleContentId").html("修改专辑");
 				laivi.setFormVaule('album_get.action?font=true&id='+id,true,function(result){
 					editor.html(result.data.description);
+                    laivi.comboList($("#typeSelectId"), 'album_typeList.action',function(){
+                        $("#typeSelectId").val(result.data.type);
+                    });
 				});
 				laivi.submitForm($("#albumAddFormId"), 'album_update.action?id='+id, function(){
 					window.location.href="user_album.jsp";
 				}, false, false);
 			}else{
 				$("#titleContentId").html("创建专辑");
+                laivi.comboList($("#typeSelectId"), 'album_typeList.action');
 				laivi.submitForm($("#albumAddFormId"), 'album_add.action', function(){
 					window.location.href="user_album.jsp";
 				}, false, false);

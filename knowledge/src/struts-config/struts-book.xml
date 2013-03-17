@@ -11,7 +11,14 @@
 		<action name="fromOther_*" class="com.laivi.knowledge.common.action.FromOtherAction" method="{1}"/>
 		<action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}"/>
         <action name="tag_*" class="com.laivi.knowledge.common.action.TagAction" method="{1}"/>
-        <action name="book_*" class="com.laivi.knowledge.book.action.BookAction" method="{1}"/>
+        <action name="book_*" class="com.laivi.knowledge.book.action.BookAction" method="{1}">
+            <result name="successDownLoadBook" type="stream">
+                <param name="inputName">downLoadBookInputStream</param>
+                <param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+                <param name="contentDisposition">attachment;filename=${downLoadFileName}</param>
+                <param name="bufferSize">8192</param>
+            </result>
+        </action>
         <action name="reply_*" class="com.laivi.knowledge.knowledge.action.ReplyAction" method="{1}"/>
         <action name="favorite_*" class="com.laivi.knowledge.common.action.FavoriteAction" method="{1}"/>
 	</package>

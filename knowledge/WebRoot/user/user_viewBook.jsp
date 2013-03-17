@@ -73,7 +73,7 @@
 		$(document).ready(laivi.init(function(){
 			bookId=laivi.getUrlVar("id");
 			loadLocalNavigate(navigate.user);
-			laivi.scrollBreakPage('book_listChapter.action?id='+bookId, $("#chapterListDivId"), function(item){
+			laivi.pageLoad('book_listChapter.action?id='+bookId, $("#chapterListDivId"), function(item){
 				return "<div class='span9'><a href='../book/chapter_view.jsp?id="+item.id+"'><h2>"+item.title+"</h2></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p><a class='btn' href='#' onclick=deleteObject('book_deleteChapter.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a></p></div></div>";
 			});
 		}));

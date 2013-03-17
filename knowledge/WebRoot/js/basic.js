@@ -120,7 +120,6 @@ var laivi={
 					}else{
 						$("#"+key+"FormFieldId").html(result.data[key]);
 					}
-					
 				}
 			}
 			if(OtherHandler!=null){
@@ -229,7 +228,7 @@ var laivi={
 		url=laivi.getRandParamUrl(url);
 		$.getJSON(url,function(data){
 			$.each(data.root,function(i,item){
-				console.log(item.text);
+				console.log(item.name);
 				combo.append("<option value='"+item.id+"'>"+item.name+"</option>");
 			});
 			if(successHandler!=null){
@@ -259,18 +258,18 @@ var laivi={
 		currentDialog.dialog("close");
 	},
 	getRadioValue:function(name){
-		var obj;    
-	    obj=document.getElementsByName(name);
-	    if(obj!=null){
-	        var i;
-	        for(i=0;i<obj.length;i++){
-	            if(obj[i].checked){
-	                return obj[i].value;            
-	            }
-	        }
-	    }
-	    return null;
-	},
+        var obj;
+        obj=document.getElementsByName(name);
+        if(obj!=null){
+            var i;
+            for(i=0;i<obj.length;i++){
+                if(obj[i].checked){
+                    return obj[i].value;
+                }
+            }
+        }
+        return null;
+    },
 	getScrollOnceData:function(url,start,obj,getDataDiv){
 		if(url.indexOf('?')!=-1){
 			url=url+'&start='+start+'&limit='+pageCount;
@@ -289,7 +288,7 @@ var laivi={
 				});
 			}else{
 				if(firstTime){
-					obj.append("<div class='span8'><h4>暂无记录</h4></div>");
+					obj.append("<div class='span8'><div class='alert alert-block'><h4>暂无记录</h4></div></div>");
 					firstTime=false;
 				}
 			}
@@ -330,7 +329,41 @@ var laivi={
 			defaultSpeed=speed;
 		}
 		$("html,body").animate({scrollTop: 0}, defaultSpeed);
-	}
+	},
+    pageLoad:function(url,obj,getValue,currentPage){
+        if(currentPage==null){
+            currentPage=0;
+        }
+        laivi.getJson(url,function(result){
+            if(result.totalProperty>0){
+                if($("#loadMoreDivId")!=null){
+                    $("#loadMoreDivId").remove();
+                }
+                $.each(result.root,function(i,item){
+                    obj.append(getValue(item));
+                });
+                if(result.totalProperty>(currentPage+1)*pageCount){
+                    obj.append("<div class='span8' id='loadMoreDivId'><div class='alert alert-info' align='center'><h2><button id='loadMoreButtonId' class='btn btn-success'>加载更多</h2></button></div></div>");
+                    $("#loadMoreButtonId").click(function(){
+                        $("#loadMoreButtonId").html("加载中...");
+                        for(var i=0;i<100000000;i++){
+                            i*=1;
+                        }
+                        laivi.pageLoad(url,obj,function(item){
+                            return getValue(item);
+                        },currentPage+1);
+                    });
+                }
+            }else{
+                if(currentPage==null || currentPage==0){
+                    obj.append("<div class='span8'><div class='alert alert-block'><h4>暂无记录</h4></div></div>");
+                }
+            }
+        },false,{
+            start:currentPage*pageCount,
+            limit:pageCount
+        });
+    }
 };
 
 function getSoundManager(soundurl){

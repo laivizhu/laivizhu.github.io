@@ -44,12 +44,19 @@
 				   <button class="btn btn-small" onclick="fromOther('ARTICLE',1)" id='fromOtherButtonId'><i class="icon-share-alt"></i>转载</button>
 				</p>
 		</div>
+        <div class="span12">
+            <h3>文章推荐</h3>
+        </div>
+        <div id="likeArticleListDivId">
+
+        </div>
 		<div class="span12">
 			<h3>评论</h3>
 		</div>
 		<div id="replyListDivId">
 			
 		</div>
+
 		
 		<div class="span12">
 			<form class="form-horizontal" id="replyFormId">
@@ -100,15 +107,9 @@
 				});
 			});
 			laivi.setFormVaule("article_get.action?font=true&id="+articleId, false);
-			laivi.getJson('reply_list.action?id='+articleId, function(result){
-				if(result.totalProperty>0){
-					$.each(result.root,function(i,item){
-						$("#replyListDivId").append("<div class='span12'><p>"+item.context+"</p><div align='right'><p><a onclick=deleteObject('reply_delete.action?id="+item.id+"')>删除</a>|"+item.createDate+"|"+item.user+"</p></div></div>");
-					});
-				}else{
-					$("#replyListDivId").append("<div class='span12'><h5>暂无评论<h5></div>");
-				}
-			});
+            laivi.pageLoad('reply_list.action?id='+articleId,$("#replyListDivId"),function(item){
+                 return "<div class='span12'><p>"+item.context+"</p><div align='right'><p><a onclick=deleteObject('reply_delete.action?id="+item.id+"')>删除</a>|"+item.createDate+"|"+item.user+"</p></div></div>";
+            })
 			laivi.submitForm($("#replyFormId"), 'reply_add.action?reply.articleId='+articleId, function(){
 				window.location.reload();
 			}, false, false);

@@ -103,11 +103,11 @@
 				window.location.reload();
 			},false,false);
 			
-			laivi.scrollBreakPage('autoGraph_listFriendAutoGraph.action', $("#friendsListDivId"), function(item){
+			laivi.pageLoad('autoGraph_listFriendAutoGraph.action', $("#friendsListDivId"), function(item){
 				return "<div class='span8'><p>"+item.content+"</p><p><div align='right'>"+item.createDate+"|"+item.user.userName+"</div></p></div>";
 			});
 			
-			laivi.scrollBreakPage('autoGraph_list.action', $("#personListDivId"), function(item){
+			laivi.pageLoad('autoGraph_list.action', $("#personListDivId"), function(item){
 				return "<div class='span8'><p>"+item.content+"</p><p><div align='right'>"+item.createDate+"|<a class='btn' onclick=deleteObject('autoGraph_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a></div></p></div>";
 			});
 		}));

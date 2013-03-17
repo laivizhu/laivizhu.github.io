@@ -25,10 +25,10 @@
       	<h2 id="titleContentId"></h2>
       		<form action="article_add.action" id="articleAddFormId">
       			<input type="text" class="input-block-level" name="article.title" id="titleFormFieldId">
-      			<select id="tagSelectId" name="article.tagIds" id="tagIdsFormFieldId">
+      			<select  name="article.tagIds" id="tagIdsFormFieldId">
       				<option value='0'>--请选择--</option>
       			</select>
-      			<textarea rows="23" style="width:100%" name="article.content" id='articleContentId'></textarea>
+      			<textarea rows="17" style="width:100%" name="article.content" id='articleContentId'></textarea>
       			<div align='center'><p><button type="reset" class="btn btn-warning">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">提交</button></p></div>
       		</form>
       </div>
@@ -66,18 +66,24 @@
 					}
 				});
 			});
-			laivi.comboList($("#tagSelectId"), 'tag_comboList.action?tag.type=ARTICLE');
+
 			var id=laivi.getUrlVar('id');
 			if(id!=null&&id!=0){
 				$("#titleContentId").html("修改博文");
+
 				laivi.setFormVaule('article_get.action?font=true&fold=false&id='+id,true,function(result){
 					editor.html(result.data.content);
+                    laivi.comboList($("#tagIdsFormFieldId"), 'tag_comboList.action?tag.type=ARTICLE',function(){
+                        $("#tagIdsFormFieldId").val(result.data.tagIds);
+                    });
 				});
 				laivi.submitForm($("#articleAddFormId"), 'article_update.action?id='+id, function(){
 					window.location.href="user_article.jsp";
 				}, false, false);
 			}else{
+
 				$("#titleContentId").html("发表博文");
+                laivi.comboList($("#tagIdsFormFieldId"), 'tag_comboList.action?tag.type=ARTICLE');
 				laivi.submitForm($("#articleAddFormId"), 'article_add.action', function(){
 					window.location.href="user_article.jsp";
 				}, false, false);

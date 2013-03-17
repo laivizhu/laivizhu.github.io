@@ -1,5 +1,7 @@
 package com.laivi.knowledge.test;
 
+import com.laivi.knowledge.common.model.po.Tag;
+import com.laivi.knowledge.knowledge.model.type.TagType;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -8,6 +10,9 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import com.laivi.knowledge.user.model.po.Role;
 import com.laivi.knowledge.user.model.po.User;
 import com.laivi.knowledge.user.model.type.RoleType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExportData {
     private static ClassPathXmlApplicationContext ctx;
@@ -35,6 +40,19 @@ public class ExportData {
     
     @Test
     public void testAddTagData(){
-    	
+        List<Tag> tagList= new ArrayList <Tag>();
+    	tagList.add(new Tag("言情",1, TagType.BOOK));
+        tagList.add(new Tag("都市",1, TagType.BOOK));
+        tagList.add(new Tag("哲理",1, TagType.BOOK));
+        tagList.add(new Tag("散文",1, TagType.BOOK));
+        tagList.add(new Tag("侦探",1, TagType.BOOK));
+        tagList.add(new Tag("情感",1, TagType.ARTICLE));
+        tagList.add(new Tag("生活",1, TagType.ARTICLE));
+        tagList.add(new Tag("感悟",1, TagType.ARTICLE));
+
+        for(Tag tag:tagList){
+            hibernatetemplate.save(tag);
+        }
+
     }
 }

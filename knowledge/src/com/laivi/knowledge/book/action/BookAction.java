@@ -1,9 +1,12 @@
 package com.laivi.knowledge.book.action;
 
 import java.io.File;
+import java.io.InputStream;
 
 import javax.annotation.Resource;
 
+import com.laivi.knowledge.book.util.BookChapterUtil;
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -43,6 +46,7 @@ public class BookAction extends ALBasicAction<Book> {
 	private File[] books;
 	private String[] booksFileName;
 	private String dir;
+
 	public BookAction(){
 		this.downLoadPath=BookConstants.BOOK_DOWNLOAD;
 	}
@@ -55,6 +59,17 @@ public class BookAction extends ALBasicAction<Book> {
 		this.basicService.add(book);
 		return response(true);
 	}
+
+    public String downloadBook()throws Exception{
+        return "successDownLoadBook";
+    }
+
+    public InputStream getDownLoadBookInputStream()throws Exception{
+        this.conditions=CriterionList.CreateCriterion().put(Restrictions.eq("bookId",id));
+        String fileName= BookChapterUtil.getBookFile(this.chapterService.getList(Chapter.class,conditions),
+                                                        this.getRealPath(this.downLoadPath));
+        return ServletActionContext.getServletContext().getResourceAsStream(downLoadPath + fileName);
+    }
 	
 	public String addUserBookShelf()throws Exception{
 		long userId=this.getCurrentUserId();
@@ -75,7 +90,16 @@ public class BookAction extends ALBasicAction<Book> {
 	}
 	
 	public String update()throws Exception{
-		return response();
+        ParamAssert.isNotEmptyString(book.getName(), "书籍名不能为空",true);
+        ParamAssert.isNotEmptyString(book.getDescription(), "描述不能为空",true);
+        ParamAssert.isTrue(book.getTagId()!=0,"书籍类别不能为空",true);
+        Book dBook=this.basicService.getObject(this.getObjectClass(),id);
+        dBook.setName(book.getName());
+        dBook.setPrice(book.getPrice());
+        dBook.setDescription(book.getDescription());
+        dBook.setTagId(book.getTagId());
+        this.basicService.modify(dBook);
+		return response(true);
 	}
 	
 	public String upload()throws Exception{
@@ -98,9 +122,9 @@ public class BookAction extends ALBasicAction<Book> {
 	}
 	
 	public String list()throws Exception{
-		if(this.getCurrentUser()!=null){
+		/*if(this.getCurrentUser()!=null){
 			long userId=this.getCurrentUserId();
-			this.conditions=CriterionList.CreateCriterion().put(
+			this.conditions.put(
 					Restrictions.or(
 							Restrictions.eq("userId", userId), 
 							Restrictions.or(
@@ -108,16 +132,14 @@ public class BookAction extends ALBasicAction<Book> {
 									Restrictions.or(
 											Restrictions.like("userIds", ","+userId,MatchMode.END),
 											Restrictions.like("userIds", ","+userId+",",MatchMode.ANYWHERE)))));
-		}
+		}*/
 		if(book!=null){
-			if(conditions!=null){
-				this.conditions=CriterionList.CreateCriterion();
-			}
+            conditions=CriterionList.CreateCriterion();
 			conditions.put(Restrictions.eq("createIs", book.isCreateIs()));
 		}
 		return response(list(true,false));
 	}
-	
+
 	public String tagCategoryList()throws Exception{
 		this.conditions=CriterionList.CreateCriterion()
 				.put(Restrictions.eq("tagId", book.getTagId()));
@@ -238,6 +260,7 @@ public class BookAction extends ALBasicAction<Book> {
 		item.add("id", object.getId())
 		.add("name", object.getName())
 		.add("description", object.getDescription())
+        .add("tagId",object.getTagId())
 		.add("price", object.getPrice());
 		if(object.isCreateIs()){
 			item.add("path", item);

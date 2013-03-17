@@ -8,11 +8,22 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/docs.css"/>
     <link rel="stylesheet" type="text/css" href="../css/jbox_Green/jbox.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/sticknote-style.css"/>
     <style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
       }
+      .content{
+          position:absolute;
+          top:105px;
+          left:300px;
+          right:0px;
+          padding:0px;
+          margin:0px;
+          height:550px;
+      }
+
     </style>
   </head>
   <body>
@@ -27,6 +38,7 @@
 				        <ul class="nav nav-tabs" id="myTab">
 						  <li class="active"><a href="#basic" data-toggle="tab">个人基本信息</a></li>
 						  <li><a href="#favorite" data-toggle="tab">收藏</a></li>
+                          <li><a href="#tasks" data-toggle="tab">任务</a></li>
 						  <li><a href="#messages" data-toggle="tab">消息</a></li>
 						</ul>
 						<div class='tab-content'>
@@ -55,6 +67,14 @@
 									
 	      						</div>
 							</div>
+                            <div class='tab-pane fade' id='tasks'>
+                                <div class="span8">
+                                    <div align='right' id='taskDivId' style="width:800px;height:500px;">
+
+
+                                    </div>
+                                </div>
+                            </div>
 							<div class='tab-pane fade' id='messages'>
 								<p>messages</p>
 							</div>
@@ -72,27 +92,66 @@
 	      </div>
       </footer>
     </div>
-    
-    
-    <script type="text/javascript" src="../js/jquery-1.8.2.js"></script>
+
+    <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
+  <script type="text/javascript" src="../js/jquery-ui-1.7.2.custom.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.form.js"></script>
     <script type="text/javascript" src="../js/jquery.jBox-2.3.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.jBox-zh-CN.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap-tab.js"></script>
+    <script type="text/javascript" src="../js/plug/sticknote/stickynotes.js"></script>
 	<script type="text/javascript" src="../js/basic.js"></script>
 	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
+        var edited = function(note) {
+             alert("edited");
+        }
+        var created = function(note) {
+             alert("create");
+        }
+
+        var deleted = function(note) {
+
+        }
+
+        var moved = function(note) {
+
+        }
+
+        var resized = function(note) {
+            alert("Resized note with id " + note.id + ", text is: " + note.text);
+        }
 		$(document).ready(laivi.init(function(){
 			loadLocalNavigate(navigate.user);
 			$('#myTab a').click(function (e) {
 			  e.preventDefault();
 			  $(this).tab('show');
 			});
-			laivi.scrollBreakPage('favorite_list.action', $("#favoriteListDivId"), function(item){
+            var options = {
+                notes:[{"id":1,
+                    "text":"Test Internet Explorer",
+                    "pos_x": 50,
+                    "pos_y": 50,
+                    "width": 200,
+                    "height": 200
+                }]
+                ,resizable: true
+                ,controls: true
+                ,editCallback: edited
+                ,createCallback: created
+                ,deleteCallback: deleted
+                ,moveCallback: moved
+                ,resizeCallback: resized
+
+            };
+            $("#taskDivId").stickyNotes(options);
+			laivi.pageLoad('favorite_list.action', $("#favoriteListDivId"), function(item){
 					return "<div class='span8'><h5><a href='"+item.url+"'><h2>"+item.title+"</h2></a></h5><p><div align='right'><a class='btn' onclick=deleteObject('favorite_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a></div></p></div>";
 			});
 		}));
+
+
 	</script>
   </body>
 </html>

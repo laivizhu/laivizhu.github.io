@@ -102,7 +102,7 @@ public class ArticleAction extends ABasicAction<Article> {
 		.add("content", isSub?DataUtil.getDefaultChar(object.getContent()):object.getContent())
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("user", this.userService.getObject(object.getUserId()).getUserName())
-		.add("tagIds", this.tagService.getTagsName(object.getTagIds()));
+		.add("tagIds", object.getTagIds());
 		return item;
 	}
 	

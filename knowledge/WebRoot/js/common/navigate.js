@@ -11,7 +11,6 @@ var navigate={
     ]
 };
 
-
 var loadLocalNavigate=function(list){
 	$.each(list,function(i,item){
 		$("#navigateLeftULId").append("<li><a href='"+item.url+"'><i class='icon-chevron-right'></i>"+item.title+"</a></li>");

@@ -30,6 +30,15 @@ public class Tag extends UserEntity{
     
     private Date createDate=new Date();
 
+    public Tag() {
+    }
+
+    public Tag(String name, long userId, TagType type) {
+        this.name = name;
+        this.userId = userId;
+        this.type = type;
+    }
+
     @Id
     @GeneratedValue
     public long getId() {

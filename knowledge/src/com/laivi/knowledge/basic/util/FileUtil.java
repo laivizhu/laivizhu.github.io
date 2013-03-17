@@ -99,10 +99,10 @@ public class FileUtil {
 		if (DataUtil.notEmptyString(fileName)) {
 			FileType type = FileUtil.getFileType(fileName);
 			if(FileUtil.getFileType(fileTitle)!=null){
-				return "<a href='" + url + "?fileName=" + fileName + "&downLoadFileName=" + fileTitle+ "'>" + fileTitle + "</a>";
+				return "<a href='" + url + "?fileName=" + fileName + "&downLoadFileName=" + fileTitle+ "'><i class='icon-download'></i>" + fileTitle + "</a>";
 			}
 			return "<a href='" + url + "?fileName=" + fileName + "&downLoadFileName=" + fileTitle + type.toSuffix()
-					+ "' class='btn btn-success'>下载</a>";
+					+ "' class='btn btn-primary'><i class='icon-download'></i>下载</a>";
 		} else {
 			return AppConstants.EMPTY;
 		}

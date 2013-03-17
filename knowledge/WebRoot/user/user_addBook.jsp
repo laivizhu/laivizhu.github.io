@@ -25,7 +25,7 @@
       	<h2 id="titleContentId"></h2>
       		<form action="book_add.action" id="bookAddFormId">
       			<input type="text" class="input-block-level" name="book.name" id="nameFormFieldId" placeholder='书名'>
-      			<select id="tagSelectId" name="book.tagId" id="tagIdsFormFieldId">
+      			<select name="book.tagId" id="tagIdFormFieldId">
       				<option value='0'>--请选择--</option>
       			</select>
       			<input type="text" class="input-block-level" name="book.price" id="priceFormFieldId" placeholder='价格'>
@@ -66,18 +66,22 @@
 					}
 				});
 			});
-			laivi.comboList($("#tagSelectId"), 'tag_comboList.action?tag.type=BOOK');
+
 			var id=laivi.getUrlVar('id');
 			if(id!=null&&id!=0){
 				$("#titleContentId").html("修改书籍信息");
 				laivi.setFormVaule('book_get.action?font=true&fold=false&id='+id,true,function(result){
 					editor.html(result.data.description);
+                    laivi.comboList($("#tagIdFormFieldId"), 'tag_comboList.action?tag.type=BOOK',function(){
+                        $("#tagIdFormFieldId").val(result.data.tagId);
+                    });
 				});
 				laivi.submitForm($("#bookAddFormId"), 'book_update.action?id='+id, function(){
 					window.location.href="user_book.jsp";
 				}, false, false);
 			}else{
 				$("#titleContentId").html("创作书籍");
+                laivi.comboList($("#tagIdFormFieldId"), 'tag_comboList.action?tag.type=BOOK');
 				laivi.submitForm($("#bookAddFormId"), 'book_add.action', function(){
 					window.location.href="user_book.jsp";
 				}, false, false);

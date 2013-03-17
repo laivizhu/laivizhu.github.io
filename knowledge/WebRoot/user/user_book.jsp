@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/docs.css"/>
     <link rel="stylesheet" type="text/css" href="../css/jbox_Green/jbox.css"/>
+
     <style type="text/css">
       body {
         padding-top: 60px;
@@ -87,13 +88,13 @@
 			  e.preventDefault();
 			  $(this).tab('show');
 			});
-			laivi.scrollBreakPage('book_list.action?book.createIs=false', $("#bookListDivId"), function(item){
-				return "<div class='span3'><div class='thumbnail'><a href='user_viewBook.jsp?id="+item.id+"'><img src='../picture/musicAlbum.jpg'></a><div class='caption'><p>"+item.name+"</p><p><a class='btn' href='#' onclick=deleteObject('book_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>&nbsp;<a class='btn' href='book_add.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a>"+item.path+"</p></div></div></div>";
+			laivi.pageLoad('book_list.action?book.createIs=false', $("#bookListDivId"), function(item){
+				return "<div class='span3'><div class='thumbnail'><a href='user_viewBook.jsp?id="+item.id+"'><img src='../picture/musicAlbum.jpg'></a><div class='caption'><p>"+item.name+"</p><p><a class='btn' href='#' onclick=deleteObject('book_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>&nbsp;<a class='btn' href='user_addBook.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a>"+item.path+"</p></div></div></div>";
 			});
-			laivi.scrollBreakPage('book_list.action?book.createIs=true', $("#myCreateBookListDivId"), function(item){
-				return "<div class='span4'><div class='thumbnail'><a href='user_viewBook.jsp?id="+item.id+"'><img src='../picture/musicAlbum.jpg'></a><div class='caption'><p>"+item.name+"</p><p>"+item.description+"</p><p><a class='btn' href='#' onclick=deleteObject('book_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>&nbsp;<a class='btn' href='book_add.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a>"+item.path+"</p></div></div></div>";
-			});
-			laivi.scrollBreakPage('book_bookMarklist.action', $("#bookMarkListDivId"), function(item){
+			/*laivi.pageLoad('book_list.action?book.createIs=true', $("#myCreateBookListDivId"), function(item){
+				return "<div class='span4'><div class='thumbnail'><a href='user_viewBook.jsp?id="+item.id+"'><img src='../picture/musicAlbum.jpg'></a><div class='caption'><p>"+item.name+"</p><p>"+item.description+"</p><p><a class='btn' href='#' onclick=deleteObject('book_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>&nbsp;<a class='btn' href='user_addBook.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a><a class='btn' href='book_downloadBook.action?id="+item.id+"' class='btn btn-primary'><i class='icon-download'></i>下载</a></p></div></div></div>";
+			});*/
+			laivi.pageLoad('book_bookMarklist.action', $("#bookMarkListDivId"), function(item){
 				return "<div class='span8'><p><a href='../book/chapter_view.jsp?id="+item.chapter.id+"'>"+item.chapter.title+"</a></p><div align='right'><button onclick=deleteObject('book_deleteBookMark.action?id="+item.id+"')><i class='icon-remove'></i>删除</button></div></div>";
 			});
 		}));
