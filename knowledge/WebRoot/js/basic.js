@@ -288,7 +288,7 @@ var laivi={
 				});
 			}else{
 				if(firstTime){
-					obj.append("<div class='span8'><div class='alert alert-block'><h4>暂无记录</h4></div></div>");
+					obj.append("<div><div class='alert alert-block'><h4>暂无记录</h4></div></div>");
 					firstTime=false;
 				}
 			}

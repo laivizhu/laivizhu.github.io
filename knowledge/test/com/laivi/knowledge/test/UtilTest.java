@@ -25,7 +25,7 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 import static com.googlecode.javacv.cpp.opencv_core.*;
 import static com.googlecode.javacv.cpp.opencv_highgui.*;
 import static com.googlecode.javacv.cpp.opencv_imgproc.*;
-import static com.googlecode.javacv.cpp.opencv_objdetect.cvHaarDetectObjects;
+import static com.googlecode.javacv.cpp.opencv_objdetect.*;
 
 
 /**
@@ -66,7 +66,7 @@ public class UtilTest {
     }
     @Test
     public void testIKAnalyzer() throws ErrorException, IOException {
-        String text="基于java语言开发的轻量级的中文分词工具包";
+        String text="新来的应届毕业生问我：我是个很”自我”的人，周围的同事说我没礼貌、不懂人情世故，我错了吗？";
         //创建分词对象
         IKAnalyzer anal=new IKAnalyzer(true);
         StringReader reader=new StringReader(text);
@@ -83,7 +83,7 @@ public class UtilTest {
 
     @Test
     public void testLucene() throws IOException {
-        String text="基于java语言开发的轻量级的中文分词工具包";
+        String text="新来的应届毕业生问我：我是个很”自我”的人，周围的同事说我没礼貌、不懂人情世故，我错了吗？";
         StringReader sr=new StringReader(text);
         IKSegmenter ik=new IKSegmenter(sr, true);
         Lexeme lex=null;
@@ -150,7 +150,45 @@ public class UtilTest {
 
     }
 
-   
-    
+    @Test
+    public void testJavaCVDetect(){
+        int SCALE = 2;
+        String CASCADE_FILE ="C:\\opencv\\data\\haarcascades\\haarcascade_frontalface_alt2.xml";
+        String OUT_FILE = "D:\\temp\\markedFaces.jpg";
+        IplImage origImg = cvLoadImage("D:/temp/123.jpg", 1);
+        //IplImage origImg = cvLoadImage(args[0]);
+        // convert to grayscale
+        IplImage grayImg = IplImage.create(origImg.width(),origImg.height(), IPL_DEPTH_8U, 1);
+        cvCvtColor(origImg, grayImg, CV_BGR2GRAY);
+        // scale the grayscale (to speed up face detection)
+        IplImage smallImg = IplImage.create(grayImg.width()/SCALE,grayImg.height()/SCALE, IPL_DEPTH_8U, 1);
+        cvResize(grayImg, smallImg, CV_INTER_LINEAR);
+        // equalize the small grayscale
+        IplImage equImg = IplImage.create(smallImg.width(),smallImg.height(), IPL_DEPTH_8U, 1);
+        cvEqualizeHist(smallImg, equImg);
+        // create temp storage, used during object detection
+        CvMemStorage storage = CvMemStorage.create();
+        // instantiate a classifier cascade for face detection
+        opencv_objdetect.CvHaarClassifierCascade cascade =new opencv_objdetect.CvHaarClassifierCascade(cvLoad(CASCADE_FILE));
+        System.out.println("Detecting faces...");
+        CvSeq faces = cvHaarDetectObjects(equImg, cascade, storage,1.1, 2, CV_HAAR_DO_CANNY_PRUNING,cvSize(20,20),cvSize(100,100));
+        cvClearMemStorage(storage);
+        // draw thick yellow rectangles around all the faces
+        int total = faces.total();
+        System.out.println("Found " + total + " face(s)");
+        for (int i = 0; i < total; i++) {
+            CvRect r = new CvRect(cvGetSeqElem(faces, i));
+            cvRectangle(origImg, cvPoint( r.x()*SCALE, r.y()*SCALE ),cvPoint( (r.x() + r.width())*SCALE,(r.y() + r.height())*SCALE ),CvScalar.RED, 6, CV_AA, 0);
+            String strRect = String.format("CvRect(%d,%d,%d,%d)", r.x(), r.y(), r.width(), r.height());
+            System.out.println(strRect);
+        }
+        if (total > 0) {
+            System.out.println("Saving marked-faces version of " + " in " + OUT_FILE);
+            cvSaveImage(OUT_FILE, origImg);
+            //cvNamedWindow( "result", 1 );
+            //cvShowImage( "result", origImg );
+            //cvWaitKey(0);
+        }
+    }
 
 }

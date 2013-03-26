@@ -52,21 +52,26 @@ public class ExceptionInterceptor extends AbstractInterceptor {
 			} catch (Exception e) {
 				e.printStackTrace();
 				String path = null;
+                boolean isJsonError=false;
 				String errorMessage = e.getMessage() == null ? DEFAULT_ERROR_MESSAGE : e.getMessage();
 				if (errorMessage.contains("java.io.InputStream")) {
 					errorMessage = ErrorMessageConstants.Common.FILE_NOT_FOUND;
-					path = "error";
 				}
-				
 				if(e instanceof HibernateJdbcException){
+                    isJsonError=true;
 					responseType=ResponseType.HTML;
 					errorMessage=ErrorMessageConstants.JDBCEXCEPTION;
 				}
 				if(e instanceof ErrorException){
+                    isJsonError=true;
 					responseType=ResponseType.HTML;
 				}
-				ServletActionContext.getResponse().setContentType(responseType.toText());
-				ServletActionContext.getResponse().getWriter().write(String.format(errorFormat, errorMessage));
+                if (isJsonError){
+                    ServletActionContext.getResponse().setContentType(responseType.toText());
+                    ServletActionContext.getResponse().getWriter().write(String.format(errorFormat, errorMessage));
+                }else{
+                    path="error";
+                }
 				return path;
 			}
 		} finally {
