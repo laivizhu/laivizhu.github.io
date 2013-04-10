@@ -5,10 +5,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
 
-import com.googlecode.javacv.cpp.opencv_core;
-import com.googlecode.javacv.cpp.opencv_objdetect;
-import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
+
 import org.junit.Test;
 
 import com.laivi.knowledge.basic.model.exception.ErrorException;
@@ -18,14 +15,6 @@ import com.laivi.knowledge.basic.util.JsonUtil;
 import com.laivi.knowledge.book.model.po.Chapter;
 import com.laivi.knowledge.book.util.BookChapterUtil;
 import com.laivi.knowledge.common.model.type.FavoriteType;
-import org.wltea.analyzer.core.IKSegmenter;
-import org.wltea.analyzer.core.Lexeme;
-import org.wltea.analyzer.lucene.IKAnalyzer;
-
-import static com.googlecode.javacv.cpp.opencv_core.*;
-import static com.googlecode.javacv.cpp.opencv_highgui.*;
-import static com.googlecode.javacv.cpp.opencv_imgproc.*;
-import static com.googlecode.javacv.cpp.opencv_objdetect.*;
 
 
 /**
@@ -64,7 +53,7 @@ public class UtilTest {
     	List<Chapter> chapterList=BookChapterUtil.getChapters(file);
     	System.out.println("size:"+chapterList.size());
     }
-    @Test
+   /* @Test
     public void testIKAnalyzer() throws ErrorException, IOException {
         String text="新来的应届毕业生问我：我是个很”自我”的人，周围的同事说我没礼貌、不懂人情世故，我错了吗？";
         //创建分词对象
@@ -105,9 +94,9 @@ public class UtilTest {
             cvReleaseImage(image);
         }
 
-       /* CvMat mat=cvCreateMat(3,4,CV_8UC1 );
+       *//* CvMat mat=cvCreateMat(3,4,CV_8UC1 );
         cvZero(mat);
-        System.out.println(mat);*/
+        System.out.println(mat);*//*
     }
 
     @Test
@@ -189,6 +178,6 @@ public class UtilTest {
             //cvShowImage( "result", origImg );
             //cvWaitKey(0);
         }
-    }
+    }*/
 
 }
