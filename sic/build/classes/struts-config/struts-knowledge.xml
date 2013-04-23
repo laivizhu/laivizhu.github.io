@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+ "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="admin-knowledge" extends="struts-base" namespace="/admin/knowledge">
+		<action name="fromOther_*" class="com.laivi.knowledge.common.action.FromOtherAction" method="{1}"/>
+		<action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}"/>
+        <action name="tag_*" class="com.laivi.knowledge.common.action.TagAction" method="{1}"/>
+        <action name="knowledge_*" class="com.laivi.knowledge.knowledge.action.KnowledgeAction" method="{1}"/>
+        <action name="article_*" class="com.laivi.knowledge.knowledge.action.ArticleAction" method="{1}"/>
+        <action name="reply_*" class="com.laivi.knowledge.knowledge.action.ReplyAction" method="{1}"/>
+        <action name="message_*" class="com.laivi.knowledge.message.action.MessageAction" method="{1}"/>
+        <action name="information_*" class="com.laivi.knowledge.knowledge.action.InformationAction" method="{1}"/>
+        <action name="posts_*" class="com.laivi.knowledge.knowledge.action.PostsAction" method="{1}"/>
+        <action name="favorite_*" class="com.laivi.knowledge.common.action.FavoriteAction" method="{1}"/>
+        <action name="score_*" class="com.laivi.knowledge.common.action.ScoreAction" method="{1}"/>
+	</package>
+	
+	<package name="picture" extends="struts-base" namespace="/picture">
+		<action name="fromOther_*" class="com.laivi.knowledge.common.action.FromOtherAction" method="{1}"/>
+		<action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}"/>
+		<action name="picture_*" class="com.laivi.knowledge.user.action.PictureAction" method="{1}"/>
+	</package>
+	
+	<package name="knowledge" extends="struts-base" namespace="/knowledge">
+		<action name="fromOther_*" class="com.laivi.knowledge.common.action.FromOtherAction" method="{1}"/>
+		<action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}"/>
+        <action name="tag_*" class="com.laivi.knowledge.common.action.TagAction" method="{1}"/>
+        <action name="knowledge_*" class="com.laivi.knowledge.knowledge.action.KnowledgeAction" method="{1}"/>
+        <action name="article_*" class="com.laivi.knowledge.knowledge.action.ArticleAction" method="{1}"/>
+        <action name="reply_*" class="com.laivi.knowledge.knowledge.action.ReplyAction" method="{1}"/>
+        <action name="message_*" class="com.laivi.knowledge.message.action.MessageAction" method="{1}"/>
+        <action name="information_*" class="com.laivi.knowledge.knowledge.action.InformationAction" method="{1}"/>
+        <action name="posts_*" class="com.laivi.knowledge.knowledge.action.PostsAction" method="{1}"/>
+        <action name="favorite_*" class="com.laivi.knowledge.common.action.FavoriteAction" method="{1}"/>
+        <action name="score_*" class="com.laivi.knowledge.common.action.ScoreAction" method="{1}"/>
+	</package>
+	
+	
+</struts>    
