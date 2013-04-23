@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+ "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="admin-book" extends="struts-base" namespace="/admin/book">
+		
+	</package>
+	
+	
+	<package name="book" extends="struts-base" namespace="/book">
+		<action name="fromOther_*" class="com.laivi.sic.common.action.FromOtherAction" method="{1}"/>
+		<action name="user_*" class="com.laivi.sic.user.action.UserAction" method="{1}"/>
+        <action name="tag_*" class="com.laivi.sic.common.action.TagAction" method="{1}"/>
+        <action name="book_*" class="com.laivi.sic.book.action.BookAction" method="{1}">
+            <result name="successDownLoadBook" type="stream">
+                <param name="inputName">downLoadBookInputStream</param>
+                <param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+                <param name="contentDisposition">attachment;filename=${downLoadFileName}</param>
+                <param name="bufferSize">8192</param>
+            </result>
+        </action>
+        <action name="reply_*" class="com.laivi.sic.knowledge.action.ReplyAction" method="{1}"/>
+        <action name="favorite_*" class="com.laivi.sic.common.action.FavoriteAction" method="{1}"/>
+	</package>
+	
+	
+</struts>    

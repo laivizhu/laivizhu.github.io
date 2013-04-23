@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" 
+"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="admin-user" extends="struts-base" namespace="/admin/usermanage">
+        <action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}"/>
+        <action name="picture_*" class="com.laivi.knowledge.user.action.PictureAction" method="{1}"/>
+        <action name="album_*" class="com.laivi.knowledge.user.action.AlbumAction" method="{1}"/>
+        <action name="favorite_*" class="com.laivi.knowledge.common.action.FavoriteAction" method="{1}"/>        
+	</package>
+
+    <package name="admin" extends="struts-base" namespace="/admin">
+        <action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}">
+        	<result name="logout">login.jsp</result>
+        </action>
+        <action name="information_*" class="com.laivi.knowledge.knowledge.action.InformationAction" method="{1}"/>
+        <action name="message_*" class="com.laivi.knowledge.user.action.MessageAction" method="{1}"/>
+    </package>
+    
+    <package name="index" extends="struts-base" namespace="/">
+        <action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}">
+        	<result name="logout">login.jsp</result>
+        </action>
+        <action name="information_*" class="com.laivi.knowledge.knowledge.action.InformationAction" method="{1}"/>
+        <action name="message_*" class="com.laivi.knowledge.user.action.MessageAction" method="{1}"/>
+        <action name="article_*" class="com.laivi.knowledge.knowledge.action.ArticleAction" method="{1}"/>
+        <action name="knowledge_*" class="com.laivi.knowledge.knowledge.action.KnowledgeAction" method="{1}"/>
+        <action name="picture_*" class="com.laivi.knowledge.user.action.PictureAction" method="{1}"/>
+    </package>
+    
+    <package name="user" extends="struts-base" namespace="/user">
+        <action name="user_*" class="com.laivi.knowledge.user.action.UserAction" method="{1}">
+        	<result name="logout">login.jsp</result>
+        </action>
+        <action name="fromOther_*" class="com.laivi.knowledge.common.action.FromOtherAction" method="{1}"/>
+        <action name="album_*" class="com.laivi.knowledge.user.action.AlbumAction" method="{1}"/>
+        <action name="music_*" class="com.laivi.knowledge.user.action.MusicAction" method="{1}"/>
+        <action name="book_*" class="com.laivi.knowledge.book.action.BookAction" method="{1}"/>
+        <action name="autoGraph_*" class="com.laivi.knowledge.user.action.AutoGraphAction" method="{1}"/>
+        <action name="group_*" class="com.laivi.knowledge.user.action.GroupAction" method="{1}"/>
+        <action name="friend_*" class="com.laivi.knowledge.user.action.FriendsAction" method="{1}"/>
+        <action name="tag_*" class="com.laivi.knowledge.common.action.TagAction" method="{1}"/>
+        <action name="knowledge_*" class="com.laivi.knowledge.knowledge.action.KnowledgeAction" method="{1}"/>
+        <action name="picture_*" class="com.laivi.knowledge.user.action.PictureAction" method="{1}"/>
+        <action name="article_*" class="com.laivi.knowledge.knowledge.action.ArticleAction" method="{1}"/>
+        <action name="reply_*" class="com.laivi.knowledge.knowledge.action.ReplyAction" method="{1}"/>
+        <action name="message_*" class="com.laivi.knowledge.user.action.MessageAction" method="{1}"/>
+        <action name="information_*" class="com.laivi.knowledge.knowledge.action.InformationAction" method="{1}"/>
+        <action name="posts_*" class="com.laivi.knowledge.bbs.action.PostsAction" method="{1}"/>
+        <action name="favorite_*" class="com.laivi.knowledge.common.action.FavoriteAction" method="{1}"/>
+        <action name="task_*" class="com.laivi.knowledge.user.action.TaskAction" method="{1}"/>
+    </package>
+</struts>    
