@@ -13,8 +13,7 @@ import com.laivi.sic.model.json.FormDataItem;
  * @author laivi
  * Desc:
  */
-@SuppressWarnings("serial")
-public abstract class ABasicJsonEntity implements IBasicJsonEntity,IBasicDBEntity {
+public class ABasicJsonEntity implements IBasicJsonEntity {
 
 	@Override
 	public String toJson() {

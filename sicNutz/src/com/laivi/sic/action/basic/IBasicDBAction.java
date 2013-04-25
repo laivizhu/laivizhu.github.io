@@ -10,7 +10,7 @@ package com.laivi.sic.action.basic;
  */
 public interface IBasicDBAction extends IBasicAction{
 
-	String add() throws Exception;
+	Object add() throws Exception;
 	String delete()throws Exception;
 	String deletes()throws Exception;
 	String update()throws Exception;

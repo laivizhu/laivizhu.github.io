@@ -10,7 +10,7 @@ import com.laivi.sic.model.po.basic.ABasicJsonEntity;
 import com.laivi.sic.model.po.basic.IBasicDBEntity;
 
 @SuppressWarnings("serial")
-@Table("sic_user")
+@Table("sic_login_user")
 public class LoginUser extends ABasicJsonEntity implements IBasicDBEntity{
 	@Id
 	private long id;

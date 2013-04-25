@@ -8,7 +8,7 @@ package com.laivi.sic.model.po.basic;
  * @author laivi
  * Desc:
  */
-public interface IBasicJsonEntity extends IBasicDBEntity {
+public interface IBasicJsonEntity {
 	String toJson();
 	
 	String toFormJson(boolean success);
