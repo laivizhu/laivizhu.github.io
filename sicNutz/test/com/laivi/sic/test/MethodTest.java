@@ -1,10 +1,7 @@
 package com.laivi.sic.test;
 
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
-import org.nutz.ioc.aop.Aop;
 import org.nutz.validation.Errors;
 import org.nutz.validation.annotation.AnnotationValidation;
 

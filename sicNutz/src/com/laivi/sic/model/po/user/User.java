@@ -2,18 +2,21 @@ package com.laivi.sic.model.po.user;
 
 import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Table;
+import org.nutz.validation.annotation.Validations;
 
-import com.laivi.sic.model.po.basic.ABasicJsonEntity;
+import com.laivi.sic.model.po.basic.ABasicEntity;
 
 @SuppressWarnings("serial")
 @Table("sic_user")
-public class User extends ABasicJsonEntity{
+public class User extends ABasicEntity{
 	
 	@Id
 	private long id;
 	
+	@Validations(required=true,errorMsg="用户名必填")
 	private String name;
 	
+	@Validations(email=true,errorMsg="email格式不正确")
 	private String email;
 	
 	private String description;

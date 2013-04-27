@@ -5,19 +5,21 @@ import java.util.Date;
 import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
+import org.nutz.validation.annotation.Validations;
 
-import com.laivi.sic.model.po.basic.ABasicJsonEntity;
-import com.laivi.sic.model.po.basic.IBasicDBEntity;
+import com.laivi.sic.model.po.basic.ABasicEntity;
 
 @SuppressWarnings("serial")
 @Table("sic_login_user")
-public class LoginUser extends ABasicJsonEntity implements IBasicDBEntity{
+public class LoginUser extends ABasicEntity{
 	@Id
 	private long id;
 	
 	@Name
+	@Validations(account=true,strLen={3,16},errorMsg="账号长度不够")
 	private String account;
 	
+	@Validations(account=true,strLen={8,20},errorMsg="密码长度至少8位")
 	private transient String password;
 	
 	private Date createDate;

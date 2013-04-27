@@ -22,11 +22,11 @@ public final class JsonItemList implements Serializable {
 
 	@Override
 	public String toString() {
-		return new ListResult<JsonItem>(list, list.size()).toJson();
+		return Json.toJson(new ListResult<JsonItem>(list, list.size()));
 	}
 	
 	public String toPageString(long size){
-		return new ListResult<JsonItem>(list,(int)size).toJson();
+		return Json.toJson(new ListResult<JsonItem>(list,(int)size));
 	}
 
     public String toListString(){

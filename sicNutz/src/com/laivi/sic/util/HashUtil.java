@@ -45,7 +45,6 @@ public class HashUtil {
 	 * @return String
 	 * @throws java.io.IOException
 	 */
-	@SuppressWarnings("resource")
 	public static String getFileMD5String(File file) throws IOException {
 		FileChannel ch = new FileInputStream(file).getChannel();
 		MappedByteBuffer byteBuffer = ch.map(FileChannel.MapMode.READ_ONLY, 0, file.length());

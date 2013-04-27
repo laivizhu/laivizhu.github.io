@@ -6,7 +6,8 @@
 			"org.nutz.mvc.impl.processor.ModuleProcessor",
 			"org.nutz.mvc.impl.processor.ActionFiltersProcessor",
 			"org.nutz.mvc.impl.processor.AdaptorProcessor",
-			"com.laivi.sic.action.interceptor.ExceptionProcess",
+			"com.laivi.sic.action.interceptor.CheckLoginProcessor",
+			"org.nutz.mvc.impl.processor.MethodInvokeProcessor",
 			"org.nutz.mvc.impl.processor.ViewProcessor"
 		],
 		"error":'org.nutz.mvc.impl.processor.FailProcessor'

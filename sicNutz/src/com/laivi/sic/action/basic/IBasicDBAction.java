@@ -4,17 +4,23 @@
  */
 package com.laivi.sic.action.basic;
 
+import org.nutz.dao.pager.Pager;
+
+import com.laivi.sic.model.to.Response;
+
 /**
  * @author laivi
  * Desc:
  */
-public interface IBasicDBAction extends IBasicAction{
+public interface IBasicDBAction<T> extends IBasicAction{
 
-	Object add() throws Exception;
-	String delete()throws Exception;
-	String deletes()throws Exception;
-	String update()throws Exception;
-	String list()throws Exception;
-	String get()throws Exception;
+	Response add() throws Exception;
+	Response delete(long id)throws Exception;
+	Response deletes(String ids)throws Exception;
+	Response update()throws Exception;
+	Object list(Pager page)throws Exception;
+	Object get(long id)throws Exception;
+	
+	Class<T> getEntityClass();
 	
 }

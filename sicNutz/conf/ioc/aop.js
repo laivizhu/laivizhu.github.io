@@ -21,7 +21,10 @@ var ioc = {
     },
     //声明一个log进行日志记录
     log : {
-            type :'org.nutz.aop.interceptor.LoggingMethodInterceptor'
+        type :'org.nutz.aop.interceptor.LoggingMethodInterceptor'
+    },
+    myInterceptor:{
+    	type:'com.laivi.sic.action.interceptor.MyInterceptor'
     },
     $aop : {
         type : 'org.nutz.ioc.aop.config.impl.ComboAopConfigration',
@@ -30,8 +33,9 @@ var ioc = {
                         {       type : 'org.nutz.ioc.aop.config.impl.JsonAopConfigration',
                                 fields : {
                                 itemList : [
-                                            ['com\\.laivi\\.nutz\\..+','.+','ioc:log'],
-                                            ['com\\.laivi\\.nutz\\.service\\..+','.+','ioc:txSERIALIZABLE']
+                                            ['com\\.laivi\\.sic\\..+','.+','ioc:log'],
+                                            ['com\\.laivi\\.sic\\.action\\..+','.+','ioc:myInterceptor'],
+                                            ['com\\.laivi\\.sic\\.service\\..+','.+','ioc:txSERIALIZABLE']
                                 ]
                                 }
                         },

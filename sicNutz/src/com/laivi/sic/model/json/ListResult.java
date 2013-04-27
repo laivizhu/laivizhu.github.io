@@ -33,7 +33,7 @@ public class ListResult<T> {
 		this.totalProperty = totalProperty;
 	}
 
-	public String toJson() {
+	public String toString() {
 		return Json.toJson(this);
 	}
 
