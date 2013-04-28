@@ -6,7 +6,7 @@
 			"org.nutz.mvc.impl.processor.ModuleProcessor",
 			"org.nutz.mvc.impl.processor.ActionFiltersProcessor",
 			"org.nutz.mvc.impl.processor.AdaptorProcessor",
-			"com.laivi.sic.action.interceptor.CheckLoginProcessor",
+			"com.laivi.sic.action.interceptor.CheckProcessor",
 			"org.nutz.mvc.impl.processor.MethodInvokeProcessor",
 			"org.nutz.mvc.impl.processor.ViewProcessor"
 		],

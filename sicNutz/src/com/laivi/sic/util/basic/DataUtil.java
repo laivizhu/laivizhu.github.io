@@ -100,7 +100,7 @@ public class DataUtil {
 	}
 
 	public static String getRandPassword() {
-		String passwordChar = "abcdefghijklmnopqrstuvwxyz1234567890";
+		String passwordChar = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&*_";
 		Random rand = new Random();
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < 8; i++) {

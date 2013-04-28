@@ -20,6 +20,8 @@ public interface AppConstants {
 	String ELLIPSIS="...";
 	String URL="";
 	int INDEXSIZE=5;
+	
+	long SYSTEM_USER_ID=1;
 
 
 	String PICTURE_UPLOAD="picture\\";
@@ -33,11 +35,8 @@ public interface AppConstants {
 	}
 
 	interface MailTemplate {
-		String REGISTERCONFIRM = "confirm.ftl";
-		String SUPPLIER_REJECT = "reason.ftl";
-		String SUPPLIER_REPORT="report.ftl";
-		String SUPPLIER_REPORT_REJECT="report_reason.ftl";
-		String SECURIT_TEMPLATE_CONFIRM = "securitTemplateConfirm.ftl";
 	}
+	
+	
 
 }

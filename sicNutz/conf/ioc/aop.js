@@ -23,8 +23,18 @@ var ioc = {
     log : {
         type :'org.nutz.aop.interceptor.LoggingMethodInterceptor'
     },
+    /*缓存管理器,这里使用的是Ehcache*/
+	cacheManager : {
+		type : 'net.sf.ehcache.CacheManager',
+		events : {
+        	depose : 'shutdown'
+    	}
+	},
     myInterceptor:{
-    	type:'com.laivi.sic.action.interceptor.MyInterceptor'
+    	type:'com.laivi.sic.action.interceptor.MyInterceptor',
+    	fields : {
+			cacheManager : {refer : "cacheManager"}
+		}
     },
     $aop : {
         type : 'org.nutz.ioc.aop.config.impl.ComboAopConfigration',

@@ -1,5 +1,7 @@
 package com.laivi.sic.model.po.user;
 
+import org.nutz.dao.entity.annotation.ColDefine;
+import org.nutz.dao.entity.annotation.ColType;
 import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Table;
 import org.nutz.validation.annotation.Validations;
@@ -16,10 +18,14 @@ public class User extends ABasicEntity{
 	@Validations(required=true,errorMsg="用户名必填")
 	private String name;
 	
-	@Validations(email=true,errorMsg="email格式不正确")
-	private String email;
-	
 	private String description;
+	
+	@ColDefine(type=ColType.VARCHAR, width=200)
+	private String roleIds;
+	
+	private long score;
+	
+	private long money;
 
 	/**
 	 * @return the id
@@ -50,20 +56,6 @@ public class User extends ABasicEntity{
 	}
 
 	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
 	 * @return the description
 	 */
 	public String getDescription() {
@@ -77,4 +69,27 @@ public class User extends ABasicEntity{
 		this.description = description;
 	}
 
+	public String getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(String roleIds) {
+		this.roleIds = roleIds;
+	}
+
+	public long getScore() {
+		return score;
+	}
+
+	public void setScore(long score) {
+		this.score = score;
+	}
+
+	public long getMoney() {
+		return money;
+	}
+
+	public void setMoney(long money) {
+		this.money = money;
+	}
 }

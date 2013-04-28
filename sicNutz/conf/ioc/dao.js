@@ -2,8 +2,10 @@ var ioc={
 	dataSource:{
 		type:"com.alibaba.druid.pool.DruidDataSource",
 		fields:{
-			driverClassName:'org.h2.Driver',
-			url:'jdbc:h2:sicnutz'
+			driverClassName:'com.mysql.jdbc.Driver',
+			url:'jdbc:mysql://localhost:3306/sicnutz',
+			username:'root',
+			password:'123456'
 		},
 		events:{
 			depose:'close'

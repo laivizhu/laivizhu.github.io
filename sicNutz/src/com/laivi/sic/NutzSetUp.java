@@ -10,6 +10,7 @@ import org.nutz.mvc.Setup;
 import org.nutz.resource.Scans;
 
 import com.laivi.sic.model.po.user.LoginUser;
+import com.laivi.sic.model.po.user.Role;
 
 public class NutzSetUp implements Setup{
 	
@@ -27,10 +28,32 @@ public class NutzSetUp implements Setup{
 		
 		if(dao.count(LoginUser.class)==0){
 			LoginUser user=new LoginUser();
-			user.setAccount("laivi");
+			user.setEmail("laivi.zhu@gmail.com");
 			user.setPassword("laivi");
+			user.setUidendity("laivi.zhu@gmail.com");
 			dao.insert(user);
 		}
+		
+		if(dao.count(Role.class)==0){
+			Role[] roles=new Role[2];
+			roles[0]=new Role();
+			roles[0].setName("ROLE_ADMIN");
+			roles[0].setDescription("管理员");
+			
+			roles[1]=new Role();
+			roles[1].setName("ROLE_USER");
+			roles[1].setDescription("普通用户");
+			
+			for(Role role:roles){
+				dao.insert(role);
+			}
+		}
+		
+		/*if(dao.count(Message.class)==0){
+			Message message=new Message();
+			message.setStatus(Status.UNREAD);
+			dao.insert(message);
+		}*/
 	}
 
 	@Override
