@@ -13,6 +13,8 @@ public class Knowledge extends AUserEntity {
 	private String question;
 	
 	private String answer;
+	
+	private long tagId;
 
 	public String getName() {
 		return name;
@@ -36,6 +38,20 @@ public class Knowledge extends AUserEntity {
 
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+
+	/**
+	 * @return the tagId
+	 */
+	public long getTagId() {
+		return tagId;
+	}
+
+	/**
+	 * @param tagId the tagId to set
+	 */
+	public void setTagId(long tagId) {
+		this.tagId = tagId;
 	}
 
 }

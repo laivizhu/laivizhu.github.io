@@ -53,6 +53,10 @@ public class LoginAction extends ABasicDBAction<LoginUser> {
 		});
 		return success();
 	}
+	
+	public Response resetPassword(String email){
+		return success();
+	}
 
 	@Override
 	public Class<LoginUser> getEntityClass() {

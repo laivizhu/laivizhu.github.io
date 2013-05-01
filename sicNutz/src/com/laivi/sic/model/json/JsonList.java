@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.nutz.json.Json;
+
 /**
  * @author laivi
  * Desc:
@@ -19,4 +21,8 @@ public final class JsonList implements Serializable {
 	public void add(String item) {
         list.add(item);
     }
+	
+	public String returnJson(){
+		return Json.toJson(this);
+	}
 }

@@ -1,5 +1,7 @@
 package com.laivi.sic.model.json;
 
+import org.nutz.json.Json;
+
 
 /**
  * @author laivi
@@ -30,6 +32,10 @@ public class FormDataItem<T> {
 
 	public void setData(T data) {
 		this.data = data;
+	}
+	
+	public String returnJson(){
+		return Json.toJson(this);
 	}
 
 }

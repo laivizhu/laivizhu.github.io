@@ -3,19 +3,12 @@ package com.laivi.sic.model.po.basic;
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public abstract class AUserEntity extends ABasicEntity {
+public abstract class AUserEntity extends ABasicEntity implements IUserEntity {
 
-	protected long useId;
+	protected long userId;
 	
 	protected Date createDate=new Date();
 
-	public long getUseId() {
-		return useId;
-	}
-
-	public void setUseId(long useId) {
-		this.useId = useId;
-	}
 
 	public Date getCreateDate() {
 		return createDate;
@@ -24,5 +17,21 @@ public abstract class AUserEntity extends ABasicEntity {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+
+	/**
+	 * @return the userId
+	 */
+	public long getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+	
+	
 	
 }

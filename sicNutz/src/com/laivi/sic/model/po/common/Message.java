@@ -64,7 +64,7 @@ public class Message extends AUserEntity {
 	}
 
 	public Message(long fromUserId, long toUserId, String content, String title) {
-		this.useId = fromUserId;
+		this.userId = fromUserId;
 		this.toUserId = toUserId;
 		this.content = content;
 		this.title = title;
