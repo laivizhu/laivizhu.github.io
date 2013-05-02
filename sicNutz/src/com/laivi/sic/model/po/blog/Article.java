@@ -18,6 +18,8 @@ public class Article extends AUserEntity {
 	private long viewCount;
 	
 	private long tagId;
+	
+	private boolean otherIs;
 
 	public String getTitle() {
 		return title;
@@ -46,19 +48,22 @@ public class Article extends AUserEntity {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	/**
-	 * @return the tagId
-	 */
+	
 	public long getTagId() {
 		return tagId;
 	}
-
-	/**
-	 * @param tagId the tagId to set
-	 */
+	
 	public void setTagId(long tagId) {
 		this.tagId = tagId;
 	}
+
+	public boolean isOtherIs() {
+		return otherIs;
+	}
+
+	public void setOtherIs(boolean otherIs) {
+		this.otherIs = otherIs;
+	}
+	
 	
 }

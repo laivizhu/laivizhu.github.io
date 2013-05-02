@@ -2,7 +2,6 @@ package com.laivi.sic.model.po.user;
 
 import org.nutz.dao.entity.annotation.ColDefine;
 import org.nutz.dao.entity.annotation.ColType;
-import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Table;
 import org.nutz.validation.annotation.Validations;
 
@@ -11,9 +10,6 @@ import com.laivi.sic.model.po.basic.ABasicEntity;
 @SuppressWarnings("serial")
 @Table("sic_user")
 public class User extends ABasicEntity{
-	
-	@Id
-	private long id;
 	
 	@Validations(required=true,errorMsg="用户名必填")
 	private String name;
@@ -26,20 +22,6 @@ public class User extends ABasicEntity{
 	private long score;
 	
 	private long money;
-
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the name
