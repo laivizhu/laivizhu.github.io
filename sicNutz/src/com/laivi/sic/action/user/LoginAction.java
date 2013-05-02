@@ -6,7 +6,6 @@ import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
 import org.nutz.mvc.annotation.At;
-import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.trans.Atom;
 import org.nutz.trans.Trans;
@@ -22,22 +21,22 @@ import com.laivi.sic.model.to.Response;
 public class LoginAction extends ABasicDBAction<LoginUser> {
 
 	@At
-	public Response login(@Param("account")String account,@Param("password")String password,HttpSession session)throws Exception{
+	public Response login(String account,String password,HttpSession session)throws Exception{
 		if(Strings.isBlank(account)|| Strings.isBlank(password))
-			return failure("");
+			return failure("账号和密码不能为空");
 		account=account.trim().intern();
 		password=password.trim().intern();
-		LoginUser user=dao.fetch(LoginUser.class,Cnd.where("name","=",account).and("password","=",password));
+		LoginUser user=dao.fetch(LoginUser.class,Cnd.where("email","=",account).and("password","=",password));
 		if(user==null)
-			return failure("");
+			return failure("账号或密码错误");
 		session.setAttribute("user", user);
 		return success();
 	}
 	
 	@At
-	@Ok(">>:/")
-	public void logout(HttpSession session){
+	public Response logout(HttpSession session){
 		session.invalidate();
+		return success();
 	}
 	
 	@At
@@ -62,13 +61,4 @@ public class LoginAction extends ABasicDBAction<LoginUser> {
 	public Class<LoginUser> getEntityClass() {
 		return LoginUser.class;
 	}
-
-	
-
-	
-	
-	
-	
-	
-	
 }
