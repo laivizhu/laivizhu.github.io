@@ -17,6 +17,11 @@ public class ArticleAction extends ABasicDBAction<Article> {
 		dao.insert(article);
 		return success();
 	}
+	
+	public Object listAllTitle(){
+		
+		return null;
+	}
 
 	@Override
 	public Class<Article> getEntityClass() {

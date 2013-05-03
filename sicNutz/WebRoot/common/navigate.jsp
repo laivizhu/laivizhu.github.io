@@ -60,7 +60,7 @@
             	<c:otherwise>
             		<div class="nav-collapse collapse">
 	            	<ul class="nav pull-right">
-	            		<li><a href='/sicNutz/user/user.jsp?id=<s:property value="#session.user.id"/>'><c:out value="${user.email}"/></a></li>
+	            		<li><a href='/sicNutz/user/user.jsp?id=<c:out value="${user.id}"/>'><c:out value="${user.email}"/></a></li>
 	            		<li><a href="#" onclick="userLogout()">注销</a></li>
 	            	</ul>
             		</div>

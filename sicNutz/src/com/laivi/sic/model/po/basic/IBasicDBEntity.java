@@ -10,7 +10,7 @@ package com.laivi.sic.model.po.basic;
  * @author laivi
  * Desc:
  */
-public interface IBasicDBEntity extends IBasicEntity{
+public interface IBasicDBEntity extends IJsonEntity{
 	
 	long getId();
 	

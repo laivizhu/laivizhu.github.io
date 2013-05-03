@@ -6,6 +6,7 @@ package com.laivi.sic.action.basic;
 
 import org.nutz.dao.pager.Pager;
 
+import com.laivi.sic.model.json.JsonItem;
 import com.laivi.sic.model.to.Response;
 
 /**
@@ -22,5 +23,7 @@ public interface IBasicDBAction<T> extends IBasicAction{
 	Object get(long id)throws Exception;
 	
 	Class<T> getEntityClass();
+	
+	JsonItem getJsonItem(T obj);
 	
 }

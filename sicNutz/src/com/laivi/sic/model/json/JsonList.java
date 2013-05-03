@@ -25,4 +25,12 @@ public final class JsonList implements Serializable {
 	public String returnJson(){
 		return Json.toJson(this);
 	}
+	
+	public String toString(){
+		return new ListResult<String>(list,list.size()).toString();
+	}
+	
+	public String toPage(int totalSize){
+		return new ListResult<String>(list,totalSize).toString();
+	}
 }
