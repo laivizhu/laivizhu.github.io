@@ -346,9 +346,7 @@ var laivi={
                     obj.append("<div class='span8' id='loadMoreDivId'><div class='alert alert-info' align='center'><h2><button id='loadMoreButtonId' class='btn btn-success'>加载更多</h2></button></div></div>");
                     $("#loadMoreButtonId").click(function(){
                         $("#loadMoreButtonId").html("加载中...");
-                        for(var i=0;i<100000000;i++){
-                            i*=1;
-                        }
+                        
                         laivi.pageLoad(url,obj,function(item){
                             return getValue(item);
                         },currentPage+1);

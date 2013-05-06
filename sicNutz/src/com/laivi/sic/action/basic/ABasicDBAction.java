@@ -1,5 +1,7 @@
 package com.laivi.sic.action.basic;
 
+import javax.servlet.http.HttpSession;
+
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;
@@ -54,15 +56,24 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 
 	@Override
 	@At
-	public Object list(@Param("::page.")Pager page) throws Exception {
+	public Object list(@Param("::page.")Pager page,HttpSession session) throws Exception {
 		if(cnd==null){
-			//cnd=Cnd.where("userId", op, value)
+			Cnd condition=this.getUserCnd(session);
+			if(condition!=null){
+				cnd=condition.desc("createDate");
+			}else{
+				cnd=Cnd.orderBy().asc("createDate");
+			}
 		}
+		return list(page,cnd);
+	}
+	
+	protected JsonList list(Pager page,Condition cnd){
 		JsonList jsonList=new JsonList();
 		for(T obj:dao.query(this.getEntityClass(), cnd, page)){
 			jsonList.add(this.dataJson(obj));
 		}
-		return null;
+		return jsonList;
 	}
 	
 	protected String dataJson(T obj){
@@ -73,10 +84,6 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 			return item.returnJson();
 		}
 	}
-	
-	
-	
-	
 
 	@Override
 	@At
