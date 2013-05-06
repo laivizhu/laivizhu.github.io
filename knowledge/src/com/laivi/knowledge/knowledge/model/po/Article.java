@@ -33,6 +33,7 @@ public class Article extends UserEntity{
 	private long userId;
 	private String tagIds;
 	private boolean otherIs;
+    private long viewCount;
 	@Id
 	@GeneratedValue
 	public long getId() {
@@ -79,4 +80,10 @@ public class Article extends UserEntity{
 	public void setOtherIs(boolean otherIs) {
 		this.otherIs = otherIs;
 	}
+    public long getViewCount() {
+        return viewCount;
+    }
+    public void setViewCount(long viewCount) {
+        this.viewCount = viewCount;
+    }
 }

@@ -75,6 +75,14 @@ public class ArticleAction extends ABasicAction<Article> {
 		
 		return response(item.toFormDataString(true));
 	}
+
+    public String addViewCount()throws Exception{
+        ParamAssert.isTrue(id != 0, ErrorMessageConstants.OBJECT_NOT_EXIST);
+        Article dArticle=this.basicService.getObject(id);
+        dArticle.setViewCount(dArticle.getViewCount()+1);
+        this.basicService.modify(dArticle);
+        return response(true);
+    }
 	
 	public String getIndexList()throws Exception{
 		JsonItemList jsonList=new JsonItemList();

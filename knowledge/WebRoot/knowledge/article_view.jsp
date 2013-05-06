@@ -107,6 +107,7 @@
 				});
 			});
 			laivi.setFormVaule("article_get.action?font=true&id="+articleId, false);
+            laivi.getJson("article_addViewCount.action?id="+articleId);
             laivi.pageLoad('reply_list.action?id='+articleId,$("#replyListDivId"),function(item){
                  return "<div class='span12'><p>"+item.context+"</p><div align='right'><p><a onclick=deleteObject('reply_delete.action?id="+item.id+"')>删除</a>|"+item.createDate+"|"+item.user+"</p></div></div>";
             })

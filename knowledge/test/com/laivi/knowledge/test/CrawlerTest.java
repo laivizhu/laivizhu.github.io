@@ -57,7 +57,7 @@ public class CrawlerTest {
         	}else{
         		boolean isFound=false;
         		String[] loveKey=new String[]{"爱情","情感","你","喜欢","心","眼泪"};
-        		String[] lifeKey=new String[]{"生活","职场"};
+        		String[] lifeKey=new String[]{"生活","职场","人生"};
         		String[] thinkKey=new String[]{};
         		for(String key:loveKey){
         			if(article.getTitle().indexOf(key)!=-1){

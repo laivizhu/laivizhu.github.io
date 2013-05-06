@@ -73,6 +73,7 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 		for(T obj:dao.query(this.getEntityClass(), cnd, page)){
 			jsonList.add(this.dataJson(obj));
 		}
+		jsonList.setSize();
 		return jsonList;
 	}
 	
