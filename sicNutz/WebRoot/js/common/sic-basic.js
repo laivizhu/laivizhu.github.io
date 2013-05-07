@@ -330,6 +330,23 @@ var sic={
 					supplied: "wma,mp3",
 					wmode: "window"
 				});
+			},
+			raty:function(taget,getScoreUrl,setScoreUrl){
+				sic.common.getJson(getScoreUrl, function(result){
+					$(taget).raty({
+						score:result.data.score,
+						click:function(score,event){
+							sic.common.getJson(setScoreUrl+'&score.score='+score, function(){
+								sic.msg.alert('谢谢你的评价！');
+								$(taget).raty({
+									score:score,
+									readOnly:true,
+									noRatedMsg:'已经评价了'
+								});
+							});
+						}
+					});
+				});
 			}
 		}
 };

@@ -16,17 +16,17 @@ import java.util.List;
 public final class JsonList implements Serializable {
 	private boolean success=true;
 	private int totalProperty;
-	private List<String> root = new ArrayList<String>();
+	private List<Object> root = new ArrayList<Object>();
 	
 	
 	public JsonList() {
 	}
 
-	public JsonList(List<String> root, int totalProperty) {
+	public JsonList(List<Object> root, int totalProperty) {
 		this.root = root;
 		this.totalProperty = totalProperty;
 	}
-	public void add(String item) {
+	public void add(Object item) {
         root.add(item);
     }
 	
@@ -50,11 +50,11 @@ public final class JsonList implements Serializable {
 		this.totalProperty = totalProperty;
 	}
 
-	public List<String> getRoot() {
+	public List<Object> getRoot() {
 		return root;
 	}
 
-	public void setRoot(List<String> root) {
+	public void setRoot(List<Object> root) {
 		this.root = root;
 	}
 	

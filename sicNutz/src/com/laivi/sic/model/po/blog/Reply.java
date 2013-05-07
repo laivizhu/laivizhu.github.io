@@ -1,6 +1,7 @@
 package com.laivi.sic.model.po.blog;
 
 import org.nutz.dao.entity.annotation.Table;
+import org.nutz.validation.annotation.Validations;
 
 import com.laivi.sic.model.po.basic.AUserEntity;
 import com.laivi.sic.model.type.TagType;
@@ -9,6 +10,7 @@ import com.laivi.sic.model.type.TagType;
 @Table("sic_reply")
 public class Reply extends AUserEntity {
 	
+	@Validations(required=true,errorMsg="")
 	private String content;
 	
 	private long objId;

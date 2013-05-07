@@ -9,8 +9,10 @@ import org.nutz.mvc.NutConfig;
 import org.nutz.mvc.Setup;
 import org.nutz.resource.Scans;
 
+import com.laivi.sic.model.po.blog.Tag;
 import com.laivi.sic.model.po.user.LoginUser;
 import com.laivi.sic.model.po.user.Role;
+import com.laivi.sic.model.type.TagType;
 
 public class NutzSetUp implements Setup{
 	
@@ -47,6 +49,13 @@ public class NutzSetUp implements Setup{
 			for(Role role:roles){
 				dao.insert(role);
 			}
+		}
+		
+		if(dao.count(Tag.class)==0){
+			Tag tag=new Tag();
+			tag.setName("情感");
+			tag.setType(TagType.ARTICLE);
+			dao.insert(tag);
 		}
 		
 		/*if(dao.count(Message.class)==0){

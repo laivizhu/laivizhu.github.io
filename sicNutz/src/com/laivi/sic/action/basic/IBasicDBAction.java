@@ -17,7 +17,7 @@ import com.laivi.sic.model.to.Response;
  */
 public interface IBasicDBAction<T> extends IBasicAction{
 
-	Response add() throws Exception;
+	Response add(T t) throws Exception;
 	Response delete(long id)throws Exception;
 	Response deletes(String ids)throws Exception;
 	Response update()throws Exception;

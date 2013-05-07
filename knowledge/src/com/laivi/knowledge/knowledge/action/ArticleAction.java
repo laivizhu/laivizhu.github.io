@@ -107,6 +107,7 @@ public class ArticleAction extends ABasicAction<Article> {
 		JsonItem item=new JsonItem();
 		item.add("id", object.getId())
 		.add("title", object.getTitle())
+		.add("viewCount", object.getViewCount())
 		.add("content", isSub?DataUtil.getDefaultChar(object.getContent()):object.getContent())
 		.add("createDate", DateUtil.formatDate(object.getCreateDate()))
 		.add("user", this.userService.getObject(object.getUserId()).getUserName())

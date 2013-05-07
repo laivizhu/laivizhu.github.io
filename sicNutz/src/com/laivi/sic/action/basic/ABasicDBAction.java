@@ -30,7 +30,7 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	@Override
 	@At
 	@CheckLogin
-	public Response add() throws Exception {
+	public Response add(T t) throws Exception {
 		return success();
 	}
 
@@ -77,12 +77,12 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 		return jsonList;
 	}
 	
-	protected String dataJson(T obj){
+	protected Object dataJson(T obj){
 		JsonItem item=this.getJsonItem(obj);
 		if(item==null){
-			return obj.toObjJson();
+			return obj;
 		}else{
-			return item.returnJson();
+			return item;
 		}
 	}
 

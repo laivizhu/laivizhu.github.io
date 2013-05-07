@@ -23,6 +23,19 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	
 	@At
 	public Response update(@Param("::article.")Article article){
+		Article dArticle=dao.fetch(this.getEntityClass(), article.getId());
+		dArticle.setContent(article.getContent());
+		dArticle.setTitle(article.getTitle());
+		dArticle.setTagId(article.getTagId());
+		dao.update(dArticle);
+		return success();
+	}
+	
+	@At
+	public Response addViewCount(long id){
+		Article article=dao.fetch(this.getEntityClass(), id);
+		article.setViewCount(article.getViewCount()+1);
+		dao.update(article);
 		return success();
 	}
 	

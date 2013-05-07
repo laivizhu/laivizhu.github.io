@@ -70,21 +70,20 @@
 			var id=sic.basic.getUrlVar('id');
 			if(id!=null&&id!=0){
 				$("#titleContentId").html("修改博文");
-
 				sic.common.setFormVaule('/blog/article/get/?id='+id,true,function(result){
 					editor.html(result.data.content);
-                    laivi.comboList($("#tagIdsFormFieldId"), '/tag/comboList?tag.type=ARTICLE',function(){
+                    sic.common.comboList($("#tagIdsFormFieldId"), '../tag/comboList?tag.type=ARTICLE',function(){
                         $("#tagIdsFormFieldId").val(result.data.tagIds);
                     });
 				});
-				sic.common.submitForm($("#articleAddFormId"), '/blog/article/update?id='+id, function(){
+				sic.common.submitForm($("#articleAddFormId"), '../blog/article/update?id='+id, function(){
 					window.location.href="user_article.jsp";
 				}, false, false);
 			}else{
 
 				$("#titleContentId").html("发表博文");
-                sic.common.comboList($("#tagIdsFormFieldId"), '/tag/comboList?tag.type=ARTICLE');
-				sic.common.submitForm($("#articleAddFormId"), '/blog/article/add', function(){
+                sic.common.comboList($("#tagIdsFormFieldId"), '../tag/comboList?tag.type=ARTICLE');
+				sic.common.submitForm($("#articleAddFormId"), '../blog/article/add', function(){
 					window.location.href="user_article.jsp";
 				}, false, false);
 			}
