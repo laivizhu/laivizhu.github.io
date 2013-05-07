@@ -22,6 +22,11 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	}
 	
 	@At
+	public Response update(@Param("::article.")Article article){
+		return success();
+	}
+	
+	@At
 	public Object listAllTitle(HttpSession session){
 		JsonList jsonList=new JsonList();
 		this.cnd=this.getUserCnd(session);

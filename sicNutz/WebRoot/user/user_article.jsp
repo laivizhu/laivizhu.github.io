@@ -84,7 +84,7 @@
 			}
 		};
 		
-		$(document).ready(laivi.init(function(){
+		$(document).ready(sic.basic.init(function(){
 			loadLocalNavigate(navigate.user);
 			new LaiviTypeahead({
 				url:'/blog/article/listAllTitle',
