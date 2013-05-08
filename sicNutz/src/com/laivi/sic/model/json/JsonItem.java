@@ -6,8 +6,6 @@ package com.laivi.sic.model.json;
 
 import java.util.HashMap;
 
-import org.nutz.json.Json;
-
 /**
  * @author laivi
  * Desc:
@@ -19,11 +17,7 @@ public class JsonItem extends HashMap<String,Object>{
 		return this;
 	}
 	
-	public String toJsonForm(boolean success){
-		return new FormDataItem<JsonItem>(true,this).returnJson();
-	}
-	
-	public String returnJson(){
-		return Json.toJson(this);
+	public FormData toJsonForm(){
+		return new FormData(true,this);
 	}
 }

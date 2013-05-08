@@ -1,5 +1,6 @@
 package com.laivi.sic.util.basic;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -79,6 +80,17 @@ public class DataUtil {
 		return sb.toString();
 	}
 	
+	public static Field[] appendArray(Field[] obj1,Field[] obj2){
+		Field[] obj=new Field[obj1.length+obj2.length];
+		for(int i=0;i<obj1.length;i++){
+			obj[i]=obj1[i];
+		}
+		for(int i=obj1.length;i<obj1.length+obj2.length;i++){
+			obj[i]=obj2[i-obj1.length];
+		}
+		return obj;
+	}
+	
 	public static String append(Object... objects) {
 		if (objects.length == 1) {
 			return objects[0].toString();
@@ -150,6 +162,18 @@ public class DataUtil {
 		}catch(Exception e){
 			throw new ErrorException("字符串不合法");
 		}
+	}
+	
+	public static boolean isIncludeStr(String field,String... strs){
+		if(strs==null){
+			return false;
+		}
+		for(String tField:strs){
+			if(tField.equals(field)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static String getDefaultChar(String content)throws ErrorException{

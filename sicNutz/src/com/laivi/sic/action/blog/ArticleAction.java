@@ -39,6 +39,7 @@ public class ArticleAction extends ABasicDBAction<Article> {
 		return success();
 	}
 	
+	
 	@At
 	public Object listAllTitle(HttpSession session){
 		JsonList jsonList=new JsonList();
@@ -47,6 +48,16 @@ public class ArticleAction extends ABasicDBAction<Article> {
 			jsonList.add("\""+article.getTitle()+"\"");
 		}
 		return jsonList;
+	}
+	
+	@At
+	public Object getFold(long id,boolean fold)throws Exception{
+		Article obj=dao.fetch(this.getEntityClass(),id);
+		if(obj.toFormJson()==null){
+			return obj.toFormJson();
+		}else{
+			return obj.toJsonItem(fold).toJsonForm();
+		}
 	}
 
 	@Override

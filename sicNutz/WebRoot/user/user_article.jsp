@@ -59,13 +59,13 @@
 	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
 		var getMoreData=function(id){
-			sic.common.getJson('../blog/article/get.action?id='+id, function(result){
+			sic.common.getJson('../blog/article/getFold?fold=false&id='+id, function(result){
 				var comb="<a class='btn btn-primary btn-small' onclick='getLessData("+result.data.id+")'>Fold &raquo;</a>";
 				$('#content'+id).html(result.data.content+comb);
 			});
 		};
 		var getLessData=function(id){
-			sic.common.getJson('../blog/article/get.action?id='+id, function(result){
+			sic.common.getJson('../blog/article/getFold?fold=true&id='+id, function(result){
 				var comb="<a class='btn btn-primary btn-small' onclick='getMoreData("+result.data.id+")'>More &raquo;</a>";
 				$('#content'+id).html(result.data.content+comb);
 			});

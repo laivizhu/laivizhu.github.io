@@ -40,5 +40,4 @@ public class Reply extends AUserEntity {
 	public void setType(TagType type) {
 		this.type = type;
 	}
-	
 }

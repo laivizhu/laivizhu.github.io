@@ -9,7 +9,7 @@ import com.laivi.sic.model.po.basic.ABasicEntity;
 
 @SuppressWarnings("serial")
 @Table("sic_user")
-public class User extends ABasicEntity{
+public class User extends ABasicEntity {
 	
 	@Validations(required=true,errorMsg="用户名必填")
 	private String name;
@@ -23,30 +23,18 @@ public class User extends ABasicEntity{
 	
 	private long money;
 
-	/**
-	 * @return the name
-	 */
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * @param name the name to set
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/**
-	 * @return the description
-	 */
 	public String getDescription() {
 		return description;
 	}
 
-	/**
-	 * @param description the description to set
-	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}

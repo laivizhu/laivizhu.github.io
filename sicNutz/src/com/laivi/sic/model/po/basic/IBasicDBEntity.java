@@ -14,4 +14,5 @@ public interface IBasicDBEntity extends IJsonEntity{
 	
 	long getId();
 	
+	
 }

@@ -1,19 +1,17 @@
 package com.laivi.sic.model.json;
 
-import org.nutz.json.Json;
 
 
 /**
  * @author laivi
  *
  */
-public class FormDataItem<T> {
+public class FormData {
 	private boolean success;
 	
-	private T data;
+	private Object data;
 	
-	public FormDataItem(boolean success, T data) {
-		super();
+	public FormData(boolean success, Object data) {
 		this.success = success;
 		this.data = data;
 	}
@@ -26,16 +24,11 @@ public class FormDataItem<T> {
 		this.success = success;
 	}
 
-	public T getData() {
+	public Object getData() {
 		return data;
 	}
 
-	public void setData(T data) {
+	public void setData(Object data) {
 		this.data = data;
 	}
-	
-	public String returnJson(){
-		return Json.toJson(this);
-	}
-
 }

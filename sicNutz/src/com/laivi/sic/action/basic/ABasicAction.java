@@ -8,7 +8,8 @@ import com.laivi.sic.model.constants.AppConstants;
 import com.laivi.sic.model.po.user.LoginUser;
 import com.laivi.sic.model.to.Response;
 
-public class ABasicAction implements IBasicAction {
+public abstract class ABasicAction implements IBasicAction {
+	
 
 	protected Response response(boolean success,String msg){
 		return new Response(success,msg);

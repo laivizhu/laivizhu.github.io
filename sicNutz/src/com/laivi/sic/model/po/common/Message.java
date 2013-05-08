@@ -71,10 +71,6 @@ public class Message extends AUserEntity {
 	}
 
 	public Message() {
-		super();
 	}
-	
-	
-	
-	
+
 }

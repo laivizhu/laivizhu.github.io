@@ -89,8 +89,9 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	@Override
 	@At
 	public Object get(long id) throws Exception {
-		return dao.fetch(this.getEntityClass(), id);
+		return dao.fetch(this.getEntityClass(), id).toFormJson();
 	}
+	
 
 	@Override
 	public JsonItem getJsonItem(T obj) {
