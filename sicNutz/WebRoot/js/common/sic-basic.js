@@ -352,7 +352,7 @@ var sic={
 };
 
 function userLogin(){
-	sic.common.submitForm($('#loginFormId'), 'login', function(){
+	sic.common.submitForm($('#loginFormId'), 'login.nut', function(){
 		window.location.reload();
 	}, false, true);
 }

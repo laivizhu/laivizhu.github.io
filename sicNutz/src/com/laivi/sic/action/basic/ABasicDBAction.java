@@ -2,8 +2,6 @@ package com.laivi.sic.action.basic;
 
 import java.lang.reflect.Field;
 
-import javax.servlet.http.HttpSession;
-
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;
@@ -48,9 +46,9 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 
 	@Override
 	@At
-	public Object list(@Param("::page.")Pager page,HttpSession session) throws Exception {
+	public Object list(@Param("::page.")Pager page) throws Exception {
 		if(cnd==null){
-			Cnd condition=this.getUserCnd(session);
+			Cnd condition=this.getUserCnd();
 			if(condition!=null){
 				cnd=condition.desc("createDate");
 			}else{

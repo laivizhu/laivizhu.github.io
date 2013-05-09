@@ -120,7 +120,7 @@
 			//});
 			//getDataList('information_getIndexList',$('#informationListId'));
 			//getDataList('posts_indexList.action',$('postsListId'));
-			getDataList('blog/article/list',$('#articleListId'));
+			getDataList('blog/article/list.nut',$('#articleListId'));
 			//getDataList('picture_indexList.action',$('pictureListId'));
 		}));
 		

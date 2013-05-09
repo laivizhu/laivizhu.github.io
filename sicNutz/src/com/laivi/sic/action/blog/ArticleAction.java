@@ -19,7 +19,7 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	@At
 	@CheckValue
 	public Response add(@Param("::article.")Article article,HttpSession session){
-		article.setUserId(this.getLoginUser(session).getUserId());
+		article.setUserId(this.getLoginUser().getUserId());
 		dao.insert(article);
 		return success();
 	}
@@ -44,9 +44,9 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	
 	
 	@At
-	public Object listAllTitle(HttpSession session){
+	public Object listAllTitle(){
 		JsonList jsonList=new JsonList();
-		this.cnd=this.getUserCnd(session);
+		this.cnd=this.getUserCnd();
 		for(Article article:dao.query(this.getEntityClass(), cnd)){
 			jsonList.add("\""+article.getTitle()+"\"");
 		}

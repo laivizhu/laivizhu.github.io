@@ -4,8 +4,6 @@
  */
 package com.laivi.sic.action.basic;
 
-import javax.servlet.http.HttpSession;
-
 import org.nutz.dao.pager.Pager;
 
 import com.laivi.sic.model.json.JsonItem;
@@ -19,7 +17,7 @@ public interface IBasicDBAction<T> extends IBasicAction{
 
 	Response delete(long id)throws Exception;
 	Response deletes(String ids)throws Exception;
-	Object list(Pager page,HttpSession session)throws Exception;
+	Object list(Pager page)throws Exception;
 	Object get(long id,boolean fold)throws Exception;
 	
 	Class<T> getEntityClass();

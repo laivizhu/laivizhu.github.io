@@ -72,8 +72,8 @@
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
 	<script type="text/javascript" src="../js/common/sic-basic.js"></script>
 	<script type="text/javascript">
-		$(document).ready(laivi.init(function(){
-			laivi.submitForm($("#userAddFormId"), 'user_add.action', function(){
+		$(document).ready(sic.basic.init(function(){
+			sic.common.submitForm($("#userAddFormId"), '../user/add.nut', function(){
 				window.location.href="../index.jsp";
 			}, false, false);
 		}));

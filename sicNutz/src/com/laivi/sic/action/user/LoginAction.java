@@ -10,14 +10,14 @@ import org.nutz.mvc.annotation.Param;
 import org.nutz.trans.Atom;
 import org.nutz.trans.Trans;
 
-import com.laivi.sic.action.basic.ABasicDBAction;
+import com.laivi.sic.action.basic.ADownloadAction;
 import com.laivi.sic.model.annotation.CheckValue;
 import com.laivi.sic.model.po.user.LoginUser;
 import com.laivi.sic.model.po.user.User;
 import com.laivi.sic.model.to.Response;
 
 @IocBean
-public class LoginAction extends ABasicDBAction<LoginUser> {
+public class LoginAction extends ADownloadAction<LoginUser> {
 
 	@At
 	public Response login(String account,String password,HttpSession session)throws Exception{

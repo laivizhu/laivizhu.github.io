@@ -1,8 +1,7 @@
 package com.laivi.sic.action.basic;
 
-import javax.servlet.http.HttpSession;
-
 import org.nutz.dao.Cnd;
+import org.nutz.mvc.Mvcs;
 
 import com.laivi.sic.model.constants.AppConstants;
 import com.laivi.sic.model.po.user.LoginUser;
@@ -23,20 +22,20 @@ public abstract class ABasicAction implements IBasicAction {
 		return new Response(false,msg);
 	}
 	
-	protected boolean isSys(HttpSession session){
-		LoginUser user=getLoginUser(session);
+	protected boolean isSys(){
+		LoginUser user=getLoginUser();
 		if(user!=null &&user.isSysIs()){
 			return true;
 		}
 		return false;
 	}
 	
-	protected LoginUser getLoginUser(HttpSession session){
-		return (LoginUser)session.getAttribute("user");
+	protected LoginUser getLoginUser(){
+		return (LoginUser)Mvcs.getHttpSession().getAttribute("user");
 	}
 	
-	protected long getUserId(HttpSession session){
-		LoginUser user=getLoginUser(session);
+	protected long getUserId(){
+		LoginUser user=getLoginUser();
 		if(user!=null){
 			return user.getId();
 		}else{
@@ -44,11 +43,15 @@ public abstract class ABasicAction implements IBasicAction {
 		}
 	}
 	
-	protected Cnd getUserCnd(HttpSession session){
+	protected Cnd getUserCnd(){
 		Cnd cnd=null;
-		if(this.isSys(session)){
-			cnd=Cnd.where("userId","=", this.getUserId(session));
+		if(this.isSys()){
+			cnd=Cnd.where("userId","=", this.getUserId());
 		}
 		return cnd;
+	}
+	
+	protected String getRealPath(String path){
+		return Mvcs.getServletContext().getRealPath(path);
 	}
 }
