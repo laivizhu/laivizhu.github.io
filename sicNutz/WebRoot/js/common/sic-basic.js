@@ -369,3 +369,17 @@ function userLogout(){
 	});
 }
 
+function deleteObject(url,msg){
+	var message;
+	if(msg==null){
+		message='确认要删除吗？';
+	}else{
+		message=msg;
+	}
+	sic.msg.confirm(message, function(){
+		sic.common.getJson(url, function(){
+			window.location.reload();
+		});
+	});
+}
+

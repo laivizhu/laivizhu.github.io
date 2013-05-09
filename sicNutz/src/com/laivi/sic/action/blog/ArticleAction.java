@@ -7,6 +7,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Param;
 
 import com.laivi.sic.action.basic.ABasicDBAction;
+import com.laivi.sic.model.annotation.CheckValue;
 import com.laivi.sic.model.json.JsonList;
 import com.laivi.sic.model.po.blog.Article;
 import com.laivi.sic.model.to.Response;
@@ -16,7 +17,9 @@ import com.laivi.sic.model.to.Response;
 public class ArticleAction extends ABasicDBAction<Article> {
 	
 	@At
-	public Response add(@Param("::article.")Article article){
+	@CheckValue
+	public Response add(@Param("::article.")Article article,HttpSession session){
+		article.setUserId(this.getLoginUser(session).getUserId());
 		dao.insert(article);
 		return success();
 	}
@@ -48,16 +51,6 @@ public class ArticleAction extends ABasicDBAction<Article> {
 			jsonList.add("\""+article.getTitle()+"\"");
 		}
 		return jsonList;
-	}
-	
-	@At
-	public Object getFold(long id,boolean fold)throws Exception{
-		Article obj=dao.fetch(this.getEntityClass(),id);
-		if(obj.toFormJson()==null){
-			return obj.toFormJson();
-		}else{
-			return obj.toJsonItem(fold).toJsonForm();
-		}
 	}
 
 	@Override

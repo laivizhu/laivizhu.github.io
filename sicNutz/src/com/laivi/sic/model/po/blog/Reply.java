@@ -1,10 +1,10 @@
 package com.laivi.sic.model.po.blog;
 
 import org.nutz.dao.entity.annotation.Table;
-import org.nutz.validation.annotation.Validations;
 
 import com.laivi.sic.model.po.basic.AUserEntity;
 import com.laivi.sic.model.type.TagType;
+import com.laivi.validation.Validations;
 
 @SuppressWarnings("serial")
 @Table("sic_reply")

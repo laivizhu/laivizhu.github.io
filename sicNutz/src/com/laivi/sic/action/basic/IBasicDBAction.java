@@ -17,15 +17,13 @@ import com.laivi.sic.model.to.Response;
  */
 public interface IBasicDBAction<T> extends IBasicAction{
 
-	Response add(T t) throws Exception;
 	Response delete(long id)throws Exception;
 	Response deletes(String ids)throws Exception;
-	Response update()throws Exception;
 	Object list(Pager page,HttpSession session)throws Exception;
-	Object get(long id)throws Exception;
+	Object get(long id,boolean fold)throws Exception;
 	
 	Class<T> getEntityClass();
 	
-	JsonItem getJsonItem(T obj);
+	JsonItem getJsonItem(T obj,boolean fold);
 	
 }

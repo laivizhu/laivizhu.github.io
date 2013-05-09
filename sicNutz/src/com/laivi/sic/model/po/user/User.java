@@ -3,9 +3,9 @@ package com.laivi.sic.model.po.user;
 import org.nutz.dao.entity.annotation.ColDefine;
 import org.nutz.dao.entity.annotation.ColType;
 import org.nutz.dao.entity.annotation.Table;
-import org.nutz.validation.annotation.Validations;
 
 import com.laivi.sic.model.po.basic.ABasicEntity;
+import com.laivi.validation.Validations;
 
 @SuppressWarnings("serial")
 @Table("sic_user")

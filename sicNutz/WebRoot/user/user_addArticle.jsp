@@ -25,17 +25,14 @@
       	<h2 id="titleContentId"></h2>
       		<form action="article_add.action" id="articleAddFormId">
       			<input type="text" class="input-block-level" name="article.title" id="titleFormFieldId">
-      			<select  name="article.tagIds" id="tagIdsFormFieldId">
+      			<select  name="article.tagId" id="tagIdFormFieldId">
       				<option value='0'>--请选择--</option>
       			</select>
       			<textarea rows="17" style="width:100%" name="article.content" id='articleContentId'></textarea>
       			<div align='center'><p><button type="reset" class="btn btn-warning">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">提交</button></p></div>
       		</form>
       </div>
-		
-
       <hr>
-
       <footer>
       	  <p class="pull-right"><a href="#">Back to top</a></p>
 	      <div align="center">
@@ -43,9 +40,7 @@
 	      	<p><a href="mailto:laivi.zhu@gmail.com">联系我们:laivi.zhu@gmail.com</a></p>
 	      </div>
       </footer>
-
     </div>
-    
     
     <script type="text/javascript" src="../js/jquery/jquery-1.8.2.js"></script>
 	<script type="text/javascript" src="../js/jquery/jquery.form.js"></script>
@@ -70,24 +65,22 @@
 			var id=sic.basic.getUrlVar('id');
 			if(id!=null&&id!=0){
 				$("#titleContentId").html("修改博文");
-				sic.common.setFormVaule('/blog/article/get/?id='+id,true,function(result){
+				sic.common.setFormVaule('../blog/article/get?id='+id,true,function(result){
 					editor.html(result.data.content);
-                    sic.common.comboList($("#tagIdsFormFieldId"), '../tag/comboList?tag.type=ARTICLE',function(){
-                        $("#tagIdsFormFieldId").val(result.data.tagIds);
+                    sic.common.comboList($("#tagIdFormFieldId"), '../tag/comboList?tag.type=ARTICLE',function(){
+                        $("#tagIdFormFieldId").val(result.data.tag.id);
                     });
 				});
 				sic.common.submitForm($("#articleAddFormId"), '../blog/article/update?id='+id, function(){
 					window.location.href="user_article.jsp";
 				}, false, false);
 			}else{
-
 				$("#titleContentId").html("发表博文");
-                sic.common.comboList($("#tagIdsFormFieldId"), '../tag/comboList?tag.type=ARTICLE');
+                sic.common.comboList($("#tagIdFormFieldId"), '../tag/comboList?tag.type=ARTICLE');
 				sic.common.submitForm($("#articleAddFormId"), '../blog/article/add', function(){
 					window.location.href="user_article.jsp";
 				}, false, false);
 			}
-			
 		}));
 	</script>
   </body>

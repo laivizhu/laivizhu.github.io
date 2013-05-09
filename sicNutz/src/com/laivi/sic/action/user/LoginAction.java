@@ -9,7 +9,6 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.trans.Atom;
 import org.nutz.trans.Trans;
-import org.nutz.validation.Errors;
 
 import com.laivi.sic.action.basic.ABasicDBAction;
 import com.laivi.sic.model.annotation.CheckValue;
@@ -41,8 +40,7 @@ public class LoginAction extends ABasicDBAction<LoginUser> {
 	
 	@At
 	@CheckValue
-	public Response regiest(@Param("::loginUser.") final LoginUser loginUser,@Param("::user.") final User user,Errors es){
-		System.out.println("error count="+es.errorCount());
+	public Response regiest(@Param("::loginUser.") final LoginUser loginUser,@Param("::user.") final User user){
 		Trans.exec(new Atom(){
 			@Override
 			public void run() {

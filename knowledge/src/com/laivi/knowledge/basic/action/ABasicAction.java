@@ -83,7 +83,4 @@ public abstract class ABasicAction<T extends BasicEntity> extends BasicAction<T>
 	public T getNewObject() {
 		return null;
 	}
-	
-	
-
 }

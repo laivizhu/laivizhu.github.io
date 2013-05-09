@@ -8,22 +8,14 @@ import com.laivi.sic.model.po.basic.AUserEntity;
 @Table("sic_knowledge")
 public class Knowledge extends AUserEntity {
 	
-	private String name;
+	private String title;
 	
 	private String question;
 	
 	private String answer;
 	
 	private long tagId;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
 	public String getQuestion() {
 		return question;
 	}
@@ -48,5 +40,11 @@ public class Knowledge extends AUserEntity {
 		this.tagId = tagId;
 	}
 
+	public String getTitle() {
+		return title;
+	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }

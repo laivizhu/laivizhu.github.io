@@ -14,6 +14,7 @@ import com.laivi.sic.model.type.Status;
 public class Message extends AUserEntity {
 	
 	private long toUserId;
+	
 
 	@ColDefine(type=ColType.VARCHAR, width=500)
 	private String content;
