@@ -363,7 +363,7 @@ function userRegiest(){
 
 function userLogout(){
 	sic.msg.confirm('确认要注销吗？', function(){
-		sic.common.getJson('logout', function(){
+		sic.common.getJson('logout.nut', function(){
 			window.location.href="/sicNutz/index.jsp";
 		});
 	});

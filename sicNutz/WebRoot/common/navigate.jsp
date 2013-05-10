@@ -50,7 +50,7 @@
             	<c:when test="${user==null}">
             		<div>
 					    <form id="loginFormId" class="navbar-form pull-right" action="user_login.action">
-			              <input class="input-medium" type="text" name="account" placeholder="Email">
+			              <input class="input-medium" type="text" name="email" placeholder="Email">
 			              <input class="input-medium" type="password" name="password" placeholder="Password">
 			              <button type="button" class="btn btn-small" onclick="userLogin()">Login</button>
 			              <button type="button" class="btn btn-small" onclick="userRegiest()">Create New</button>

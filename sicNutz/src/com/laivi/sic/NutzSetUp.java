@@ -12,6 +12,7 @@ import org.nutz.resource.Scans;
 import com.laivi.sic.model.po.blog.Tag;
 import com.laivi.sic.model.po.user.LoginUser;
 import com.laivi.sic.model.po.user.Role;
+import com.laivi.sic.model.po.user.User;
 import com.laivi.sic.model.type.TagType;
 
 public class NutzSetUp implements Setup{
@@ -26,6 +27,14 @@ public class NutzSetUp implements Setup{
 			if(null!=klass.getAnnotation(Table.class)){
 				dao.create(klass, false);
 			}
+		}
+		
+		if(dao.count(User.class)==0){
+			User user=new User();
+			user.setName("laivi");
+			user.setDescription("laivi");
+			user.setRoleIds("1");
+			dao.insert(user);
 		}
 		
 		if(dao.count(LoginUser.class)==0){

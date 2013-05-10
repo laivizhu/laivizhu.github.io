@@ -20,12 +20,12 @@ import com.laivi.sic.model.to.Response;
 public class LoginAction extends ADownloadAction<LoginUser> {
 
 	@At
-	public Response login(String account,String password,HttpSession session)throws Exception{
-		if(Strings.isBlank(account)|| Strings.isBlank(password))
+	public Response login(String email,String password,HttpSession session)throws Exception{
+		if(Strings.isBlank(email)|| Strings.isBlank(password))
 			return failure("账号和密码不能为空");
-		account=account.trim().intern();
+		email=email.trim().intern();
 		password=password.trim().intern();
-		LoginUser user=dao.fetch(LoginUser.class,Cnd.where("email","=",account).and("password","=",password));
+		LoginUser user=dao.fetch(LoginUser.class,Cnd.where("email","=",email).and("password","=",password));
 		if(user==null)
 			return failure("账号或密码错误");
 		session.setAttribute("user", user);
