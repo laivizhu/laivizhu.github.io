@@ -21,6 +21,7 @@ public class NutzSetUp implements Setup{
 
 	@Override
 	public void init(NutConfig config) {
+		//Mvcs.getNutConfig().getIoc();
 		log.debug("config Ioc=="+config.getIoc());
 		Dao dao=config.getIoc().get(Dao.class);
 		for (Class<?> klass : Scans.me().scanPackage("com.laivi.sic.model.po")) {
