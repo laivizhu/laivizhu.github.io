@@ -7,5 +7,7 @@ public interface IUserEntity extends IBasicDBEntity{
 	public long getUserId();
 	
 	public Date getCreateDate();
+	
+	public void setUserId(long userId);
 
 }

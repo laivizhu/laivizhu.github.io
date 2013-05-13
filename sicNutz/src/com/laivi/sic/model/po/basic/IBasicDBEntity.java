@@ -14,5 +14,9 @@ public interface IBasicDBEntity extends IJsonEntity{
 	
 	long getId();
 	
+	boolean isDeleteIs();
+	
+	void setDeleteIs(boolean deleteIs);
+	
 	
 }

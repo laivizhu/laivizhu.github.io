@@ -11,6 +11,8 @@ public abstract class ABasicEntity implements IJsonEntity,IBasicDBEntity {
 	@Id
 	protected long id;
 	
+	protected boolean deleteIs;
+	
 	@Override
 	public FormData toFormJson() {
 		return new FormData(true,this);
@@ -27,5 +29,13 @@ public abstract class ABasicEntity implements IJsonEntity,IBasicDBEntity {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public boolean isDeleteIs() {
+		return deleteIs;
+	}
+
+	public void setDeleteIs(boolean deleteIs) {
+		this.deleteIs = deleteIs;
 	}
 }

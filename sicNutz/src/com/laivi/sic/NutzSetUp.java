@@ -13,7 +13,7 @@ import com.laivi.sic.model.po.blog.Tag;
 import com.laivi.sic.model.po.user.LoginUser;
 import com.laivi.sic.model.po.user.Role;
 import com.laivi.sic.model.po.user.User;
-import com.laivi.sic.model.type.TagType;
+import com.laivi.sic.model.type.CategoryType;
 
 public class NutzSetUp implements Setup{
 	
@@ -43,6 +43,7 @@ public class NutzSetUp implements Setup{
 			user.setEmail("laivi.zhu@gmail.com");
 			user.setPassword("laivi");
 			user.setUidendity("laivi.zhu@gmail.com");
+			user.setUserId(1);
 			dao.insert(user);
 		}
 		
@@ -62,10 +63,18 @@ public class NutzSetUp implements Setup{
 		}
 		
 		if(dao.count(Tag.class)==0){
-			Tag tag=new Tag();
-			tag.setName("情感");
-			tag.setType(TagType.ARTICLE);
-			dao.insert(tag);
+			Tag[] tags=new Tag[2];
+			tags[0]=new Tag();
+			tags[0].setName("情感");
+			tags[0].setType(CategoryType.ARTICLE);
+			
+			tags[1]=new Tag();
+			tags[1].setName("java");
+			tags[1].setType(CategoryType.KNOWLEDGE);
+			for(Tag tag:tags){
+				dao.insert(tag);
+			}
+			
 		}
 		
 		/*if(dao.count(Message.class)==0){

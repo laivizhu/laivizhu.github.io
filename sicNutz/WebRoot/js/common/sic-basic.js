@@ -7,6 +7,7 @@ var sicValue={
 };
 
 var sic={
+		//**********************************************基本函数处理**********************************************
 		basic:{
 			init:function(otherHandler){
 				$(window).scroll(function(){
@@ -59,6 +60,7 @@ var sic={
 		        return null;
 		    }
 		},
+		//**********************************************消息函数处理**********************************************
 		msg:{
 			alert:function(msg,tip){
 				$.jBox.alert(msg, tip||'提示');
@@ -82,6 +84,7 @@ var sic={
 				$.jBox.tip(title, 'loading');
 			},
 		},
+		//**********************************************后台请求函数处理**********************************************
 		common:{
 			jumpToTop:function(speed){
 				var defaultSpeed=1000;
@@ -97,7 +100,9 @@ var sic={
 				}
 				$.getJSON(url,params,function(result){
 					if(result.success){
-						successHandler(result);
+						if(successHandler!=null){
+							successHandler(result);
+						}
 						$.jBox.closeTip();
 					}else{
 						sic.msg.error(result.msg);
@@ -194,6 +199,7 @@ var sic={
 					return true;
 				}
 			},
+			
 			comboList:function(combo,url,successHandler){					//在下拉框中设置从后台获取的数据
 				url=sic.basic.getRandParamUrl(url);
 				$.getJSON(url,function(data){
@@ -207,6 +213,7 @@ var sic={
 				});
 			}
 		},
+		//**********************************************分页加载数据函数处理**********************************************
 		pageLoding:{
 			getScrollOnceData:function(url,start,obj,getDataDiv){
 				if(url.indexOf('?')!=-1){
@@ -285,6 +292,7 @@ var sic={
 		        });
 		    }
 		},
+		//**********************************************插件函数处理**********************************************
 		plug:{
 			getSoundManager:function(soundurl){
 				soundManager = new SoundManager();
@@ -350,7 +358,7 @@ var sic={
 			}
 		}
 };
-
+//**********************************************登入，注册，注销函数处理**********************************************
 function userLogin(){
 	sic.common.submitForm($('#loginFormId'), 'login.nut', function(){
 		window.location.reload();
@@ -369,6 +377,7 @@ function userLogout(){
 	});
 }
 
+//**********************************************删除对象处理**********************************************
 function deleteObject(url,msg){
 	var message;
 	if(msg==null){
@@ -380,6 +389,29 @@ function deleteObject(url,msg){
 		sic.common.getJson(url, function(){
 			window.location.reload();
 		});
+	});
+}
+
+
+//**********************************************添加收藏处理**********************************************
+function addFavorite(type,name){
+	var title;
+	if(name==null){
+		title=$('#titleFormFieldId').html();
+	}else{
+		title=$('#'+name).html();
+	}
+	sic.common.getJson('../common/favorite/add.nut', function(){
+		sic.msg.alert('添加收藏成功');
+		var value=$('#favoriteButtonId').html();
+		$('#favoriteButtonId').html('收藏('+(parseInt(value.substring(value.indexOf('(')+1,value.indexOf(')')))+1)+')');
+		$('#favoriteButtonId').addClass('disabled');
+		$('#favoriteButtonId').attr('disabled',true);
+	},false,{
+		'font':true,
+		'favorite.title':title,
+		'favorite.type':type,
+		'favorite.url':window.location.href
 	});
 }
 

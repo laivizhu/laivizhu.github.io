@@ -1,5 +1,7 @@
 package com.laivi.sic.model.po.blog;
 
+import org.nutz.dao.entity.annotation.ColDefine;
+import org.nutz.dao.entity.annotation.ColType;
 import org.nutz.dao.entity.annotation.Table;
 
 import com.laivi.sic.model.po.basic.AUserEntity;
@@ -10,6 +12,7 @@ import com.laivi.validation.Validations;
 public class Article extends AUserEntity {
 	
 	@Validations(required=true,strLen={1,200},errorMsg="文章题目不能为空")
+	@ColDefine(type=ColType.VARCHAR, width=255)
 	private String title;
 	
 	@Validations(required=true,errorMsg="文章内容不能为空")

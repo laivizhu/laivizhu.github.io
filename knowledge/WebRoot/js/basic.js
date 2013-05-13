@@ -440,7 +440,6 @@ function addFavorite(type,name){
 		'favorite.type':type,
 		'favorite.url':window.location.href
 	});
-	
 }
 
 function userLogout(){

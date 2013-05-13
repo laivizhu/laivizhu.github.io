@@ -1,10 +1,13 @@
 package com.laivi.sic.model.type;
 
 import com.laivi.sic.model.po.blog.Tag;
+import com.laivi.sic.model.po.media.Album;
+import com.laivi.sic.model.po.media.Book;
+import com.laivi.sic.model.po.media.Chapter;
 import com.laivi.sic.model.po.user.User;
 
 public enum IMOType {
-	USER("userId",User.class),TAG("tagId",Tag.class);
+	USER("userId",User.class),TAG("tagId",Tag.class),ALBUM("albumId",Album.class),BOOK("bookId",Book.class),CHAPTER("chapterId",Chapter.class);
 	
 	private final String id;
 	private final Class<?> klass;
@@ -28,6 +31,6 @@ public enum IMOType {
 				return type;
 			}
 		}
-		throw new IllegalArgumentException("not support id: " + id);
+		return null;
 	}
 }

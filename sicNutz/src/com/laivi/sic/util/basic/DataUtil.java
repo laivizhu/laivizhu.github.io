@@ -122,7 +122,7 @@ public class DataUtil {
 	}
 
 	public static boolean notEmptyString(String value) {
-		if (value != null && !"".endsWith(value)) {
+		if (value != null && !"".equals(value)) {
 			return true;
 		} else {
 			return false;

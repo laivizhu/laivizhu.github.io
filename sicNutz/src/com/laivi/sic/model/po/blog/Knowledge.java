@@ -3,15 +3,19 @@ package com.laivi.sic.model.po.blog;
 import org.nutz.dao.entity.annotation.Table;
 
 import com.laivi.sic.model.po.basic.AUserEntity;
+import com.laivi.validation.Validations;
 
 @SuppressWarnings("serial")
 @Table("sic_knowledge")
 public class Knowledge extends AUserEntity {
 	
+	@Validations(required=true,errorMsg="知识标题不能为空")
 	private String title;
 	
+	@Validations(required=true,errorMsg="知识问题不能为空")
 	private String question;
 	
+	@Validations(required=true,errorMsg="知识答案不能为空")
 	private String answer;
 	
 	private long tagId;

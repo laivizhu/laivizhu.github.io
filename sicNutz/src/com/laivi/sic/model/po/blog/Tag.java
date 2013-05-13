@@ -3,7 +3,7 @@ package com.laivi.sic.model.po.blog;
 import org.nutz.dao.entity.annotation.Table;
 
 import com.laivi.sic.model.po.basic.AUserEntity;
-import com.laivi.sic.model.type.TagType;
+import com.laivi.sic.model.type.CategoryType;
 
 @SuppressWarnings("serial")
 @Table("sic_tag")
@@ -11,7 +11,7 @@ public class Tag extends AUserEntity {
 
 	private String name;
 	
-	private TagType type;
+	private CategoryType type;
 
 	public String getName() {
 		return name;
@@ -21,11 +21,11 @@ public class Tag extends AUserEntity {
 		this.name = name;
 	}
 
-	public TagType getType() {
+	public CategoryType getType() {
 		return type;
 	}
 
-	public void setType(TagType type) {
+	public void setType(CategoryType type) {
 		this.type = type;
 	}
 

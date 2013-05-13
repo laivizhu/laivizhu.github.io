@@ -30,18 +30,11 @@
 				   <button class="btn btn-small" href="#"><i class="icon-share"></i>分享</button>
 				   <button class="btn btn-small" onclick="fromOther('ARTICLE',1)" id='fromOtherButtonId'><i class="icon-share-alt"></i>转载</button>
 				</p>
-		</div>
+			</div>
         	<p><label id="contentFormFieldId"></label></p>
 		</div>
 		<div class="span12" align="center">
 			<div id="articleStarDivId"></div>
-		</div>
-		<div class="span12" align="right">
-				<p>
-				   <button class="btn btn-small" onclick="addFavorite('ARTICLE')" id='favoriteButtonId'><i class="icon-heart"></i>收藏</button>
-				   <button class="btn btn-small" href="#"><i class="icon-share"></i>分享</button>
-				   <button class="btn btn-small" onclick="fromOther('ARTICLE',1)" id='fromOtherButtonId'><i class="icon-share-alt"></i>转载</button>
-				</p>
 		</div>
         <div class="span12">
             <h3>文章推荐</h3>
@@ -59,7 +52,7 @@
 		
 		<div class="span12">
 			<form class="form-horizontal" id="replyFormId">
-				<textarea rows="10" style="width:100%" name="reply.context" id='replyContentId'></textarea>
+				<textarea rows="10" style="width:100%" name="reply.content" id='replyContentId'></textarea>
 				<div align='right'><p><button type="reset" class="btn btn-warning">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">提交</button></p></div>
 			</form>
 		</div>
@@ -81,39 +74,28 @@
     <script type="text/javascript" src="../js/jquery/jquery.jBox-2.3.min.js"></script>
 	<script type="text/javascript" src="../js/jquery/jquery.jBox-zh-CN.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
-	<script  src="../kindeditor/kindeditor-min.js"></script>
-	<script  src="../kindeditor/lang/zh_CN.js"></script>
 	<script type="text/javascript" src="../js/plug/raty/jquery.raty.js"></script>
 	<script type="text/javascript" src="../js/common/sic-basic.js"></script>
 	<script type="text/javascript">
 		$(document).ready(sic.basic.init(function(){
 			var articleId=sic.basic.getUrlVar("id");
 			$('#idFormFieldId').val(articleId);
-			var editor;
-			KindEditor.ready(function(K) {
-				editor = K.create('textarea[id="replyContentId"]', {
-					resizeType : 1,
-					allowPreviewEmoticons : false,
-					allowImageUpload : false,
-					items : [
-						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
-						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-						'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
-					afterBlur:function(){
-						this.sync();
-					}
-				});
+			sic.common.setFormVaule("../blog/article/get.nut?id="+articleId, false);
+			sic.common.getJson("../common/favorite/getFavoriteCount.nut?url="+window.location.href,function(result){
+				$("#favoriteButtonId").html("收藏("+result.data.count+")");
+				if(result.data.isFavorited){
+					$('#favoriteButtonId').addClass('disabled');
+					$('#favoriteButtonId').attr('disabled',true);
+				}
 			});
-			sic.common.setFormVaule("/blog/article/get?id="+articleId, false);
-            sic.common.getJson("/blog/article/addViewCount.action?id="+articleId);
-            sic.pageLoding.pageLoad('/reply/list?id='+articleId,$("#replyListDivId"),function(item){
-                 return "<div class='span12'><p>"+item.context+"</p><div align='right'><p><a onclick=deleteObject('/reply/delete.action?id="+item.id+"')>删除</a>|"+item.createDate+"|"+item.user+"</p></div></div>";
+            sic.common.getJson("../blog/article/addViewCount.nut?id="+articleId);
+            sic.pageLoding.pageLoad('../reply/listByType.nut?reply.type=ARTICLE&reply.objId='+articleId,$("#replyListDivId"),function(item){
+                 return "<div class='span12'><p>"+item.content+"</p><div align='right'><p><a class='btn btn-warning' onclick=deleteObject('../reply/delete.nut?id="+item.id+"')>删除</a>|"+item.createDate+"|"+item.user.name+"</p></div></div>";
             });
-			sic.common.submitForm($("#replyFormId"), '/reply/add?reply.articleId='+articleId, function(){
+			sic.common.submitForm($("#replyFormId"), '../reply/add.nut?reply.type=ARTICLE&reply.objId='+articleId, function(){
 				window.location.reload();
 			}, false, false);
-			plug.raty('#articleStarDivId','/score/get?score.type=ARTICLE&score.objectId='+articleId, '/score/add?score.type=ARTICLE&score.objectId='+articleId);
-
+			sic.plug.raty('#articleStarDivId','../score/getScore.nut?score.type=ARTICLE&score.objectId='+articleId, '../score/add.nut?score.type=ARTICLE&score.objectId='+articleId);
 		}));
 	</script>
   </body>

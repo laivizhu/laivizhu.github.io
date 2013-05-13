@@ -1,12 +1,11 @@
 package com.laivi.sic.action.blog;
 
-import javax.servlet.http.HttpSession;
-
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Param;
 
 import com.laivi.sic.action.basic.ABasicDBAction;
+import com.laivi.sic.model.annotation.CheckLogin;
 import com.laivi.sic.model.annotation.CheckValue;
 import com.laivi.sic.model.json.JsonList;
 import com.laivi.sic.model.po.blog.Article;
@@ -18,18 +17,21 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	
 	@At
 	@CheckValue
-	public Response add(@Param("::article.")Article article,HttpSession session){
+	@CheckLogin
+	public Response add(@Param("::article.")Article article){
 		article.setUserId(this.getLoginUser().getUserId());
 		dao.insert(article);
 		return success();
 	}
 	
 	@At
+	@CheckValue
 	public Response update(@Param("::article.")Article article){
 		Article dArticle=dao.fetch(this.getEntityClass(), article.getId());
 		dArticle.setContent(article.getContent());
 		dArticle.setTitle(article.getTitle());
 		dArticle.setTagId(article.getTagId());
+		//this.updateValue(article, dArticle);
 		dao.update(dArticle);
 		return success();
 	}
