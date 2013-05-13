@@ -39,10 +39,12 @@ public class CrawlerTest {
 	@Test
 	public void crawlerArticle(){
 		Crawler crawler = new Crawler();
-        List<Article> articles=crawler.crawlingArticle(new String[]{"http://www.timetimetime.net/yulu/","http://www.timetimetime.net/yuedu/"},new LinkFilter(){
+        List<Article> articles=crawler.crawlingArticle(new String[]{"http://www.timetimetime.net/yulu/",
+        		"http://www.timetimetime.net/yuedu/","http://www.timetimetime.net/shenghuo/"},new LinkFilter(){
         	public  boolean accept(String url) {
         		if (url.matches("http://www.timetimetime.net/yuedu/[\\d]+.html")
-        			|| url.matches("http://www.timetimetime.net/yulu/[\\d]+.html")) {
+        			|| url.matches("http://www.timetimetime.net/yulu/[\\d]+.html")
+        			|| url.matches("http://www.timetimetime.net/shenghuo/[\\d]+.html")) {
         			return true;
         		} else {
         			return false;
@@ -55,6 +57,10 @@ public class CrawlerTest {
         	if(basicService.getCount(Article.class, conditions)>0){
         		continue;
         	}else{
+        		if(article.getTagIds()!=null && !"".equals(article.getTagIds())){
+        			basicService.add(article);
+        			continue;
+        		}
         		boolean isFound=false;
         		String[] loveKey=new String[]{"爱情","情感","你","喜欢","心","眼泪"};
         		String[] lifeKey=new String[]{"生活","职场","人生"};

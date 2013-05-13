@@ -31,6 +31,9 @@ public class ArticleParser {
 		try {
 			parser=new Parser(url);
 			parser.setEncoding("utf-8");
+			if(url.indexOf("shenghuo")!=-1){
+				article.setTagIds("6");
+			}
 			NodeFilter contentFilter=new AndFilter(new TagNameFilter("td"),new HasAttributeFilter("class","neiz1"));
 			article.setTitle(getTitle(parser,filter));
 			parser.reset();

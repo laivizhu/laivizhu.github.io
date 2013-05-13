@@ -26,9 +26,9 @@
 			<h2 id="titleFormFieldId"></h2>
 			<div class="span12" align="right">
 				<p>
-				   <button class="btn btn-small" onclick="addFavorite('ARTICLE')" id='favoriteButtonId'><i class="icon-heart"></i>收藏</button>
-				   <button class="btn btn-small" href="#"><i class="icon-share"></i>分享</button>
-				   <button class="btn btn-small" onclick="fromOther('ARTICLE',1)" id='fromOtherButtonId'><i class="icon-share-alt"></i>转载</button>
+				   <button class="btn btn-small" onclick="fromOther('ARTICLE','favoriteButtonId','收藏',0)" id='favoriteButtonId'><i class="icon-heart"></i>收藏</button>
+				   <button class="btn btn-small" onclick="fromOther('ARTICLE','shareButtonId','分享',1)" id="shareButtonId"><i class="icon-share"></i>分享</button>
+				   <button class="btn btn-small" onclick="fromOther('ARTICLE','fromOtherButtonId','转载',2)" id='fromOtherButtonId'><i class="icon-share-alt"></i>转载</button>
 				</p>
 			</div>
         	<p><label id="contentFormFieldId"></label></p>

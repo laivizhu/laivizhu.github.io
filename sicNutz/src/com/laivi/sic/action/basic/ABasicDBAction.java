@@ -26,7 +26,7 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	
 	@Inject
 	protected Dao dao;
-	
+
 	protected Condition cnd=null;
 
 	@Override
@@ -126,9 +126,14 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 
 	@Override
 	public JsonItem getJsonItem(T obj,boolean fold) {
+		return getJsonItem(this.getEntityClass(),obj,fold);
+	}
+	
+	@Override
+	public JsonItem getJsonItem(Class<T> klass, Object obj, boolean fold) {
 		JsonItem item=new JsonItem();
-		Field[] fields=DataUtil.appendArray(this.getEntityClass().getSuperclass().getDeclaredFields(), this.getEntityClass().getSuperclass().getSuperclass().getDeclaredFields());
-		for(Field field:DataUtil.appendArray(this.getEntityClass().getDeclaredFields(), fields)){
+		Field[] fields=DataUtil.appendArray(klass.getSuperclass().getDeclaredFields(), klass.getSuperclass().getSuperclass().getDeclaredFields());
+		for(Field field:DataUtil.appendArray(klass.getDeclaredFields(), fields)){
 			boolean accessFlag = field.isAccessible();
 			field.setAccessible(true);
 			String fieldName=field.getName();

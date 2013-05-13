@@ -415,3 +415,18 @@ function addFavorite(type,name){
 	});
 }
 
+
+function fromOther(type,buttonid,tip,flag){
+	sic.msg.confirm('确认要'+tip+'吗？', function(){
+		sic.common.getJson('../common/fromOther/add.nut', function(){
+			sic.msg.alert(tip+'成功');
+			$('#'+buttonid).addClass('disabled');
+			$('#'+buttonid).attr('disabled',true);
+		},false,{
+			'fromOther.objId':$('#idFormFieldId').val(),
+			'fromOther.type':type,
+			'flag':flag
+		});
+	});
+}
+
