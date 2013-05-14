@@ -8,6 +8,7 @@ import com.laivi.sic.model.type.CategoryType;
 @SuppressWarnings("serial")
 @Table("sic_fromother")
 public class FromOther extends AUserEntity {
+	private boolean selfIs;
 	
 	private boolean shareIs;
 	
@@ -57,5 +58,13 @@ public class FromOther extends AUserEntity {
 
 	public void setFavoriteIs(boolean favoriteIs) {
 		this.favoriteIs = favoriteIs;
+	}
+
+	public boolean isSelfIs() {
+		return selfIs;
+	}
+
+	public void setSelfIs(boolean selfIs) {
+		this.selfIs = selfIs;
 	}
 }

@@ -81,13 +81,7 @@
 			var articleId=sic.basic.getUrlVar("id");
 			$('#idFormFieldId').val(articleId);
 			sic.common.setFormVaule("../blog/article/get.nut?id="+articleId, false);
-			sic.common.getJson("../common/favorite/getFavoriteCount.nut?url="+window.location.href,function(result){
-				$("#favoriteButtonId").html("收藏("+result.data.count+")");
-				if(result.data.isFavorited){
-					$('#favoriteButtonId').addClass('disabled');
-					$('#favoriteButtonId').attr('disabled',true);
-				}
-			});
+			sic.fromOther.getFromOther(articleId,'ARTICLE');
             sic.common.getJson("../blog/article/addViewCount.nut?id="+articleId);
             sic.pageLoding.pageLoad('../reply/listByType.nut?reply.type=ARTICLE&reply.objId='+articleId,$("#replyListDivId"),function(item){
                  return "<div class='span12'><p>"+item.content+"</p><div align='right'><p><a class='btn btn-warning' onclick=deleteObject('../reply/delete.nut?id="+item.id+"')>删除</a>|"+item.createDate+"|"+item.user.name+"</p></div></div>";

@@ -1,5 +1,8 @@
 package com.laivi.sic.action.blog;
 
+import org.nutz.dao.Cnd;
+import org.nutz.dao.Condition;
+import org.nutz.dao.pager.Pager;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Param;
@@ -9,6 +12,7 @@ import org.nutz.trans.Trans;
 import com.laivi.sic.action.basic.ABasicDBAction;
 import com.laivi.sic.model.annotation.CheckLogin;
 import com.laivi.sic.model.annotation.CheckValue;
+import com.laivi.sic.model.json.JsonItem;
 import com.laivi.sic.model.json.JsonList;
 import com.laivi.sic.model.po.blog.Article;
 import com.laivi.sic.model.po.common.FromOther;
@@ -32,6 +36,7 @@ public class ArticleAction extends ABasicDBAction<Article> {
 				fromOther.setObjId(article.getId());
 				fromOther.setUserId(article.getUserId());
 				fromOther.setType(CategoryType.ARTICLE);
+				fromOther.setSelfIs(true);
 				dao.insert(fromOther);
 			}
 			
@@ -67,6 +72,36 @@ public class ArticleAction extends ABasicDBAction<Article> {
 		for(Article article:dao.query(this.getEntityClass(), cnd)){
 			jsonList.add("\""+article.getTitle()+"\"");
 		}
+		return jsonList;
+	}
+	
+	@Override
+	@At
+	public Object getAll(@Param("::page.")Pager page){
+		return list(page,Cnd.where("deleteIs","=", false).and("type", "=",CategoryType.ARTICLE).and("selfIs", "=", true).desc("createDate"));
+	}
+
+	@Override
+	@At
+	public Object list(@Param("::page.")Pager page) throws Exception {
+		Cnd condition=this.getBasicCnd().and("type", "=",CategoryType.ARTICLE);
+		if(this.isSys()){
+			this.cnd= condition.and("selfIs", "=", true).desc("createDate");
+		}else{
+			this.cnd= condition.desc("createDate");
+		}
+		return list(page,cnd);
+	}
+
+	@Override
+	protected JsonList list(Pager page, Condition cnd) {
+		JsonList jsonList=new JsonList();
+		for(FromOther obj:dao.query(FromOther.class, cnd, page)){
+			JsonItem item=this.getJsonItem(FromOther.class,obj,true);
+			item.add("article", this.getJsonItem(dao.fetch(Article.class, obj.getObjId()), true));
+			jsonList.add(item);
+		}
+		jsonList.setTotalProperty(dao.count(FromOther.class, cnd));
 		return jsonList;
 	}
 

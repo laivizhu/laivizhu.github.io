@@ -27,9 +27,9 @@
 			<h2 align="center" id="titleFormFieldId"></h2>
             <hr>
             <div class="span12" align="right">
-				<p><button class="btn btn-small" onclick="addFavorite('KNOWLEDGE')" id='favoriteButtonId'><i class="icon-heart"></i>收藏</button>
-				   <button class="btn btn-small" href="#"><i class="icon-share"></i>分享</button>
-				   <button class="btn btn-small" href="#"><i class="icon-share-alt"></i>转载</button>
+				<p><button class="btn btn-small" onclick="fromOther('KNOWLEDGE','favoriteButtonId','收藏',0)" id='favoriteButtonId'><i class="icon-heart"></i>收藏</button>
+				   <button class="btn btn-small" onclick="fromOther('KNOWLEDGE','shareButtonId','分享',1)" id="shareButtonId"><i class="icon-share"></i>分享</button>
+				   <button class="btn btn-small"onclick="fromOther('KNOWLEDGE','fromOtherButtonId','转载',2)" id="fromOtherButtonId"><i class="icon-share-alt"></i>转载</button>
 				</p>
 			</div>
             <h3>问题描述</h3>
@@ -61,13 +61,7 @@
 			var knowledgeId=sic.basic.getUrlVar("id");
 			$('#idFormFieldId').val(knowledgeId);
 			sic.common.setFormVaule("../blog/knowledge/get.nut?font=true&id="+knowledgeId, false);
-			sic.common.getJson("../common/favorite/getFavoriteCount.nut?url="+window.location.href,function(result){
-				$("#favoriteButtonId").html("收藏("+result.data.count+")");
-				if(result.data.isFavorited){
-					$('#favoriteButtonId').addClass('disabled');
-					$('#favoriteButtonId').attr('disabled',true);
-				}
-			});
+			sic.fromOther.getFromOther(knowledgeId,'KNOWLEDGE');
 		}));
 	</script>
   </body>

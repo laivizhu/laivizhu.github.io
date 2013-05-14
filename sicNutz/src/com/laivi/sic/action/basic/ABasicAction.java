@@ -83,8 +83,8 @@ public abstract class ABasicAction implements IBasicAction {
 	
 	protected Cnd getUserCnd(){
 		Cnd cnd=null;
-		if(this.isSys()){
-			cnd=Cnd.where("userId","=", this.getLoginUserId());
+		if(!this.isSys()){
+			cnd=Cnd.where("userId","=",this.getUserId());
 		}
 		return cnd;
 	}

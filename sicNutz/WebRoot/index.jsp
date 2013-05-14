@@ -104,8 +104,11 @@
 		var getDataList=function(url,obj){
 			sic.common.getJson(url, function(result){
 				$.each(result.root,function(i,item){
-					obj.append("<tr><td align='left'><a href='"+item.url+"'>"+item.title+"</a></td><td align='right'>"+item.createDate+"</td></tr>");
+					obj.append("<tr><td align='left'><a href='"+item.url+"'>"+item.article.title+"</a></td><td align='right'>"+item.article.createDate+"</td></tr>");
 				});
+			},false,{
+				'page.pageNumber':1,
+				'page.pageSize':5
 			});
 		};
 		
@@ -118,10 +121,7 @@
 				//parentContainer:'#pictureDivId',
 				//url:'picture_list.action?start=0&limit=200'
 			//});
-			//getDataList('information_getIndexList',$('#informationListId'));
-			//getDataList('posts_indexList.action',$('postsListId'));
-			getDataList('blog/article/list.nut',$('#articleListId'));
-			//getDataList('picture_indexList.action',$('pictureListId'));
+			getDataList('blog/article/getAll.nut',$('#articleListId'));
 		}));
 		
 	</script>

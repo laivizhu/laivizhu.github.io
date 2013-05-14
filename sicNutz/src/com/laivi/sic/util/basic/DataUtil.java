@@ -2,6 +2,8 @@ package com.laivi.sic.util.basic;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.regex.Pattern;
 
@@ -32,7 +34,7 @@ public class DataUtil {
 		bd = bd.setScale(DEFAULT_SCALE, BigDecimal.ROUND_HALF_UP);
 		return bd.toString();
 	}
-
+	
 	/**
 	 * 
 	 * description:按精度控制Double数值输出 data 2012-11-12 user Janlu.Zhu
@@ -60,6 +62,44 @@ public class DataUtil {
 		} catch (NumberFormatException e) {
 			throw new NumberFormatException(value.toString() + "不能转换为double");
 		}
+	}
+	
+	public static double getgetSimilarDegree(String str1,String str2){
+		Map<String,Double> str1Map=DataUtil.getItemString(str1);
+		Map<String,Double> str2Map=DataUtil.getItemString(str2);
+		double totalValue1=0;
+		for(Map.Entry<String, Double>entry:str1Map.entrySet()){
+			if(str2Map.get(entry.getKey())!=null){
+				totalValue1=str2Map.get(entry.getKey())*entry.getValue()+totalValue1;
+			}
+		}
+		double totalValue2=0;
+		for(Map.Entry<String, Double>entry:str1Map.entrySet()){
+			totalValue2=totalValue2+entry.getValue()*entry.getValue();
+		}
+		double totalValue3=0;
+		for(Map.Entry<String, Double>entry:str2Map.entrySet()){
+			totalValue2=totalValue3+entry.getValue()*entry.getValue();
+		}
+		
+		return totalValue1/Math.sqrt(totalValue2*totalValue3);
+	}
+	
+	public static Map<String,Double> getItemString(String str){
+		Map<String,Double> itemMap=new HashMap<String,Double>();
+		int total=0;
+		for(String item:str.split(" ")){
+			total++;
+			if(itemMap.get(item)!=null){
+				itemMap.put(item,itemMap.get(item)+1);
+			}else{
+				itemMap.put(item,1.0);
+			}
+		}
+		for(Map.Entry<String, Double>entry:itemMap.entrySet()){
+			itemMap.put(entry.getKey(), entry.getValue()/total);
+		}
+		return itemMap;
 	}
 
 	/**

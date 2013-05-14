@@ -3,6 +3,11 @@ var sicValue={
 			pageCount:10,
 			pageSize:0,
 			firstTime:true
+		},
+		fromother:{
+			isFavorite:false,
+			isShare:false,
+			isFromOther:false
 		}
 };
 
@@ -356,6 +361,41 @@ var sic={
 					});
 				});
 			}
+		},
+		fromOther:{
+			setDisable:function(obj){
+				obj.addClass('disabled');
+				obj.attr('disabled',true);
+			},
+			getFromOther:function(objId,type){
+				sic.common.getJson("../common/fromother/getFromOther.nut",function(result){
+					//$("#favoriteButtonId").html("<i class='icon-heart'></i>收藏("+result.data.favoriteCount+")");
+					sicValue.fromother.isFavorite=result.data.isFavorited;
+					if(result.data.isFavorited){
+						//sic.fromOther.setDisable($('#favoriteButtonId'));
+						$("#favoriteButtonId").html("<i class='icon-heart'></i>取消收藏("+result.data.favoriteCount+")");
+					}else{
+						$("#favoriteButtonId").html("<i class='icon-heart'></i>收藏("+result.data.favoriteCount+")");
+					}
+					sicValue.fromother.isShare=result.data.isShare;
+					if(result.data.isShare){
+						//sic.fromOther.setDisable($('#shareButtonId'));
+						$("#shareButtonId").html("<i class='icon-share'></i>取消分享("+result.data.shareCount+")");
+					}else{
+						$("#shareButtonId").html("<i class='icon-share'></i>分享("+result.data.shareCount+")");
+					}
+					sicValue.fromother.isFromOther=result.data.isFromOther;
+					if(result.data.isFromOther){
+						//sic.fromOther.setDisable($('#fromOtherButtonId'));
+						$("#fromOtherButtonId").html("<i class='icon-share-alt'></i>取消转载("+result.data.fromOtherCount+")");
+					}else{
+						$("#fromOtherButtonId").html("<i class='icon-share-alt'></i>转载("+result.data.fromOtherCount+")");
+					}
+				},false,{
+					'fromOther.objId':objId,
+					'fromOther.type':type
+				});
+			}
 		}
 };
 //**********************************************登入，注册，注销函数处理**********************************************
@@ -394,34 +434,36 @@ function deleteObject(url,msg){
 
 
 //**********************************************添加收藏处理**********************************************
-function addFavorite(type,name){
-	var title;
-	if(name==null){
-		title=$('#titleFormFieldId').html();
-	}else{
-		title=$('#'+name).html();
-	}
-	sic.common.getJson('../common/favorite/add.nut', function(){
-		sic.msg.alert('添加收藏成功');
-		var value=$('#favoriteButtonId').html();
-		$('#favoriteButtonId').html('收藏('+(parseInt(value.substring(value.indexOf('(')+1,value.indexOf(')')))+1)+')');
-		$('#favoriteButtonId').addClass('disabled');
-		$('#favoriteButtonId').attr('disabled',true);
-	},false,{
-		'font':true,
-		'favorite.title':title,
-		'favorite.type':type,
-		'favorite.url':window.location.href
-	});
-}
-
-
 function fromOther(type,buttonid,tip,flag){
+	var i=1;
+	var icon="";
+	var isCancel=false;
+	if(tip=='收藏'){
+		if(sicValue.fromother.isFavorite){
+			isCancel=true;
+			i=-1;
+		}
+		sicValue.fromother.isFavorite=!sicValue.fromother.isFavorite;
+		icon="<i class='icon-heart'></i>";
+	}else if(tip=='分享'){
+		if(sicValue.fromother.isShare){
+			isCancel=true;
+			i=-1;
+		}
+		sicValue.fromother.isShare=!sicValue.fromother.isShare;
+		icon="<i class='icon-share'></i>";
+	}else{
+		if(sicValue.fromother.isFromOther){
+			isCancel=true;
+			i=-1;
+		}
+		sicValue.fromother.isFromOther=!sicValue.fromother.isFromOther;
+		icon="<i class='icon-share-alt'></i>";
+	}
 	sic.msg.confirm('确认要'+tip+'吗？', function(){
 		sic.common.getJson('../common/fromOther/add.nut', function(){
-			sic.msg.alert(tip+'成功');
-			$('#'+buttonid).addClass('disabled');
-			$('#'+buttonid).attr('disabled',true);
+			var value=$('#'+buttonid).html();
+			$('#'+buttonid).html(icon+(isCancel?'':'取消')+tip+'('+(parseInt(value.substring(value.indexOf('(')+1,value.indexOf(')')))+i)+')');
 		},false,{
 			'fromOther.objId':$('#idFormFieldId').val(),
 			'fromOther.type':type,

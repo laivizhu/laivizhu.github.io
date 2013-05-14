@@ -24,6 +24,6 @@ public interface IBasicDBAction<T> extends IBasicAction{
 	
 	JsonItem getJsonItem(T obj,boolean fold);
 	
-	JsonItem getJsonItem(Class<T>klass,Object obj,boolean fold);
+	JsonItem getJsonItem(Class<?>klass,Object obj,boolean fold);
 	
 }

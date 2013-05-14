@@ -50,44 +50,37 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 		dao.clear(this.getEntityClass(), Cnd.wrap("id in ("+ids+")"));
 		return success();
 	}
+	
+	protected Cnd getBasicCnd(){
+		if(this.isSys()){
+			return Cnd.where("deleteIs","=", false);
+		}else{
+			return Cnd.where("deleteIs","=", false).and("userId","=",this.getUserId());
+		}
+	}
+	
+	@At
+	public Object getAll(@Param("::page.")Pager page){
+		return list(page,Cnd.where("deleteIs","=", false).desc("createDate"));
+	}
 
 
 	@Override
 	@At
 	public Object list(@Param("::page.")Pager page) throws Exception {
-		if(cnd==null){
-			Cnd condition=this.getUserCnd();
-			if(condition!=null){
-				cnd=condition.desc("createDate");
-			}else{
-				cnd=Cnd.orderBy().desc("createDate");
-			}
-		}
-		return list(page,cnd);
+		return list(page,getBasicCnd().desc("createDate"));
 	}
 	
 	protected JsonList list(Pager page,Condition cnd){
-		if(cnd==null){
-			cnd=Cnd.where("deleteIs","=", false);
-		}else{
-			cnd=((Cnd)cnd).and("deleteIs", "=", false);
-		}
 		JsonList jsonList=new JsonList();
 		for(T obj:dao.query(this.getEntityClass(), cnd, page)){
-			jsonList.add(this.dataJson(obj,true));
+			jsonList.add(this.getJsonItem(obj,true));
 		}
-		jsonList.setSize();
+		jsonList.setTotalProperty(dao.count(this.getEntityClass(), cnd));
 		return jsonList;
 	}
 	
-	protected Object dataJson(T obj,boolean fold){
-		JsonItem item=this.getJsonItem(obj,fold);
-		if(item==null){
-			return obj;
-		}else{
-			return item;
-		}
-	}
+	
 
 	@Override
 	@At
@@ -130,7 +123,7 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	}
 	
 	@Override
-	public JsonItem getJsonItem(Class<T> klass, Object obj, boolean fold) {
+	public JsonItem getJsonItem(Class<?> klass, Object obj, boolean fold) {
 		JsonItem item=new JsonItem();
 		Field[] fields=DataUtil.appendArray(klass.getSuperclass().getDeclaredFields(), klass.getSuperclass().getSuperclass().getDeclaredFields());
 		for(Field field:DataUtil.appendArray(klass.getDeclaredFields(), fields)){
@@ -174,6 +167,4 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 		}
 		return item;
 	}
-	
-	
 }

@@ -41,7 +41,7 @@
                   <li><a href="/sicNutz/blog/article.jsp">博客</a></li>
                   <li class="divider"></li>
                   <li class="nav-header">知识管理</li>
-                  <li><a href="/sicNutz/blog/sicNutz.jsp">知识</a></li>
+                  <li><a href="/sicNutz/blog/knowledge.jsp">知识</a></li>
                 </ul>
               </li>
               <li><a href="/sicNutz/aboutus/aboutus.jsp">关于我们</a></li>

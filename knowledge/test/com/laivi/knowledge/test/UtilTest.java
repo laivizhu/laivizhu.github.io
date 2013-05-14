@@ -1,10 +1,7 @@
 package com.laivi.knowledge.test;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.List;
-
 
 import org.junit.Test;
 
