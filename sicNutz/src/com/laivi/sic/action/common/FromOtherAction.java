@@ -58,12 +58,7 @@ public class FromOtherAction extends ABasicDBAction<FromOther> {
 			if(tempOther==null){
 				item.add("isFavorited", false).add("isShare", false).add("isFromOther", false);
 			}else{
-				if(tempOther.isSelfIs()){
-					item.add("isFavorited", true).add("isShare", true).add("isFromOther", true);
-				}else{
-					item.add("isFavorited", tempOther.isFavoriteIs()).add("isShare", tempOther.isShareIs()).add("isFromOther", tempOther.isFromOtherIs());
-				}
-				
+				item.add("isFavorited", tempOther.isFavoriteIs()).add("isShare", tempOther.isShareIs()).add("isFromOther", tempOther.isFromOtherIs());
 			}
 		}else{
 			item.add("isFavorited", false).add("isShare", false).add("isFromOther", false);

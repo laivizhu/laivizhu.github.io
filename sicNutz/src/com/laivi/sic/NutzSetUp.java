@@ -21,7 +21,6 @@ public class NutzSetUp implements Setup{
 
 	@Override
 	public void init(NutConfig config) {
-		//Mvcs.getNutConfig().getIoc();
 		log.debug("config Ioc=="+config.getIoc());
 		Dao dao=config.getIoc().get(Dao.class);
 		for (Class<?> klass : Scans.me().scanPackage("com.laivi.sic.model.po")) {
@@ -77,11 +76,32 @@ public class NutzSetUp implements Setup{
 			
 		}
 		
-		/*if(dao.count(Message.class)==0){
-			Message message=new Message();
-			message.setStatus(Status.UNREAD);
-			dao.insert(message);
+		/*Connection conn=DBUtil.getConnection();
+		try {
+			Statement st=conn.createStatement();
+			ResultSet rs = st.executeQuery("select * from t_article");
+			while(rs.next()){
+				System.out.println("-------------------------------------------------------------------id:"+rs.getLong("id"));
+				if(dao.count(Article.class, Cnd.where("title", "=", rs.getString("title")))==0){
+					Article article=new Article();
+					article.setContent(rs.getString("content"));
+					article.setTitle(rs.getString("title"));
+					article.setTagId(Long.parseLong(rs.getString("tagIds")));
+					article.setUserId(1);
+					dao.insert(article);
+					FromOther other=new FromOther();
+					other.setObjId(article.getId());
+					other.setUserId(1);
+					other.setType(CategoryType.ARTICLE);
+					other.setSelfIs(true);
+					dao.insert(other);
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("******************************************error**********************************");
+			e.printStackTrace();
 		}*/
+		
 	}
 
 	@Override

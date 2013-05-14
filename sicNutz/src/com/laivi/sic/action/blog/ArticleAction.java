@@ -96,7 +96,7 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	@Override
 	protected JsonList list(Pager page, Condition cnd) {
 		JsonList jsonList=new JsonList();
-		for(FromOther obj:dao.query(FromOther.class, cnd, page)){
+		for(FromOther obj:dao.query(FromOther.class,cnd,page)){
 			JsonItem item=this.getJsonItem(FromOther.class,obj,true);
 			item.add("article", this.getJsonItem(dao.fetch(Article.class, obj.getObjId()), true));
 			jsonList.add(item);

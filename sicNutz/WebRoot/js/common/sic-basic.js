@@ -265,7 +265,7 @@ var sic={
 			},
 			pageLoad:function(url,obj,getValue,currentPage){
 		        if(currentPage==null){
-		            currentPage=0;
+		            currentPage=1;
 		        }
 		        sic.common.getJson(url,function(result){
 		            if(result.totalProperty>0){
@@ -275,7 +275,7 @@ var sic={
 		                $.each(result.root,function(i,item){
 		                    obj.append(getValue(item));
 		                });
-		                if(result.totalProperty>(currentPage+1)*sicValue.pageCount){
+		                if(result.totalProperty>(currentPage+1)*sicValue.page.pageCount){
 		                    obj.append("<div class='span8' id='loadMoreDivId'><div class='alert alert-info' align='center'><h2><button id='loadMoreButtonId' class='btn btn-success'>加载更多</h2></button></div></div>");
 		                    $("#loadMoreButtonId").click(function(){
 		                        $("#loadMoreButtonId").html("加载中...");
@@ -285,15 +285,13 @@ var sic={
 		                    });
 		                }
 		            }else{
-		                if(currentPage==null || currentPage==0){
+		                if(currentPage==null || currentPage==1){
 		                    obj.append("<div class='span8'><div class='alert alert-block'><h4>暂无记录</h4></div></div>");
 		                }
 		            }
 		        },false,{
-		        	page:{
-		        		pageNumber:currentPage,
-		        		pageSize:sicValue.page.pageCount
-		        	}
+		        	'page.pageNumber':currentPage,
+		        	'page.pageSize':sicValue.page.pageCount,
 		        });
 		    }
 		},

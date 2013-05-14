@@ -1,18 +1,25 @@
 package com.laivi.sic.util.basic;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.regex.Pattern;
+
+import org.wltea.analyzer.core.IKSegmenter;
+import org.wltea.analyzer.core.Lexeme;
 
 import com.laivi.sic.model.constants.AppConstants;
 import com.laivi.sic.model.exception.ErrorException;
 
 /**
  * 
- * Copyright Envision 数据处理工具
+ * Copyright Laivi 数据处理工具
  * 
  * @author Janlu.Zhu
  * @version 1.0
@@ -64,22 +71,37 @@ public class DataUtil {
 		}
 	}
 	
-	public static double getgetSimilarDegree(String str1,String str2){
+	public static List<String> splitString(String str){
+		List<String> items=new ArrayList<String>();
+        IKSegmenter ik=new IKSegmenter(new StringReader(str), true);  
+        Lexeme lex=null;  
+        try {
+			while((lex=ik.next())!=null){ 
+				items.add(lex.getLexemeText());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+        System.out.println(items);
+        return items;
+	}
+	
+	public static double getSimilarDegree(String str1,String str2){
 		Map<String,Double> str1Map=DataUtil.getItemString(str1);
 		Map<String,Double> str2Map=DataUtil.getItemString(str2);
 		double totalValue1=0;
 		for(Map.Entry<String, Double>entry:str1Map.entrySet()){
 			if(str2Map.get(entry.getKey())!=null){
-				totalValue1=str2Map.get(entry.getKey())*entry.getValue()+totalValue1;
+				totalValue1+=str2Map.get(entry.getKey())*entry.getValue();
 			}
 		}
 		double totalValue2=0;
 		for(Map.Entry<String, Double>entry:str1Map.entrySet()){
-			totalValue2=totalValue2+entry.getValue()*entry.getValue();
+			totalValue2+=entry.getValue()*entry.getValue();
 		}
 		double totalValue3=0;
 		for(Map.Entry<String, Double>entry:str2Map.entrySet()){
-			totalValue2=totalValue3+entry.getValue()*entry.getValue();
+			totalValue3+=entry.getValue()*entry.getValue();
 		}
 		
 		return totalValue1/Math.sqrt(totalValue2*totalValue3);
@@ -88,7 +110,7 @@ public class DataUtil {
 	public static Map<String,Double> getItemString(String str){
 		Map<String,Double> itemMap=new HashMap<String,Double>();
 		int total=0;
-		for(String item:str.split(" ")){
+		for(String item:DataUtil.splitString(str)){
 			total++;
 			if(itemMap.get(item)!=null){
 				itemMap.put(item,itemMap.get(item)+1);
