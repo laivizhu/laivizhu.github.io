@@ -25,6 +25,9 @@ public final class JsonItemList implements Serializable {
 	public ListResult<JsonItem> toPageList(int size){
 		return new ListResult<JsonItem>(root,size);
 	}
-	
+
+	public List<JsonItem> getRoot() {
+		return root;
+	}
 	
 }

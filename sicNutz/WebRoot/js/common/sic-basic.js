@@ -250,9 +250,9 @@ var sic={
 			scrollBreakPage:function(url,obj,getDataDiv){
 				sicValue.page.pageSize=0;
 				var range = 700;
-				var num=0;
+				var num=1;
 		        obj.html("");
-				sic.pageLoding.getScrollOnceData(url,0,obj,function(item){
+				sic.pageLoding.getScrollOnceData(url,1,obj,function(item){
 					return getDataDiv(item);
 				});
 				$(window).scroll(function(){

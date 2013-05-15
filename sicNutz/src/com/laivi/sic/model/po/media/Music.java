@@ -16,6 +16,15 @@ public class Music extends AUserEntity {
 	
 	private String price;
 
+	public Music() {
+	}
+
+	public Music(String name, String path, long albumId) {
+		this.name = name;
+		this.path = path;
+		this.albumId = albumId;
+	}
+
 	public long getAlbumId() {
 		return albumId;
 	}

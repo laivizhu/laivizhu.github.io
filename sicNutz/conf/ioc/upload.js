@@ -9,7 +9,7 @@ var ioc = {
 			fields : {
 				ignoreNull : true,
 				maxFileSize : 10240000,
-				nameFilter : ".+(jpg|png)"
+				nameFilter : ".+(jpg|png|mp3)"
 			}
 		},
 		filePool : {

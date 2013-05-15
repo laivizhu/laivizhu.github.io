@@ -3,6 +3,8 @@ package com.laivi.sic.action.media;
 import java.io.File;
 import java.util.UUID;
 
+import org.nutz.dao.Cnd;
+import org.nutz.dao.pager.Pager;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Files;
 import org.nutz.mvc.annotation.AdaptBy;
@@ -40,7 +42,12 @@ public class PictureAction extends ABasicDBAction<Picture> {
 				e.printStackTrace();
 			}
 		}
-		return jsonList;
+		return jsonList.getRoot();
+	}
+	
+	@At
+	public Object pictureList(@Param("::page.")Pager page,long albumId){
+		return list(page,Cnd.where("albumId", "=", albumId).desc("id"));
 	}
 
 	@Override
