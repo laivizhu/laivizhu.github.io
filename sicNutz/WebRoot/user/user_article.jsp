@@ -96,7 +96,7 @@
             		if(item.favoriteIs) keyword="收藏";
             		if(item.fromOtherIs) keyword="转载";
             	}
-            	return "<div class='span8'><a href='../blog/article_view.jsp?id="+item.article.id+"'><h4>"+(item.selfIs?"":"<font color='red'>["+keyword+"]</font>")+item.article.title+"</h4></a><p><div align='right'>"+item.article.createDate+" 作者："+item.user.name+" 访问量："+item.article.viewCount+"</div></p><p id='content"+item.article.id+"'>"+item.article.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.article.id+")'>More &raquo;</a></p><div align='right'><p><a class='btn' onclick=deleteObject('../blog/article/remove.nut?id="+item.article.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addArticle.jsp?id="+item.article.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>";;
+            	return "<div class='span8'><a href='../blog/article_view.jsp?id="+item.article.id+"'><h4>"+(item.selfIs?"":"<font color='red'>["+keyword+"]</font>")+item.article.title+"</h4></a><p><div align='right'>"+item.article.createDate+" 作者："+item.user.name+" 访问量："+item.article.viewCount+"</div></p><p id='content"+item.article.id+"'>"+item.article.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.article.id+")'>More &raquo;</a></p><div align='right'><p><a class='btn' onclick=deleteObject('../blog/article/delete.nut?id="+item.article.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addArticle.jsp?id="+item.article.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>";;
             });
 		}));
 

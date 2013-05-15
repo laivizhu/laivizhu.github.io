@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>Laivi 感悟生活</title>
+    <title id='pageTitleId'>Laivi 感悟生活</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
@@ -83,6 +83,16 @@
 			sic.common.setFormVaule("../blog/article/get.nut?id="+articleId, false);
 			sic.fromOther.getFromOther(articleId,'ARTICLE');
             sic.common.getJson("../blog/article/addViewCount.nut?id="+articleId);
+            sic.common.getJson("../blog/article/getProposal.nut?id="+articleId,function(result){
+            	if(result.totalProperty!=0){
+            		$.each(result.root,function(i,item){
+                		$('#likeArticleListDivId').append("<div class='span3'><h3><a href='article_view.jsp?id="+item.id+"'>"+item.title+"</a></h3></div>");
+                	});
+            	}else{
+            		$('#likeArticleListDivId').append("<div class='span12'><div class='alert alert-block'><h4>暂无相关推荐</h4></div></div>");
+            	}
+            	
+            });
             sic.pageLoding.pageLoad('../reply/listByType.nut?reply.type=ARTICLE&reply.objId='+articleId,$("#replyListDivId"),function(item){
                  return "<div class='span12'><p>"+item.content+"</p><div align='right'><p><a class='btn btn-warning' onclick=deleteObject('../reply/delete.nut?id="+item.id+"')>删除</a>|"+item.createDate+"|"+item.user.name+"</p></div></div>";
             });

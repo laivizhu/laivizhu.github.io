@@ -3,25 +3,30 @@ package com.laivi.sic.service.basic;
 import java.util.List;
 
 import org.nutz.dao.Condition;
+import org.nutz.dao.pager.Pager;
 
-public interface IBasicDBService<T> {
-	long add(T object);
+import com.laivi.sic.model.po.basic.IBasicDBEntity;
+
+public interface IBasicDBService {
+	<T extends IBasicDBEntity> long add(T object);
 	
-	void delete(Class<T> klass,long id);
+	<T> void delete(Class<T> klass,long id);
 	
-	void update(T obj);
+	<T> void update(T obj);
 	
-	T get(Class<T> klass,long id);
+	<T> T get(Class<T> klass,long id);
 	
-	T get(Class<T> klass,Condition cnd);
+	<T> T get(Class<T> klass,Condition cnd);
 	
-	List<T> list(Class<T> klass,Condition cnd,int start,int limit);
+	<T> List<T> list(Class<T> klass,Condition cnd,int start,int limit);
 	
-	List<T> list(Class<T> klass,Condition cnd);
+	<T> List<T> list(Class<T> klass,Condition cnd,Pager page);
 	
-	List<T> list(Class<T> klass);
+	<T> List<T> list(Class<T> klass,Condition cnd);
 	
-	int getCount(Class<T> klass,Condition cnd);
+	<T> List<T> list(Class<T> klass);
 	
-	int getCount(Class<T> klass);
+	<T> int getCount(Class<T> klass,Condition cnd);
+	
+	<T> int getCount(Class<T> klass);
 }

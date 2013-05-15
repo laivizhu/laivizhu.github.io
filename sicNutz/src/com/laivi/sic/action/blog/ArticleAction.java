@@ -3,11 +3,10 @@ package com.laivi.sic.action.blog;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Condition;
 import org.nutz.dao.pager.Pager;
+import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Param;
-import org.nutz.trans.Atom;
-import org.nutz.trans.Trans;
 
 import com.laivi.sic.action.basic.ABasicDBAction;
 import com.laivi.sic.model.annotation.CheckLogin;
@@ -15,32 +14,26 @@ import com.laivi.sic.model.annotation.CheckValue;
 import com.laivi.sic.model.json.JsonItem;
 import com.laivi.sic.model.json.JsonList;
 import com.laivi.sic.model.po.blog.Article;
+import com.laivi.sic.model.po.blog.SimpleDegree;
 import com.laivi.sic.model.po.common.FromOther;
 import com.laivi.sic.model.to.Response;
 import com.laivi.sic.model.type.CategoryType;
+import com.laivi.sic.service.blog.ArticleService;
+import com.laivi.sic.util.basic.DataUtil;
 
 @At("/blog/article")
 @IocBean
 public class ArticleAction extends ABasicDBAction<Article> {
+	
+	@Inject
+	private ArticleService articleService;
 	
 	@At
 	@CheckValue
 	@CheckLogin
 	public Response add(@Param("::article.")final Article article){
 		article.setUserId(this.getLoginUser().getUserId());
-		Trans.exec(new Atom(){
-			@Override
-			public void run() {
-				FromOther fromOther=new FromOther();
-				dao.insert(article);
-				fromOther.setObjId(article.getId());
-				fromOther.setUserId(article.getUserId());
-				fromOther.setType(CategoryType.ARTICLE);
-				fromOther.setSelfIs(true);
-				dao.insert(fromOther);
-			}
-			
-		});
+		articleService.add(article);
 		return success();
 	}
 	
@@ -79,6 +72,19 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	@At
 	public Object getAll(@Param("::page.")Pager page){
 		return list(page,Cnd.where("deleteIs","=", false).and("type", "=",CategoryType.ARTICLE).and("selfIs", "=", true).desc("createDate"));
+	}
+	
+	@At
+	public Object getProposal(long id){
+		JsonList jsonList=new JsonList();
+		SimpleDegree simple=dao.fetch(SimpleDegree.class, Cnd.where("objId", "=", id).and("type", "=", CategoryType.ARTICLE));
+		for(long aId:DataUtil.changeIdString(simple.getSimpleIds())){
+			if(aId!=0){
+				jsonList.add(this.getJsonItem(dao.fetch(Article.class, aId), true));
+			}
+		}
+		jsonList.setSize();
+		return jsonList;
 	}
 
 	@Override

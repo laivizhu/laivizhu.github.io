@@ -23,7 +23,7 @@ import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 /**
- * Copyright Envision
+ * Copyright Laivi
  * 
  * @author Janlu.Zhu
  * @version 1.0

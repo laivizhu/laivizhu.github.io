@@ -4,54 +4,69 @@ import java.util.List;
 
 import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;
-import org.nutz.service.IdNameEntityService;
+import org.nutz.dao.pager.Pager;
+import org.nutz.ioc.loader.annotation.Inject;
 
 import com.laivi.sic.model.po.basic.IBasicDBEntity;
 
-public abstract class BasicDBService<T extends IBasicDBEntity> extends IdNameEntityService<T> implements IBasicDBService<T> {
+public abstract class BasicDBService extends BasicService implements IBasicDBService {
+	@Inject
+	protected Dao dao;
 
-	public BasicDBService(Dao dao){
-		super(dao);
-	}
-	
-	public long add(T object){
-		dao().insert(object);
+	@Override
+	public <T extends IBasicDBEntity> long add(T object) {
+		dao.insert(object);
 		return object.getId();
 	}
-	
-	public void delete(Class<T> klass,long id){
-		dao().delete(klass, id);
+
+	@Override
+	public <T> void delete(Class<T> klass, long id) {
+		dao.delete(klass, id);
 	}
-	
-	public void update(T obj){
-		dao().update(obj);
+
+	@Override
+	public <T> void update(T obj) {
+		dao.update(obj);
 	}
-	
-	public T get(Class<T> klass,long id){
-		return dao().fetch(klass, id);
+
+	@Override
+	public <T> T get(Class<T> klass, long id) {
+		return dao.fetch(klass, id);
 	}
-	
-	public T get(Class<T> klass,Condition cnd){
-		return dao().fetch(klass, cnd);
+
+	@Override
+	public <T> T get(Class<T> klass, Condition cnd) {
+		return dao.fetch(klass, cnd);
 	}
-	
-	public List<T> list(Class<T> klass,Condition cnd,int start,int limit){
-		return dao().query(klass, cnd, dao().createPager(limit==0?0:start/limit, limit));
+
+	@Override
+	public <T> List<T> list(Class<T> klass, Condition cnd, int start, int limit) {
+		Pager page=dao.createPager(start, limit);
+		return dao.query(klass, cnd, page);
 	}
-	
-	public List<T> list(Class<T> klass,Condition cnd){
-		return dao().query(klass, cnd,null);
+
+	@Override
+	public <T> List<T> list(Class<T> klass, Condition cnd) {
+		return dao.query(klass, cnd);
 	}
-	
-	public List<T> list(Class<T> klass){
-		return dao().query(klass,null,null);
+
+	@Override
+	public <T> List<T> list(Class<T> klass) {
+		return dao.query(klass, null);
 	}
-	
-	public int getCount(Class<T> klass,Condition cnd){
-		return dao().count(klass, cnd);
+
+	@Override
+	public <T> int getCount(Class<T> klass, Condition cnd) {
+		return dao.count(klass, cnd);
 	}
-	
-	public int getCount(Class<T> klass){
-		return dao().count(klass);
+
+	@Override
+	public <T> int getCount(Class<T> klass) {
+		return dao.count(klass,null);
+	}
+
+	@Override
+	public <T> List<T> list(Class<T> klass, Condition cnd, Pager page) {
+		return dao.query(klass, cnd, page);
 	}
 }

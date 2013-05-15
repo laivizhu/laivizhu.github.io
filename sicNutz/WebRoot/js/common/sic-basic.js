@@ -124,6 +124,9 @@ var sic={
 						if($("#"+key+"FormFieldId")==null){
 							continue;
 						}
+						if($("#pageTitleId")!=null && key=='title'){
+							$("#pageTitleId").html(result.data[key]);
+						}
 						if(isInput){
 							$("#"+key+"FormFieldId").val(result.data[key]);
 						}else{
@@ -228,7 +231,7 @@ var sic={
 				}
 				sic.common.getJson(url, function(data){
 					if(data.totalProperty>0){
-						if(data.totalProperty%pageCount==0){
+						if(data.totalProperty%sicValue.page.pageCount==0){
 							sicValue.page.pageSize=data.totalProperty/sicValue.page.pageCount;
 						}else{
 							sicValue.page.pageSize=(data.totalProperty/sicValue.page.pageCount)+1;
@@ -237,7 +240,7 @@ var sic={
 							obj.append(getDataDiv(item));
 						});
 					}else{
-						if(firstTime){
+						if(sicValue.page.firstTime){
 							obj.append("<div><div class='alert alert-block'><h4>暂无记录</h4></div></div>");
 							sicValue.page.firstTime=false;
 						}

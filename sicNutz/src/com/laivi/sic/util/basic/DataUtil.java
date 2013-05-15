@@ -16,6 +16,7 @@ import org.wltea.analyzer.core.Lexeme;
 
 import com.laivi.sic.model.constants.AppConstants;
 import com.laivi.sic.model.exception.ErrorException;
+import com.laivi.sic.model.po.blog.SimpleDegree;
 
 /**
  * 
@@ -86,7 +87,7 @@ public class DataUtil {
         return items;
 	}
 	
-	public static double getSimilarDegree(String str1,String str2){
+	public static String getSimilarDegree(String str1,String str2){
 		Map<String,Double> str1Map=DataUtil.getItemString(str1);
 		Map<String,Double> str2Map=DataUtil.getItemString(str2);
 		double totalValue1=0;
@@ -104,7 +105,7 @@ public class DataUtil {
 			totalValue3+=entry.getValue()*entry.getValue();
 		}
 		
-		return totalValue1/Math.sqrt(totalValue2*totalValue3);
+		return DataUtil.getDoubleString(totalValue1/Math.sqrt(totalValue2*totalValue3),4);
 	}
 	
 	public static Map<String,Double> getItemString(String str){
@@ -131,7 +132,18 @@ public class DataUtil {
 	 * @param ids
 	 * @return
 	 */
-	public static String arrayToString(int[] ids) {
+	public static String arrayToString(long[] ids) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < ids.length; i++) {
+			sb.append(ids[i]);
+			if (i != (ids.length - 1)) {
+				sb.append(",");
+			}
+		}
+		return sb.toString();
+	}
+	
+	public static String arrayToString(double[] ids) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < ids.length; i++) {
 			sb.append(ids[i]);
@@ -164,11 +176,24 @@ public class DataUtil {
 		return sb.toString();
 	}
 	
-	public static Long[] changeIdString(String idStrings){
+	public static long[] changeIdString(String idStrings){
+		if(idStrings==null||"".equals(idStrings)){
+			return new long[]{0};
+		}
 		String[] idArray=idStrings.split(",");
-		Long[] ids=new Long[idArray.length];
+		long[] ids=new long[idArray.length];
+		
 		for(int i=0;i<idArray.length;i++){
 			ids[i]=Long.parseLong(idArray[i]);
+		}
+		return ids;
+	}
+	
+	public static double[] changeSimpleString(String idStrings){
+		String[] idArray=idStrings.split(",");
+		double[] ids=new double[idArray.length];
+		for(int i=0;i<idArray.length;i++){
+			ids[i]=Double.parseDouble(idArray[i]);
 		}
 		return ids;
 	}
@@ -197,7 +222,7 @@ public class DataUtil {
 	
 	public static boolean isIncludeId(long id,String ids){
 		if(DataUtil.notEmptyString(ids)){
-			Long[] idArrays=DataUtil.changeIdString(ids);
+			long[] idArrays=DataUtil.changeIdString(ids);
 			for(Long tempId:idArrays){
 				if(id==tempId) return true;
 			}
@@ -315,4 +340,31 @@ public class DataUtil {
 		}
 		return textStr;// 返回文本字符串
 	}
+	
+	public static void setSampleDegree(SimpleDegree simple,String simpleDegree,long id){
+		if(simple.getSimpleDegree()==null){
+			simple.setSimpleDegree(simpleDegree);
+			simple.setSimpleIds(id+"");
+		}else if(simple.getSimpleDegree().split(",").length<10){
+			simple.setSimpleDegree(simple.getSimpleDegree()+","+simpleDegree);
+			simple.setSimpleIds(simple.getSimpleIds()+","+id);
+		}else{
+			double[] simpleDegreeArray=DataUtil.changeSimpleString(simple.getSimpleDegree());
+			long[] idArray=DataUtil.changeIdString(simple.getSimpleIds());
+			int minIndex=0;
+			for(int m=0;m<simpleDegreeArray.length-1;m++){
+				if(simpleDegreeArray[m]>simpleDegreeArray[m+1]){
+					minIndex=m+1;
+				}
+			}
+			if(simpleDegreeArray[minIndex]<Double.parseDouble(simpleDegree)){
+				simpleDegreeArray[minIndex]=Double.parseDouble(simpleDegree);
+				idArray[minIndex]=id;
+				simple.setSimpleDegree(DataUtil.arrayToString(simpleDegreeArray));
+				simple.setSimpleIds(DataUtil.arrayToString(idArray));
+			}
+		}
+	}
+	
+	
 }

@@ -13,6 +13,18 @@ public class Tag extends AUserEntity {
 	
 	private CategoryType type;
 
+	public Tag() {
+		super();
+	}
+
+	public Tag(String name, CategoryType type) {
+		super();
+		this.name = name;
+		this.type = type;
+	}
+
+
+
 	public String getName() {
 		return name;
 	}

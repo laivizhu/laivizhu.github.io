@@ -1,6 +1,9 @@
 package com.laivi.sic;
 
 
+import java.util.List;
+
+import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.dao.entity.annotation.Table;
 import org.nutz.log.Log;
@@ -9,11 +12,14 @@ import org.nutz.mvc.NutConfig;
 import org.nutz.mvc.Setup;
 import org.nutz.resource.Scans;
 
+import com.laivi.sic.model.po.blog.Article;
+import com.laivi.sic.model.po.blog.SimpleDegree;
 import com.laivi.sic.model.po.blog.Tag;
 import com.laivi.sic.model.po.user.LoginUser;
 import com.laivi.sic.model.po.user.Role;
 import com.laivi.sic.model.po.user.User;
 import com.laivi.sic.model.type.CategoryType;
+import com.laivi.sic.util.basic.DataUtil;
 
 public class NutzSetUp implements Setup{
 	
@@ -62,14 +68,18 @@ public class NutzSetUp implements Setup{
 		}
 		
 		if(dao.count(Tag.class)==0){
-			Tag[] tags=new Tag[2];
-			tags[0]=new Tag();
-			tags[0].setName("情感");
-			tags[0].setType(CategoryType.ARTICLE);
-			
-			tags[1]=new Tag();
-			tags[1].setName("java");
-			tags[1].setType(CategoryType.KNOWLEDGE);
+			Tag[] tags=new Tag[11];
+			tags[0]=new Tag("言情",CategoryType.BOOK);
+			tags[1]=new Tag("都市",CategoryType.BOOK);
+			tags[2]=new Tag("情感",CategoryType.ARTICLE);
+			tags[3]=new Tag("哲理",CategoryType.BOOK);
+			tags[4]=new Tag("散文",CategoryType.BOOK);
+			tags[5]=new Tag("生活",CategoryType.ARTICLE);
+			tags[6]=new Tag("感悟",CategoryType.ARTICLE);
+			tags[7]=new Tag("侦探",CategoryType.BOOK);
+			tags[8]=new Tag("武侠",CategoryType.BOOK);
+			tags[9]=new Tag("java",CategoryType.KNOWLEDGE);
+			tags[10]=new Tag("技术",CategoryType.ARTICLE);
 			for(Tag tag:tags){
 				dao.insert(tag);
 			}
@@ -82,7 +92,7 @@ public class NutzSetUp implements Setup{
 			ResultSet rs = st.executeQuery("select * from t_article");
 			while(rs.next()){
 				System.out.println("-------------------------------------------------------------------id:"+rs.getLong("id"));
-				if(dao.count(Article.class, Cnd.where("title", "=", rs.getString("title")))==0){
+				if(dao.count(Article.class, Cnd.where("title", "=", rs.getString("title")))==0&&rs.getLong("id")!=621){
 					Article article=new Article();
 					article.setContent(rs.getString("content"));
 					article.setTitle(rs.getString("title"));
@@ -102,6 +112,25 @@ public class NutzSetUp implements Setup{
 			e.printStackTrace();
 		}*/
 		
+		/*List<Article> articleList=dao.query(Article.class, null);
+		for(int i=0;i<articleList.size();i++){
+			if(dao.count(SimpleDegree.class, Cnd.where("objId", "=", articleList.get(i).getId()).and("type", "=", CategoryType.ARTICLE))==0){
+				SimpleDegree simple=new SimpleDegree();
+				simple.setObjId(articleList.get(i).getId());
+				simple.setType(CategoryType.ARTICLE);
+				for(int j=0;j<articleList.size();j++){
+					if(i==j){
+						continue;
+					}
+					String degree=DataUtil.getSimilarDegree(articleList.get(i).getTitle(), articleList.get(j).getTitle());
+					if(Double.parseDouble(degree)==0){
+						continue;
+					}
+					DataUtil.setSampleDegree(simple,degree,articleList.get(j).getId());
+				}
+				dao.insert(simple);
+			}
+		}*/
 	}
 
 	@Override
