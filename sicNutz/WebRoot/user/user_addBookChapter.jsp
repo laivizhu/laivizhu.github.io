@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>Laivi 感悟生活</title>
+    <title>Laivi 创建书籍章节</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
@@ -23,19 +23,13 @@
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
       	<h2 id="titleContentId"></h2>
-      		<form action="album_add.action" id="albumAddFormId">
-      			<input type="text" class="input-block-level" name="album.name" id="nameFormFieldId">
-      			<select  name="album.type" id="typeFormFieldId">
-      				<option value='0'>--请选择--</option>
-      			</select>
-      			<select  name="album.tagId" id="tagIdFormFieldId">
-      				<option value='0'>--请选择--</option>
-      			</select>
-      			<textarea rows="14" style="width:100%" name="album.description" id='descriptionFormFieldId'></textarea>
+      		<form action="book_addChapter.action" id="chapterAddFormId">
+      			<input type="hidden" name="chapter.bookId" id="bookIdFormFieldId">
+      			<input type="text" class="input-block-level" name="chapter.title" id="titleFormFieldId" placeholder='章节标题'>
+      			<textarea rows="20" style="width:100%" name="chapter.content" id='chapterContentId'></textarea>
       			<div align='center'><p><button type="reset" class="btn btn-warning">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">提交</button></p></div>
       		</form>
       </div>
-		
 
       <hr>
 
@@ -60,42 +54,32 @@
 	<script type="text/javascript" src="../js/common/sic-basic.js"></script>
 	<script type="text/javascript">
 		$(document).ready(sic.basic.init(function(){
+			var bookId=sic.basic.getUrlVar("bookId");
+			$("#bookIdFormFieldId").val(bookId);
 			var editor;
 			KindEditor.ready(function(K) {
-				editor = K.create('textarea[id="descriptionFormFieldId"]', {
+				editor = K.create('textarea[id="chapterContentId"]', {
 					allowFileManager : true,
 					afterBlur:function(){
 						this.sync();
 					}
 				});
 			});
-
 			var id=sic.basic.getUrlVar('id');
 			if(id!=null&&id!=0){
-				$("#titleContentId").html("修改专辑");
-				sic.common.setFormVaule('../media/album/get.nut?font=true&id='+id,true,function(result){
-					editor.html(result.data.description);
-                    sic.common.comboList($("#typeFormFieldId"), '../media/album/typeList.nut',function(){
-                        $("#typeFormFieldId").val(result.data.type);
-                    });
-                    sic.common.comboList($("#tagIdFormFieldId"), '../tag/comboList.nut?tag.type=ALBUM',function(){
-                        $("#tagIdFormFieldId").val(result.data.tagId);
-                    });
+				$("#titleContentId").html("修改书籍章节信息");
+				sic.common.setFormVaule('../media/chapter/get.nut?id='+id,true,function(result){
+					editor.html(result.data.content);
 				});
-				sic.common.submitForm($("#albumAddFormId"), '../media/album/update.nut?album.id='+id, function(){
-					window.location.href="user_album.jsp";
+				sic.common.submitForm($("#chapterAddFormId"), '../media/chapter/update.nut?chapter.id='+id, function(){
+					history.back();
 				}, false, false);
 			}else{
-				$("#titleContentId").html("创建专辑");
-                sic.common.comboList($("#typeFormFieldId"), '../media/album/typeList.nut');
-                sic.common.comboList($("#tagIdFormFieldId"), '../tag/comboList.nut?tag.type=ALBUM');
-				sic.common.submitForm($("#albumAddFormId"), '../media/album/add.nut', function(){
-					window.location.href="user_album.jsp";
+				$("#titleContentId").html("新增书籍章节");
+				sic.common.submitForm($("#chapterAddFormId"), '../media/chapter/add.nut', function(){
+					history.back();
 				}, false, false);
 			}
-			
-			
-			
 		}));
 	</script>
   </body>

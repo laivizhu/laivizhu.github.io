@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>Laivi 感悟生活</title>
+    <title>Laivi 创建书籍</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap-responsive.css"/>
@@ -23,19 +23,16 @@
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
       	<h2 id="titleContentId"></h2>
-      		<form action="album_add.action" id="albumAddFormId">
-      			<input type="text" class="input-block-level" name="album.name" id="nameFormFieldId">
-      			<select  name="album.type" id="typeFormFieldId">
+      		<form action="book_add.action" id="bookAddFormId">
+      			<input type="text" class="input-block-level" name="book.name" id="nameFormFieldId" placeholder='书名'>
+      			<select name="book.tagId" id="tagIdFormFieldId">
       				<option value='0'>--请选择--</option>
       			</select>
-      			<select  name="album.tagId" id="tagIdFormFieldId">
-      				<option value='0'>--请选择--</option>
-      			</select>
-      			<textarea rows="14" style="width:100%" name="album.description" id='descriptionFormFieldId'></textarea>
+      			<input type="text" class="input-block-level" name="book.price" id="priceFormFieldId" placeholder='价格'>
+      			<textarea rows="20" style="width:100%" name="book.description" id='bookContentId'></textarea>
       			<div align='center'><p><button type="reset" class="btn btn-warning">重置</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">提交</button></p></div>
       		</form>
       </div>
-		
 
       <hr>
 
@@ -62,7 +59,7 @@
 		$(document).ready(sic.basic.init(function(){
 			var editor;
 			KindEditor.ready(function(K) {
-				editor = K.create('textarea[id="descriptionFormFieldId"]', {
+				editor = K.create('textarea[id="bookContentId"]', {
 					allowFileManager : true,
 					afterBlur:function(){
 						this.sync();
@@ -72,29 +69,23 @@
 
 			var id=sic.basic.getUrlVar('id');
 			if(id!=null&&id!=0){
-				$("#titleContentId").html("修改专辑");
-				sic.common.setFormVaule('../media/album/get.nut?font=true&id='+id,true,function(result){
+				$("#titleContentId").html("修改书籍信息");
+				sic.common.setFormVaule('../media/book/get.nut?id='+id,true,function(result){
 					editor.html(result.data.description);
-                    sic.common.comboList($("#typeFormFieldId"), '../media/album/typeList.nut',function(){
-                        $("#typeFormFieldId").val(result.data.type);
-                    });
-                    sic.common.comboList($("#tagIdFormFieldId"), '../tag/comboList.nut?tag.type=ALBUM',function(){
+                    sic.common.comboList($("#tagIdFormFieldId"), '../tag/comboList.nut?tag.type=BOOK',function(){
                         $("#tagIdFormFieldId").val(result.data.tagId);
                     });
 				});
-				sic.common.submitForm($("#albumAddFormId"), '../media/album/update.nut?album.id='+id, function(){
-					window.location.href="user_album.jsp";
+				sic.common.submitForm($("#bookAddFormId"), '../media/book/update.nut?book.id='+id, function(){
+					window.location.href="user_book.jsp";
 				}, false, false);
 			}else{
-				$("#titleContentId").html("创建专辑");
-                sic.common.comboList($("#typeFormFieldId"), '../media/album/typeList.nut');
-                sic.common.comboList($("#tagIdFormFieldId"), '../tag/comboList.nut?tag.type=ALBUM');
-				sic.common.submitForm($("#albumAddFormId"), '../media/album/add.nut', function(){
-					window.location.href="user_album.jsp";
+				$("#titleContentId").html("创作书籍");
+                sic.common.comboList($("#tagIdFormFieldId"), '../tag/comboList.nut?tag.type=BOOK');
+				sic.common.submitForm($("#bookAddFormId"), '../media/book/add.nut', function(){
+					window.location.href="user_book.jsp";
 				}, false, false);
 			}
-			
-			
 			
 		}));
 	</script>

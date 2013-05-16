@@ -1,8 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 
-<div id="laivi_jplayerDivId" class="jp-jplayer"></div>
+<div id="sic_jplayerDivId" class="jp-jplayer"></div>
 
-<div id="laivi_containerDivId" class="jp-audio">
+<div id="sic_containerDivId" class="jp-audio">
 	<div class="jp-type-playlist">
 		<div class="jp-gui jp-interface">
 			<ul class="jp-controls">

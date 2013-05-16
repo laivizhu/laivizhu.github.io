@@ -2,11 +2,11 @@ package com.laivi.sic.model.po.media;
 
 import org.nutz.dao.entity.annotation.Table;
 
-import com.laivi.sic.model.po.basic.AUserEntity;
+import com.laivi.sic.model.po.basic.ABasicEntity;
 
 @SuppressWarnings("serial")
 @Table("sic_music")
-public class Music extends AUserEntity {
+public class Music extends ABasicEntity {
 	
 	private long albumId;
 	
@@ -14,7 +14,7 @@ public class Music extends AUserEntity {
 	
 	private String path;
 	
-	private String price;
+	private int price;
 
 	public Music() {
 	}
@@ -49,11 +49,11 @@ public class Music extends AUserEntity {
 		this.path = path;
 	}
 
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 }

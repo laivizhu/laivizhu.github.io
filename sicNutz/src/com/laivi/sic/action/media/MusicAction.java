@@ -17,7 +17,9 @@ import com.laivi.sic.action.basic.ABasicDBAction;
 import com.laivi.sic.model.json.JsonItem;
 import com.laivi.sic.model.json.JsonItemList;
 import com.laivi.sic.model.json.JsonList;
+import com.laivi.sic.model.po.media.Album;
 import com.laivi.sic.model.po.media.Music;
+import com.laivi.sic.model.po.user.User;
 
 @IocBean
 @At("/media/music")
@@ -25,12 +27,13 @@ public class MusicAction extends ABasicDBAction<Music> {
 
 	@At
 	@AdaptBy(type = UploadAdaptor.class,args="ioc:upload")
-	public Object upload(@Param("musics")TempFile[] tempFiles,long albumId){
+	public Object upload(@Param("pictures")TempFile[] tempFiles,long albumId){
 		JsonItemList jsonList=new JsonItemList();
 		for(TempFile tempFile:tempFiles){
 			File file=tempFile.getFile();
 			String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 			Music music=new Music(tempFile.getMeta().getFileLocalName(),uuid+"."+Files.getSuffixName(file).toLowerCase(),albumId);
+			music.setPrice(0);
 			dao.insert(music);
 			jsonList.createItem().add("id",music.getId()).add("name", music.getName())
 								 .add("size", file.length()).add("delete_type","GET")
@@ -50,8 +53,14 @@ public class MusicAction extends ABasicDBAction<Music> {
 	@At
 	public Object musicList(@Param("::page.")Pager page,long albumId){
 		JsonList jsonList=new JsonList();
+		Album album=dao.fetch(Album.class, albumId);
+		User user=dao.fetch(User.class, album.getUserId());
 		for(Music music:dao.query(Music.class, Cnd.where("albumId", "=", albumId).desc("id"),page)){
-			jsonList.add(new JsonItem().add("title", music.getName()).add("mp3", "../upload/music/"+music.getPath()));
+			jsonList.add(new JsonItem().add("title", music.getName())
+					.add("artist",user.getName())
+					.add("album",album.getName())
+					.add("cover", "http://x.libdd.com/farm1/79cec1/7103dc78/01.jpg")
+					.add("mp3", "../upload/music/"+music.getPath()));
 		}
 		jsonList.setTotalProperty(dao.count(Music.class, Cnd.where("albumId", "=", albumId).desc("id")));
 		return jsonList;

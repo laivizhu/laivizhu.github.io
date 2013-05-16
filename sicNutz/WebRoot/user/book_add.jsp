@@ -27,8 +27,7 @@
 <div class="container">
 <div class="row">
 	<div class="span12">
-		<form id="fileupload" action="../media/music/upload.nut" method="POST" enctype="multipart/form-data">
-		<input type="hidden" id="albumIdInputId" name="albumId">
+		<form id="fileupload" action="../media/book/upload.nut" method="POST" enctype="multipart/form-data">
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
               <div class="span7">

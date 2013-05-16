@@ -8,8 +8,8 @@ var ioc = {
 			args : [{refer: "filePool"}],
 			fields : {
 				ignoreNull : true,
-				maxFileSize : 10240000,
-				nameFilter : ".+(jpg|png|mp3)"
+				maxFileSize : 20480000,
+				nameFilter : ".+(jpg|png|mp3|wma|txt)"
 			}
 		},
 		filePool : {

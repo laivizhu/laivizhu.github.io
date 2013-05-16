@@ -63,7 +63,15 @@ var sic={
 		            }
 		        }
 		        return null;
-		    }
+		    },
+		    setDisable:function(obj){
+				obj.addClass('disabled');
+				obj.attr('disabled',true);
+			},
+			setEnable:function(obj){
+				obj.removeClass('disabled');
+				obj.removeAttr("disabled"); 
+			}
 		},
 		//**********************************************消息函数处理**********************************************
 		msg:{
@@ -87,7 +95,7 @@ var sic={
 			},
 			showLoding:function(title){
 				$.jBox.tip(title, 'loading');
-			},
+			}
 		},
 		//**********************************************后台请求函数处理**********************************************
 		common:{
@@ -111,6 +119,7 @@ var sic={
 						$.jBox.closeTip();
 					}else{
 						sic.msg.error(result.msg);
+						$.jBox.closeTip();
 					}
 				});
 			},
@@ -338,7 +347,7 @@ var sic={
 			newJplayer:function(list){
 				new jPlayerPlaylist({
 					jPlayer: "#sic_jplayerDivId",
-					cssSelectorAncestor: "sic_containerDivId"
+					cssSelectorAncestor: "#sic_containerDivId"
 				},list,{
 					swfPath: "jplayer",
 					supplied: "wma,mp3",
@@ -364,10 +373,6 @@ var sic={
 			}
 		},
 		fromOther:{
-			setDisable:function(obj){
-				obj.addClass('disabled');
-				obj.attr('disabled',true);
-			},
 			getFromOther:function(objId,type){
 				sic.common.getJson("../common/fromother/getFromOther.nut",function(result){
 					//$("#favoriteButtonId").html("<i class='icon-heart'></i>收藏("+result.data.favoriteCount+")");

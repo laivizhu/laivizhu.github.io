@@ -2,6 +2,7 @@ package com.laivi.sic.model.type;
 
 import com.laivi.sic.model.po.blog.Article;
 import com.laivi.sic.model.po.blog.Knowledge;
+import com.laivi.sic.model.po.media.Album;
 import com.laivi.sic.model.po.media.Book;
 import com.laivi.sic.model.po.media.Music;
 import com.laivi.sic.model.po.media.Picture;
@@ -11,7 +12,8 @@ public enum CategoryType {
 	KNOWLEDGE("知识",Knowledge.class),
 	PICTURE("图片",Picture.class),
 	MUSIC("音乐",Music.class),
-	BOOK("书籍",Book.class);
+	BOOK("书籍",Book.class),
+	ALBUM("相册",Album.class);
 	
 	private final String text;
 	

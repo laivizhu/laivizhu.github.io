@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf8">
+	<title>月光FM | 月光宝盒</title>
+	<link rel="stylesheet" href="../css/fm/style.css">
+</head>
+<body>	
+	
+	<div id="background"></div>
+	<div style="position: fixed; float: right;width:100px;height:60px; right:5px;" >
+	  		<ul >
+		      	<button id="uploadMusicButtonId">上传音乐</button>
+		    </ul>
+	</div>
+	<div id="player">
+		<div class="cover"></div>
+		<div class="ctrl">
+			<div class="tag">
+				<strong>Title</strong>
+				<span class="artist">Artist</span>
+				<span class="album">Album</span>
+			</div>
+			<div class="control">
+				<div class="left">
+					<div class="rewind icon"></div>
+					<div class="playback icon"></div>
+					<div class="fastforward icon"></div>
+				</div>
+				<div class="volume right">
+					<div class="mute icon left"></div>
+					<div class="slider left">
+						<div class="pace"></div>
+					</div>
+				</div>
+			</div>
+			<div class="progress">
+				<div class="slider">
+					<div class="loaded"></div>
+					<div class="pace"></div>
+				</div>
+				<div class="timer left">0:00</div>
+				<div class="right">
+					<div class="repeat icon"></div>
+					<div class="shuffle icon"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<ul id="playlist"></ul>
+	<footer>
+		<div align="center">
+	      	<p>&copy; Laivi 2013-2014</p>
+	      	<p><a href="mailto:laivi.zhu@gmail.com">联系我们:laivi.zhu@gmail.com</a></p>
+	      </div>
+	</footer>
+
+	<script type="text/javascript" src="../js/jquery/jquery-1.8.2.js"></script>
+	<script src="../js/jquery/jquery-ui-1.8.14.custom.min.js"></script>
+    <script type="text/javascript" src="../js/jquery/jquery.form.js"></script>
+    <script type="text/javascript" src="../js/jquery/jquery.jBox-2.3.min.js"></script>
+	<script type="text/javascript" src="../js/jquery/jquery.jBox-zh-CN.js"></script>
+	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/common/sic-basic.js"></script>
+	<script src="../js/plug/fm/fm-script.js"></script>
+	<script type="text/javascript">
+		$(document).ready(sic.basic.init(function(){
+			$("#uploadMusicButtonId").click(function(){
+				window.location.href='music_add.jsp?id='+albumId;
+			});
+			var albumId=sic.basic.getUrlVar('id');
+			$('a').fmMusic('../media/music/musicList.nut?albumId='+albumId);
+		}));
+	
+	</script>
+</body>
+</html>
