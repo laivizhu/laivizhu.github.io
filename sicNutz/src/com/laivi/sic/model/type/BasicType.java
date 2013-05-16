@@ -10,5 +10,5 @@ package com.laivi.sic.model.type;
  */
 public interface BasicType<T> {
 	String toText();
-	T getFormText(String text);
+	T getFromText(String text);
 }

@@ -14,12 +14,15 @@ import org.nutz.mvc.upload.TempFile;
 import org.nutz.mvc.upload.UploadAdaptor;
 
 import com.laivi.sic.action.basic.ABasicDBAction;
+import com.laivi.sic.model.constants.AppConstants;
 import com.laivi.sic.model.json.JsonItem;
 import com.laivi.sic.model.json.JsonItemList;
 import com.laivi.sic.model.json.JsonList;
 import com.laivi.sic.model.po.media.Album;
 import com.laivi.sic.model.po.media.Music;
 import com.laivi.sic.model.po.user.User;
+import com.laivi.sic.model.to.Response;
+import com.laivi.sic.util.basic.FileUtil;
 
 @IocBean
 @At("/media/music")
@@ -37,11 +40,9 @@ public class MusicAction extends ABasicDBAction<Music> {
 			dao.insert(music);
 			jsonList.createItem().add("id",music.getId()).add("name", music.getName())
 								 .add("size", file.length()).add("delete_type","GET")
-								 .add("url","").add("delete_url","");
-			String dest=this.getRealPath("/upload/music/"+uuid)+"."+Files.getSuffixName(file).toLowerCase();
-			//String smallPath = this.getRealPath("/upload/music/"+uuid) + "_128x128." + Files.getSuffixName(file).toLowerCase();
+								 .add("url","").add("delete_url","../media/music/deleteFile.nut?id="+music.getId()+"&fileName="+music.getPath());
+			String dest=this.getRealPath(AppConstants.MUSIC_UPLOAD+uuid)+"."+Files.getSuffixName(file).toLowerCase();
 			try{
-				//Images.zoomScale(file, new File(smallPath), 128, 128,Color.BLACK);
 				file.renameTo(new File(dest));
 			}catch(Throwable e){
 				e.printStackTrace();
@@ -65,6 +66,17 @@ public class MusicAction extends ABasicDBAction<Music> {
 		jsonList.setTotalProperty(dao.count(Music.class, Cnd.where("albumId", "=", albumId).desc("id")));
 		return jsonList;
 	}
+	
+	@At
+	public Response deleteFile(long id,String fileName){
+		dao.delete(Music.class, id);
+		File file=FileUtil.getFile(this.getRealPath(AppConstants.MUSIC_UPLOAD)+"\\"+fileName);
+		if(file.exists()){
+			file.delete();
+		}
+		return success();
+	}
+	
 	@Override
 	public Class<Music> getEntityClass() {
 		return Music.class;

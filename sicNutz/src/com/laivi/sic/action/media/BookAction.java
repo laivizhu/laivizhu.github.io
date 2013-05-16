@@ -10,13 +10,13 @@ import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Files;
 import org.nutz.mvc.annotation.AdaptBy;
 import org.nutz.mvc.annotation.At;
-import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.mvc.upload.TempFile;
 import org.nutz.mvc.upload.UploadAdaptor;
 
 import com.laivi.sic.action.basic.ABasicDBAction;
 import com.laivi.sic.model.annotation.CheckValue;
+import com.laivi.sic.model.constants.AppConstants;
 import com.laivi.sic.model.json.JsonItemList;
 import com.laivi.sic.model.po.media.Book;
 import com.laivi.sic.model.po.media.Chapter;
@@ -45,23 +45,15 @@ public class BookAction extends ABasicDBAction<Book> {
 			}
 			jsonList.createItem().add("id",book.getId()).add("name", book.getName())
 								 .add("size", file.length()).add("delete_type","GET")
-								 .add("url","").add("delete_url","");
-			String dest=this.getRealPath("/upload/book/"+uuid)+"."+Files.getSuffixName(file).toLowerCase();
-			//String smallPath = this.getRealPath("/upload/music/"+uuid) + "_128x128." + Files.getSuffixName(file).toLowerCase();
+								 .add("url","").add("delete_url","../media/book/deleteFile.nut?isCreate=false&id="+book.getId()+"&fileName="+book.getPath());
+			String dest=this.getRealPath(AppConstants.BOOK_UPLOAD+uuid)+"."+Files.getSuffixName(file).toLowerCase();
 			try{
-				//Images.zoomScale(file, new File(smallPath), 128, 128,Color.BLACK);
 				file.renameTo(new File(dest));
 			}catch(Throwable e){
 				e.printStackTrace();
 			}
 		}
 		return jsonList.getRoot();
-	}
-	
-	@At
-	@Ok("raw")
-	public File download(String fileName){
-		return FileUtil.getFile(this.getRealPath("/upload/book/"+fileName));
 	}
 	
 	@At
@@ -81,6 +73,19 @@ public class BookAction extends ABasicDBAction<Book> {
 		dBook.setTagId(book.getTagId());
 		dBook.setPrice(book.getPrice());
 		dao.update(dBook);
+		return success();
+	}
+	
+	@At
+	public Response deleteFile(long id,boolean isCreate,String fileName)throws Exception{
+		dao.delete(Book.class, id);
+		dao.clear(Chapter.class, Cnd.where("bookId", "=", id));
+		if(!isCreate){
+			File file=FileUtil.getFile(this.getRealPath(AppConstants.BOOK_UPLOAD+fileName));
+			if(file.exists()){
+				file.delete();
+			}
+		}
 		return success();
 	}
 	

@@ -7,6 +7,8 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Param;
 
 import com.laivi.sic.action.basic.ABasicDBAction;
+import com.laivi.sic.model.annotation.CheckLogin;
+import com.laivi.sic.model.annotation.CheckValue;
 import com.laivi.sic.model.json.JsonItemList;
 import com.laivi.sic.model.po.media.Album;
 import com.laivi.sic.model.to.Response;
@@ -17,6 +19,8 @@ import com.laivi.sic.model.type.AlbumType;
 public class AlbumAction extends ABasicDBAction<Album> {
 	
 	@At
+	@CheckLogin
+	@CheckValue
 	public Response add(@Param("::album.")Album album){
 		album.setUserId(this.getUserId());
 		dao.insert(album);
@@ -24,11 +28,22 @@ public class AlbumAction extends ABasicDBAction<Album> {
 	}
 	
 	@At
+	public Response delete(long id)throws Exception{
+		Album album=dao.fetch(Album.class, id);
+		dao.clear(album.getType().toKlass(), Cnd.where("albumId", "=", album.getId()));
+		dao.delete(album);
+		return success();
+	}
+	
+	@At
+	@CheckLogin
+	@CheckValue
 	public Response update(@Param("::album.")Album album){
 		Album dAlbum=dao.fetch(Album.class,album.getId());
 		dAlbum.setType(album.getType());
 		dAlbum.setName(album.getName());
 		dAlbum.setDescription(album.getDescription());
+		dAlbum.setTagId(album.getTagId());
 		dao.update(dAlbum);
 		return success();
 	}

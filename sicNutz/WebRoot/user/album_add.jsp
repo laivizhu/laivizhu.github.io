@@ -79,18 +79,18 @@
                         $("#typeFormFieldId").val(result.data.type);
                     });
                     sic.common.comboList($("#tagIdFormFieldId"), '../tag/comboList.nut?tag.type=ALBUM',function(){
-                        $("#tagIdFormFieldId").val(result.data.tagId);
+                        $("#tagIdFormFieldId").val(result.data.tag.id);
                     });
 				});
 				sic.common.submitForm($("#albumAddFormId"), '../media/album/update.nut?album.id='+id, function(){
-					window.location.href="user_album.jsp";
+					history.back();
 				}, false, false);
 			}else{
 				$("#titleContentId").html("创建专辑");
                 sic.common.comboList($("#typeFormFieldId"), '../media/album/typeList.nut');
                 sic.common.comboList($("#tagIdFormFieldId"), '../tag/comboList.nut?tag.type=ALBUM');
 				sic.common.submitForm($("#albumAddFormId"), '../media/album/add.nut', function(){
-					window.location.href="user_album.jsp";
+					history.back();
 				}, false, false);
 			}
 			

@@ -14,7 +14,7 @@ public class Chapter extends ABasicEntity {
 	private long bookId;
 	
 	@Validations(required=true,errorMsg="章节标题不能为空")
-	@ColDefine(type=ColType.VARCHAR, width=255)
+	@ColDefine(type=ColType.VARCHAR, width=500)
 	private String title;
 	
 	@Validations(required=true,errorMsg="章节内容不能为空")

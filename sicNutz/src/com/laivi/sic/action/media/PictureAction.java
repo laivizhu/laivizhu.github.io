@@ -14,8 +14,11 @@ import org.nutz.mvc.upload.TempFile;
 import org.nutz.mvc.upload.UploadAdaptor;
 
 import com.laivi.sic.action.basic.ABasicDBAction;
+import com.laivi.sic.model.constants.AppConstants;
 import com.laivi.sic.model.json.JsonItemList;
 import com.laivi.sic.model.po.media.Picture;
+import com.laivi.sic.model.to.Response;
+import com.laivi.sic.util.basic.FileUtil;
 
 @IocBean
 @At("/media/picture")
@@ -32,8 +35,8 @@ public class PictureAction extends ABasicDBAction<Picture> {
 			dao.insert(picture);
 			jsonList.createItem().add("id",picture.getId()).add("name", picture.getName())
 								 .add("size", file.length()).add("delete_type","GET")
-								 .add("url","").add("delete_url","");
-			String dest=this.getRealPath("/upload/picture/"+uuid)+"."+Files.getSuffixName(file).toLowerCase();
+								 .add("url","").add("delete_url","../media/picture/deleteFile.nut?id="+picture.getId()+"&fileName="+picture.getPath());
+			String dest=this.getRealPath(AppConstants.PICTURE_UPLOAD+uuid)+"."+Files.getSuffixName(file).toLowerCase();
 			//String smallPath = this.getRealPath("/upload/picture/"+uuid) + "_128x128." + Files.getSuffixName(file).toLowerCase();
 			try{
 				//Images.zoomScale(file, new File(smallPath), 128, 128,Color.BLACK);
@@ -48,6 +51,16 @@ public class PictureAction extends ABasicDBAction<Picture> {
 	@At
 	public Object pictureList(@Param("::page.")Pager page,long albumId){
 		return list(page,Cnd.where("albumId", "=", albumId).desc("id"));
+	}
+	
+	@At
+	public Response deleteFile(long id,String fileName){
+		dao.delete(Picture.class, id);
+		File file=FileUtil.getFile(this.getRealPath(AppConstants.PICTURE_UPLOAD)+"\\"+fileName);
+		if(file.exists()){
+			file.delete();
+		}
+		return success();
 	}
 
 	@Override

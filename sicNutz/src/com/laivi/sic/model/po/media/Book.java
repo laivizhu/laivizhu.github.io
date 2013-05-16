@@ -12,7 +12,7 @@ import com.laivi.validation.Validations;
 public class Book extends AUserEntity {
 	
 	@Validations(required=true,errorMsg="书名不能为空")
-	@ColDefine(type=ColType.VARCHAR, width=255)
+	@ColDefine(type=ColType.VARCHAR, width=500)
 	private String name;
 	
 	private int price;
