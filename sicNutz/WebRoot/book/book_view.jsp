@@ -38,30 +38,30 @@
     </div>
     
     
-    <script type="text/javascript" src="../js/jquery-1.8.2.js"></script>
-    <script type="text/javascript" src="../js/jquery.form.js"></script>
-    <script type="text/javascript" src="../js/jquery.jBox-2.3.min.js"></script>
-	<script type="text/javascript" src="../js/jquery.jBox-zh-CN.js"></script>
+    <script type="text/javascript" src="../js/jquery/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="../js/jquery/jquery.form.js"></script>
+    <script type="text/javascript" src="../js/jquery/jquery.jBox-2.3.min.js"></script>
+	<script type="text/javascript" src="../js/jquery/jquery.jBox-zh-CN.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
-	<script type="text/javascript" src="../js/basic.js"></script>
+	<script type="text/javascript" src="../js/common/sic-basic.js"></script>
 	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
 		var getMoreData=function(id){
-			laivi.getJson('book_getChapter.action?id='+id, function(result){
+			sic.common.getJson('../media/book/getChapter.nut?id='+id, function(result){
 				var comb="<a class='btn btn-primary btn-small' onclick='getLessData("+result.data.id+")'>Fold &raquo;</a>";
 				$('#content'+id).html(result.data.content+comb);
 			});
 		};
 		var getLessData=function(id){
-			laivi.getJson('book_getChapter.action?fold=true&id='+id, function(result){
+			sic.common.getJson('../media/book/getChapter.nut?fold=true&id='+id, function(result){
 				var comb="<a class='btn btn-primary btn-small' onclick='getMoreData("+result.data.id+")'>More &raquo;</a>";
 				$('#content'+id).html(result.data.content+comb);
 			});
 		};
-		$(document).ready(laivi.init(function(){
-			var bookId=laivi.getUrlVar("id");
+		$(document).ready(sic.basic.init(function(){
+			var bookId=sic.basic.getUrlVar("id");
 			loadLocalNavigate(navigate.user);
-			laivi.scrollBreakPage('book_listChapter.action?id='+bookId, $("#chapterListDivId"), function(item){
+			sic.pageLoding.scrollBreakPage('../media/book/listChapter.nut?id='+bookId, $("#chapterListDivId"), function(item){
 				return "<div class='span9'><a href='chapter_view.jsp?id="+item.id+"'><h2>"+item.title+"</h2></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p><a class='btn' href='#' onclick=deleteObject('book_deleteChapter.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a></p></div></div>";
 			});
 		}));

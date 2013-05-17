@@ -287,7 +287,7 @@ var sic={
 		                $.each(result.root,function(i,item){
 		                    obj.append(getValue(item));
 		                });
-		                if(result.totalProperty>(currentPage+1)*sicValue.page.pageCount){
+		                if(result.totalProperty>currentPage*sicValue.page.pageCount){
 		                    obj.append("<div class='span8' id='loadMoreDivId'><div class='alert alert-info' align='center'><h2><button id='loadMoreButtonId' class='btn btn-success'>加载更多</h2></button></div></div>");
 		                    $("#loadMoreButtonId").click(function(){
 		                        $("#loadMoreButtonId").html("加载中...");

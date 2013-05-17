@@ -7,7 +7,7 @@ package com.laivi.sic.model.type;
  */
 public enum FriendsDirection implements BasicType<FriendsDirection>{
 	INIT("建立"),
-	REJECT("决绝"),
+	REJECT("拒绝"),
 	BEFORE("前向"),
 	AFTER("后向"),
 	DOUBLE("双向");

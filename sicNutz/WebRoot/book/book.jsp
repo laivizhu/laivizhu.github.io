@@ -42,23 +42,23 @@
     </div>
     
     
-    <script type="text/javascript" src="../js/jquery-1.8.2.js"></script>
-	<script type="text/javascript" src="../js/jquery.form.js"></script>
-    <script type="text/javascript" src="../js/jquery.jBox-2.3.min.js"></script>
-	<script type="text/javascript" src="../js/jquery.jBox-zh-CN.js"></script>
+    <script type="text/javascript" src="../js/jquery/jquery-1.8.2.js"></script>
+	<script type="text/javascript" src="../js/jquery/jquery.form.js"></script>
+    <script type="text/javascript" src="../js/jquery/jquery.jBox-2.3.min.js"></script>
+	<script type="text/javascript" src="../js/jquery/jquery.jBox-zh-CN.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
-	<script type="text/javascript" src="../js/basic.js"></script>
+	<script type="text/javascript" src="../js/common/sic-basic.js"></script>
 	<script type="text/javascript" src="../js/common/navigate.js"></script>
 	<script type="text/javascript">
-		$(document).ready(laivi.init(function(){
-			loadRemoteNavigate('tag_comboList.action?tag.type=BOOK','book.jsp?book.tagId=');
-			var tagId=laivi.getUrlVar("book.tagId");
+		$(document).ready(sic.basic.init(function(){
+			loadRemoteNavigate('../tag/comboList.nut?tag.type=BOOK','book.jsp?book.tagId=');
+			var tagId=sic.basic.getUrlVar("book.tagId");
 			if(tagId==null){
-				laivi.scrollBreakPage('book_list.action', $("#bookListDivId"), function(item){
+				sic.pageLoding.scrollBreakPage('../media/book/list.nut', $("#bookListDivId"), function(item){
 					return "<div class='span2'><div class='thumbnail'><img src='../picture/musicAlbum.jpg'><div class='caption'><p>"+item.name+"</p><p>价格:"+item.price+"个积分</p><p><button class='btn' onclick=addMyBookShelf("+item.id+")>购买</button></p></div></div></div>";
 				});
 			}else{
-				laivi.scrollBreakPage('book_tagCategoryList.action?book.tagId='+tagId, $("#bookListDivId"), function(item){
+				sic.pageLoding.scrollBreakPage('../media/book/tagCategoryList.nut?book.tagId='+tagId, $("#bookListDivId"), function(item){
 					return "<div class='span2'><div class='thumbnail'><img src='../picture/musicAlbum.jpg'><div class='caption'><p>"+item.name+"</p><p>价格:"+item.price+"个积分</p><p><button class='btn' onclick=addMyBookShelf("+item.id+")>购买</button></p></div></div></div>";
 				});
 			}

@@ -5,6 +5,7 @@ import org.nutz.dao.entity.annotation.Table;
 
 import com.laivi.sic.model.po.basic.ABasicEntity;
 import com.laivi.sic.model.type.CategoryLevel;
+import com.laivi.validation.Validations;
 
 /**
  * Copyright Laivi
@@ -16,11 +17,11 @@ import com.laivi.sic.model.type.CategoryLevel;
 @SuppressWarnings("serial")
 @Table("sic_category")
 public class Category extends ABasicEntity {
+	@Validations(required=true,errorMsg="商品类别名不能为空")
 	private String name;
 	private CategoryLevel level;
 	private int priority;
 	private long parentId;
-	
 
 	public String getName() {
 		return name;

@@ -15,10 +15,10 @@ import com.laivi.sic.model.to.Response;
  */
 public interface IBasicDBAction<T> extends IBasicAction{
 
-	Response delete(long id)throws Exception;
-	Response deletes(String ids)throws Exception;
-	Object list(Pager page)throws Exception;
-	Object get(long id,boolean fold)throws Exception;
+	Response delete(long id);
+	Response deletes(String ids);
+	Object list(Pager page,boolean fold);
+	Object get(long id,boolean fold);
 	
 	Class<T> getEntityClass();
 	

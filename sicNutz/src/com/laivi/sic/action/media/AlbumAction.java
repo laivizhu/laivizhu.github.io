@@ -28,7 +28,7 @@ public class AlbumAction extends ABasicDBAction<Album> {
 	}
 	
 	@At
-	public Response delete(long id)throws Exception{
+	public Response delete(long id){
 		Album album=dao.fetch(Album.class, id);
 		dao.clear(album.getType().toKlass(), Cnd.where("albumId", "=", album.getId()));
 		dao.delete(album);

@@ -1,13 +1,18 @@
 package com.laivi.sic.model.po.common;
 
+import org.nutz.dao.entity.annotation.ColDefine;
+import org.nutz.dao.entity.annotation.ColType;
 import org.nutz.dao.entity.annotation.Table;
 
 import com.laivi.sic.model.po.basic.AUserEntity;
+import com.laivi.validation.Validations;
 
 @SuppressWarnings("serial")
 @Table("sic_autograph")
 public class AutoGraph extends AUserEntity {
 
+	@Validations(required=true,errorMsg="发表内容不能为空")
+	@ColDefine(type=ColType.VARCHAR, width=3000)
 	private String content;
 	
 	private long parentId;
@@ -37,6 +42,5 @@ public class AutoGraph extends AUserEntity {
 	public void setParentIs(boolean parentIs) {
 		this.parentIs = parentIs;
 	}
-	
 	
 }

@@ -38,6 +38,12 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	}
 	
 	@At
+	public Response delete(long id){
+		dao.delete(FromOther.class, id);
+		return success();
+	}
+	
+	@At
 	@CheckValue
 	public Response update(@Param("::article.")Article article){
 		Article dArticle=dao.fetch(this.getEntityClass(), article.getId());
@@ -89,8 +95,8 @@ public class ArticleAction extends ABasicDBAction<Article> {
 
 	@Override
 	@At
-	public Object list(@Param("::page.")Pager page) throws Exception {
-		Cnd condition=this.getBasicCnd().and("type", "=",CategoryType.ARTICLE);
+	public Object list(@Param("::page.")Pager page,boolean fold) {
+		Cnd condition=Cnd.where(this.getBasicCnd()).and("type", "=",CategoryType.ARTICLE);
 		if(this.isSys()){
 			this.cnd= condition.and("selfIs", "=", true).desc("createDate");
 		}else{

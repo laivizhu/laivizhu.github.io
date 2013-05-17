@@ -91,11 +91,12 @@ public class BookAction extends ABasicDBAction<Book> {
 	
 	@At
 	public Object listBook(@Param("::page")Pager page,@Param("::book")Book book){
-		return list(page,Cnd.where("createIs","=", book.isCreateIs()));
+		return list(page,Cnd.where(getBasicCnd()).and("createIs","=", book.isCreateIs()));
 	}
+	
 	@At
-	public Response addUserBookShelf(){
-		return success();
+	public Object tagCategoryList(@Param("::page")Pager page,@Param("::book")Book book){
+		return list(page,Cnd.where(getBasicCnd()).and("tagId", "=", book.getTagId()));
 	}
 
 	@Override

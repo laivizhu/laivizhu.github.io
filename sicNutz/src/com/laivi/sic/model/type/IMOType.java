@@ -7,7 +7,7 @@ import com.laivi.sic.model.po.media.Chapter;
 import com.laivi.sic.model.po.user.User;
 
 public enum IMOType {
-	USER("userId",User.class),TAG("tagId",Tag.class),ALBUM("albumId",Album.class),BOOK("bookId",Book.class),CHAPTER("chapterId",Chapter.class);
+	USER("userId",User.class),TAG("tagId",Tag.class),ALBUM("albumId",Album.class),BOOK("bookId",Book.class),CHAPTER("chapterId",Chapter.class),FRIEND("friendId",User.class);
 	
 	private final String id;
 	private final Class<?> klass;

@@ -55,6 +55,12 @@ public class KnowledgeAction extends ABasicDBAction<Knowledge> {
 	}
 	
 	@At
+	public Response delete(long id){
+		dao.delete(FromOther.class, id);
+		return success();
+	}
+	
+	@At
 	public Object listAllTitle(){
 		JsonList jsonList=new JsonList();
 		this.cnd=this.getUserCnd();
@@ -72,7 +78,7 @@ public class KnowledgeAction extends ABasicDBAction<Knowledge> {
 	
 	@Override
 	@At
-	public Object list(Pager page) throws Exception {
+	public Object list(Pager page,boolean fold) {
 		if(this.isSys()){
 			this.cnd= Cnd.where("deleteIs","=", false).and("type", "=",CategoryType.KNOWLEDGE).and("selfIs", "=", true);
 		}else{

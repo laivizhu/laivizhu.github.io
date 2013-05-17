@@ -6,6 +6,7 @@ import org.nutz.dao.Cnd;
 import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;
 import org.nutz.dao.pager.Pager;
+import org.nutz.dao.util.cri.SqlExpressionGroup;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -28,10 +29,15 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	protected Dao dao;
 
 	protected Condition cnd=null;
+	
+	@At
+	public Object search(@Param("::page.")Pager page,String key,String value){
+		return list(page,Cnd.where(key, "LIKE", "%"+value+"%"));
+	}
 
 	@Override
 	@At
-	public Response delete(long id)throws Exception{
+	public Response delete(long id){
 		dao.delete(this.getEntityClass(), id);
 		return success();
 	}
@@ -46,16 +52,16 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 
 	@Override
 	@At
-	public Response deletes(String ids) throws Exception {
+	public Response deletes(String ids) {
 		dao.clear(this.getEntityClass(), Cnd.wrap("id in ("+ids+")"));
 		return success();
 	}
 	
-	protected Cnd getBasicCnd(){
+	protected SqlExpressionGroup getBasicCnd(){
 		if(this.isSys()){
-			return Cnd.where("deleteIs","=", false);
+			return Cnd.exps("deleteIs","=", false);
 		}else{
-			return Cnd.where("deleteIs","=", false).and("userId","=",this.getUserId());
+			return Cnd.exps("deleteIs","=", false).and("userId","=",this.getUserId());
 		}
 	}
 	
@@ -67,14 +73,18 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 
 	@Override
 	@At
-	public Object list(@Param("::page.")Pager page) throws Exception {
-		return list(page,getBasicCnd().desc("createDate"));
+	public Object list(@Param("::page.")Pager page,boolean fold) {
+		return list(page,Cnd.where(getBasicCnd()).desc("createDate"),fold);
 	}
 	
 	protected JsonList list(Pager page,Condition cnd){
+		return list(page,cnd,false);
+	}
+	
+	protected JsonList list(Pager page,Condition cnd,boolean unFold){
 		JsonList jsonList=new JsonList();
 		for(T obj:dao.query(this.getEntityClass(), cnd, page)){
-			jsonList.add(this.getJsonItem(obj,true));
+			jsonList.add(this.getJsonItem(obj,!unFold));
 		}
 		jsonList.setTotalProperty(dao.count(this.getEntityClass(), cnd));
 		return jsonList;
@@ -84,7 +94,7 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 
 	@Override
 	@At
-	public Object get(long id,boolean fold) throws Exception {
+	public Object get(long id,boolean fold) {
 		return this.getJsonItem(dao.fetch(this.getEntityClass(), id), fold).toJsonForm();
 	}
 	

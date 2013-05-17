@@ -7,6 +7,7 @@ import org.nutz.dao.entity.annotation.ColType;
 import org.nutz.dao.entity.annotation.Table;
 
 import com.laivi.sic.model.po.basic.AUserEntity;
+import com.laivi.sic.model.type.MessageType;
 import com.laivi.sic.model.type.Status;
 
 @SuppressWarnings("serial")
@@ -14,13 +15,14 @@ import com.laivi.sic.model.type.Status;
 public class Message extends AUserEntity {
 	
 	private long toUserId;
-	
 
 	@ColDefine(type=ColType.VARCHAR, width=500)
 	private String content;
 	
 	@ColDefine(type=ColType.VARCHAR, width=250)
 	private String title;
+	
+	private MessageType type=MessageType.INFORMATION;
 	
 	private Status status=Status.UNREAD;
 
@@ -62,6 +64,14 @@ public class Message extends AUserEntity {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public MessageType getType() {
+		return type;
+	}
+
+	public void setType(MessageType type) {
+		this.type = type;
 	}
 
 	public Message(long fromUserId, long toUserId, String content, String title) {
