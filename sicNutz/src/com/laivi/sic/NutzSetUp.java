@@ -1,7 +1,10 @@
 package com.laivi.sic;
 
 
-import java.util.List;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
@@ -13,13 +16,13 @@ import org.nutz.mvc.Setup;
 import org.nutz.resource.Scans;
 
 import com.laivi.sic.model.po.blog.Article;
-import com.laivi.sic.model.po.blog.SimpleDegree;
 import com.laivi.sic.model.po.blog.Tag;
 import com.laivi.sic.model.po.user.LoginUser;
 import com.laivi.sic.model.po.user.Role;
 import com.laivi.sic.model.po.user.User;
 import com.laivi.sic.model.type.CategoryType;
-import com.laivi.sic.util.basic.DataUtil;
+import com.laivi.sic.service.blog.ArticleService;
+import com.laivi.sic.util.basic.DBUtil;
 
 public class NutzSetUp implements Setup{
 	
@@ -83,34 +86,27 @@ public class NutzSetUp implements Setup{
 			for(Tag tag:tags){
 				dao.insert(tag);
 			}
-			
 		}
-		
-		/*Connection conn=DBUtil.getConnection();
+		ArticleService articleService=config.getIoc().get(ArticleService.class);
+		Connection conn=DBUtil.getConnection();
 		try {
 			Statement st=conn.createStatement();
 			ResultSet rs = st.executeQuery("select * from t_article");
 			while(rs.next()){
 				System.out.println("-------------------------------------------------------------------id:"+rs.getLong("id"));
-				if(dao.count(Article.class, Cnd.where("title", "=", rs.getString("title")))==0&&rs.getLong("id")!=621){
+				if(dao.count(Article.class, Cnd.where("title", "=", rs.getString("title")))==0&&rs.getLong("id")!=419&&rs.getLong("id")!=775){
 					Article article=new Article();
 					article.setContent(rs.getString("content"));
 					article.setTitle(rs.getString("title"));
 					article.setTagId(Long.parseLong(rs.getString("tagIds")));
 					article.setUserId(1);
-					dao.insert(article);
-					FromOther other=new FromOther();
-					other.setObjId(article.getId());
-					other.setUserId(1);
-					other.setType(CategoryType.ARTICLE);
-					other.setSelfIs(true);
-					dao.insert(other);
+					articleService.add(article);
 				}
 			}
 		} catch (SQLException e) {
 			System.out.println("******************************************error**********************************");
 			e.printStackTrace();
-		}*/
+		}
 		
 		/*List<Article> articleList=dao.query(Article.class, null);
 		for(int i=0;i<articleList.size();i++){
