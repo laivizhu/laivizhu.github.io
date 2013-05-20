@@ -34,4 +34,5 @@ public class ArticleService extends BasicDBService{
 		calSimpleDegreeThread.start();
 	}
 	
+	
 }

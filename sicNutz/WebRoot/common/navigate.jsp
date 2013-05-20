@@ -36,11 +36,11 @@
               <li><a href="/sicNutz/book/book.jsp">书城</a></li>
               <li><a href="/sicNutz/shopping/shopping.jsp">商城</a></li>
               <li class="dropdown">
-                <a href="/sicNutz/blog/article.jsp" class="dropdown-toggle" data-toggle="dropdown">信息记录 <b class="caret"></b></a>
+                <a href="/sicNutz/blog/article.jsp" class="dropdown-toggle" data-toggle="dropdown">生活百味 <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/sicNutz/blog/article.jsp">博客</a></li>
+                  <li><a href="/sicNutz/blog/article.jsp">百味人生</a></li>
                   <li class="divider"></li>
-                  <li class="nav-header">知识管理</li>
+                  <li class="nav-header">知识百科</li>
                   <li><a href="/sicNutz/blog/knowledge.jsp">知识</a></li>
                 </ul>
               </li>

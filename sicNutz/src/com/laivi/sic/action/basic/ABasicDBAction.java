@@ -19,6 +19,7 @@ import com.laivi.sic.model.json.JsonList;
 import com.laivi.sic.model.po.basic.IBasicDBEntity;
 import com.laivi.sic.model.to.Response;
 import com.laivi.sic.model.type.IMOType;
+import com.laivi.sic.service.basic.BasicDBService;
 import com.laivi.sic.util.basic.DataUtil;
 
 
@@ -30,9 +31,12 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 
 	protected Condition cnd=null;
 	
+	@Inject("refer:basicDBService")
+	protected BasicDBService basicService;
+	
 	@At
 	public Object search(@Param("::page.")Pager page,String key,String value){
-		return list(page,Cnd.where(key, "LIKE", "%"+value+"%"));
+		return list(page,Cnd.where(key, "LIKE", "%"+this.encodeString(value)+"%"));
 	}
 
 	@Override
@@ -82,12 +86,11 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	}
 	
 	protected JsonList list(Pager page,Condition cnd,boolean unFold){
-		JsonList jsonList=new JsonList();
-		for(T obj:dao.query(this.getEntityClass(), cnd, page)){
-			jsonList.add(this.getJsonItem(obj,!unFold));
-		}
-		jsonList.setTotalProperty(dao.count(this.getEntityClass(), cnd));
-		return jsonList;
+		return this.list(page, getEntityClass(), cnd, unFold);
+	}
+	
+	protected JsonList list(Pager page,String sql,String count) throws Exception{
+		return this.list(page, getEntityClass(), sql, count);
 	}
 	
 	
@@ -177,4 +180,27 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 		}
 		return item;
 	}
+
+	@Override
+	public JsonList list(Pager page, Class<?> klass, Condition cnd, boolean unFold) {
+		JsonList jsonList=new JsonList();
+		for(Object obj:dao.query(this.getEntityClass(), cnd, page)){
+			jsonList.add(this.getJsonItem(klass,obj,!unFold));
+		}
+		jsonList.setTotalProperty(dao.count(this.getEntityClass(), cnd));
+		return jsonList;
+	}
+
+	@Override
+	public JsonList list(Pager page, Class<?> klass, String sql, String count)
+			throws Exception {
+		JsonList jsonList=new JsonList();
+		for(Object obj:basicService.list(klass, sql, page)){
+			jsonList.add(this.getJsonItem(klass,obj,true));
+		}
+		jsonList.setTotalProperty(basicService.getCount(klass, count));
+		return jsonList;
+	}
+	
+	
 }

@@ -8,25 +8,33 @@ import org.nutz.dao.pager.Pager;
 import com.laivi.sic.model.po.basic.IBasicDBEntity;
 
 public interface IBasicDBService {
-	<T extends IBasicDBEntity> long add(T object);
+	<T extends IBasicDBEntity> long add(T object)throws Exception;
 	
-	<T> void delete(Class<T> klass,long id);
+	<T> void delete(Class<T> klass,long id)throws Exception;
 	
-	<T> void update(T obj);
+	<T> void update(T obj)throws Exception;
 	
-	<T> T get(Class<T> klass,long id);
+	<T> T get(Class<T> klass,long id)throws Exception;
 	
-	<T> T get(Class<T> klass,Condition cnd);
+	<T> T get(Class<T> klass,Condition cnd)throws Exception;
 	
-	<T> List<T> list(Class<T> klass,Condition cnd,int start,int limit);
+	<T> List<T> list(Class<T> klass,Condition cnd,int start,int limit)throws Exception;
 	
-	<T> List<T> list(Class<T> klass,Condition cnd,Pager page);
+	<T> List<T> list(Class<T> klass,Condition cnd,Pager page)throws Exception;
 	
-	<T> List<T> list(Class<T> klass,Condition cnd);
+	<T> List<T> list(Class<T> klass,Condition cnd)throws Exception;
 	
-	<T> List<T> list(Class<T> klass);
+	<T> List<T> list(Class<T> klass)throws Exception;
 	
-	<T> int getCount(Class<T> klass,Condition cnd);
+	<T> List<T> list(Class<T> klass,String sql,Pager page)throws Exception;
 	
-	<T> int getCount(Class<T> klass);
+	<T> int getCount(Class<T> klass,Condition cnd)throws Exception;
+	
+	<T> int getCount(Class<T> klass)throws Exception;
+	
+	<T> int getCount(Class<T> klass,String sql)throws Exception;
+	
+	
+	
+	
 }

@@ -32,8 +32,9 @@
 				</div>
 				<div>
 					<ul class="nav nav-tabs" id="myTab">
-						  <li class="active"><a href="#myBook" data-toggle="tab">我的书籍</a></li>
+						  <li class="active"><a href="#myBook" data-toggle="tab">我上传的书籍</a></li>
 						  <li><a href="#myCreateBook" data-toggle="tab">我创作的书籍</a></li>
+						  <li><a href="#myBookShelf" data-toggle="tab">我的书架</a></li>
 						  <li><a href="#myBookMark" data-toggle="tab">我的书签</a></li>
 					</ul>
 					<div class='tab-content'>
@@ -45,6 +46,14 @@
 							<div class="span8">
 								<div align='right'>
 									<a href="user_addBook.jsp" class="btn btn-success"><i class='icon-book'></i>创作书籍</a>
+								</div>
+							</div>
+							<div class="row" id="myCreateBookListDivId">
+	      					</div>
+						</div>
+						<div class='tab-pane fade' id='myBookShelf'>
+							<div class="span8">
+								<div id="myBookShelfListDivId">
 								</div>
 							</div>
 							<div class="row" id="myCreateBookListDivId">
@@ -91,6 +100,10 @@
 			});
 			sic.pageLoding.pageLoad('../media/mark/list.nut', $("#bookMarkListDivId"), function(item){
 				return "<div class='span8'><p><a href='../book/chapter_view.jsp?id="+item.chapter.id+"'>"+item.chapter.title+"</a></p><div align='right'><button class='btn' onclick=deleteObject('../media/mark/delete.nut?id="+item.id+"')><i class='icon-remove'></i>删除</button></div></div>";
+			});
+			
+			sic.pageLoding.pageLoad('../media/bookshelf/list.nut', $("#myBookShelf"), function(item){
+				return "<div class='span3'><div class='thumbnail'><a href='user_viewBook.jsp?id="+item.id+"'><img src='../images/default/musicAlbum.jpg'></a><div class='caption'><p>"+item.name+"</p><p><a class='btn' href='#' onclick=deleteObject('../media/book/delete.nut?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>&nbsp;<a class='btn' href='user_addBook.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div></div>";
 			});
 		}));
 	

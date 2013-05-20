@@ -22,7 +22,6 @@ public class Article extends AUserEntity {
 	
 	private long tagId;
 	
-	
 	private boolean otherIs;
 
 	public String getTitle() {

@@ -84,12 +84,29 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	public Object getProposal(long id){
 		JsonList jsonList=new JsonList();
 		SimpleDegree simple=dao.fetch(SimpleDegree.class, Cnd.where("objId", "=", id).and("type", "=", CategoryType.ARTICLE));
-		for(long aId:DataUtil.changeIdString(simple.getSimpleIds())){
-			if(aId!=0){
-				jsonList.add(this.getJsonItem(dao.fetch(Article.class, aId), true));
+		if(simple!=null){
+			for(long aId:DataUtil.changeIdString(simple.getSimpleIds())){
+				if(aId!=0){
+					jsonList.add(this.getJsonItem(dao.fetch(Article.class, aId), true));
+				}
 			}
 		}
+		
 		jsonList.setSize();
+		return jsonList;
+	}
+	
+	@At
+	public Object listByTag(@Param("::page.")Pager page,long tagId) throws Exception{
+		String sql="select f.* from sic_fromother f,sic_article a where f.objId=a.id and f.type='ARTICLE' and a.tagId="+tagId+" order by createDate desc";
+		JsonList jsonList=new JsonList();
+		for(FromOther obj:basicService.list(FromOther.class, sql, page)){
+			JsonItem item=this.getJsonItem(FromOther.class,obj,true);
+			item.add("article", this.getJsonItem(dao.fetch(Article.class, obj.getObjId()), true));
+			jsonList.add(item);
+		}
+		sql="select count(*) from sic_fromother f,sic_article a where f.objId=a.id and f.type='ARTICLE' and a.tagId="+tagId;
+		jsonList.setTotalProperty(basicService.getCount(FromOther.class, sql));
 		return jsonList;
 	}
 

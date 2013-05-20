@@ -73,7 +73,7 @@
 				sic.common.setFormVaule('../media/book/get.nut?id='+id,true,function(result){
 					editor.html(result.data.description);
                     sic.common.comboList($("#tagIdFormFieldId"), '../tag/comboList.nut?tag.type=BOOK',function(){
-                        $("#tagIdFormFieldId").val(result.data.tagId);
+                        $("#tagIdFormFieldId").val(result.data.tag.id);
                     });
 				});
 				sic.common.submitForm($("#bookAddFormId"), '../media/book/update.nut?book.id='+id, function(){

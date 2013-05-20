@@ -29,6 +29,10 @@
 						<input type="text" id="searchWord" class="search-query" style="height:30px;width:400px;"/>
 						<button type="button" class="btn btn-success" onclick="searchArticle()">搜索</button>
 					</div>
+					<div class="span8">
+						<div class="span8" id="tagListDivId">
+						</div>
+					</div>
 					<div class="row span8" id="articleListDivId">
 					</div>
 	      		</div>
@@ -76,7 +80,6 @@
 						$("#articleListDivId").append("<div class='span8'><a href='../blog/article_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p><div align='right'>"+item.createDate+" 作者："+item.user+"</div></p><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p><a class='btn' onclick=deleteObject('../blog/article/remove.nut?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addArticle.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>");
 					});
 				});
-				
 			}
 		};
 		
@@ -86,10 +89,17 @@
 				url:'../blog/article/listAllTitle.nut',
 				object:'#searchWord'
 			});
+			var tagId=sic.basic.getUrlVar('tagId');
 			/*laivi.scrollBreakPage('article_list.action', $("#articleListDivId"), function(item){
 				return "<div class='span8'><a href='../knowledge/article_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p>"+item.createDate+"|"+item.user+"<a class='btn' onclick=deleteObject('article_delete.action?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addArticle.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>";
 			});*/
-            sic.pageLoding.pageLoad('../blog/article/list.nut', $("#articleListDivId"), function(item){
+			var url=null;
+			if(tagId!=null){
+				url='../blog/article/listByTag.nut?tagId='+tagId;
+			}else{
+				url='../blog/article/list.nut';
+			}
+            sic.pageLoding.pageLoad(url, $("#articleListDivId"), function(item){
             	var keyword="";
             	if(!item.selfIs){
             		if(item.shareIs) keyword="分享";
@@ -98,10 +108,15 @@
             	}
             	return "<div class='span8'><a href='../blog/article_view.jsp?id="+item.article.id+"'><h4>"+(item.selfIs?"":"<font color='red'>["+keyword+"]</font>")+item.article.title+"</h4></a><p><div align='right'>"+item.article.createDate+" 作者："+item.user.name+" 访问量："+item.article.viewCount+"</div></p><p id='content"+item.article.id+"'>"+item.article.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.article.id+")'>More &raquo;</a></p><div align='right'><p><a class='btn' onclick=deleteObject('../blog/article/delete.nut?id="+item.article.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addArticle.jsp?id="+item.article.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>";;
             });
+			
+			sic.common.getJson('../tag/comboList.nut?tag.type=ARTICLE',function(result){
+				$("#tagListDivId").append("<table width='100%'><tr>");
+				$.each(result.root,function(i,item){
+					$("#tagListDivId").append("<td><a href='user_article.jsp?tagId="+item.id+"'><font color='green'>"+item.name+"</font></a>&nbsp;&nbsp;</td>");
+				});
+				$("#tagListDivId").append("</tr></table>");
+			});
 		}));
-
-
-		
 	
 	</script>
   </body>

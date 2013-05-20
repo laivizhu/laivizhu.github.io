@@ -301,7 +301,7 @@ var sic={
 		                    obj.append("<div class='span8'><div class='alert alert-block'><h4>暂无记录</h4></div></div>");
 		                }
 		            }
-		        },false,{
+		        },true,{
 		        	'page.pageNumber':currentPage,
 		        	'page.pageSize':sicValue.page.pageCount,
 		        });
