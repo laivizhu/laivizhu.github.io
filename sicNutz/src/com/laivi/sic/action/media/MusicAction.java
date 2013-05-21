@@ -30,7 +30,7 @@ public class MusicAction extends ABasicDBAction<Music> {
 
 	@At
 	@AdaptBy(type = UploadAdaptor.class,args="ioc:upload")
-	public Object upload(@Param("pictures")TempFile[] tempFiles,long albumId){
+	public Object upload(@Param("musics")TempFile[] tempFiles,long albumId){
 		JsonItemList jsonList=new JsonItemList();
 		for(TempFile tempFile:tempFiles){
 			File file=tempFile.getFile();

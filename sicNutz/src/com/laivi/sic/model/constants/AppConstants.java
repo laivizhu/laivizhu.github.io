@@ -24,8 +24,8 @@ public interface AppConstants {
 	long SYSTEM_USER_ID=1;
 
 	String PICTURE_UPLOAD="/upload/picture/";
-	String MUSIC_UPLOAD="/upload/picture/";
-	String BOOK_UPLOAD="/upload/picture/";
+	String MUSIC_UPLOAD="/upload/music/";
+	String BOOK_UPLOAD="/upload/book/";
 	
 	double PICTURE_COMPRESS_RATE=0.5;
 

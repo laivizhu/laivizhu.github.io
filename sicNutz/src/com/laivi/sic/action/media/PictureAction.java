@@ -23,41 +23,54 @@ import com.laivi.sic.util.basic.FileUtil;
 @IocBean
 @At("/media/picture")
 public class PictureAction extends ABasicDBAction<Picture> {
-	
+
 	@At
-	@AdaptBy(type = UploadAdaptor.class,args="ioc:upload")
-	public Object upload(@Param("pictures")TempFile[] tempFiles,long albumId){
-		JsonItemList jsonList=new JsonItemList();
-		for(TempFile tempFile:tempFiles){
-			File file=tempFile.getFile();
+	@AdaptBy(type = UploadAdaptor.class, args = "ioc:upload")
+	public Object upload(@Param("pictures")TempFile[] tempFiles,@Param("albumId")long albumId) {
+		JsonItemList jsonList = new JsonItemList();
+		for (TempFile tempFile : tempFiles) {
+			File file = tempFile.getFile();
 			String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-			Picture picture=new Picture(tempFile.getMeta().getFileLocalName(),uuid+"."+Files.getSuffixName(file).toLowerCase(),albumId);
+			Picture picture = new Picture(
+					tempFile.getMeta().getFileLocalName(), uuid + "."
+							+ Files.getSuffixName(file).toLowerCase(), albumId);
 			dao.insert(picture);
-			jsonList.createItem().add("id",picture.getId()).add("name", picture.getName())
-								 .add("size", file.length()).add("delete_type","GET")
-								 .add("url","").add("delete_url","../media/picture/deleteFile.nut?id="+picture.getId()+"&fileName="+picture.getPath());
-			String dest=this.getRealPath(AppConstants.PICTURE_UPLOAD+uuid)+"."+Files.getSuffixName(file).toLowerCase();
-			//String smallPath = this.getRealPath("/upload/picture/"+uuid) + "_128x128." + Files.getSuffixName(file).toLowerCase();
-			try{
-				//Images.zoomScale(file, new File(smallPath), 128, 128,Color.BLACK);
+			jsonList.createItem()
+					.add("id", picture.getId())
+					.add("name", picture.getName())
+					.add("size", file.length())
+					.add("delete_type", "GET")
+					.add("url", "")
+					.add("delete_url",
+							"../media/picture/deleteFile.nut?id="
+									+ picture.getId() + "&fileName="
+									+ picture.getPath());
+			String dest = this.getRealPath(AppConstants.PICTURE_UPLOAD + uuid)
+					+ "." + Files.getSuffixName(file).toLowerCase();
+			// String smallPath = this.getRealPath("/upload/picture/"+uuid) +
+			// "_128x128." + Files.getSuffixName(file).toLowerCase();
+			try {
+				// Images.zoomScale(file, new File(smallPath), 128,
+				// 128,Color.BLACK);
 				file.renameTo(new File(dest));
-			}catch(Throwable e){
+			} catch (Throwable e) {
 				e.printStackTrace();
 			}
 		}
 		return jsonList.getRoot();
 	}
-	
+
 	@At
-	public Object pictureList(@Param("::page.")Pager page,long albumId){
-		return list(page,Cnd.where("albumId", "=", albumId).desc("id"));
+	public Object pictureList(@Param("::page.") Pager page, long albumId) {
+		return list(page, Cnd.where("albumId", "=", albumId).desc("id"));
 	}
-	
+
 	@At
-	public Response deleteFile(long id,String fileName){
+	public Response deleteFile(long id, String fileName) {
 		dao.delete(Picture.class, id);
-		File file=FileUtil.getFile(this.getRealPath(AppConstants.PICTURE_UPLOAD)+"\\"+fileName);
-		if(file.exists()){
+		File file = FileUtil.getFile(this
+				.getRealPath(AppConstants.PICTURE_UPLOAD) + "\\" + fileName);
+		if (file.exists()) {
 			file.delete();
 		}
 		return success();
