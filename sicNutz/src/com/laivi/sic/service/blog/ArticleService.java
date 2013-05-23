@@ -5,8 +5,8 @@ import org.nutz.trans.Atom;
 import org.nutz.trans.Trans;
 
 import com.laivi.sic.model.po.blog.Article;
-import com.laivi.sic.model.po.blog.SimpleDegree;
 import com.laivi.sic.model.po.common.FromOther;
+import com.laivi.sic.model.po.common.SimpleDegree;
 import com.laivi.sic.model.type.CategoryType;
 import com.laivi.sic.service.basic.BasicDBService;
 import com.laivi.sic.service.task.CalSimpleDegree;

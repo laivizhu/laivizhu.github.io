@@ -16,7 +16,7 @@ import org.wltea.analyzer.core.Lexeme;
 
 import com.laivi.sic.model.constants.AppConstants;
 import com.laivi.sic.model.exception.ErrorException;
-import com.laivi.sic.model.po.blog.SimpleDegree;
+import com.laivi.sic.model.po.common.SimpleDegree;
 
 /**
  * 

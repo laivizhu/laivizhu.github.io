@@ -37,7 +37,7 @@
 			<div id="articleStarDivId"></div>
 		</div>
         <div class="span12">
-            <h3>文章推荐</h3>
+            <h3>同类文章</h3>
         </div>
         <div id="likeArticleListDivId">
 

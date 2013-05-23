@@ -450,7 +450,7 @@
     noRatedMsg    : 'Not rated yet!',
     number        : 5,
     numberMax     : 20,
-    path          : '/knowledge/js/plug/raty/img/',
+    path          : '/sicNutz/js/plug/raty/img/',
     precision     : false,
     readOnly      : false,
     round         : { down: .25, full: .6, up: .76 },

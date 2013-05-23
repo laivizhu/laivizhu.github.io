@@ -1,4 +1,4 @@
-package com.laivi.sic.model.po.blog;
+package com.laivi.sic.model.po.common;
 
 import org.nutz.dao.entity.annotation.ColDefine;
 import org.nutz.dao.entity.annotation.ColType;

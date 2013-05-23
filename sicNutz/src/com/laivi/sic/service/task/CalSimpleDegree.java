@@ -6,7 +6,7 @@ import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 
 import com.laivi.sic.model.po.blog.Article;
-import com.laivi.sic.model.po.blog.SimpleDegree;
+import com.laivi.sic.model.po.common.SimpleDegree;
 import com.laivi.sic.model.type.CategoryType;
 import com.laivi.sic.util.basic.DataUtil;
 
