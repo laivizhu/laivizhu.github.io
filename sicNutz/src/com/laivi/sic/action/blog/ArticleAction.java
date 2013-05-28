@@ -97,6 +97,22 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	}
 	
 	@At
+	public Object search(@Param("::page.")Pager page,String key,String value) throws Exception{
+		value=this.encodeString(value);
+		String where="where f.objId=a.id and f.type='ARTICLE' and a."+key+" like '%"+value+"%' order by f.id desc";
+		String sql="select f.* from sic_fromother f,sic_article a "+where;
+		JsonList jsonList=new JsonList();
+		for(FromOther obj:basicService.list(FromOther.class, sql, page)){
+			JsonItem item=this.getJsonItem(FromOther.class,obj,true);
+			item.add("article", this.getJsonItem(dao.fetch(Article.class, obj.getObjId()), true));
+			jsonList.add(item);
+		}
+		sql="select count(*) from sic_fromother f,sic_article a "+where;
+		jsonList.setTotalProperty(basicService.getCount(FromOther.class, sql));
+		return jsonList;
+	}
+	
+	@At
 	public Object listByTag(@Param("::page.")Pager page,long tagId) throws Exception{
 		String sql="select f.* from sic_fromother f,sic_article a where f.objId=a.id and f.type='ARTICLE' and a.tagId="+tagId+" order by createDate desc";
 		JsonList jsonList=new JsonList();

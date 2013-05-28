@@ -76,8 +76,16 @@
 			if(sic.common.isNotNull(searchWord, '请输入搜索文章关键字')){
 				sic.common.getJson('../blog/article/search.nut?notBreakPage=true&key=title&value='+searchWord, function(result){
 					$("#articleListDivId").html("");
+					var keyword="";
+	            	
 					$.each(result.root,function(i,item){
-						$("#articleListDivId").append("<div class='span8'><a href='../blog/article_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p><div align='right'>"+item.createDate+" 作者："+item.user+"</div></p><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p><div align='right'><p><a class='btn' onclick=deleteObject('../blog/article/remove.nut?id="+item.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addArticle.jsp?id="+item.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>");
+						var keyword="";
+		            	if(!item.selfIs){
+		            		if(item.shareIs) keyword="分享";
+		            		if(item.favoriteIs) keyword="收藏";
+		            		if(item.fromOtherIs) keyword="转载";
+		            	}
+						$("#articleListDivId").append("<div class='span8'><a href='../blog/article_view.jsp?id="+item.article.id+"'><h4>"+(item.selfIs?"":"<font color='red'>["+keyword+"]</font>")+item.article.title+"</h4></a><p><div align='right'>"+item.article.createDate+" 作者："+item.user.name+" 访问量："+item.article.viewCount+"</div></p><p id='content"+item.article.id+"'>"+item.article.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.article.id+")'>More &raquo;</a></p><div align='right'><p><a class='btn' onclick=deleteObject('../blog/article/delete.nut?id="+item.article.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addArticle.jsp?id="+item.article.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>");
 					});
 				});
 			}
@@ -106,7 +114,7 @@
             		if(item.favoriteIs) keyword="收藏";
             		if(item.fromOtherIs) keyword="转载";
             	}
-            	return "<div class='span8'><a href='../blog/article_view.jsp?id="+item.article.id+"'><h4>"+(item.selfIs?"":"<font color='red'>["+keyword+"]</font>")+item.article.title+"</h4></a><p><div align='right'>"+item.article.createDate+" 作者："+item.user.name+" 访问量："+item.article.viewCount+"</div></p><p id='content"+item.article.id+"'>"+item.article.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.article.id+")'>More &raquo;</a></p><div align='right'><p><a class='btn' onclick=deleteObject('../blog/article/delete.nut?id="+item.article.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addArticle.jsp?id="+item.article.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>";;
+            	return "<div class='span8'><a href='../blog/article_view.jsp?id="+item.article.id+"'><h4>"+(item.selfIs?"":"<font color='red'>["+keyword+"]</font>")+item.article.title+"</h4></a><p><div align='right'>"+item.article.createDate+" 作者："+item.user.name+" 访问量："+item.article.viewCount+"</div></p><p id='content"+item.article.id+"'>"+item.article.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.article.id+")'>More &raquo;</a></p><div align='right'><p><a class='btn' onclick=deleteObject('../blog/article/delete.nut?id="+item.article.id+"')><i class='icon-remove-circle'></i>删除</a>|<a class='btn' href='user_addArticle.jsp?id="+item.article.id+"'><i class='icon-edit'></i>编辑</a></p></div></div>";
             });
 			
 			sic.common.getJson('../tag/comboList.nut?tag.type=ARTICLE',function(result){

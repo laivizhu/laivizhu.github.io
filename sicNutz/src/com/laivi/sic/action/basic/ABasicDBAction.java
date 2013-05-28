@@ -35,7 +35,7 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	protected BasicDBService basicService;
 	
 	@At
-	public Object search(@Param("::page.")Pager page,String key,String value){
+	public Object search(@Param("::page.")Pager page,String key,String value)throws Exception{
 		return list(page,Cnd.where(key, "LIKE", "%"+this.encodeString(value)+"%"));
 	}
 
