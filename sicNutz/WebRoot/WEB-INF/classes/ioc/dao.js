@@ -15,8 +15,23 @@ var ioc={
 		type:"org.nutz.dao.impl.NutDao",
 		args:[{refer:"dataSource"}]
 	},
-	basicService:{
-		type:'com.laivi.sic.service.basic.BasicService',
-		args:[{refer:"dao"}]
+	freeMaker:{
+		type:'freemarker.template.Configuration'
+	},
+	defaultAuth:{
+		type:'org.apache.commons.mail.DefaultAuthenticator',
+		args:["zhuweionline@163.com","zhuwei19870923"]
+	},
+	multiMail:{
+		type:'org.apache.commons.mail.MultiPartEmail',
+		fields:{
+			hostName:'smtp.163.com',
+			charset:'utf-8',
+			from:'zhuweionline@163.com',
+			authenticator:{refer:'defaultAuth'}
+		}
+	},
+	attachMail:{
+		type:'org.apache.commons.mail.EmailAttachment'
 	}
 };

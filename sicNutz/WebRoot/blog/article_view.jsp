@@ -36,6 +36,12 @@
 		<div class="span12" align="center">
 			<div id="articleStarDivId"></div>
 		</div>
+		<div class="span12" align="right">
+			<div>
+				<button class="btn btn-small" id="articleDelButtonId"><i class="icon-remove-circle"></i>删除</button>
+				<button class="btn btn-small" id="articleEditButtonId"><i class="icon-edit"></i>编辑</button>
+			</div>
+		</div>
         <div class="span12">
             <h3>同类文章</h3>
         </div>
@@ -77,6 +83,10 @@
 	<script type="text/javascript" src="../js/plug/raty/jquery.raty.js"></script>
 	<script type="text/javascript" src="../js/common/sic-basic.js"></script>
 	<script type="text/javascript">
+		function delArticle(){
+			deleteObject('');
+		}	
+	
 		$(document).ready(sic.basic.init(function(){
 			var articleId=sic.basic.getUrlVar("id");
 			$('#idFormFieldId').val(articleId);

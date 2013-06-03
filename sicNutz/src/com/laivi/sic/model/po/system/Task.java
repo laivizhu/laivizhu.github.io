@@ -12,6 +12,10 @@ public class Task extends AUserEntity{
 	private String key;
 	
 	private TaskType type;
+	
+	private String title;
+	
+	private String serviceClass;
 
 	public String getKey() {
 		return key;
@@ -27,5 +31,21 @@ public class Task extends AUserEntity{
 
 	public void setType(TaskType type) {
 		this.type = type;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getServiceClass() {
+		return serviceClass;
+	}
+
+	public void setServiceClass(String serviceClass) {
+		this.serviceClass = serviceClass;
 	}
 }

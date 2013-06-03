@@ -104,12 +104,9 @@
 		var getDataList=function(url,obj){
 			sic.common.getJson(url, function(result){
 				$.each(result.root,function(i,item){
-					obj.append("<tr><td align='left'><a href='"+item.url+"'>"+item.article.title+"</a></td><td align='right'>"+item.article.createDate+"</td></tr>");
+					obj.append("<tr><td align='left'><a href='blog/article_view.jsp?id="+item.id+"' title='"+item.title+"'>"+item.title.substring(0,10)+"</a>("+item.viewCount+")</td><td align='right'>"+item.createDate.substring(0,10)+"</td></tr>");
 				});
-			},false,{
-				'page.pageNumber':1,
-				'page.pageSize':5
-			});
+			},false);
 		};
 		
 		/* $('#myModal').on('show', function () {
@@ -121,7 +118,7 @@
 				//parentContainer:'#pictureDivId',
 				//url:'picture_list.action?start=0&limit=200'
 			//});
-			getDataList('blog/article/getAll.nut',$('#articleListId'));
+			getDataList('blog/article/getHotArticles.nut',$('#articleListId'));
 		}));
 		
 	</script>

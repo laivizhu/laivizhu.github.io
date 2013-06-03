@@ -39,7 +39,11 @@ public class CheckProcessor extends AbstractProcessor {
 				doNext(ac);
 			}
 		}catch(Exception e){
-			ac.setMethodReturn(new Response(false,e.getMessage()));
+			if(e.getMessage()!=null&& !"".equals(e.getMessage())){
+				ac.setMethodReturn(new Response(false,e.getMessage()));
+			}else{
+				ac.setMethodReturn(new Response(false,"系统错误！"));
+			}
 			this.renderView(ac);
 		}
 		

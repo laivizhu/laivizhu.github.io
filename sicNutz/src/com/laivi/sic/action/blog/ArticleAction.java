@@ -81,6 +81,15 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	}
 	
 	@At
+	public Object getHotArticles(){
+		JsonList jsonList=new JsonList();
+		for(Article article:dao.query(Article.class, Cnd.orderBy().desc("viewCount").desc("createDate"),dao.createPager(1, 5))){
+			jsonList.add(this.getJsonItem(article, true));
+		}
+		return jsonList;
+	}
+	
+	@At
 	public Object getProposal(long id){
 		JsonList jsonList=new JsonList();
 		SimpleDegree simple=dao.fetch(SimpleDegree.class, Cnd.where("objId", "=", id).and("type", "=", CategoryType.ARTICLE));
