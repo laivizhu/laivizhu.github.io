@@ -8,6 +8,7 @@ import org.nutz.dao.Dao;
 import org.nutz.dao.pager.Pager;
 import org.nutz.dao.util.cri.SqlExpressionGroup;
 import org.nutz.ioc.loader.annotation.Inject;
+import org.nutz.lang.Mirror;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.At;
@@ -138,8 +139,8 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	@Override
 	public JsonItem getJsonItem(Class<?> klass, Object obj, boolean fold) {
 		JsonItem item=new JsonItem();
-		Field[] fields=DataUtil.appendArray(klass.getSuperclass().getDeclaredFields(), klass.getSuperclass().getSuperclass().getDeclaredFields());
-		for(Field field:DataUtil.appendArray(klass.getDeclaredFields(), fields)){
+		for(Field field:Mirror.me(klass).getFields()){
+			System.out.println("###################Field Type:" +field.getType().toString());
 			boolean accessFlag = field.isAccessible();
 			field.setAccessible(true);
 			String fieldName=field.getName();

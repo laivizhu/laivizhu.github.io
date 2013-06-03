@@ -5,8 +5,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
@@ -24,7 +22,6 @@ import com.laivi.sic.model.po.user.Role;
 import com.laivi.sic.model.po.user.User;
 import com.laivi.sic.model.type.CategoryType;
 import com.laivi.sic.service.blog.ArticleService;
-import com.laivi.sic.service.system.MailService;
 import com.laivi.sic.util.basic.DBUtil;
 
 public class NutzSetUp implements Setup{
@@ -90,6 +87,7 @@ public class NutzSetUp implements Setup{
 				dao.insert(tag);
 			}
 		}
+		
 		ArticleService articleService=config.getIoc().get(ArticleService.class);
 		Connection conn=DBUtil.getConnection();
 		try {
@@ -97,7 +95,7 @@ public class NutzSetUp implements Setup{
 			ResultSet rs = st.executeQuery("select * from t_article");
 			while(rs.next()){
 				System.out.println("-------------------------------------------------------------------id:"+rs.getLong("id"));
-				if(dao.count(Article.class, Cnd.where("title", "=", rs.getString("title")))==0&&rs.getLong("id")!=621){
+				if(dao.count(Article.class, Cnd.where("title", "=", rs.getString("title")))==0&&rs.getLong("id")!=419&&rs.getLong("id")!=775){
 					Article article=new Article();
 					article.setContent(rs.getString("content"));
 					article.setTitle(rs.getString("title"));
@@ -130,15 +128,6 @@ public class NutzSetUp implements Setup{
 				dao.insert(simple);
 			}
 		}*/
-		//test(config);
-	}
-	
-	public void test(NutConfig config){
-		MailService mail=config.getIoc().get(MailService.class);
-		Map<String, Object> rootMap = new HashMap<String, Object>();  
-        rootMap.put("user", "张三");  
-        rootMap.put("account", "1234546"); 
-        mail.sendMail("laivi.zhu@gmail.com", "test", mail.getMailText(rootMap, config.getServletContext().getRealPath("WEB-INF/mailTemplate"),"test.ftl"));
 	}
 
 	@Override

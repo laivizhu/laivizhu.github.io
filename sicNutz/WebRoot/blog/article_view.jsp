@@ -39,7 +39,7 @@
 		<div class="span12" align="right">
 			<div>
 				<button class="btn btn-small" id="articleDelButtonId"><i class="icon-remove-circle"></i>删除</button>
-				<button class="btn btn-small" id="articleEditButtonId"><i class="icon-edit"></i>编辑</button>
+				<button class="btn btn-small" id="articleEditButtonId" onclick="editArticle()"><i class="icon-edit"></i>编辑</button>
 			</div>
 		</div>
         <div class="span12">
@@ -85,7 +85,11 @@
 	<script type="text/javascript">
 		function delArticle(){
 			deleteObject('');
-		}	
+		}
+		
+		function editArticle(){
+			window.location.href="../user/user_addArticle.jsp?id="+sic.basic.getUrlVar("id");
+		}
 	
 		$(document).ready(sic.basic.init(function(){
 			var articleId=sic.basic.getUrlVar("id");
