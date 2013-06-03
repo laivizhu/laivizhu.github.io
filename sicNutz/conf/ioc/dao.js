@@ -22,6 +22,7 @@ var ioc={
 		type:'org.apache.commons.mail.DefaultAuthenticator',
 		args:["zhuweionline@163.com","zhuwei19870923"]
 	},
+	
 	multiMail:{
 		type:'org.apache.commons.mail.MultiPartEmail',
 		fields:{
