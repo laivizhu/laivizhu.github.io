@@ -8,6 +8,9 @@ import static org.quartz.TriggerBuilder.newTrigger;
 import java.io.File;
 import java.util.Date;
 
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +20,11 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
+import com.laivi.maptable.GenerateMysqlTable;
+import com.laivi.sic.model.po.blog.Article;
 import com.laivi.sic.service.task.TestJob;
 import com.laivi.sic.util.basic.DataUtil;
+import com.laivi.sic.util.basic.ExcelUtil;
 
 public class MethodTest {
 	private Scheduler scheduler;
@@ -60,7 +66,6 @@ public class MethodTest {
 	@Test
 	public void testQuartz(){
 		JobDetail job=newJob(TestJob.class).withIdentity("job1", "group1").build();
-		
 		Trigger trigger=newTrigger().withIdentity("trigger1", "group1").startAt(evenMinuteDate(new Date())).build();
 		//Date startTime=DateBuilder.
 		try {
@@ -73,5 +78,19 @@ public class MethodTest {
             Thread.sleep(65L * 1000L); 
         } catch (Exception e) {
         }
+	}
+	
+	@Test
+	public void testGenerateMysqlTable(){
+		GenerateMysqlTable mysql=new GenerateMysqlTable();
+		System.out.println(mysql.generateCreate(Article.class));
+	}
+	
+	@Test
+	public void testExcelUtil(){
+		WritableWorkbook book=ExcelUtil.getWritetWorkBook("test.xls");
+		WritableSheet sheet=ExcelUtil.getSheet(book, 0);
+		System.out.println(sheet.getCell(5, 1).getContents());
+		ExcelUtil.close(book);
 	}
 }

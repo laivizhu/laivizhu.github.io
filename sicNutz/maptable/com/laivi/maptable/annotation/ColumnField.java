@@ -1,4 +1,4 @@
-package com.laivi.basic;
+package com.laivi.maptable.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Documented
-public @interface LongText {
+public @interface ColumnField {
 
+	
 }

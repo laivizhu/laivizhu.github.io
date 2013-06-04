@@ -140,7 +140,6 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	public JsonItem getJsonItem(Class<?> klass, Object obj, boolean fold) {
 		JsonItem item=new JsonItem();
 		for(Field field:Mirror.me(klass).getFields()){
-			System.out.println("###################Field Type:" +field.getType().toString());
 			boolean accessFlag = field.isAccessible();
 			field.setAccessible(true);
 			String fieldName=field.getName();

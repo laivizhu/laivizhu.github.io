@@ -18,7 +18,7 @@ public class Book extends AUserEntity {
 	private int price;
 	
 	//@Validations(required=true,errorMsg="书描述不能为空")
-	@ColDefine(type=ColType.VARCHAR, width=1000)
+	@ColDefine(type=ColType.TEXT)
 	private String description;
 	
 	private long tagId;

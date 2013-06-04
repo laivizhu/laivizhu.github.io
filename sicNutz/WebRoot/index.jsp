@@ -104,7 +104,7 @@
 		var getDataList=function(url,obj){
 			sic.common.getJson(url, function(result){
 				$.each(result.root,function(i,item){
-					obj.append("<tr><td align='left'><a href='blog/article_view.jsp?id="+item.id+"' title='"+item.title+"'>"+item.title.substring(0,10)+"</a>("+item.viewCount+")</td><td align='right'>"+item.createDate.substring(0,10)+"</td></tr>");
+					obj.append("<tr><td align='left'><a href='blog/article_view.jsp?id="+item.id+"' title='"+item.title+"'>"+item.title.substring(0,8)+"</a>("+item.viewCount+")</td><td align='right'>"+item.createDate.substring(0,10)+"</td></tr>");
 				});
 			},false);
 		};

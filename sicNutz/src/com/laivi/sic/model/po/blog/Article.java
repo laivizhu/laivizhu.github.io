@@ -16,6 +16,7 @@ public class Article extends AUserEntity {
 	private String title;
 	
 	@Validations(required=true,errorMsg="文章内容不能为空")
+	@ColDefine(type=ColType.TEXT)
 	private String content;
 	
 	private long viewCount;

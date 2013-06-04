@@ -1,5 +1,7 @@
 package com.laivi.sic.model.po.blog;
 
+import org.nutz.dao.entity.annotation.ColDefine;
+import org.nutz.dao.entity.annotation.ColType;
 import org.nutz.dao.entity.annotation.Table;
 
 import com.laivi.sic.model.po.basic.AUserEntity;
@@ -13,9 +15,11 @@ public class Knowledge extends AUserEntity {
 	private String title;
 	
 	@Validations(required=true,errorMsg="知识问题不能为空")
+	@ColDefine(type=ColType.TEXT)
 	private String question;
 	
 	@Validations(required=true,errorMsg="知识答案不能为空")
+	@ColDefine(type=ColType.TEXT)
 	private String answer;
 	
 	private long tagId;

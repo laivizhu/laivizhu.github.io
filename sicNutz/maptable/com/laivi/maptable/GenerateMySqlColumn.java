@@ -1,6 +1,6 @@
 package com.laivi.maptable;
 
-public enum GenerateColumn {
+public enum GenerateMySqlColumn {
 
 	STRING("class java.lang.String","varchar(255)"),
 	LONG("long","bigint(64)"),
@@ -11,7 +11,7 @@ public enum GenerateColumn {
 	private final String type;
 	private final String column;
 	
-	GenerateColumn(String type,String column){
+	GenerateMySqlColumn(String type,String column){
 		this.type=type;
 		this.column=column;
 	}
@@ -24,12 +24,12 @@ public enum GenerateColumn {
 		return this.column;
 	}
 	
-	public static GenerateColumn fromType(String type){
-		for(GenerateColumn tempColumn:values()){
+	public static GenerateMySqlColumn fromType(String type){
+		for(GenerateMySqlColumn tempColumn:values()){
 			if(tempColumn.toType().equals(type)){
 				return tempColumn;
 			}
 		}
-		return GenerateColumn.STRING;
+		return GenerateMySqlColumn.STRING;
 	}
 }

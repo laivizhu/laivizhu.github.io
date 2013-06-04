@@ -18,6 +18,7 @@ public class Chapter extends ABasicEntity {
 	private String title;
 	
 	@Validations(required=true,errorMsg="章节内容不能为空")
+	@ColDefine(type=ColType.TEXT)
 	private String content;
 	
 	private int indexChapter;

@@ -17,7 +17,7 @@ public class Album extends AUserEntity {
 	private String name;
 	
 	@Validations(required=true,errorMsg="专辑描述不能为空")
-	@ColDefine(type=ColType.VARCHAR, width=1000)
+	@ColDefine(type=ColType.TEXT)
 	private String description;
 	
 	private AlbumType type;
