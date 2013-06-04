@@ -40,12 +40,14 @@ public class ArticleParser {
 			article.setContent(getContent(contentFilter,parser));
 		} catch (ParserException e) {
 			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 		return article;
 	}
 	
 	public String getTitle(Parser parser,LinkFilter filter){
-		String title=null;
+		String title="";
 		try {
 			NodeList nodeList = (NodeList) parser.parse(new NodeClassFilter(LinkTag.class));
 			for(int i=0;i<nodeList.size();i++){

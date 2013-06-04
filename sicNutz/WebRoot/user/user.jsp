@@ -85,7 +85,6 @@
     </div>
 
     <script type="text/javascript" src="../js/jquery/jquery-1.8.2.js"></script>
-  <script type="text/javascript" src="../js/jquery/jquery-ui-1.8.14.custom.min.js"></script>
 	<script type="text/javascript" src="../js/jquery/jquery.form.js"></script>
     <script type="text/javascript" src="../js/jquery/jquery.jBox-2.3.min.js"></script>
 	<script type="text/javascript" src="../js/jquery/jquery.jBox-zh-CN.js"></script>

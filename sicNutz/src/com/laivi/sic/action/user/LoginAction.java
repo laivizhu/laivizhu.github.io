@@ -32,11 +32,7 @@ public class LoginAction extends ADownloadAction<LoginUser> {
 		return success();
 	}
 	
-	@At
-	public Response logout(HttpSession session){
-		session.invalidate();
-		return success();
-	}
+	
 	
 	@At
 	@CheckValue

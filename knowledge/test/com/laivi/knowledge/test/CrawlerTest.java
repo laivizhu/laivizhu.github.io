@@ -39,12 +39,23 @@ public class CrawlerTest {
 	@Test
 	public void crawlerArticle(){
 		Crawler crawler = new Crawler();
-        List<Article> articles=crawler.crawlingArticle(new String[]{"http://www.timetimetime.net/yulu/",
-        		"http://www.timetimetime.net/yuedu/","http://www.timetimetime.net/shenghuo/"},new LinkFilter(){
+        List<Article> articles=crawler.crawlingArticle(new String[]{"http://www.timetimetime.net/catalog.asp?cate=2",
+        		"http://www.timetimetime.net/catalog.asp?cate=13",
+        		"http://www.timetimetime.net/catalog.asp?cate=20",
+        		"http://www.timetimetime.net/catalog.asp?cate=25",
+        		"http://www.timetimetime.net/catalog.asp?cate=19"},new LinkFilter(){
         	public  boolean accept(String url) {
         		if (url.matches("http://www.timetimetime.net/yuedu/[\\d]+.html")
         			|| url.matches("http://www.timetimetime.net/yulu/[\\d]+.html")
-        			|| url.matches("http://www.timetimetime.net/shenghuo/[\\d]+.html")) {
+        			|| url.matches("http://www.timetimetime.net/shenghuo/[\\d]+.html")
+        			|| url.matches("http://www.timetimetime.net/sanwen/[\\d]+.html")
+        			|| url.matches("http://www.timetimetime.net/zhuti/[\\d]+.html")) {
+        			String[] fileterUrls={};
+        			for(String filterUrl:fileterUrls){
+        				if(filterUrl.equals(url)){
+        					return false;
+        				}
+        			}
         			return true;
         		} else {
         			return false;
@@ -53,6 +64,9 @@ public class CrawlerTest {
         });
         
         for(Article article:articles){
+        	if(article.getTitle()==null){
+        		continue;
+        	}
         	CriterionList conditions=CriterionList.CreateCriterion().put(Restrictions.like("title", article.getTitle(), MatchMode.ANYWHERE));
         	if(basicService.getCount(Article.class, conditions)>0){
         		continue;
@@ -66,10 +80,14 @@ public class CrawlerTest {
         		String[] lifeKey=new String[]{"生活","职场","人生"};
         		String[] thinkKey=new String[]{};
         		for(String key:loveKey){
-        			if(article.getTitle().indexOf(key)!=-1){
-        				article.setTagIds("3");
-        				isFound=true;
-        				break;
+        			try{
+	        			if(article.getTitle().indexOf(key)!=-1){
+	        				article.setTagIds("3");
+	        				isFound=true;
+	        				break;
+	        			}
+        			}catch(Exception e){
+        				e.printStackTrace();
         			}
         		}
         		if(!isFound){
