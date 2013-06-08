@@ -46,9 +46,11 @@ public class HashUtil {
 	 * @throws java.io.IOException
 	 */
 	public static String getFileMD5String(File file) throws IOException {
-		FileChannel ch = new FileInputStream(file).getChannel();
+		FileInputStream fis=new FileInputStream(file);
+		FileChannel ch = fis.getChannel();
 		MappedByteBuffer byteBuffer = ch.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
 		messagedigest.update(byteBuffer);
+		fis.close();
 		return bufferToHex(messagedigest.digest());
 	}
 

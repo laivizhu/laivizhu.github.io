@@ -6,6 +6,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/conf"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/validation"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/maptable"/>
         <property name="context-root" value="/sicNutz"/>
         <property name="java-output-path" value="/sicNutz/WebRoot/WEB-INF/classes"/>
     </wb-module>

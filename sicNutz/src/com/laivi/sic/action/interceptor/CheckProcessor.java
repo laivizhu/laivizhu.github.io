@@ -26,7 +26,7 @@ public class CheckProcessor extends AbstractProcessor {
 				LoginUser user=(LoginUser)session.getAttribute("user");
 				if(user==null){
 					isNext=false;
-					ac.setMethodReturn(new Response(false,"请先登录！"));
+					ac.setMethodReturn(new Response(false,"请先登录!"));
 					this.renderView(ac);
 				}
 			}else if(method.isAnnotationPresent(CheckValue.class)){

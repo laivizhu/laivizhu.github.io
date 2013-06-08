@@ -6,6 +6,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Param;
 
 import com.laivi.sic.action.basic.ABasicDBAction;
+import com.laivi.sic.model.annotation.CheckLogin;
 import com.laivi.sic.model.json.JsonItem;
 import com.laivi.sic.model.po.common.RateScore;
 import com.laivi.sic.model.to.Response;
@@ -15,6 +16,7 @@ import com.laivi.sic.model.to.Response;
 public class ScoreAction extends ABasicDBAction<RateScore> {
 	
 	@At
+	@CheckLogin
 	public Response add(@Param("::score.")RateScore score){
 		long userId=this.getUserId();
 		if(dao.count(RateScore.class,Cnd.where("objectId", "=", score.getObjectId())

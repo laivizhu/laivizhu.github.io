@@ -116,11 +116,13 @@ var sic={
 						if(successHandler!=null){
 							successHandler(result);
 						}
-						$.jBox.closeTip();
 					}else{
 						sic.msg.error(result.msg);
-						$.jBox.closeTip();
+						if("请先登录!"==result.msg){
+							window.location.href="/sicNut/login.html";
+						}
 					}
+					$.jBox.closeTip();
 				});
 			},
 			setFormVaule:function(url,isInput,OtherHandler,params){

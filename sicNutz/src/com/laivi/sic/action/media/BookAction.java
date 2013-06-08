@@ -29,7 +29,7 @@ import com.laivi.sic.util.book.BookChapterUtil;
 public class BookAction extends ABasicDBAction<Book> {
 	@At
 	@AdaptBy(type = UploadAdaptor.class,args="ioc:upload")
-	public Object upload(@Param("pictures")TempFile[] tempFiles){
+	public Object uploadBook(@Param("books")TempFile[] tempFiles){
 		JsonItemList jsonList=new JsonItemList();
 		for(TempFile tempFile:tempFiles){
 			File file=tempFile.getFile();

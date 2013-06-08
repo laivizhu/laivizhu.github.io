@@ -95,7 +95,7 @@ public class NutzSetUp implements Setup{
 			ResultSet rs = st.executeQuery("select * from t_article");
 			while(rs.next()){
 				System.out.println("-------------------------------------------------------------------id:"+rs.getLong("id"));
-				if(dao.count(Article.class, Cnd.where("title", "=", rs.getString("title")))==0&&rs.getLong("id")!=419&&rs.getLong("id")!=621&&rs.getLong("id")!=775){
+				if(dao.count(Article.class, Cnd.where("title", "=", rs.getString("title")))==0&&rs.getLong("id")!=419&&rs.getLong("id")!=621&&rs.getLong("id")!=775&&rs.getLong("id")!=1504){
 					Article article=new Article();
 					article.setContent(rs.getString("content"));
 					article.setTitle(rs.getString("title"));

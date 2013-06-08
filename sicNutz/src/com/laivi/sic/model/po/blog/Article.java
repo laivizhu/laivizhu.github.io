@@ -11,7 +11,7 @@ import com.laivi.validation.Validations;
 @Table("sic_article")
 public class Article extends AUserEntity {
 	
-	@Validations(required=true,strLen={1,200},errorMsg="文章题目不能为空")
+	@Validations(required=true,errorMsg="文章题目不能为空")
 	@ColDefine(type=ColType.VARCHAR, width=255)
 	private String title;
 	

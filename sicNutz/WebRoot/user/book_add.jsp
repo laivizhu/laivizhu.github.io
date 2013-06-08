@@ -27,7 +27,7 @@
 <div class="container">
 <div class="row">
 	<div class="span12">
-		<form id="fileupload" action="../media/book/upload.nut" method="POST" enctype="multipart/form-data">
+		<form id="fileupload" action="../media/book/uploadBook.nut" method="POST" enctype="multipart/form-data">
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
               <div class="span7">
@@ -35,7 +35,7 @@
                   <span class="btn btn-success fileinput-button">
                       <i class="icon-plus icon-white"></i>
                       <span>Add files...</span>
-                      <input type="file" name="pictures" multiple>
+                      <input type="file" name="books" multiple>
                   </span>
                   <button type="submit" class="btn btn-primary start">
                       <i class="icon-upload icon-white"></i>
