@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.laivi.sic.util.crawler;
+package com.laivi.crawler.model;
 
 import java.util.LinkedList;
 
@@ -31,5 +31,9 @@ public class Queue<T> {
 
     public boolean empty() {
         return queue.isEmpty();
+    }
+    
+    public void clean(){
+    	queue.clear();
     }
 }

@@ -6,9 +6,10 @@ import java.util.Set;
 
 import com.laivi.knowledge.knowledge.model.po.Article;
 import com.laivi.knowledge.tool.ArticleParser;
+import com.laivi.knowledge.tool.Parsers;
 
 public class Crawler {
-	ArticleParser parser=new ArticleParser();
+	Parsers parser=new ArticleParser();
     /* 使用种子 url 初始化 URL 队列*/
     private void initCrawlerWithSeeds(String[] seeds) {
         for (int i = 0; i < seeds.length; i++) {
@@ -33,7 +34,7 @@ public class Crawler {
             for (String link : links) {
                 LinkDB.addUnvisitedUrl(link);
                 System.out.println(link);
-                Article article=parser.parserArticle(link,filter);
+                Article article=parser.parser(link,filter);
                 articleList.add(article);
             }
         }

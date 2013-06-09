@@ -20,6 +20,8 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
+import com.laivi.crawler.Crawler;
+import com.laivi.crawler.model.LinkFilter;
 import com.laivi.maptable.GenerateMysqlTable;
 import com.laivi.sic.model.po.blog.Article;
 import com.laivi.sic.service.task.TestJob;
@@ -92,5 +94,40 @@ public class MethodTest {
 		WritableSheet sheet=ExcelUtil.getSheet(book, 0);
 		System.out.println(sheet.getCell(5, 1).getContents());
 		ExcelUtil.close(book);
+	}
+	
+	@Test
+	public void testCrawler(){
+		String[] seeds={"http://www.timetimetime.net"};
+		TimeArticleParser parser=new TimeArticleParser(new LinkFilter(){
+			@Override
+			public boolean accept(String url) {
+				if (url.matches("http://www.timetimetime.net/yuedu/[\\d]+.html")
+	        			|| url.matches("http://www.timetimetime.net/yulu/[\\d]+.html")
+	        			|| url.matches("http://www.timetimetime.net/shenghuo/[\\d]+.html")
+	        			|| url.matches("http://www.timetimetime.net/sanwen/[\\d]+.html")
+	        			|| url.matches("http://www.timetimetime.net/zhuti/[\\d]+.html")) {
+	        			String[] fileterUrls={};
+	        			for(String filterUrl:fileterUrls){
+	        				if(filterUrl.equals(url)){
+	        					return false;
+	        				}
+	        			}
+	        			return true;
+	        		} else {
+	        			return false;
+	        		}
+			}
+		},new LinkFilter(){
+			@Override
+			public boolean accept(String url) {
+				if(url.startsWith("http://www.timetimetime.net/")){
+					return true;
+				}
+				return false;
+			}
+		},seeds);
+		Crawler crawler=new Crawler();
+		crawler.crawling(parser);
 	}
 }

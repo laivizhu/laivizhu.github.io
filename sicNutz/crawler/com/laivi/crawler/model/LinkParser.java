@@ -1,4 +1,4 @@
-package com.laivi.sic.util.crawler;
+package com.laivi.crawler.model;
 
 import java.util.HashSet;
 import java.util.Set;

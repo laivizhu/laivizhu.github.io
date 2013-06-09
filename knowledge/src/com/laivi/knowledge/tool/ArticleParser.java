@@ -21,11 +21,19 @@ import com.laivi.knowledge.tool.crawler.LinkFilter;
  * @version 1.0
  * @Date 2013-5-3
  */
-public class ArticleParser {
+public class ArticleParser implements Parsers{
 
 	private Parser parser=null;
+	private LinkFilter filter;
 	
-	public  Article parserArticle(String url,LinkFilter filter){
+	public ArticleParser(LinkFilter filter) {
+		this.filter = filter;
+	}
+
+	public ArticleParser() {
+	}
+
+	public  Article parser(String url,LinkFilter filter){
 		Article article=new Article();
 		article.setUserId(1);
 		try {
@@ -78,5 +86,10 @@ public class ArticleParser {
 			e.printStackTrace();
 		}
 		return content.toString();
+	}
+
+	@Override
+	public LinkFilter getLinkFilter() {
+		return this.filter;
 	}
 }

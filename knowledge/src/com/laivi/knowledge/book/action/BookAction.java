@@ -5,9 +5,7 @@ import java.io.InputStream;
 
 import javax.annotation.Resource;
 
-import com.laivi.knowledge.book.util.BookChapterUtil;
 import org.apache.struts2.ServletActionContext;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -27,6 +25,7 @@ import com.laivi.knowledge.book.model.po.Book;
 import com.laivi.knowledge.book.model.po.BookMark;
 import com.laivi.knowledge.book.model.po.Chapter;
 import com.laivi.knowledge.book.service.BookService;
+import com.laivi.knowledge.book.util.BookChapterUtil;
 import com.laivi.knowledge.user.model.po.User;
 
 /**

@@ -1,4 +1,4 @@
-package com.laivi.sic.util.crawler;
+package com.laivi.crawler.model;
 
 /**
  *
@@ -39,6 +39,10 @@ public class LinkDB {
             unVisitedUrl.enQueue(url);
         }
     }
+    
+    public static boolean isVisited(String url){
+    	return visitedUrl.contains(url);
+    }
 
     public static int getVisitedUrlNum() {
         return visitedUrl.size();
@@ -46,6 +50,11 @@ public class LinkDB {
 
     public static boolean unVisitedUrlsEmpty() {
         return unVisitedUrl.empty();
+    }
+    
+    public static void clean(){
+    	visitedUrl.clear();
+    	unVisitedUrl.clean();
     }
 }
 

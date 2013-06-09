@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.laivi.sic.util.crawler;
+package com.laivi.crawler.model;
 
 /**
  * 
