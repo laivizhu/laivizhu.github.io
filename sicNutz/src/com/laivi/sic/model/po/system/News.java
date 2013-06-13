@@ -1,4 +1,4 @@
-package com.laivi.sic.model.po.blog;
+package com.laivi.sic.model.po.system;
 
 import org.nutz.dao.entity.annotation.ColDefine;
 import org.nutz.dao.entity.annotation.ColType;
@@ -19,4 +19,29 @@ public class News extends AUserEntity {
 	@ColDefine(type=ColType.TEXT)
 	private String content;
 	
+	private long tagId;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public long getTagId() {
+		return tagId;
+	}
+
+	public void setTagId(long tagId) {
+		this.tagId = tagId;
+	}
 }
