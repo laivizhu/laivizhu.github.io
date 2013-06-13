@@ -107,7 +107,13 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	@Override
 	@At
 	public Object get(long id,boolean fold) {
-		return this.getJsonItem(dao.fetch(this.getEntityClass(), id), fold).toJsonForm();
+		//return this.getJsonItem(dao.fetch(this.getEntityClass(), id), fold).toJsonForm();
+		try {
+			return this.getJsonItem(basicService.get(this.getEntityClass(), id), fold).toJsonForm();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	protected void updateValue(T srcObj,T destObj){
@@ -155,7 +161,8 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 				if(fieldName.indexOf("Id")!=-1){
 					IMOType imo=IMOType.fromId(fieldName);
 					if(imo!=null){
-						item.add(fieldName.replaceAll("Id",""), dao.fetch(imo.getKlass(), (Long)field.get(obj)));
+						//item.add(fieldName.replaceAll("Id",""), dao.fetch(imo.getKlass(), (Long)field.get(obj)));
+						item.add(fieldName.replaceAll("Id",""), basicService.get(imo.getKlass(), (Long)field.get(obj)));
 					}else{
 						item.add(field.getName(),field.get(obj));
 					}
@@ -181,6 +188,8 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			} catch (ErrorException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}finally{
 				field.setAccessible(accessFlag);

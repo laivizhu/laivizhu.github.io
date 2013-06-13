@@ -2,6 +2,10 @@ package com.laivi.sic.service.basic;
 
 import java.util.List;
 
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.Element;
+
 import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;
 import org.nutz.dao.Sqls;
@@ -15,6 +19,8 @@ import com.laivi.sic.model.po.basic.IBasicDBEntity;
 
 @IocBean
 public class BasicDBService extends BasicService implements IBasicDBService {
+	
+	protected static final CacheManager  cacheManager  = CacheManager.create();
 	@Inject
 	protected Dao dao;
 
@@ -47,10 +53,18 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T get(Class<T> klass, long id)throws Exception {
 		try{
-			return dao.fetch(klass, id);
+			Element elem = getCache().get(klass.getSimpleName()+id);
+			if(elem==null){
+				T obj=dao.fetch(klass, id);
+				if(obj==null) return null;
+				this.getCache().put(elem=new Element(klass.getSimpleName()+id,obj));
+			}
+			return (T) elem.getValue();
+			//return dao.fetch(klass, id);
 		}catch(Exception e){
 			throw new ErrorException("数据添加失败");
 		}
@@ -146,5 +160,10 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 			throw new ErrorException("数据添加失败");
 		}
 		
+	}
+	
+	public Ehcache getCache(){
+		Ehcache cache=cacheManager.getEhcache("entity");
+		return cache;
 	}
 }

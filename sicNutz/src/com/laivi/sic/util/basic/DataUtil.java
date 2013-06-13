@@ -87,7 +87,7 @@ public class DataUtil {
         return items;
 	}
 	
-	public static String getSimilarDegree(String str1,String str2){
+	public synchronized static String getSimilarDegree(String str1,String str2){
 		Map<String,Double> str1Map=DataUtil.getItemString(str1);
 		Map<String,Double> str2Map=DataUtil.getItemString(str2);
 		double totalValue1=0;
