@@ -21,6 +21,7 @@ import com.laivi.sic.model.po.basic.IBasicDBEntity;
 public class BasicDBService extends BasicService implements IBasicDBService {
 	
 	protected static final CacheManager  cacheManager  = CacheManager.create();
+	protected static Ehcache cache=cacheManager.getEhcache("entity");
 	@Inject
 	protected Dao dao;
 
@@ -57,11 +58,11 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 	@Override
 	public <T> T get(Class<T> klass, long id)throws Exception {
 		try{
-			Element elem = getCache().get(klass.getSimpleName()+id);
+			Element elem = cache.get(klass.getSimpleName()+id);
 			if(elem==null){
 				T obj=dao.fetch(klass, id);
 				if(obj==null) return null;
-				this.getCache().put(elem=new Element(klass.getSimpleName()+id,obj));
+				cache.put(elem=new Element(klass.getSimpleName()+id,obj));
 			}
 			return (T) elem.getValue();
 			//return dao.fetch(klass, id);
@@ -165,5 +166,10 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 	public Ehcache getCache(){
 		Ehcache cache=cacheManager.getEhcache("entity");
 		return cache;
+	}
+
+	@Override
+	public Pager createPager(int pageNum, int pageSize) {
+		return dao.createPager(pageNum, pageSize);
 	}
 }

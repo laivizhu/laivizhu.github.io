@@ -1,7 +1,6 @@
 package com.laivi.sic.action.blog;
 
 import org.nutz.dao.Cnd;
-import org.nutz.dao.Condition;
 import org.nutz.dao.pager.Pager;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
@@ -38,65 +37,80 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	}
 	
 	@At
-	public Response delete(long id){
-		dao.delete(FromOther.class, id);
+	@CheckLogin
+	public Response delete(long id) throws Exception{
+		dao.delete(basicService.get(FromOther.class, Cnd.where("objId", "=", id).and("type", "=", CategoryType.ARTICLE).and("userId","=",this.getUserId())));
 		return success();
 	}
 	
 	@At
 	@CheckValue
-	public Response update(@Param("::article.")Article article){
-		Article dArticle=dao.fetch(this.getEntityClass(), article.getId());
+	public Response update(@Param("::article.")Article article) throws Exception{
+		Article dArticle=basicService.get(this.getEntityClass(), article.getId());
 		dArticle.setContent(article.getContent());
 		dArticle.setTitle(article.getTitle());
 		dArticle.setTagId(article.getTagId());
 		//this.updateValue(article, dArticle);
-		dao.update(dArticle);
+		basicService.update(dArticle);
 		return success();
 	}
 	
 	@At
-	public Response addViewCount(long id){
-		Article article=dao.fetch(this.getEntityClass(), id);
+	public Response addViewCount(long id) throws Exception{
+		Article article=basicService.get(this.getEntityClass(), id);
 		article.setViewCount(article.getViewCount()+1);
-		dao.update(article);
+		basicService.update(article);
 		return success();
 	}
 	
 	
 	@At
-	public Object listAllTitle(){
+	public Object listAllTitle() throws Exception{
 		JsonList jsonList=new JsonList();
 		this.cnd=this.getUserCnd();
-		for(Article article:dao.query(this.getEntityClass(), cnd)){
-			jsonList.add("\""+article.getTitle()+"\"");
+		String sql="select f.* from sic_fromother f,sic_article a where f.objId=a.id and f.type='ARTICLE' and a.userId="+this.getUserId()+" order by createDate desc";
+		for(FromOther obj:basicService.list(FromOther.class, sql,null)){
+			jsonList.add("\""+articleService.get(Article.class, obj.getObjId()).getTitle()+"\"");
+			
 		}
 		return jsonList;
 	}
 	
 	@Override
 	@At
-	public Object getAll(@Param("::page.")Pager page){
+	public Object getAll(@Param("::page.")Pager page)throws Exception{
 		return list(page,Cnd.where("deleteIs","=", false).and("type", "=",CategoryType.ARTICLE).and("selfIs", "=", true).desc("createDate"));
 	}
 	
 	@At
-	public Object getHotArticles(){
+	public Object getHotArticles() throws Exception{
 		JsonList jsonList=new JsonList();
-		for(Article article:dao.query(Article.class, Cnd.orderBy().desc("viewCount").desc("createDate"),dao.createPager(1, 5))){
+		for(Article article:basicService.list(Article.class, Cnd.orderBy().desc("viewCount").desc("createDate"),dao.createPager(1, 5))){
 			jsonList.add(this.getJsonItem(article, true));
 		}
 		return jsonList;
 	}
 	
 	@At
-	public Object getProposal(long id){
+	public Object getRandomArticle() throws Exception{
+		String sql="select a.* from sic_article a order by rand()";
+		return list(basicService.createPager(1, 5),sql,null);
+	}
+	
+	@At
+	public Object getArticleByTag(long tagId)throws Exception{
+		String sql="select a.* from sic_article a where tagId="+tagId+" order by createDate desc";
+		return list(basicService.createPager(1, 5),sql,null);
+	}
+	
+	@At
+	public Object getProposal(long id) throws Exception{
 		JsonList jsonList=new JsonList();
-		SimpleDegree simple=dao.fetch(SimpleDegree.class, Cnd.where("objId", "=", id).and("type", "=", CategoryType.ARTICLE));
+		SimpleDegree simple=basicService.get(SimpleDegree.class, Cnd.where("objId", "=", id).and("type", "=", CategoryType.ARTICLE));
 		if(simple!=null){
 			for(long aId:DataUtil.changeIdString(simple.getSimpleIds())){
 				if(aId!=0){
-					jsonList.add(this.getJsonItem(dao.fetch(Article.class, aId), true));
+					jsonList.add(this.getJsonItem(basicService.get(Article.class, aId), true));
 				}
 			}
 		}
@@ -113,7 +127,7 @@ public class ArticleAction extends ABasicDBAction<Article> {
 		JsonList jsonList=new JsonList();
 		for(FromOther obj:basicService.list(FromOther.class, sql, page)){
 			JsonItem item=this.getJsonItem(FromOther.class,obj,true);
-			item.add("article", this.getJsonItem(dao.fetch(Article.class, obj.getObjId()), true));
+			item.add("article", this.getJsonItem(basicService.get(Article.class, obj.getObjId()), true));
 			jsonList.add(item);
 		}
 		sql="select count(*) from sic_fromother f,sic_article a "+where;
@@ -122,40 +136,17 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	}
 	
 	@At
+	@CheckLogin
 	public Object listByTag(@Param("::page.")Pager page,long tagId) throws Exception{
-		String sql="select f.* from sic_fromother f,sic_article a where f.objId=a.id and f.type='ARTICLE' and a.tagId="+tagId+" order by createDate desc";
+		String sql="select f.* from sic_fromother f,sic_article a where f.objId=a.id and f.type='ARTICLE' and a.tagId="+tagId+" and f.userId="+this.getUserId()+" order by createDate desc";
 		JsonList jsonList=new JsonList();
 		for(FromOther obj:basicService.list(FromOther.class, sql, page)){
 			JsonItem item=this.getJsonItem(FromOther.class,obj,true);
-			item.add("article", this.getJsonItem(dao.fetch(Article.class, obj.getObjId()), true));
+			item.add("article", this.getJsonItem(basicService.get(Article.class, obj.getObjId()), true));
 			jsonList.add(item);
 		}
-		sql="select count(*) from sic_fromother f,sic_article a where f.objId=a.id and f.type='ARTICLE' and a.tagId="+tagId;
+		sql="select count(*) from sic_fromother f,sic_article a where f.objId=a.id and f.type='ARTICLE' and a.tagId="+tagId+" and f.userId="+this.getUserId();
 		jsonList.setTotalProperty(basicService.getCount(FromOther.class, sql));
-		return jsonList;
-	}
-
-	@Override
-	@At
-	public Object list(@Param("::page.")Pager page,boolean fold) {
-		Cnd condition=Cnd.where(this.getBasicCnd()).and("type", "=",CategoryType.ARTICLE);
-		if(this.isSys()){
-			this.cnd= condition.and("selfIs", "=", true).desc("createDate");
-		}else{
-			this.cnd= condition.desc("createDate");
-		}
-		return list(page,cnd);
-	}
-
-	@Override
-	protected JsonList list(Pager page, Condition cnd) {
-		JsonList jsonList=new JsonList();
-		for(FromOther obj:dao.query(FromOther.class,cnd,page)){
-			JsonItem item=this.getJsonItem(FromOther.class,obj,true);
-			item.add("article", this.getJsonItem(dao.fetch(Article.class, obj.getObjId()), true));
-			jsonList.add(item);
-		}
-		jsonList.setTotalProperty(dao.count(FromOther.class, cnd));
 		return jsonList;
 	}
 

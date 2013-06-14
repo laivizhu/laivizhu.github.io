@@ -17,12 +17,12 @@ import com.laivi.sic.model.to.Response;
  */
 public interface IBasicDBAction<T> extends IBasicAction{
 
-	Response delete(long id);
-	Response deletes(String ids);
-	Object get(long id,boolean fold);
-	Object list(Pager page,boolean fold);
+	Response delete(long id)throws Exception;
+	Response deletes(String ids)throws Exception;
+	Object get(long id,boolean fold)throws Exception;
+	Object list(Pager page,boolean fold)throws Exception;
 	
-	JsonList list(Pager page,Class<?> klass,Condition cnd,boolean fold);
+	JsonList list(Pager page,Class<?> klass,Condition cnd,boolean fold)throws Exception;
 	
 	JsonList list(Pager page,Class<?> klass,String sql,String count) throws Exception;
 	

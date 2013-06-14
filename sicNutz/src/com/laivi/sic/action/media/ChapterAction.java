@@ -38,7 +38,7 @@ public class ChapterAction extends ABasicDBAction<Chapter> {
 	}
 	
 	@At
-	public Object listChapter(@Param("::page.")Pager page,long id){
+	public Object listChapter(@Param("::page.")Pager page,long id)throws Exception{
 		return list(page,Cnd.where("bookId", "=",id));
 	}
 	

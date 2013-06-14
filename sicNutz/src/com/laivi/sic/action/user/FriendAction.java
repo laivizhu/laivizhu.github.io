@@ -81,7 +81,7 @@ public class FriendAction extends ABasicDBAction<Friend> {
 	}
 	
 	@At
-	public Object listUserFriends(@Param("::page.")Pager page){
+	public Object listUserFriends(@Param("::page.")Pager page)throws Exception{
 		long userId=this.getUserId();
 		SqlExpressionGroup e1=Cnd.exps("userId", "=",userId).and("direction", "=", FriendsDirection.BEFORE);
 		SqlExpressionGroup e2=Cnd.exps("userId", "=",userId).and("direction", "=", FriendsDirection.DOUBLE);

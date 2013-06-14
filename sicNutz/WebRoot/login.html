@@ -144,9 +144,15 @@
 	
 	<script type="text/javascript">
 		$(document).ready(sic.basic.init(function(){
-			sic.common.submitForm($('#loginFormId'), 'login.nut', function(){
-				window.location.href="index.jsp";
-			}, false, false);
+			$.getJSON('checkLogin.nut',null,function(result){
+				if(result.success){
+					window.location.href="index.jsp";
+				}else{
+					sic.common.submitForm($('#loginFormId'), 'login.nut', function(){
+						window.location.href="index.jsp";
+					}, false, false);
+				}
+			});
 		}));
 	</script>
 	

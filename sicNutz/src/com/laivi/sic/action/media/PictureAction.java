@@ -61,7 +61,7 @@ public class PictureAction extends ABasicDBAction<Picture> {
 	}
 
 	@At
-	public Object pictureList(@Param("::page.") Pager page, long albumId) {
+	public Object pictureList(@Param("::page.") Pager page, long albumId)throws Exception {
 		return list(page, Cnd.where("albumId", "=", albumId).desc("id"));
 	}
 

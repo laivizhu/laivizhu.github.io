@@ -78,7 +78,7 @@ public class OrderAction extends ABasicDBAction<Order> {
 	}
 	
 	@At
-	public Object listByStatus(@Param("::page.")Pager page,StatusType status){
+	public Object listByStatus(@Param("::page.")Pager page,StatusType status)throws Exception{
 		return list(page,Cnd.where(this.getBasicCnd()).and("status", "=", status));
 	}
 	

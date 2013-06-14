@@ -47,7 +47,16 @@ public class LoginAction extends ADownloadAction<LoginUser> {
 		return success();
 	}
 	
+	@At
 	public Response resetPassword(String email){
+		return success();
+	}
+	
+	@At
+	public Response checkLogin(HttpSession session){
+		if(session.getAttribute("user")==null){
+			return failure("未登入");
+		}
 		return success();
 	}
 

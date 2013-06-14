@@ -130,4 +130,10 @@ public class MethodTest {
 		Crawler crawler=new Crawler();
 		crawler.crawling(parser);
 	}
+	
+	@Test
+	public void testDate(){
+		Date now=new Date();
+		System.out.println("currentDate second:"+now.getSeconds());
+	}
 }

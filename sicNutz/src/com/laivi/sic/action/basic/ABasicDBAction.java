@@ -50,7 +50,7 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 
 	@Override
 	@At
-	public Response delete(long id){
+	public Response delete(long id)throws Exception{
 		dao.delete(this.getEntityClass(), id);
 		return success();
 	}
@@ -65,7 +65,7 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 
 	@Override
 	@At
-	public Response deletes(String ids) {
+	public Response deletes(String ids)throws Exception {
 		dao.clear(this.getEntityClass(), Cnd.wrap("id in ("+ids+")"));
 		return success();
 	}
@@ -79,18 +79,18 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	}
 	
 	@At
-	public Object getAll(@Param("::page.")Pager page){
+	public Object getAll(@Param("::page.")Pager page)throws Exception{
 		return list(page,Cnd.where("deleteIs","=", false).desc("createDate"));
 	}
 
 
 	@Override
 	@At
-	public Object list(@Param("::page.")Pager page,boolean fold) {
+	public Object list(@Param("::page.")Pager page,boolean fold)throws Exception {
 		return list(page,Cnd.where(getBasicCnd()).desc("createDate"),fold);
 	}
 	
-	protected JsonList list(Pager page,Condition cnd){
+	protected JsonList list(Pager page,Condition cnd)throws Exception{
 		return list(page,cnd,false);
 	}
 	
@@ -106,14 +106,8 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 
 	@Override
 	@At
-	public Object get(long id,boolean fold) {
-		//return this.getJsonItem(dao.fetch(this.getEntityClass(), id), fold).toJsonForm();
-		try {
-			return this.getJsonItem(basicService.get(this.getEntityClass(), id), fold).toJsonForm();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public Object get(long id,boolean fold)throws Exception {
+		return this.getJsonItem(basicService.get(this.getEntityClass(), id), fold).toJsonForm();
 	}
 	
 	protected void updateValue(T srcObj,T destObj){
@@ -215,7 +209,8 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 		for(Object obj:basicService.list(klass, sql, page)){
 			jsonList.add(this.getJsonItem(klass,obj,true));
 		}
-		jsonList.setTotalProperty(basicService.getCount(klass, count));
+		if(count!=null)
+			jsonList.setTotalProperty(basicService.getCount(klass, count));
 		return jsonList;
 	}
 	

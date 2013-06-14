@@ -17,7 +17,7 @@ public class SearchAction extends ABasicDBAction<SearchItem>{
 	}
 
 	@At
-	public Object topKeywordList(){
+	public Object topKeywordList()throws Exception{
 		return list(dao.createPager(1, 20),Cnd.orderBy().desc("count"));
 	}
 

@@ -23,7 +23,7 @@ public class ReplyAction extends ABasicDBAction<Reply> {
 	}
 	
 	@At
-	public Object listByType(@Param("::reply.")Reply reply){
+	public Object listByType(@Param("::reply.")Reply reply)throws Exception{
 		return this.list(null, Cnd.where("type", "=", reply.getType()).and("objId","=",reply.getObjId()));
 	}
 

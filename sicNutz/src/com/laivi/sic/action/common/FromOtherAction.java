@@ -1,6 +1,8 @@
 package com.laivi.sic.action.common;
 
 import org.nutz.dao.Cnd;
+import org.nutz.dao.Condition;
+import org.nutz.dao.pager.Pager;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Param;
@@ -8,9 +10,11 @@ import org.nutz.mvc.annotation.Param;
 import com.laivi.sic.action.basic.ABasicDBAction;
 import com.laivi.sic.model.annotation.CheckLogin;
 import com.laivi.sic.model.json.JsonItem;
+import com.laivi.sic.model.json.JsonList;
 import com.laivi.sic.model.po.basic.IUserEntity;
 import com.laivi.sic.model.po.common.FromOther;
 import com.laivi.sic.model.to.Response;
+import com.laivi.sic.model.type.CategoryType;
 
 @IocBean
 @At("/common/fromother")
@@ -67,6 +71,28 @@ public class FromOtherAction extends ABasicDBAction<FromOther> {
 		item.add("shareCount", dao.count(FromOther.class, Cnd.where("objId", "=", fromOther.getObjId()).and("type", "=", fromOther.getType()).and("shareIs", "=",true)));
 		item.add("fromOtherCount", dao.count(FromOther.class, Cnd.where("objId", "=", fromOther.getObjId()).and("type", "=", fromOther.getType()).and("fromOtherIs", "=",true)));
 		return item.toJsonForm();
+	}
+	
+	@At
+	public Object listByCategory(@Param("::page.")Pager page,boolean fold,CategoryType type)throws Exception {
+		Cnd condition=Cnd.where(this.getBasicCnd()).and("type", "=",type);
+		if(this.isSys()){
+			this.cnd= condition.and("selfIs", "=", true).desc("createDate");
+		}else{
+			this.cnd= condition.desc("createDate");
+		}
+		return listByCategory(page,cnd,type,fold);
+	}
+
+	protected JsonList listByCategory(Pager page, Condition cnd,CategoryType type,boolean fold)throws Exception {
+		JsonList jsonList=new JsonList();
+		for(FromOther obj:basicService.list(FromOther.class,cnd,page)){
+			JsonItem item=this.getJsonItem(obj,true);
+			item.add(type.toclass().getSimpleName().toLowerCase(), this.getJsonItem(type.toclass(),basicService.get(type.toclass(), obj.getObjId()), true));
+			jsonList.add(item);
+		}
+		jsonList.setTotalProperty(dao.count(this.getEntityClass(), cnd));
+		return jsonList;
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public interface IBasicDBService {
 	
 	<T> int getCount(Class<T> klass,String sql)throws Exception;
 	
-	
+	Pager createPager(int pageNum,int pageSize);
 	
 	
 }

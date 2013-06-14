@@ -58,7 +58,7 @@ public class AlbumAction extends ABasicDBAction<Album> {
 	}
 	
 	@At
-	public Object albumList(@Param("::page")Pager page,@Param("::album.")Album album){
+	public Object albumList(@Param("::page")Pager page,@Param("::album.")Album album)throws Exception{
 		return this.list(page, Cnd.where("type", "=", album.getType()));
 	}
 
