@@ -24,25 +24,18 @@
 		    	<form id="userAddFormId" class="form-signin">
 					<table>
 						<tr>
-							<td>用户账号:</td>
-							<td><input type="text" name="user.account" class="input-block-level"></td>
+							<td>邮箱:</td>
+							<td><input type="text" name="loginUser.email" class="input-block-level"></td>
 						</tr>
 						<tr>
 							<td>密码:</td>
-							<td><input type="password" name="user.password" class="input-block-level"></td>
-						</tr>
-						<tr>
-							<td>确认密码:</td>
-							<td><input type="password" name="confirmPassword" class="input-block-level"></td>
+							<td><input type="password" name="loginUser.password" class="input-block-level"></td>
 						</tr>
 						<tr>
 							<td>用户名:</td>
-							<td><input type="text" name="user.userName" class="input-block-level"></td>
+							<td><input type="text" name="user.name" class="input-block-level"></td>
 						</tr>
-						<tr>
-							<td>邮箱:</td>
-							<td><input type="text" name="user.email" class="input-block-level"></td>
-						</tr>
+						
 						<tr>
 							<td align="center" colspan="2">
 								<button type="reset" class="btn btn-warning">重置</button>
@@ -73,7 +66,7 @@
 	<script type="text/javascript" src="../js/common/sic-basic.js"></script>
 	<script type="text/javascript">
 		$(document).ready(sic.basic.init(function(){
-			sic.common.submitForm($("#userAddFormId"), '../user/add.nut', function(){
+			sic.common.submitForm($("#userAddFormId"), '../regiest.nut', function(){
 				window.location.href="../index.jsp";
 			}, false, false);
 		}));

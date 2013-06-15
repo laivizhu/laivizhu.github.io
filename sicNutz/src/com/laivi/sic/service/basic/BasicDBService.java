@@ -172,4 +172,14 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 	public Pager createPager(int pageNum, int pageSize) {
 		return dao.createPager(pageNum, pageSize);
 	}
+
+	@Override
+	public <T> void delete(Class<T> klass, Condition cnd) throws Exception {
+		dao.delete(dao.fetch(klass, cnd));
+	}
+
+	@Override
+	public void delete(Object obj) throws Exception {
+		dao.delete(obj);
+	}
 }

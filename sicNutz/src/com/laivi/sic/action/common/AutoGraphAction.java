@@ -65,7 +65,7 @@ public class AutoGraphAction extends ABasicDBAction<AutoGraph> {
 	}
 	
 	@At
-	public Object listFriendAutoGraph(@Param("::page")Pager page){
+	public Object listFriendAutoGraph(@Param("::page")Pager page) throws Exception{
 		long userId=this.getUserId();
 		long[] friendIds=null;
 		SqlExpressionGroup e1=Cnd.exps("userId", "=",userId).and("direction", "=", FriendsDirection.BEFORE);

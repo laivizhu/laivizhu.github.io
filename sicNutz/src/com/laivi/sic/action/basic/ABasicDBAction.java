@@ -2,8 +2,6 @@ package com.laivi.sic.action.basic;
 
 import java.lang.reflect.Field;
 
-import javax.servlet.http.HttpSession;
-
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;
@@ -36,12 +34,6 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	
 	@Inject("refer:basicDBService")
 	protected BasicDBService basicService;
-	
-	@At
-	public Response logout(HttpSession session){
-		session.invalidate();
-		return success();
-	}
 	
 	@At
 	public Object search(@Param("::page.")Pager page,String key,String value)throws Exception{
@@ -94,7 +86,7 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 		return list(page,cnd,false);
 	}
 	
-	protected JsonList list(Pager page,Condition cnd,boolean unFold){
+	protected JsonList list(Pager page,Condition cnd,boolean unFold) throws Exception{
 		return this.list(page, getEntityClass(), cnd, unFold);
 	}
 	
@@ -193,12 +185,12 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	}
 
 	@Override
-	public JsonList list(Pager page, Class<?> klass, Condition cnd, boolean unFold) {
+	public JsonList list(Pager page, Class<?> klass, Condition cnd, boolean unFold) throws Exception {
 		JsonList jsonList=new JsonList();
-		for(Object obj:dao.query(this.getEntityClass(), cnd, page)){
+		for(Object obj:basicService.list(klass, cnd, page)){
 			jsonList.add(this.getJsonItem(klass,obj,!unFold));
 		}
-		jsonList.setTotalProperty(dao.count(this.getEntityClass(), cnd));
+		jsonList.setTotalProperty(basicService.getCount(klass, cnd));
 		return jsonList;
 	}
 

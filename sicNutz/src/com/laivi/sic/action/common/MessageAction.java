@@ -16,7 +16,7 @@ import com.laivi.sic.model.type.Status;
 public class MessageAction extends ABasicDBAction<Message> {
 
 	@At
-	public Object listFriendMessage(@Param("::page")Pager page){
+	public Object listFriendMessage(@Param("::page")Pager page) throws Exception{
 		return list(page,Cnd.where("type", "=", MessageType.REQUEST).and("toUserId", "=", this.getUserId()).and("status", "=", Status.UNREAD),true);
 	}
 	

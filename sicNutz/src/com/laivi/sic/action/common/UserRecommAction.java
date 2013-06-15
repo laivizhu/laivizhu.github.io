@@ -11,7 +11,7 @@ import com.laivi.sic.model.to.Response;
 import com.laivi.sic.util.basic.DataUtil;
 
 @IocBean
-@At("/common/recomm")
+@At("/common/userRecomm")
 public class UserRecommAction extends ABasicDBAction<UserRecomm> {
 
 	@At

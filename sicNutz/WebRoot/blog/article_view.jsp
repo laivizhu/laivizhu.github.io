@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -26,6 +27,9 @@
 			<h2 id="titleFormFieldId"></h2>
 			<div class="span12" align="right">
 				<p>
+					<c:if test="${system!=null}">
+						<button class="btn btn-small" onclick="recommon('ARTICLE','recommButtonId')" id='recommButtonId'><i class="icon-heart"></i>推荐</button>
+					</c:if>
 				   <button class="btn btn-small" onclick="fromOther('ARTICLE','favoriteButtonId','收藏',0)" id='favoriteButtonId'><i class="icon-heart"></i>收藏</button>
 				   <button class="btn btn-small" onclick="fromOther('ARTICLE','shareButtonId','分享',1)" id="shareButtonId"><i class="icon-share"></i>分享</button>
 				   <button class="btn btn-small" onclick="fromOther('ARTICLE','fromOtherButtonId','转载',2)" id='fromOtherButtonId'><i class="icon-share-alt"></i>转载</button>
@@ -90,12 +94,15 @@
 		function editArticle(){
 			window.location.href="../user/user_addArticle.jsp?id="+sic.basic.getUrlVar("id");
 		}
+		
+		
 	
 		$(document).ready(sic.basic.init(function(){
 			var articleId=sic.basic.getUrlVar("id");
 			$('#idFormFieldId').val(articleId);
 			sic.common.setFormVaule("../blog/article/get.nut?id="+articleId, false);
 			sic.fromOther.getFromOther(articleId,'ARTICLE');
+			sic.recomm.getRecomm(articleId,'ARTICLE');
             sic.common.getJson("../blog/article/addViewCount.nut?id="+articleId);
             sic.common.getJson("../blog/article/getProposal.nut?id="+articleId,function(result){
             	if(result.totalProperty!=0){

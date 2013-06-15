@@ -29,65 +29,65 @@ body {
 			</p>
 		</div>
 		<div class="row">
-			<div class="span3">
-				<h2>推荐</h2>
-				<div style="height:120px">
-					<table id="proposalArticleListId" width="100%">
+			<div class="span6">
+				<h2>高分评价</h2>
+				<div style="height:240px">
+					<table id="hightScoreArticleListId" width="100%">
 					</table>
 				</div>
 			</div>
 
-			<div class="span3">
+			<div class="span6">
 				<h2>热门</h2>
-				<div style="height:120px">
+				<div style="height:240px">
 					<table id="hotArticleListId" width="100%">
 					</table>
 				</div>
 			</div>
 
-			<div class="span3">
+			<div class="span6">
 				<h2>最新</h2>
-				<div style="height:120px">
+				<div style="height:240px">
 					<table id="newarticleListId" width="100%">
 					</table>
 				</div>
 			</div>
 
-			<div class="span3">
+			<div class="span6">
 				<h2>随机</h2>
-				<div style="height:120px">
+				<div style="height:240px">
 					<table id="randomArticleListId" width="100%">
 					</table>
 				</div>
 			</div>
 			
-			<div class="span3">
+			<div class="span6">
 				<h2>情感</h2>
-				<div style="height:120px">
+				<div style="height:240px">
 					<table id="loveArticleListId" width="100%">
 					</table>
 				</div>
 			</div>
 			
-			<div class="span3">
+			<div class="span6">
 				<h2>生活</h2>
-				<div style="height:120px">
+				<div style="height:240px">
 					<table id="lifeArticleListId" width="100%">
 					</table>
 				</div>
 			</div>
 			
-			<div class="span3">
+			<div class="span6">
 				<h2>感悟</h2>
-				<div style="height:120px">
+				<div style="height:240px">
 					<table id="thinkArticleListId" width="100%">
 					</table>
 				</div>
 			</div>
 			
-			<div class="span3">
+			<div class="span6">
 				<h2>技术</h2>
-				<div style="height:120px">
+				<div style="height:240px">
 					<table id="techolgyArticleListId" width="100%">
 					</table>
 				</div>
@@ -116,7 +116,7 @@ body {
 		var getDataList=function(url,obj,param){
 			sic.common.getJson(url, function(result){
 				$.each(result.root,function(i,item){
-					obj.append("<tr><td align='left'><a href='article_view.jsp?id="+item.id+"' title='"+item.title+"'>"+item.title.substring(0,8)+"</a></td><td align='right'>"+item.createDate.substring(0,10)+"</td></tr>");
+					obj.append("<tr><td align='left'><a href='article_view.jsp?id="+item.id+"' title='"+item.title+"'>"+item.title+"</a></td><td align='right'>"+item.createDate.substring(0,10)+"</td></tr>");
 				});
 			},false,param);
 		};
@@ -125,6 +125,11 @@ body {
 		$(document).ready(sic.basic.init(function() {
 			getDataList('../blog/article/getHotArticles.nut',$('#hotArticleListId'));
 			getDataList('../blog/article/getRandomArticle.nut',$('#randomArticleListId'));
+			getDataList('../blog/article/getHightScoreArticle.nut',$('#hightScoreArticleListId'));
+			getDataList('../blog/article/getNewArticle.nut',$('#newarticleListId'),{
+				'page.pageNumber':1,
+	        	'page.pageSize':10
+			});
 			getDataList('../blog/article/getArticleByTag.nut?tagId=11',$('#techolgyArticleListId'));
 			getDataList('../blog/article/getArticleByTag.nut?tagId=3',$('#loveArticleListId'));
 			getDataList('../blog/article/getArticleByTag.nut?tagId=6',$('#lifeArticleListId'));

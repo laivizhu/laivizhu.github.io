@@ -32,7 +32,7 @@
       
         <div class="span3">
           <h2>网站信息</h2>
-          <div style="height:120px">
+          <div style="height:240px">
           <table id="informationListId" width="100%">
           </table>
           </div>
@@ -41,7 +41,7 @@
         
         <div class="span3">
           <h2>论坛动态</h2>
-          <div style="height:120px">
+          <div style="height:240px">
           <ul id="postsListId">
           </ul>
           </div>
@@ -50,7 +50,7 @@
        
         <div class="span3">
           <h2>优秀文章</h2>
-         <div style="height:120px">
+         <div style="height:240px">
           <table id="articleListId" width="100%">
           </table>
           </div>
@@ -59,7 +59,7 @@
         
         <div class="span3">
           <h2>美丽回忆</h2>
-         <div style="height:120px">
+         <div style="height:240px">
           <ul id="pictureListId">
           </ul>
           </div>

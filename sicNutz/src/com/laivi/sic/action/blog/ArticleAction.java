@@ -10,10 +10,12 @@ import org.nutz.mvc.annotation.Param;
 import com.laivi.sic.action.basic.ABasicDBAction;
 import com.laivi.sic.model.annotation.CheckLogin;
 import com.laivi.sic.model.annotation.CheckValue;
+import com.laivi.sic.model.constants.AppConstants;
 import com.laivi.sic.model.json.JsonItem;
 import com.laivi.sic.model.json.JsonList;
 import com.laivi.sic.model.po.blog.Article;
 import com.laivi.sic.model.po.common.FromOther;
+import com.laivi.sic.model.po.common.Recommond;
 import com.laivi.sic.model.po.common.SimpleDegree;
 import com.laivi.sic.model.to.Response;
 import com.laivi.sic.model.type.CategoryType;
@@ -76,31 +78,47 @@ public class ArticleAction extends ABasicDBAction<Article> {
 		return jsonList;
 	}
 	
-	@Override
-	@At
-	public Object getAll(@Param("::page.")Pager page)throws Exception{
-		return list(page,Cnd.where("deleteIs","=", false).and("type", "=",CategoryType.ARTICLE).and("selfIs", "=", true).desc("createDate"));
-	}
-	
 	@At
 	public Object getHotArticles() throws Exception{
-		JsonList jsonList=new JsonList();
-		for(Article article:basicService.list(Article.class, Cnd.orderBy().desc("viewCount").desc("createDate"),dao.createPager(1, 5))){
+		/*JsonList jsonList=new JsonList();
+		for(Article article:basicService.list(Article.class, Cnd.orderBy().desc("viewCount").desc("createDate"),dao.createPager(1, AppConstants.Blog.pageSize))){
 			jsonList.add(this.getJsonItem(article, true));
 		}
-		return jsonList;
+		return jsonList;*/
+		String sql="SELECT a.*,count(*) replyCount from sic_article a LEFT OUTER JOIN sic_reply r on a.id=r.objId and r.type='ARTICLE' GROUP BY a.id ORDER BY replyCount desc,viewCount desc,createDate desc";
+		return list(basicService.createPager(1, AppConstants.Blog.pageSize),sql,null);
 	}
 	
 	@At
 	public Object getRandomArticle() throws Exception{
 		String sql="select a.* from sic_article a order by rand()";
-		return list(basicService.createPager(1, 5),sql,null);
+		return list(basicService.createPager(1, AppConstants.Blog.pageSize),sql,null);
+	}
+	
+	@At
+	public Object getNewArticle(@Param("::page.")Pager page) throws Exception{
+		return list(page,Cnd.where("deleteIs", "=", false).desc("createDate"));
 	}
 	
 	@At
 	public Object getArticleByTag(long tagId)throws Exception{
 		String sql="select a.* from sic_article a where tagId="+tagId+" order by createDate desc";
-		return list(basicService.createPager(1, 5),sql,null);
+		return list(basicService.createPager(1, AppConstants.Blog.pageSize),sql,null);
+	}
+	
+	@At
+	public Object getHightScoreArticle()throws Exception{
+		String sql="SELECT a.*,AVG(r.score) replyScore from sic_article a LEFT OUTER JOIN sic_ratescore r on a.id=r.objectId and r.type='ARTICLE' GROUP BY a.id ORDER BY replyScore desc,viewCount desc,createDate desc";
+		return list(basicService.createPager(1, AppConstants.Blog.pageSize),sql,null);
+	}
+	
+	@At
+	public Object getRecommArticle()throws Exception{
+		JsonList jsonList=new JsonList();
+		for(Recommond recomm:basicService.list(Recommond.class, Cnd.where("type", "=",CategoryType.ARTICLE).desc("createDate"))){
+			jsonList.add(this.getJsonItem(basicService.get(Article.class, recomm.getObjId()), false));
+		}
+		return jsonList;
 	}
 	
 	@At

@@ -38,6 +38,10 @@ public interface AppConstants {
 	interface MailTemplate {
 	}
 	
+	interface Blog{
+		int pageSize=10;
+	}
+	
 	
 
 }

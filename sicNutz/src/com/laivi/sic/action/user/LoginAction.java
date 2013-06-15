@@ -19,7 +19,7 @@ import com.laivi.sic.model.to.Response;
 @IocBean
 public class LoginAction extends ADownloadAction<LoginUser> {
 
-	@At
+	@At({"/login","/blog/login","/user/login"})
 	public Response login(String email,String password,HttpSession session)throws Exception{
 		if(Strings.isBlank(email)|| Strings.isBlank(password))
 			return failure("账号和密码不能为空");
@@ -28,7 +28,16 @@ public class LoginAction extends ADownloadAction<LoginUser> {
 		LoginUser user=dao.fetch(LoginUser.class,Cnd.where("email","=",email).and("password","=",password));
 		if(user==null)
 			return failure("账号或密码错误");
+		if(user.isSysIs()){
+			session.setAttribute("system", user);
+		}
 		session.setAttribute("user", user);
+		return success();
+	}
+	
+	@At({"/logout","/blog/logout","/user/logout"})
+	public Response logout(HttpSession session){
+		session.invalidate();
 		return success();
 	}
 	

@@ -16,10 +16,10 @@ public class LoginUser extends AUserEntity{
 	@ColDefine(type=ColType.VARCHAR, width=200)
 	private String Uidendity;
 	
-	@Validations(account=true,strLen={8,20},errorMsg="密码长度至少8位")
+	@Validations(required=true,errorMsg="密码长度至少8位")
 	private transient String password;
 	
-	@Validations(email=true,errorMsg="email格式不正确")
+	@Validations(email=true,account=true,errorMsg="email格式不正确")
 	private String email;
 	
 	private boolean sysIs;

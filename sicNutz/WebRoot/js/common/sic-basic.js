@@ -8,6 +8,9 @@ var sicValue={
 			isFavorite:false,
 			isShare:false,
 			isFromOther:false
+		},
+		common:{
+			isRecommon:false
 		}
 };
 
@@ -305,7 +308,7 @@ var sic={
 		            }
 		        },true,{
 		        	'page.pageNumber':currentPage,
-		        	'page.pageSize':sicValue.page.pageCount,
+		        	'page.pageSize':sicValue.page.pageCount
 		        });
 		    }
 		},
@@ -404,6 +407,21 @@ var sic={
 					'fromOther.type':type
 				});
 			}
+		},
+		recomm:{
+			getRecomm:function(objId,type){
+				sic.common.getJson("../common/recomm/getRecomm.nut",function(result){
+					sicValue.common.isRecommon=result.data.isRecommon;
+					if(result.data.isRecommon){
+						$("#recommButtonId").html("<i class='icon-thumbs-up'></i>取消推荐");
+					}else{
+						$("#recommButtonId").html("<i class='icon-hand-right'></i>推荐");
+					}
+				},false,{
+					'recomm.objId':objId,
+					'recomm.type':type
+				});
+			}
 		}
 };
 //**********************************************登入，注册，注销函数处理**********************************************
@@ -476,6 +494,27 @@ function fromOther(type,buttonid,tip,flag){
 			'fromOther.objId':$('#idFormFieldId').val(),
 			'fromOther.type':type,
 			'flag':flag
+		});
+	});
+}
+
+function recommon(type,buttonid){
+	var tip="";
+	if(sicValue.common.isRecommon){
+		tip="取消";
+	}
+	sic.msg.confirm('确认要'+tip+'推荐吗？', function(){
+		sic.common.getJson('../common/recomm/add.nut', function(){
+			if(sicValue.common.isRecommon){
+				$('#'+buttonid).html("<i class='icon-hand-right'></i>推荐");
+				sicValue.common.isRecommon=false;
+			}else{
+				$('#'+buttonid).html("<i class='icon-thumbs-up'></i>取消推荐");
+				sicValue.common.isRecommon=true;
+			}
+		},false,{
+			'recomm.objId':$('#idFormFieldId').val(),
+			'recomm.type':type
 		});
 	});
 }
