@@ -16,6 +16,8 @@ public class Recommond extends ABasicEntity {
 	private CategoryType type;
 	
 	private Date createDate=new Date();
+	
+	private String path;
 
 	public long getObjId() {
 		return objId;
@@ -39,5 +41,13 @@ public class Recommond extends ABasicEntity {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 }

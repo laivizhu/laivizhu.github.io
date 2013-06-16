@@ -116,8 +116,15 @@ public class ArticleAction extends ABasicDBAction<Article> {
 	public Object getRecommArticle()throws Exception{
 		JsonList jsonList=new JsonList();
 		for(Recommond recomm:basicService.list(Recommond.class, Cnd.where("type", "=",CategoryType.ARTICLE).desc("createDate"))){
-			jsonList.add(this.getJsonItem(basicService.get(Article.class, recomm.getObjId()), false));
+			JsonItem item=new JsonItem();
+			Article article=basicService.get(Article.class, recomm.getObjId());
+			item.add("path", recomm.getPath());
+			item.add("title", article.getTitle());
+			item.add("description", DataUtil.getDefaultChar(article.getContent()));
+			item.add("url", "article_view.jsp?id="+recomm.getObjId());
+			jsonList.add(item);
 		}
+		jsonList.setSize();
 		return jsonList;
 	}
 	

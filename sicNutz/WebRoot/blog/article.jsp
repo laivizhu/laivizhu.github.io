@@ -21,12 +21,7 @@ body {
 	<jsp:include page="../common/navigate.jsp" />
 
 	<div class="container">
-		<div class="hero-unit">
-			<h1>Welcome Back</h1>
-			<p>hello</p>
-			<p>
-				<a class="btn btn-primary btn-large">Learn more &raquo;</a>
-			</p>
+		<div class="hero-unit" id="recommArticleListId">
 		</div>
 		<div class="row">
 			<div class="span6">
@@ -111,6 +106,7 @@ body {
 		src="../js/jquery/jquery.jBox-2.3.min.js"></script>
 	<script type="text/javascript" src="../js/jquery/jquery.jBox-zh-CN.js"></script>
 	<script type="text/javascript" src="../js/bootstrap/bootstrap.js"></script>
+	<script type="text/javascript" src="../js/common/laivi-Carousel.js"></script>
 	<script type="text/javascript" src="../js/common/sic-basic.js"></script>
 	<script type="text/javascript">
 		var getDataList=function(url,obj,param){
@@ -123,6 +119,10 @@ body {
 		
 		
 		$(document).ready(sic.basic.init(function() {
+			new LaiviCarousel({
+				parentContainer:'#recommArticleListId',
+				url:'../blog/article/getRecommArticle.nut'
+			});
 			getDataList('../blog/article/getHotArticles.nut',$('#hotArticleListId'));
 			getDataList('../blog/article/getRandomArticle.nut',$('#randomArticleListId'));
 			getDataList('../blog/article/getHightScoreArticle.nut',$('#hightScoreArticleListId'));

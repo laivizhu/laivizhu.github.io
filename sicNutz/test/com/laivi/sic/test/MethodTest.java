@@ -7,6 +7,8 @@ import static org.quartz.TriggerBuilder.newTrigger;
 
 import java.io.File;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
@@ -135,5 +137,16 @@ public class MethodTest {
 	public void testDate(){
 		Date now=new Date();
 		System.out.println("currentDate second:"+now.getSeconds());
+	}
+	
+	@Test
+	public void testLinkHashMap(){
+		Map<String,Object> values=new LinkedHashMap<String,Object>();
+		values.put("email", "3");
+		values.put("name", "1");
+		values.put("aaa", "3");
+		for(Map.Entry<String, Object> entry:values.entrySet()){
+			System.out.println(entry.getKey());
+		}
 	}
 }
