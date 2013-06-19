@@ -2,7 +2,6 @@ package com.laivi.maptable.to;
 
 import java.util.ArrayList;
 
-import com.laivi.maptable.dao.Where;
 
 @SuppressWarnings("serial")
 public class Conditions extends ArrayList<Condition> implements Where{

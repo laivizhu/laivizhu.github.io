@@ -1,4 +1,4 @@
-package com.laivi.maptable.dao;
+package com.laivi.maptable.to;
 
 public interface Where {
 	String toSql();

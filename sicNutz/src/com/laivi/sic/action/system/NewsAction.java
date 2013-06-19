@@ -2,6 +2,7 @@ package com.laivi.sic.action.system;
 
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Param;
 
 import com.laivi.sic.action.basic.ABasicDBAction;
 import com.laivi.sic.model.annotation.CheckLogin;
@@ -17,9 +18,13 @@ public class NewsAction extends ABasicDBAction<News> {
 	@CheckLogin
 	@CheckValue
 	@At
-	public Response add(){
+	public Response add(@Param("::news.")News news) throws Exception{
+		news.setUserId(this.getUserId());
+		this.basicService.add(news);
 		return success();
 	}
+	
+	
 
 	@Override
 	public Class<News> getEntityClass() {
