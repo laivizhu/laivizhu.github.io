@@ -33,7 +33,7 @@ LaiviCarousel.prototype.init = function(afterHandler){
 					}else{
 						content += "<div class='item' align='center'>";
 					}
-					content += "<img src='/sicNutz/upload/picture/"+item.path+"' alt=''>";
+					content += "<img src='"+item.path+"' alt=''>";
 					content +="<div class='carousel-caption' align='left'>";
 					
 					content +="<h4><a href='"+item.url+"'>"+item.title+"</a></h4>";

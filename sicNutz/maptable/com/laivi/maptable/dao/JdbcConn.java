@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
+
+import com.alibaba.druid.pool.DruidDataSource;
 
 public class JdbcConn {
 	private static Log log=Logs.get();
@@ -14,6 +18,15 @@ public class JdbcConn {
 	private String url;
 	private String user;
 	private String password;
+	
+	private static DataSource dataSource=null;
+	
+	static{
+		DruidDataSource ddataSource=new DruidDataSource();
+		ddataSource.setUrl("");
+		//ddataSource.setdr
+		
+	}
 	
 	public JdbcConn(String driver, String url, String user,
 			String password) {

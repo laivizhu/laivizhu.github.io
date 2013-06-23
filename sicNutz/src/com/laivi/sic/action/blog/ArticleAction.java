@@ -1,5 +1,7 @@
 package com.laivi.sic.action.blog;
 
+import java.util.List;
+
 import org.nutz.dao.Cnd;
 import org.nutz.dao.pager.Pager;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -10,7 +12,6 @@ import org.nutz.mvc.annotation.Param;
 import com.laivi.sic.action.basic.ABasicDBAction;
 import com.laivi.sic.model.annotation.CheckLogin;
 import com.laivi.sic.model.annotation.CheckValue;
-import com.laivi.sic.model.constants.AppConstants;
 import com.laivi.sic.model.json.JsonItem;
 import com.laivi.sic.model.json.JsonList;
 import com.laivi.sic.model.po.blog.Article;
@@ -19,8 +20,10 @@ import com.laivi.sic.model.po.common.Recommond;
 import com.laivi.sic.model.po.common.SimpleDegree;
 import com.laivi.sic.model.to.Response;
 import com.laivi.sic.model.type.CategoryType;
+import com.laivi.sic.model.type.ViewArticleType;
 import com.laivi.sic.service.blog.ArticleService;
 import com.laivi.sic.util.basic.DataUtil;
+import com.laivi.sic.util.basic.HTMLUtil;
 
 @At("/blog/article")
 @IocBean
@@ -73,44 +76,60 @@ public class ArticleAction extends ABasicDBAction<Article> {
 		String sql="select f.* from sic_fromother f,sic_article a where f.objId=a.id and f.type='ARTICLE' and a.userId="+this.getUserId()+" order by createDate desc";
 		for(FromOther obj:basicService.list(FromOther.class, sql,null)){
 			jsonList.add("\""+articleService.get(Article.class, obj.getObjId()).getTitle()+"\"");
-			
 		}
 		return jsonList;
 	}
 	
 	@At
-	public Object getHotArticles() throws Exception{
-		/*JsonList jsonList=new JsonList();
-		for(Article article:basicService.list(Article.class, Cnd.orderBy().desc("viewCount").desc("createDate"),dao.createPager(1, AppConstants.Blog.pageSize))){
-			jsonList.add(this.getJsonItem(article, true));
+	public Object getRoundArticle(long id)throws Exception{
+		JsonItem item=new JsonItem();
+		/*String sql="(select a.* from sic_article a where id<"+id+" order by id DESC limit 1) union (select a.* from sic_article a where id>"+id+" order by id limit 1)";
+		List<Article> articleList=basicService.list(Article.class, sql, null);
+		if(articleList.size()<2){
+			if(articleList.get(0).getId()>id){
+				item.add("next", this.getJsonItem(articleList.get(0), true));
+			}else{
+				item.add("pre", this.getJsonItem(articleList.get(0), true));
+			}
+		}else{
+			item.add("pre", this.getJsonItem(articleList.get(0), true));
+			item.add("next", this.getJsonItem(articleList.get(1), true));
+		}*/
+		if(!this.isLogined()){
+			item.add("pre", dao.fetch(Article.class, Cnd.where("id","<",id).desc("id")));
+			item.add("next", dao.fetch(Article.class,  Cnd.where("id",">",id).asc("id")));
+		}else{
+			String sql="select a.* from sic_article a,sic_fromother f where a.id=f.objId and f.type='ARTICLE'and a.id>"+id+" and f.userId="+this.getUserId()+" order by a.id  limit 1 ";
+			List<Article> articleList=basicService.list(Article.class, sql, null);
+			if(articleList.size()>0){
+				item.add("next", articleList.get(0));
+			}
+			sql="select a.* from sic_article a,sic_fromother f where a.id=f.objId and f.type='ARTICLE'and a.id<"+id+" and f.userId="+this.getUserId()+" order by a.id desc  limit 1 ";
+			articleList=basicService.list(Article.class, sql, null);
+			if(articleList.size()>0){
+				item.add("pre", articleList.get(0));
+			}
 		}
-		return jsonList;*/
-		String sql="SELECT a.*,count(*) replyCount from sic_article a LEFT OUTER JOIN sic_reply r on a.id=r.objId and r.type='ARTICLE' GROUP BY a.id ORDER BY replyCount desc,viewCount desc,createDate desc";
-		return list(basicService.createPager(1, AppConstants.Blog.pageSize),sql,null);
+		
+		return item.toJsonForm();
 	}
 	
 	@At
-	public Object getRandomArticle() throws Exception{
-		String sql="select a.* from sic_article a order by rand()";
-		return list(basicService.createPager(1, AppConstants.Blog.pageSize),sql,null);
+	public Object getArticleByType(ViewArticleType type,@Param("::page.")Pager page,long tagId) throws Exception{
+		String sql;
+		if(tagId!=0){
+			sql="select a.* from sic_article a where tagId="+tagId+" order by createDate desc";
+		}else{
+			if(type!=null){
+				sql=type.toSql();
+			}else{
+				sql="select a.* from sic_article a order by createDate desc";
+			}
+			
+		}
+		return list(page,sql,"select count(*) from sic_article");
 	}
 	
-	@At
-	public Object getNewArticle(@Param("::page.")Pager page) throws Exception{
-		return list(page,Cnd.where("deleteIs", "=", false).desc("createDate"));
-	}
-	
-	@At
-	public Object getArticleByTag(long tagId)throws Exception{
-		String sql="select a.* from sic_article a where tagId="+tagId+" order by createDate desc";
-		return list(basicService.createPager(1, AppConstants.Blog.pageSize),sql,null);
-	}
-	
-	@At
-	public Object getHightScoreArticle()throws Exception{
-		String sql="SELECT a.*,AVG(r.score) replyScore from sic_article a LEFT OUTER JOIN sic_ratescore r on a.id=r.objectId and r.type='ARTICLE' GROUP BY a.id ORDER BY replyScore desc,viewCount desc,createDate desc";
-		return list(basicService.createPager(1, AppConstants.Blog.pageSize),sql,null);
-	}
 	
 	@At
 	public Object getRecommArticle()throws Exception{
@@ -118,9 +137,14 @@ public class ArticleAction extends ABasicDBAction<Article> {
 		for(Recommond recomm:basicService.list(Recommond.class, Cnd.where("type", "=",CategoryType.ARTICLE).desc("createDate"))){
 			JsonItem item=new JsonItem();
 			Article article=basicService.get(Article.class, recomm.getObjId());
-			item.add("path", recomm.getPath());
+			//item.add("path","/sicNutz/upload/picture/"+ recomm.getPath());
+			String imgUrl=HTMLUtil.getImageUrl(article.getContent());
+			if(imgUrl==null){
+				imgUrl="/sicNutz/upload/picture/default.jpg";
+			}
+			item.add("path",imgUrl);
 			item.add("title", article.getTitle());
-			item.add("description", DataUtil.getDefaultChar(article.getContent()));
+			item.add("description", DataUtil.getDefaultChar(article.getContent(),50));
 			item.add("url", "article_view.jsp?id="+recomm.getObjId());
 			jsonList.add(item);
 		}
@@ -139,7 +163,6 @@ public class ArticleAction extends ABasicDBAction<Article> {
 				}
 			}
 		}
-		
 		jsonList.setSize();
 		return jsonList;
 	}

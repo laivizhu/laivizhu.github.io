@@ -17,10 +17,10 @@ var loadLocalNavigate=function(list){
 	});
 };
 
-var loadRemoteNavigate=function(getUrl,viewUrl){
+var loadRemoteNavigate=function(getUrl){
 	laivi.getJson(getUrl, function(result){
 		$.each(result.root,function(i,item){
-			$("#navigateLeftULId").append("<li><a href='"+viewUrl+item.id+"'><i class='icon-chevron-right'></i>"+item.name+"</a></li>");
+			$("#navigateLeftULId").append("<li><a href='"+item.url+"'><i class='icon-chevron-right'></i>"+item.title+"</a></li>");
 		});
 	});
 };

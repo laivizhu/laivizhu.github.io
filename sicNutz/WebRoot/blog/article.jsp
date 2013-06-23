@@ -21,11 +21,23 @@ body {
 	<jsp:include page="../common/navigate.jsp" />
 
 	<div class="container">
-		<div class="hero-unit" id="recommArticleListId">
+		<div class="hero-unit">
+			<div class="row">
+				<div class="span6" id="recommArticleListId">
+				</div>
+				<div class="span6">
+					
+				</div>
+			</div>
 		</div>
 		<div class="row">
 			<div class="span6">
-				<h2>高分评价</h2>
+				<table width="100%">
+					<tr>
+						<td align="left"><h2>高分评价</h2></td>
+						<td align="right"><a class="btn" href="article_list.jsp?type=HIGHT">More &raquo;</a></td>
+					</tr>
+				</table>
 				<div style="height:240px">
 					<table id="hightScoreArticleListId" width="100%">
 					</table>
@@ -33,7 +45,12 @@ body {
 			</div>
 
 			<div class="span6">
-				<h2>热门</h2>
+				<table width="100%">
+					<tr>
+						<td align="left"><h2>热门</h2></td>
+						<td align="right"><a class="btn" href="article_list.jsp?type=HOT">More &raquo;</a></td>
+					</tr>
+				</table>
 				<div style="height:240px">
 					<table id="hotArticleListId" width="100%">
 					</table>
@@ -41,7 +58,12 @@ body {
 			</div>
 
 			<div class="span6">
-				<h2>最新</h2>
+				<table width="100%">
+					<tr>
+						<td align="left"><h2>最新</h2></td>
+						<td align="right"><a class="btn" href="article_list.jsp?type=NEW">More &raquo;</a></td>
+					</tr>
+				</table>
 				<div style="height:240px">
 					<table id="newarticleListId" width="100%">
 					</table>
@@ -49,7 +71,12 @@ body {
 			</div>
 
 			<div class="span6">
-				<h2>随机</h2>
+				<table width="100%">
+					<tr>
+						<td align="left"><h2>随机</h2></td>
+						<td align="right"><a class="btn" href="article_list.jsp">More &raquo;</a></td>
+					</tr>
+				</table>
 				<div style="height:240px">
 					<table id="randomArticleListId" width="100%">
 					</table>
@@ -57,7 +84,12 @@ body {
 			</div>
 			
 			<div class="span6">
-				<h2>情感</h2>
+				<table width="100%">
+					<tr>
+						<td align="left"><h2>情感</h2></td>
+						<td align="right"><a class="btn" href="article_list.jsp?tagId=3">More &raquo;</a></td>
+					</tr>
+				</table>
 				<div style="height:240px">
 					<table id="loveArticleListId" width="100%">
 					</table>
@@ -65,7 +97,12 @@ body {
 			</div>
 			
 			<div class="span6">
-				<h2>生活</h2>
+				<table width="100%">
+					<tr>
+						<td align="left"><h2>生活</h2></td>
+						<td align="right"><a class="btn" href="article_list.jsp?tagId=6">More &raquo;</a></td>
+					</tr>
+				</table>
 				<div style="height:240px">
 					<table id="lifeArticleListId" width="100%">
 					</table>
@@ -73,7 +110,12 @@ body {
 			</div>
 			
 			<div class="span6">
-				<h2>感悟</h2>
+				<table width="100%">
+					<tr>
+						<td align="left"><h2>感悟</h2></td>
+						<td align="right"><a class="btn" href="article_list.jsp?tagId=7">More &raquo;</a></td>
+					</tr>
+				</table>
 				<div style="height:240px">
 					<table id="thinkArticleListId" width="100%">
 					</table>
@@ -81,7 +123,12 @@ body {
 			</div>
 			
 			<div class="span6">
-				<h2>技术</h2>
+				<table width="100%">
+					<tr>
+						<td align="left"><h2>技术</h2></td>
+						<td align="right"><a class="btn" href="blog/article.jsp?tagId=11">More &raquo;</a></td>
+					</tr>
+				</table>
 				<div style="height:240px">
 					<table id="techolgyArticleListId" width="100%">
 					</table>
@@ -109,12 +156,20 @@ body {
 	<script type="text/javascript" src="../js/common/laivi-Carousel.js"></script>
 	<script type="text/javascript" src="../js/common/sic-basic.js"></script>
 	<script type="text/javascript">
-		var getDataList=function(url,obj,param){
+		var getDataList=function(url,obj){
 			sic.common.getJson(url, function(result){
-				$.each(result.root,function(i,item){
-					obj.append("<tr><td align='left'><a href='article_view.jsp?id="+item.id+"' title='"+item.title+"'>"+item.title+"</a></td><td align='right'>"+item.createDate.substring(0,10)+"</td></tr>");
-				});
-			},false,param);
+				if(result.totalProperty>0){
+					$.each(result.root,function(i,item){
+						obj.append("<tr><td align='left'><a href='article_view.jsp?id="+item.id+"' title='"+item.title+"'>"+item.title+"</a></td><td align='right'>"+item.createDate.substring(0,10)+"</td></tr>");
+					});
+				}else{
+					obj.append("<tr><td class='alert alert-block'>暂无数据</td></tr>")
+				}
+				
+			},false,{
+				'page.pageNumber':1,
+	        	'page.pageSize':10
+			});
 		};
 		
 		
@@ -123,17 +178,14 @@ body {
 				parentContainer:'#recommArticleListId',
 				url:'../blog/article/getRecommArticle.nut'
 			});
-			getDataList('../blog/article/getHotArticles.nut',$('#hotArticleListId'));
-			getDataList('../blog/article/getRandomArticle.nut',$('#randomArticleListId'));
-			getDataList('../blog/article/getHightScoreArticle.nut',$('#hightScoreArticleListId'));
-			getDataList('../blog/article/getNewArticle.nut',$('#newarticleListId'),{
-				'page.pageNumber':1,
-	        	'page.pageSize':10
-			});
-			getDataList('../blog/article/getArticleByTag.nut?tagId=11',$('#techolgyArticleListId'));
-			getDataList('../blog/article/getArticleByTag.nut?tagId=3',$('#loveArticleListId'));
-			getDataList('../blog/article/getArticleByTag.nut?tagId=6',$('#lifeArticleListId'));
-			getDataList('../blog/article/getArticleByTag.nut?tagId=7',$('#thinkArticleListId'));
+			getDataList('../blog/article/getArticleByType.nut?type=HOT',$('#hotArticleListId'));
+			getDataList('../blog/article/getArticleByType.nut?type=RANDOM',$('#randomArticleListId'));
+			getDataList('../blog/article/getArticleByType.nut?type=HIGHT',$('#hightScoreArticleListId'));
+			getDataList('../blog/article/getArticleByType.nut?type=NEW',$('#newarticleListId'));
+			getDataList('../blog/article/getArticleByType.nut?tagId=11',$('#techolgyArticleListId'));
+			getDataList('../blog/article/getArticleByType.nut?tagId=3',$('#loveArticleListId'));
+			getDataList('../blog/article/getArticleByType.nut?tagId=6',$('#lifeArticleListId'));
+			getDataList('../blog/article/getArticleByType.nut?tagId=7',$('#thinkArticleListId'));
 		}));
 	</script>
 </body>

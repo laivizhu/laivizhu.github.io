@@ -40,7 +40,7 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 		try{
 			dao.delete(klass, id);
 		}catch(Exception e){
-			throw new ErrorException("数据添加失败");
+			throw new ErrorException("数据删除失败");
 		}
 	}
 
@@ -49,7 +49,7 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 		try{
 			dao.update(obj);
 		}catch(Exception e){
-			throw new ErrorException("数据添加失败");
+			throw new ErrorException("数据更新失败");
 		}
 		
 	}
@@ -67,7 +67,7 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 			return (T) elem.getValue();
 			//return dao.fetch(klass, id);
 		}catch(Exception e){
-			throw new ErrorException("数据添加失败");
+			throw new ErrorException("数据获取失败");
 		}
 		
 	}
@@ -77,7 +77,7 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 		try{
 			return dao.fetch(klass, cnd);
 		}catch(Exception e){
-			throw new ErrorException("数据添加失败");
+			throw new ErrorException("数据获取败");
 		}
 		
 	}
@@ -88,7 +88,7 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 			Pager page=dao.createPager(start, limit);
 			return dao.query(klass, cnd, page);
 		}catch(Exception e){
-			throw new ErrorException("数据添加失败");
+			throw new ErrorException("数据查找失败");
 		}
 	}
 
@@ -97,7 +97,7 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 		try{
 			return dao.query(klass, cnd);
 		}catch(Exception e){
-			throw new ErrorException("数据添加失败");
+			throw new ErrorException("数据查找失败");
 		}
 	}
 
@@ -106,7 +106,7 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 		try{
 			return dao.query(klass, null);
 		}catch(Exception e){
-			throw new ErrorException("数据添加失败");
+			throw new ErrorException("数据查找失败");
 		}
 	}
 
@@ -115,7 +115,7 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 		try{
 			return dao.count(klass, cnd);
 		}catch(Exception e){
-			throw new ErrorException("数据添加失败");
+			throw new ErrorException("数据获取失败");
 		}
 	}
 
@@ -124,7 +124,7 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 		try{
 			return dao.count(klass,null);
 		}catch(Exception e){
-			throw new ErrorException("数据添加失败");
+			throw new ErrorException("数据获取失败");
 		}
 	}
 
@@ -133,7 +133,7 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 		try{
 			return dao.query(klass, cnd, page);
 		}catch(Exception e){
-			throw new ErrorException("数据添加失败");
+			throw new ErrorException("数据查找失败");
 		}
 	}
 	
@@ -147,7 +147,7 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 			dao.execute(sqlObj);
 			return sqlObj.getList(klass);
 		}catch(Exception e){
-			throw new ErrorException("数据添加失败");
+			throw new ErrorException("数据查找失败");
 		}
 	}
 	
@@ -158,7 +158,7 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 			dao.execute(count);
 			return count.getInt();
 		}catch(Exception e){
-			throw new ErrorException("数据添加失败");
+			throw new ErrorException("数据获取失败");
 		}
 		
 	}

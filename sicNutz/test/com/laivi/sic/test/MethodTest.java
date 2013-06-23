@@ -6,8 +6,10 @@ import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import jxl.write.WritableSheet;
@@ -22,10 +24,13 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
+import com.laivi.basic.mirror.Mirrors;
 import com.laivi.crawler.Crawler;
 import com.laivi.crawler.model.LinkFilter;
 import com.laivi.maptable.GenerateMysqlTable;
+import com.laivi.maptable.dao.JdbcDao;
 import com.laivi.sic.model.po.blog.Article;
+import com.laivi.sic.model.po.user.Role;
 import com.laivi.sic.service.task.TestJob;
 import com.laivi.sic.util.basic.DataUtil;
 import com.laivi.sic.util.basic.ExcelUtil;
@@ -148,5 +153,22 @@ public class MethodTest {
 		for(Map.Entry<String, Object> entry:values.entrySet()){
 			System.out.println(entry.getKey());
 		}
+	}
+	
+	@Test
+	public void testInsert(){
+		JdbcDao dao=new JdbcDao("jdbc:mysql://localhost:3306/sicnutz","root","123456");
+		List<Role> roleList=dao.getList("sic_role", Role.class, "id=1");
+		for(Role role:roleList){
+			System.out.println(role.getName());
+		}
+	}
+	
+	@Test
+	public void testMirrors(){
+		for(Field field:Mirrors.getFields(Role.class)){
+			System.out.println(field.getName());
+		}
+		
 	}
 }

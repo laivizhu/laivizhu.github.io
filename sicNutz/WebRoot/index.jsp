@@ -68,20 +68,6 @@
       </div>
 
       <hr>
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Launch modal</button>
-	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	  <div class="modal-header">
-	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	    <h3 id="myModalLabel">Modal header</h3>
-	  </div>
-	  <div class="modal-body" id="pictureDivId">
-	    
-	  </div>
-	  <div class="modal-footer">
-	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-	    <button class="btn btn-primary">Save changes</button>
-	  </div>
-	</div>
 
       <footer>
       	  <p class="pull-right"><a href="#">Back to top</a></p>
@@ -106,19 +92,14 @@
 				$.each(result.root,function(i,item){
 					obj.append("<tr><td align='left'><a href='blog/article_view.jsp?id="+item.id+"' title='"+item.title+"'>"+item.title.substring(0,8)+"</a>("+item.viewCount+")</td><td align='right'>"+item.createDate.substring(0,10)+"</td></tr>");
 				});
-			},false);
+			},false,{
+				'page.pageNumber':1,
+	        	'page.pageSize':10
+			});
 		};
 		
-		/* $('#myModal').on('show', function () {
-  			
-		}); */
-		
 		$(document).ready(sic.basic.init(function(){
-			//new LaiviCarousel({
-				//parentContainer:'#pictureDivId',
-				//url:'picture_list.action?start=0&limit=200'
-			//});
-			getDataList('blog/article/getHotArticles.nut',$('#articleListId'));
+			getDataList('blog/article/getArticleByType.nut?type=HOT',$('#articleListId'));
 		}));
 		
 	</script>

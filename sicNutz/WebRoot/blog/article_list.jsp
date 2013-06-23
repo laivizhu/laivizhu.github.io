@@ -21,48 +21,8 @@ body {
 	<jsp:include page="../common/navigate.jsp" />
 
 	<div class="container">
-		<div class="hero-unit">
-			<h1>Welcome Back</h1>
-			<p>hello</p>
-			<p>
-				<a class="btn btn-primary btn-large">Learn more &raquo;</a>
-			</p>
-		</div>
 		<div class="row">
-			<div class="span3 row">
-				<div class="span3">
-					<h2>推荐</h2>
-					<div style="height:120px">
-						<table id="proposalArticleListId" width="100%">
-						</table>
-					</div>
-				</div>
-
-				<div class="span3">
-					<h2>热门</h2>
-					<div style="height:120px">
-						<table id="hotArticleListId" width="100%">
-						</table>
-					</div>
-				</div>
-
-				<div class="span3">
-					<h2>最新</h2>
-					<div style="height:120px">
-						<table id="articleListId" width="100%">
-						</table>
-					</div>
-				</div>
-
-				<div class="span3">
-					<h2>随机</h2>
-					<div style="height:120px">
-						<table id="randomArticleListId" width="100%">
-						</table>
-					</div>
-				</div>
-			</div>
-			<div class="span9">
+			<div class="span12">
 				<div class="row" id="articleListDivId"></div>
 			</div>
 		</div>
@@ -109,24 +69,30 @@ body {
 							});
 		};
 		$(document).ready(sic.basic.init(function() {
-			sic.pageLoding.pageLoad('../blog/article/getAll.nut',$("#articleListDivId"),
+			var url="../blog/article/getArticleByType.nut";
+			var type=sic.basic.getUrlVar("type");
+			var tagId=sic.basic.getUrlVar("tagId");
+			if(type!=null){
+				url+="?type="+type;
+			}else if(tagId!=null){
+				url+="?tagId="+tagId;
+			}
+			sic.pageLoding.pageLoad(url,$("#articleListDivId"),
 					function(item) {
-						return "<div class='span9'><a href='article_view.jsp?id="
-								+ item.article.id
+						return "<div class='span12'><a href='article_view.jsp?id="
+								+ item.id
 								+ "'><h2>"
-								+ item.article.title
-								+ "</h2></a><p id='content"+item.article.id+"'>"
-								+ item.article.content
+								+ item.title
+								+ "</h2></a><p id='content"+item.id+"'>"
+								+ item.content
 								+ "<a class='btn btn-primary btn-small' onclick='getMoreData("
-								+ item.article.id
+								+ item.id
 								+ ")'>More &raquo;</a></p><div align='right'><p>"
-								+ item.article.createDate
+								+ item.createDate
 								+ "|"
 								+ item.user.name
 								+ "</p></div></div>";
 			});
-			getDataList('../blog/article/getHotArticles.nut',$('#hotArticleListId'));
-			getDataList('../blog/article/getRandomArticle.nut',$('#randomArticleListId'));
 		}));
 	</script>
 </body>

@@ -103,13 +103,13 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 	}
 	
 	protected void updateValue(T srcObj,T destObj){
-		for(Field field:srcObj.getClass().getDeclaredFields()){
+		for(Field field:Mirror.me(srcObj.getClass()).getFields()){
 			boolean accessFlag = field.isAccessible();
 			field.setAccessible(true);
 			Field dstField=null;
 			boolean dstAccessFlag=false;
 			try {
-				dstField=destObj.getClass().getDeclaredField(field.getName());
+				dstField=Mirror.me(destObj.getClass()).getField(field.getName());
 				dstAccessFlag=dstField.isAccessible();
 				dstField.setAccessible(true);
 				if(field.get(srcObj)!=null){
@@ -203,6 +203,8 @@ public abstract class ABasicDBAction<T extends IBasicDBEntity> extends ABasicAct
 		}
 		if(count!=null)
 			jsonList.setTotalProperty(basicService.getCount(klass, count));
+		else
+			jsonList.setSize();
 		return jsonList;
 	}
 	

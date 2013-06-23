@@ -40,11 +40,17 @@
 		<div class="span12" align="center">
 			<div id="articleStarDivId"></div>
 		</div>
-		<div class="span12" align="right">
-			<div>
-				<button class="btn btn-small" id="articleDelButtonId" onclick="delArticle()"><i class="icon-remove-circle"></i>删除</button>
-				<button class="btn btn-small" id="articleEditButtonId" onclick="editArticle()"><i class="icon-edit"></i>编辑</button>
+		<c:if test="${user!=null}">
+			<div class="span12" align="right">
+				<div>
+					<button class="btn btn-small" id="articleDelButtonId" onclick="delArticle()"><i class="icon-remove-circle"></i>删除</button>
+					<button class="btn btn-small" id="articleEditButtonId" onclick="editArticle()"><i class="icon-edit"></i>编辑</button>
+				</div>
 			</div>
+		</c:if>
+		
+		<div class="span12" align="left" id="roundArticleDivId">
+			
 		</div>
         <div class="span12">
             <h3>同类文章</h3>
@@ -104,6 +110,14 @@
 			sic.fromOther.getFromOther(articleId,'ARTICLE');
 			sic.recomm.getRecomm(articleId,'ARTICLE');
             sic.common.getJson("../blog/article/addViewCount.nut?id="+articleId);
+            sic.common.getJson("../blog/article/getRoundArticle.nut?id="+articleId,function(result){
+            	if(result.data.pre!=null){
+            		$("#roundArticleDivId").append("<a href='article_view.jsp?id="+result.data.pre.id+"'><strong>上一篇:</strong>"+result.data.pre.title+"</a></br>");
+            	}
+            	if(result.data.next!=null){
+            		$("#roundArticleDivId").append("<a href='article_view.jsp?id="+result.data.next.id+"'><strong>下一篇:</strong>"+result.data.next.title+"</a>");
+            	}
+            });
             sic.common.getJson("../blog/article/getProposal.nut?id="+articleId,function(result){
             	if(result.totalProperty!=0){
             		$.each(result.root,function(i,item){
