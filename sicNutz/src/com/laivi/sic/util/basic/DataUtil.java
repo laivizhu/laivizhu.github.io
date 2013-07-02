@@ -28,7 +28,7 @@ import com.laivi.sic.model.po.common.SimpleDegree;
  */
 public class DataUtil {
 	private static int DEFAULT_SCALE = 2;
-	private static int DEFAULT_CHAR = 200;
+	private static int DEFAULT_CHAR = 400;
 
 	/**
 	 * 

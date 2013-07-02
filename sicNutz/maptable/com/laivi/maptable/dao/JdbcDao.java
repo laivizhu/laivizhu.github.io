@@ -1,7 +1,6 @@
 package com.laivi.maptable.dao;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,13 +12,13 @@ import com.laivi.basic.mirror.Mirrors;
 
 public class JdbcDao {
 
-	private Connection conn;
 
-	private Sql2o sql2o;
-
-	public JdbcDao(Connection conn) {
-		this.conn = conn;
+	private static Sql2o sql2o;
+	
+	static{
+		sql2o=new Sql2o("","","");
 	}
+
 
 	public JdbcDao(String url, String user, String password) {
 		sql2o = new Sql2o(url, user, password);
@@ -37,6 +36,18 @@ public class JdbcDao {
 		org.sql2o.Connection connection = sql2o.beginTransaction();
 		query.executeUpdate();
 		connection.commit();
+	}
+	
+	public void delete(String table,String where){
+		StringBuilder sql = new StringBuilder("delete from " + table);
+		if(where!=null){
+			sql.append(" where "+where);
+		}
+		Query query = sql2o.createQuery(sql.toString());
+		org.sql2o.Connection connection = sql2o.beginTransaction();
+		query.executeUpdate();
+		connection.commit();
+		
 	}
 
 	public void insert(String table, Class<?> klass, Object obj) {

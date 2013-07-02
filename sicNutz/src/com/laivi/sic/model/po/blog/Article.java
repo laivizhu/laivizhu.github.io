@@ -5,6 +5,7 @@ import org.nutz.dao.entity.annotation.ColType;
 import org.nutz.dao.entity.annotation.Table;
 
 import com.laivi.sic.model.po.basic.AUserEntity;
+import com.laivi.sic.model.type.ViewAuth;
 import com.laivi.validation.Validations;
 
 @SuppressWarnings("serial")
@@ -24,6 +25,8 @@ public class Article extends AUserEntity {
 	private long tagId;
 	
 	private boolean otherIs;
+	
+	private ViewAuth auth=ViewAuth.PUBLIC;
 
 	public String getTitle() {
 		return title;
@@ -68,4 +71,13 @@ public class Article extends AUserEntity {
 	public void setOtherIs(boolean otherIs) {
 		this.otherIs = otherIs;
 	}
+
+	public ViewAuth getAuth() {
+		return auth;
+	}
+
+	public void setAuth(ViewAuth auth) {
+		this.auth = auth;
+	}
+	
 }

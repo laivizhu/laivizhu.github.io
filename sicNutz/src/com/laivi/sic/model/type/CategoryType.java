@@ -6,8 +6,10 @@ import com.laivi.sic.model.po.media.Album;
 import com.laivi.sic.model.po.media.Book;
 import com.laivi.sic.model.po.media.Music;
 import com.laivi.sic.model.po.media.Picture;
+import com.laivi.sic.model.po.system.News;
 
 public enum CategoryType {
+	NEWS("新闻",News.class),
 	ARTICLE("文章",Article.class),
 	KNOWLEDGE("知识",Knowledge.class),
 	PICTURE("图片",Picture.class),

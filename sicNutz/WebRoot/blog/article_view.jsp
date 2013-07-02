@@ -56,7 +56,6 @@
             <h3>同类文章</h3>
         </div>
         <div id="likeArticleListDivId">
-
         </div>
 		<div class="span12">
 			<h3>评论</h3>
@@ -118,11 +117,25 @@
             		$("#roundArticleDivId").append("<a href='article_view.jsp?id="+result.data.next.id+"'><strong>下一篇:</strong>"+result.data.next.title+"</a>");
             	}
             });
-            sic.common.getJson("../blog/article/getProposal.nut?id="+articleId,function(result){
+            sic.common.getJson("../common/recomm/getProposal.nut?type=ARTICLE&id="+articleId,function(result){
+            	var content="";
             	if(result.totalProperty!=0){
             		$.each(result.root,function(i,item){
-                		$('#likeArticleListDivId').append("<div class='span3'><h3><a href='article_view.jsp?id="+item.id+"'>"+item.title+"</a></h3></div>");
+            			console.log(i);
+            			if(i%3==0){
+            				//$('#likeArticleListDivId').append("<ul>");
+            				content+="<ul class='list1' style='float:left;'>";
+            				isChange=true;
+            			}
+                		//$('#likeArticleListDivId').append("<li class='span3'><h3><a href='article_view.jsp?id="+item.id+"'>"+item.title+"</a></h3></li>");
+                		content+="<li><h3><a href='article_view.jsp?id="+item.id+"'>"+item.title+"</a></h3></li>";
+                		if((i+1)%3==0){
+                			//$('#likeArticleListDivId').append("</ul>");
+                			content+="</ul>";
+                		}
                 	});
+            		$('#likeArticleListDivId').append(content);
+            		console.log(content);
             	}else{
             		$('#likeArticleListDivId').append("<div class='span12'><div class='alert alert-block'><h4>暂无相关推荐</h4></div></div>");
             	}

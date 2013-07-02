@@ -177,9 +177,16 @@ public class BasicDBService extends BasicService implements IBasicDBService {
 	public <T> void delete(Class<T> klass, Condition cnd) throws Exception {
 		dao.delete(dao.fetch(klass, cnd));
 	}
+	
+	
 
 	@Override
 	public void delete(Object obj) throws Exception {
 		dao.delete(obj);
+	}
+
+	@Override
+	public <T> void clean(Class<T> klass, Condition cnd) throws Exception {
+		dao.clear(klass, cnd);
 	}
 }

@@ -21,9 +21,16 @@ body {
 	<jsp:include page="../common/navigate.jsp" />
 
 	<div class="container">
+		<div style="position: fixed; float:right;width:85px;height:60px; right:0px;top:50px;" >
+    		<ul class="nav nav-pills">
+			      <li>
+			        <a href="news_add.jsp" class="btn">新增新闻</a>
+			      </li>
+			</ul>
+		</div>
 		<div class="hero-unit">
 			<div class="row">
-				<div class="span6" id="recommArticleListId">
+				<div class="span6" id="recommNewsListId">
 				</div>
 				<div class="span6">
 					
@@ -34,25 +41,12 @@ body {
 			<div class="span6">
 				<table width="100%">
 					<tr>
-						<td align="left"><h2>高分评价</h2></td>
-						<td align="right"><a class="btn" href="article_list.jsp?type=HIGHT">More &raquo;</a></td>
-					</tr>
-				</table>
-				<div style="height:240px; clear:both;">
-					<table id="hightScoreArticleListId" width="100%">
-					</table>
-				</div>
-			</div>
-
-			<div class="span6">
-				<table width="100%">
-					<tr>
 						<td align="left"><h2>热门</h2></td>
-						<td align="right"><a class="btn" href="article_list.jsp?type=HOT">More &raquo;</a></td>
+						<td align="right"><a class="btn" href="news_list.jsp?type=HOT">More &raquo;</a></td>
 					</tr>
 				</table>
 				<div style="height:240px">
-					<table id="hotArticleListId" width="100%">
+					<table id="hotNewsListId" width="100%">
 					</table>
 				</div>
 			</div>
@@ -61,11 +55,11 @@ body {
 				<table width="100%">
 					<tr>
 						<td align="left"><h2>最新</h2></td>
-						<td align="right"><a class="btn" href="article_list.jsp?type=NEW">More &raquo;</a></td>
+						<td align="right"><a class="btn" href="news_list.jsp?type=NEW">More &raquo;</a></td>
 					</tr>
 				</table>
 				<div style="height:240px">
-					<table id="newarticleListId" width="100%">
+					<table id="newNewsListId" width="100%">
 					</table>
 				</div>
 			</div>
@@ -74,11 +68,11 @@ body {
 				<table width="100%">
 					<tr>
 						<td align="left"><h2>随机</h2></td>
-						<td align="right"><a class="btn" href="article_list.jsp">More &raquo;</a></td>
+						<td align="right"><a class="btn" href="news_list.jsp">More &raquo;</a></td>
 					</tr>
 				</table>
 				<div style="height:240px">
-					<table id="randomArticleListId" width="100%">
+					<table id="randomNewsListId" width="100%">
 					</table>
 				</div>
 			</div>
@@ -86,12 +80,12 @@ body {
 			<div class="span6">
 				<table width="100%">
 					<tr>
-						<td align="left"><h2>情感</h2></td>
-						<td align="right"><a class="btn" href="article_list.jsp?tagId=3">More &raquo;</a></td>
+						<td align="left"><h2>IT资讯</h2></td>
+						<td align="right"><a class="btn" href="news_list.jsp?tagId=16">More &raquo;</a></td>
 					</tr>
 				</table>
 				<div style="height:240px">
-					<table id="loveArticleListId" width="100%">
+					<table id="loveNewsListId" width="100%">
 					</table>
 				</div>
 			</div>
@@ -99,12 +93,12 @@ body {
 			<div class="span6">
 				<table width="100%">
 					<tr>
-						<td align="left"><h2>生活</h2></td>
-						<td align="right"><a class="btn" href="article_list.jsp?tagId=6">More &raquo;</a></td>
+						<td align="left"><h2>南方周末</h2></td>
+						<td align="right"><a class="btn" href="news_list.jsp?tagId=17">More &raquo;</a></td>
 					</tr>
 				</table>
 				<div style="height:240px">
-					<table id="lifeArticleListId" width="100%">
+					<table id="lifeNewsListId" width="100%">
 					</table>
 				</div>
 			</div>
@@ -112,25 +106,12 @@ body {
 			<div class="span6">
 				<table width="100%">
 					<tr>
-						<td align="left"><h2>感悟</h2></td>
-						<td align="right"><a class="btn" href="article_list.jsp?tagId=7">More &raquo;</a></td>
+						<td align="left"><h2>生活资讯</h2></td>
+						<td align="right"><a class="btn" href="news_list.jsp?tagId=18">More &raquo;</a></td>
 					</tr>
 				</table>
 				<div style="height:240px">
-					<table id="thinkArticleListId" width="100%">
-					</table>
-				</div>
-			</div>
-			
-			<div class="span6">
-				<table width="100%">
-					<tr>
-						<td align="left"><h2>技术</h2></td>
-						<td align="right"><a class="btn" href="blog/article.jsp?tagId=11">More &raquo;</a></td>
-					</tr>
-				</table>
-				<div style="height:240px">
-					<table id="techolgyArticleListId" width="100%">
+					<table id="thinkNewsListId" width="100%">
 					</table>
 				</div>
 			</div>
@@ -160,36 +141,32 @@ body {
 			sic.common.getJson(url, function(result){
 				if(result.totalProperty>0){
 					$.each(result.root,function(i,item){
-						obj.append("<tr><td align='left'><a href='article_view.jsp?id="+item.id+"' title='"+item.title+"'>"+item.title+"</a></td><td align='right'>"+item.createDate.substring(0,10)+"</td></tr>");
+						obj.append("<tr><td align='left'><a href='news_view.jsp?id="+item.id+"' title='"+item.title+"'>"+item.title+"</a></td><td align='right'>"+item.createDate.substring(0,10)+"</td></tr>");
 					});
 				}else{
-					obj.append("<tr><td class='alert alert-block'>暂无数据</td></tr>")
+					obj.append("<tr><td class='alert alert-block'>暂无数据</td></tr>");
 				}
-				
 			},false,{
 				'page.pageNumber':1,
 	        	'page.pageSize':10
 			});
 		};
 		
-		
 		$(document).ready(sic.basic.init(function() {
 			new LaiviCarousel({
-				parentContainer:'#recommArticleListId',
-				url:'../blog/article/getRecommArticle.nut',
+				parentContainer:'#recommNewsListId',
+				url:'../system/news/getRecommNews.nut',
 				params:{
 					'page.pageNumber':1,
 		        	'page.pageSize':10
 				}
 			});
-			getDataList('../blog/article/getArticleByType.nut?type=HOT',$('#hotArticleListId'));
-			getDataList('../blog/article/getArticleByType.nut?type=RANDOM',$('#randomArticleListId'));
-			getDataList('../blog/article/getArticleByType.nut?type=HIGHT',$('#hightScoreArticleListId'));
-			getDataList('../blog/article/getArticleByType.nut?type=NEW',$('#newarticleListId'));
-			getDataList('../blog/article/getArticleByType.nut?tagId=11',$('#techolgyArticleListId'));
-			getDataList('../blog/article/getArticleByType.nut?tagId=3',$('#loveArticleListId'));
-			getDataList('../blog/article/getArticleByType.nut?tagId=6',$('#lifeArticleListId'));
-			getDataList('../blog/article/getArticleByType.nut?tagId=7',$('#thinkArticleListId'));
+			getDataList('../system/news/listByTag.nut?type=HOT',$('#hotNewsListId'));
+			getDataList('../system/news/listByTag.nut?type=RANDOM',$('#randomNewsListId'));
+			getDataList('../system/news/listByTag.nut?type=NEW',$('#newNewsListId'));
+			getDataList('../system/news/listByTag.nut?tagId=16',$('#loveNewsListId'));
+			getDataList('../system/news/listByTag.nut?tagId=17',$('#lifeNewsListId'));
+			getDataList('../system/news/listByTag.nut?tagId=18',$('#thinkNewsListId'));
 		}));
 	</script>
 </body>

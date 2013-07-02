@@ -5,7 +5,7 @@
 		var toDir=function(dir){
 			var options = {			
 				showHeight : 150,
-				speed : 1000
+				speed : 200
 			};
 			if(dir=='top'){
 				$("html,body").animate({scrollTop: 0}, options.speed);
@@ -30,6 +30,7 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="/sicNutz/index.jsp">首页</a></li>
+              <li><a href="/sicNutz/system/news.jsp">新闻</a></li>
               <li><a href="/sicNutz/bbs/bbs.jsp">论坛</a></li>
               <li><a href="/sicNutz/picture/picture.jsp">记忆点滴</a></li>
               <li><a href="/sicNutz/music/music.jsp">音乐天地</a></li>
@@ -44,7 +45,6 @@
                   <li><a href="/sicNutz/blog/knowledge.jsp">知识</a></li>
                 </ul>
               </li>
-              <li><a href="/sicNutz/aboutus/aboutus.jsp">关于我们</a></li>
             </ul>
             <c:choose>
             	<c:when test="${user==null}">
@@ -60,7 +60,7 @@
             	<c:otherwise>
             		<div class="nav-collapse collapse">
 	            	<ul class="nav pull-right">
-	            		<li><a href='/sicNutz/user/user.jsp?id=<c:out value="${user.id}"/>'><c:out value="${user.email}"/></a></li>
+	            		<li><a href='/sicNutz/user/user_article.jsp'><c:out value="${user.email}"/></a></li>
 	            		<li><a href="#" onclick="userLogout()">注销</a></li>
 	            	</ul>
             		</div>
@@ -72,7 +72,7 @@
       </div>
     </div>
     
-    <div id="backTopDivId" style="display: none; width: 50px; height: 95px; position: fixed;top: 250px; right: 10px; z-index: 100; text-align: center; cursor: pointer;">
+    <div id="backTopDivId" style="display: none; width: 50px; height: 95px; position: fixed;top: 450px; right: 10px; z-index: 100; text-align: center; cursor: pointer;">
     	<p><a onclick="toDir('top')">
     		<img src='/sicNutz/images/back-top.png' alt='返回顶部' title='返回顶部' border='0'>
     	</a></p>

@@ -67,6 +67,15 @@ var sic={
 		        }
 		        return null;
 		    },
+		    setRadioValue:function(name,value){
+		    	$.each($("input[name='"+name+"']"),function(){
+		    		if($(this).val() ==value){
+	                    $(this).attr("checked","checked");
+	                }else{
+	                	$(this).removeAttr("checked");
+	                }
+		    	});
+		    },
 		    setDisable:function(obj){
 				obj.addClass('disabled');
 				obj.attr('disabled',true);
@@ -122,7 +131,7 @@ var sic={
 					}else{
 						sic.msg.error(result.msg);
 						if("请先登录!"==result.msg){
-							window.location.href="/sicNut/login.html";
+							window.location.href="/sicNutz/login.html";
 						}
 					}
 					$.jBox.closeTip();
@@ -280,9 +289,12 @@ var sic={
 					}
 				});
 			},
-			pageLoad:function(url,obj,getValue,currentPage){
+			pageLoad:function(url,obj,getValue,currentPage,positionSize){
 		        if(currentPage==null){
 		            currentPage=1;
+		        }
+		        if(positionSize==null){
+		        	positionSize=8;
 		        }
 		        sic.common.getJson(url,function(result){
 		            if(result.totalProperty>0){
@@ -293,17 +305,17 @@ var sic={
 		                    obj.append(getValue(item));
 		                });
 		                if(result.totalProperty>currentPage*sicValue.page.pageCount){
-		                    obj.append("<div class='span8' id='loadMoreDivId'><div class='alert alert-info' align='center'><h2><button id='loadMoreButtonId' class='btn btn-success'>加载更多</h2></button></div></div>");
+		                    obj.append("<div class='span"+positionSize+"' id='loadMoreDivId'><div class='alert alert-info' align='center'><h2><button id='loadMoreButtonId' class='btn btn-success'>加载更多</h2></button></div></div>");
 		                    $("#loadMoreButtonId").click(function(){
 		                        $("#loadMoreButtonId").html("加载中...");
 		                        sic.pageLoding.pageLoad(url,obj,function(item){
 		                            return getValue(item);
-		                        },currentPage+1);
+		                        },currentPage+1,positionSize);
 		                    });
 		                }
 		            }else{
 		                if(currentPage==null || currentPage==1){
-		                    obj.append("<div class='span8'><div class='alert alert-block'><h4>暂无记录</h4></div></div>");
+		                    obj.append("<div class='span"+positionSize+"'><div class='alert alert-block'><h4>暂无记录</h4></div></div>");
 		                }
 		            }
 		        },true,{
@@ -460,7 +472,10 @@ function deleteObject(url,msg){
 
 
 //**********************************************添加收藏处理**********************************************
-function fromOther(type,buttonid,tip,flag){
+function fromOther(type,buttonid,tip,flag,id){
+	if(id==null){
+		id=$('#idFormFieldId').val();
+	}
 	var i=1;
 	var icon="";
 	var isCancel=false;
@@ -491,15 +506,18 @@ function fromOther(type,buttonid,tip,flag){
 			var value=$('#'+buttonid).html();
 			$('#'+buttonid).html(icon+(isCancel?'':'取消')+tip+'('+(parseInt(value.substring(value.indexOf('(')+1,value.indexOf(')')))+i)+')');
 		},false,{
-			'fromOther.objId':$('#idFormFieldId').val(),
+			'fromOther.objId':id,
 			'fromOther.type':type,
 			'flag':flag
 		});
 	});
 }
 
-function recommon(type,buttonid){
+function recommon(type,buttonid,id){
 	var tip="";
+	if(id==null){
+		id=$('#idFormFieldId').val();
+	}
 	if(sicValue.common.isRecommon){
 		tip="取消";
 	}
@@ -513,7 +531,7 @@ function recommon(type,buttonid){
 				sicValue.common.isRecommon=true;
 			}
 		},false,{
-			'recomm.objId':$('#idFormFieldId').val(),
+			'recomm.objId':id,
 			'recomm.type':type
 		});
 	});

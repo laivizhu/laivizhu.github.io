@@ -20,6 +20,8 @@ public class News extends AUserEntity {
 	private String content;
 	
 	private long tagId;
+	
+	private int viewCount;
 
 	public String getTitle() {
 		return title;
@@ -43,5 +45,13 @@ public class News extends AUserEntity {
 
 	public void setTagId(long tagId) {
 		this.tagId = tagId;
+	}
+
+	public int getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
 	}
 }

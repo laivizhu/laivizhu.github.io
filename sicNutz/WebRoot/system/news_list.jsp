@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>Laivi 感悟生活</title>
+<title>Laivi 新闻资讯</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css"
 	href="../css/bootstrap/bootstrap.css" />
@@ -24,12 +24,12 @@ body {
 		<div class="row">
 			<div class="span12" align="center" style="margin-top: 30px;">
 				<input type="text" id="searchWord" class="search-query" style="height:30px;width:800px;"/>
-				<button type="button" class="btn btn-success" onclick="searchArticle()">搜索</button>
+				<button type="button" class="btn btn-success" onclick="searchNews()">搜索</button>
 			</div>
 			<p></p><br>
 			<hr>
 			<div class="span12">
-				<div class="row" id="articleListDivId"></div>
+				<div class="row" id="newsListDivId"></div>
 			</div>
 		</div>
 		<hr>
@@ -56,40 +56,40 @@ body {
 		var getDataList=function(url,obj){
 			sic.common.getJson(url, function(result){
 				$.each(result.root,function(i,item){
-					obj.append("<tr><td align='left'><a href='article_view.jsp?id="+item.id+"' title='"+item.title+"'>"+item.title.substring(0,8)+"</a></td><td align='right'>"+item.createDate.substring(0,10)+"</td></tr>");
+					obj.append("<tr><td align='left'><a href='news_view.jsp?id="+item.id+"' title='"+item.title+"'>"+item.title.substring(0,8)+"</a></td><td align='right'>"+item.createDate.substring(0,10)+"</td></tr>");
 				});
 			},false);
 		};
 		
 		var getMoreData = function(id) {
-			sic.common.getJson('../blog/article/get.nut?id=' + id,
+			sic.common.getJson('../system/news/get.nut?id=' + id,
 							function(result) {
 								var comb = "<a class='btn btn-primary btn-small' onclick='getLessData("+ result.data.id+ ")'>Fold &raquo;</a>";
 								$('#content' + id).html(result.data.content + comb);
 							});
 		};
 		var getLessData = function(id) {
-			sic.common.getJson('../blog/article/get.nut?fold=true&id=' + id,
+			sic.common.getJson('../system/news/get.nut?fold=true&id=' + id,
 							function(result) {
 								var comb = "<a class='btn btn-primary btn-small' onclick='getMoreData("+ result.data.id+ ")'>More &raquo;</a>";
 								$('#content' + id).html(result.data.content + comb);
 							});
 		};
-		var searchArticle=function(){
+		var searchNews=function(){
 			var searchWord=$("#searchWord").val();
 			if(sic.common.isNotNull(searchWord, '请输入搜索文章关键字')){
-				$("#articleListDivId").html("");
-				sic.pageLoding.pageLoad('../blog/article/search.nut?notBreakPage=true&key=title&value='+searchWord, $("#articleListDivId"), function(item){
-	            	return "<div class='row'><div class='span4'><img src='"+item.path+"' alt=''></div><div class='span8'><a href='../blog/article_view.jsp?id="+item.article.id+"'><h4>"+item.article.title+"</h4></a><p><div align='right'>"+item.article.createDate+" 作者："+item.user.name+" 访问量："+item.article.viewCount+"</div></p><p id='content"+item.article.id+"'>"+item.article.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.article.id+")'>More &raquo;</a></p></div>";
+				$("#newsListDivId").html("");
+				sic.pageLoding.pageLoad('../system/news/search.nut?key=title&value='+searchWord, $("#newsListDivId"), function(item){
+	            	return "<div class='row'><div class='span4'><img src='"+item.path+"' alt=''></div><div class='span8'><a href='../system/news_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p><div align='right'>"+item.createDate+" 作者："+item.user.name+" 访问量："+item.viewCount+"</div></p><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p></div>";
 	            },null,12);
 			}
 		};
 		$(document).ready(sic.basic.init(function() {
 			new LaiviTypeahead({
-				url:'../blog/article/listAllTitle.nut?isAll=true',
+				url:'../system/news/listAllTitle.nut',
 				object:'#searchWord'
 			});
-			var url="../blog/article/getArticleByType.nut";
+			var url="../system/news/listByTag.nut";
 			var type=sic.basic.getUrlVar("type");
 			var tagId=sic.basic.getUrlVar("tagId");
 			if(type!=null){
@@ -97,9 +97,9 @@ body {
 			}else if(tagId!=null){
 				url+="?tagId="+tagId;
 			}
-			sic.pageLoding.pageLoad(url,$("#articleListDivId"),
+			sic.pageLoding.pageLoad(url,$("#newsListDivId"),
 					function(item) {
-						return "<div class='row'><div class='span4'><img src='"+item.path+"' alt=''></div><div class='span8'><a href='../blog/article_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p><div align='right'>"+item.createDate+" 作者："+item.user.name+" 访问量："+item.viewCount+"</div></p><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p></div>";
+						return "<div class='row'><div class='span4'><img src='"+item.path+"' alt=''></div><div class='span8'><a href='../system/news_view.jsp?id="+item.id+"'><h4>"+item.title+"</h4></a><p><div align='right'>"+item.createDate+" 作者："+item.user.name+" 访问量："+item.viewCount+"</div></p><p id='content"+item.id+"'>"+item.content+"<a class='btn btn-primary btn-small' onclick='getMoreData("+item.id+")'>More &raquo;</a></p></div>";
 			},null,12);
 		}));
 	</script>

@@ -14,6 +14,8 @@ public interface IBasicDBService {
 	
 	<T> void delete(Class<T> klass,Condition cnd)throws Exception;
 	
+	<T> void clean(Class<T> klass,Condition cnd)throws Exception;
+	
 	void delete(Object obj)throws Exception;
 	
 	<T> void update(T obj)throws Exception;
